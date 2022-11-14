@@ -86,6 +86,13 @@
     <Compile Include="16_戌虔\Frm編輯訂單.designer.cs">
       <DependentUpon>Frm編輯訂單.cs</DependentUpon>
     </Compile>
+    <Compile Include="21志藝\C庫存查詢.cs" />
+    <Compile Include="21志藝\Form列表.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="21志藝\Form列表.Designer.cs">
+      <DependentUpon>Form列表.cs</DependentUpon>
+    </Compile>
     <Compile Include="23_幸嫻\Frm經銷商.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="16_戌虔\Frm編輯訂單.resx">
       <DependentUpon>Frm編輯訂單.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="21志藝\Form列表.resx">
+      <DependentUpon>Form列表.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="23_幸嫻\Frm經銷商.resx">
       <DependentUpon>Frm經銷商.cs</DependentUpon>
