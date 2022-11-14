@@ -263,5 +263,60 @@ namespace 進銷存系統
         {
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_總商品庫存表_Result>("[普雷二電玩Entities].[fn_總商品庫存表]()");
         }
+    
+        public virtual int Delete進貨單列表(Nullable<int> 進貨單編號)
+        {
+            var 進貨單編號Parameter = 進貨單編號.HasValue ?
+                new ObjectParameter("進貨單編號", 進貨單編號) :
+                new ObjectParameter("進貨單編號", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete進貨單列表", 進貨單編號Parameter);
+        }
+    
+        public virtual int Insert進貨單列表(Nullable<int> 進貨單編號, Nullable<byte> 廠商ID, Nullable<int> 庫存地點ID, Nullable<System.DateTime> 進貨日期, Nullable<byte> 明細筆數)
+        {
+            var 進貨單編號Parameter = 進貨單編號.HasValue ?
+                new ObjectParameter("進貨單編號", 進貨單編號) :
+                new ObjectParameter("進貨單編號", typeof(int));
+    
+            var 廠商IDParameter = 廠商ID.HasValue ?
+                new ObjectParameter("廠商ID", 廠商ID) :
+                new ObjectParameter("廠商ID", typeof(byte));
+    
+            var 庫存地點IDParameter = 庫存地點ID.HasValue ?
+                new ObjectParameter("庫存地點ID", 庫存地點ID) :
+                new ObjectParameter("庫存地點ID", typeof(int));
+    
+            var 進貨日期Parameter = 進貨日期.HasValue ?
+                new ObjectParameter("進貨日期", 進貨日期) :
+                new ObjectParameter("進貨日期", typeof(System.DateTime));
+    
+            var 明細筆數Parameter = 明細筆數.HasValue ?
+                new ObjectParameter("明細筆數", 明細筆數) :
+                new ObjectParameter("明細筆數", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert進貨單列表", 進貨單編號Parameter, 廠商IDParameter, 庫存地點IDParameter, 進貨日期Parameter, 明細筆數Parameter);
+        }
+    
+        public virtual int Update進貨單列表(Nullable<int> 進貨單編號, Nullable<int> 庫存地點ID, Nullable<System.DateTime> 進貨日期, Nullable<byte> 明細筆數)
+        {
+            var 進貨單編號Parameter = 進貨單編號.HasValue ?
+                new ObjectParameter("進貨單編號", 進貨單編號) :
+                new ObjectParameter("進貨單編號", typeof(int));
+    
+            var 庫存地點IDParameter = 庫存地點ID.HasValue ?
+                new ObjectParameter("庫存地點ID", 庫存地點ID) :
+                new ObjectParameter("庫存地點ID", typeof(int));
+    
+            var 進貨日期Parameter = 進貨日期.HasValue ?
+                new ObjectParameter("進貨日期", 進貨日期) :
+                new ObjectParameter("進貨日期", typeof(System.DateTime));
+    
+            var 明細筆數Parameter = 明細筆數.HasValue ?
+                new ObjectParameter("明細筆數", 明細筆數) :
+                new ObjectParameter("明細筆數", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update進貨單列表", 進貨單編號Parameter, 庫存地點IDParameter, 進貨日期Parameter, 明細筆數Parameter);
+        }
     }
 }

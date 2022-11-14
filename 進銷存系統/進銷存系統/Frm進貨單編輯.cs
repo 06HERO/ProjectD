@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using 進銷存系統.BaseData;
 using 進銷存系統.SqlFun;
 
@@ -18,7 +19,7 @@ namespace 進銷存系統
     {
         public event CallBack進貨單編輯 callback = null;
 
-        private int _Mode = (int)Change_Mode.None;        
+        private int _Mode = (int)Change_Mode.None;
         private byte _廠商ID = 0;
         private int _庫存地點ID = 0;
         private 進貨單列表 _進貨單列表data = null;
@@ -31,12 +32,12 @@ namespace 進銷存系統
 
             lbl標題.Text = "進貨單新增";
 
-            DataTable dt廠商 = SQLData.db.廠商列表.ToDataTable();            
+            DataTable dt廠商 = SQLData.db.廠商列表.ToDataTable();
             cmb廠商.ValueMember = "廠商ID";
             cmb廠商.DisplayMember = "廠商名稱";
             cmb廠商.DataSource = dt廠商;
 
-            DataTable dt庫存地點 = SQLData.db.庫存地點列表.ToDataTable();            
+            DataTable dt庫存地點 = SQLData.db.庫存地點列表.ToDataTable();
             cmb庫存地點.ValueMember = "庫存地點ID";
             cmb庫存地點.DisplayMember = "庫存地點";
             cmb庫存地點.DataSource = dt庫存地點;
@@ -46,16 +47,50 @@ namespace 進銷存系統
             _Mode = (int)Change_Mode.Insert;
         }
 
+        public Frm進貨單編輯(string 廠商, 進貨單列表 data, int Mode)
+        {
+            InitializeComponent();
+
+            _進貨單列表data = data;
+            _Mode = Mode;
+
+            if (Mode == (int)Change_Mode.Update)
+                lbl標題.Text = "進貨單修改";
+            else if (Mode == (int)Change_Mode.Delete)
+                lbl標題.Text = "進貨單刪除";
+
+            txt進貨單編號.Text = data.進貨單編號.ToString();
+            txt進貨單編號.Enabled = false;
+
+            cmb廠商.DropDownStyle = ComboBoxStyle.DropDown;
+            cmb廠商.Text = 廠商;
+            cmb廠商.Enabled =false;
+
+            DataTable dt庫存地點 = SQLData.db.庫存地點列表.ToDataTable();
+            cmb庫存地點.ValueMember = "庫存地點ID";
+            cmb庫存地點.DisplayMember = "庫存地點";
+            cmb庫存地點.DataSource = dt庫存地點;
+            cmb庫存地點.SelectedValue = _進貨單列表data.庫存地點ID;
+            msk進貨日期.Text = _進貨單列表data.進貨日期.ToString("yyyy/MM/dd");
+            txt明細筆數.Text = _進貨單列表data.明細筆數.ToString();
+
+            if (Mode == (int)Change_Mode.Delete)
+            {
+                cmb庫存地點.Enabled = false;
+                msk進貨日期.Enabled = false;
+                txt明細筆數.Enabled = false;
+            }
+        }
+
         #region 事件
 
         private void Frm進貨單編輯_Load(object sender, EventArgs e)
         {
             txt進貨單編號.KeyPress += SqlFunBase.Text_KeyPress_INT;
             txt明細筆數.KeyPress += SqlFunBase.Text_KeyPress_INT;
-            txt進貨成本.KeyPress += SqlFunBase.Text_KeyPress_Decimal;
 
             cmb廠商.SelectedIndexChanged += (object s, EventArgs ev) => { this.Cmb_SelectedIndexChanged(); };
-            cmb庫存地點.SelectedIndexChanged +=(object s, EventArgs ev) => { this.Cmb_SelectedIndexChanged(); };
+            cmb庫存地點.SelectedIndexChanged += (object s, EventArgs ev) => { this.Cmb_SelectedIndexChanged(); };
             this.Cmb_SelectedIndexChanged();
         }
 
@@ -64,7 +99,38 @@ namespace 進銷存系統
             if (this.CheckData() == false)
                 return;
 
-            MessageBox.Show("OK！");
+            if (this.callback != null)
+            {
+                switch (_Mode)
+                {
+                    case (int)Change_Mode.Insert:
+                        _進貨單列表data = new 進貨單列表()
+                        {
+                            進貨單編號 = Convert.ToInt32(txt進貨單編號.Text),
+                            廠商ID = _廠商ID,
+                            庫存地點ID = _庫存地點ID,
+                            進貨日期 = Convert.ToDateTime(msk進貨日期.Text),
+                            明細筆數 = Convert.ToByte(txt明細筆數.Text)
+                        };
+                        break;
+
+                    case (int)Change_Mode.Update:
+                        if (_進貨單列表data != null)
+                        {
+                            _進貨單列表data.庫存地點ID = _庫存地點ID;
+                            _進貨單列表data.進貨日期 = Convert.ToDateTime(msk進貨日期.Text);
+                            _進貨單列表data.明細筆數 = Convert.ToByte(txt明細筆數.Text);
+                        }
+                        break;
+
+                    case (int)Change_Mode.Delete:
+                        break;
+                }
+
+                this.callback(_進貨單列表data);
+                this.DialogResult = DialogResult.OK;
+            }
+            this.DialogResult = DialogResult.Cancel;
         }
 
         #endregion
@@ -73,11 +139,11 @@ namespace 進銷存系統
 
         private void Cmb_SelectedIndexChanged()
         {
-            if (txt進貨單編號.Enabled == false)
-                return;
-
             _廠商ID = Convert.ToByte(cmb廠商.SelectedValue);
             _庫存地點ID = Convert.ToByte(cmb庫存地點.SelectedValue);
+
+            if (txt進貨單編號.Enabled == false)
+                return;
 
             int 進貨單編號Max = SQLData.db.進貨單列表.Select(s => s.進貨單編號).Max();
 
@@ -100,7 +166,9 @@ namespace 進銷存系統
                 txt進貨單編號.Focus();
                 return false;
             }
-            else if (true == SQLData.db.進貨單列表.Any(w => w.進貨單編號 == 進貨單編號))
+
+            if (_Mode == (int)Change_Mode.Insert &&
+                true == SQLData.db.進貨單列表.Any(w => w.進貨單編號 == 進貨單編號))
             {
                 MessageBox.Show("進貨單編號已存在!");
                 txt進貨單編號.Focus();
@@ -132,29 +200,11 @@ namespace 進銷存系統
             if (明細筆數 == 0)
             {
                 MessageBox.Show("明細筆數不可為 0!");
-                txt進貨單編號.Focus();
+                txt明細筆數.Focus();
                 return false;
             }
-
-            if (true == string.IsNullOrWhiteSpace(txt進貨成本.Text))
-            {
-                MessageBox.Show("進貨成本空白!");
-                txt進貨成本.Focus();
-                return false;
-            }
-
-            decimal 進貨成本 = Convert.ToDecimal(txt進貨成本.Text);
-            if (進貨成本 == 0)
-            {
-                MessageBox.Show("進貨成本 0!");
-                txt進貨單編號.Focus();
-                return false;
-            }
-
-
             return true;
         }
-
-        #endregion       
+        #endregion        
     }
 }

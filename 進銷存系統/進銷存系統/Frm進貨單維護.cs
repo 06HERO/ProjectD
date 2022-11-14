@@ -20,7 +20,7 @@ namespace 進銷存系統
 
         private int _dt列表Index = -1;
         private int _dt明細Index = -1;
-        private DateTime _dtDateStart = new DateTime(1,1,1);
+        private DateTime _dtDateStart = new DateTime(1, 1, 1);
         private DateTime _dtDateEnd = new DateTime(1, 1, 1);
         int _進貨單編號 = -1;
 
@@ -110,7 +110,7 @@ namespace 進銷存系統
             }
 
             if (mskDtStart.Text != "    /  /" || mskDtEnd.Text != "    /  /")
-            {                
+            {
                 if (!DateTime.TryParse(mskDtStart.Text, out _dtDateStart))
                 {
                     MessageBox.Show("不是正確的日期格式型別！");
@@ -164,7 +164,7 @@ namespace 進銷存系統
             _進貨單編號 = Convert.ToInt32(row.Cells["進貨單編號"].Value);
 
             cmb商品類別.Enabled = false;
-            if( SQLData.db.fn_進貨單明細().Any( a => a.進貨單編號 == _進貨單編號))
+            if (SQLData.db.fn_進貨單明細().Any(a => a.進貨單編號 == _進貨單編號))
                 cmb商品類別.Enabled = true;
 
             this.Set_進貨單明細();
@@ -182,13 +182,54 @@ namespace 進銷存系統
         private void btnInsert列表_Click(object sender, EventArgs e)
         {
             Frm進貨單編輯 frm = new Frm進貨單編輯();
-            frm.callback += CallInsert商品列表;
+            frm.callback += CallInsert進貨單列表;
+            frm.ShowDialog();
+        }
+
+        private void btnUpdate列表_Click(object sender, EventArgs e)
+        {
+            this.ShowFrm進貨單列表((int)Change_Mode.Update);
+        }
+
+        private void btnDelete列表_Click(object sender, EventArgs e)
+        {
+            this.ShowFrm進貨單列表((int)Change_Mode.Delete);
+        }
+
+        private void ShowFrm進貨單列表(int Mod)
+        {
+            if (_dt列表Index < 0 || _dt列表Index >= dv進貨單列表.Rows.Count)
+                return;
+
+            DataGridViewRow row = dv進貨單列表.Rows[_dt列表Index];
+
+            string 廠商 = row.Cells["廠商名稱"].Value.ToString().Trim();
+
+            進貨單列表 data = new 進貨單列表();
+            data.進貨單編號 =  Convert.ToInt32(row.Cells["進貨單編號"].Value);
+            data.庫存地點ID = Convert.ToInt32(row.Cells["庫存地點ID"].Value);
+            data.進貨日期 = Convert.ToDateTime(row.Cells["進貨日期"].Value);
+            data.明細筆數 = Convert.ToByte(row.Cells["明細筆數"].Value);
+
+            Frm進貨單編輯 frm = new Frm進貨單編輯(廠商, data, Mod);
+
+            if (Mod == (int)Change_Mode.Update)
+                frm.callback += CallUpdate進貨單列表;
+            else if (Mod == (int)Change_Mode.Delete)
+                frm.callback += CallDelete進貨單列表;
+
             frm.ShowDialog();
         }
 
         #endregion
 
         #region 方法
+        private void ReloadData()
+        {
+            this.Set_進貨單列表();
+            this.ResetGridStyle(dv進貨單列表);
+        }
+
         private void ResetGridStyle()
         {
             this.ResetGridStyle(dv進貨單列表);
@@ -213,7 +254,7 @@ namespace 進銷存系統
                 else
                     row.DefaultCellStyle.BackColor = Color.SkyBlue;
 
-                if(DV.Name == "dv進貨單明細")
+                if (DV.Name == "dv進貨單明細")
                 {
                     if (KeyWord == null)
                         continue;
@@ -221,8 +262,8 @@ namespace 進銷存系統
                     DataGridViewCell cell = row.Cells["商品名稱"];
                     if (cell.Value.ToString().ToLower().Contains(KeyWord.Trim().ToLower()) == true)
                         row.DefaultCellStyle.BackColor = Color.Yellow;
-                }                
-            }            
+                }
+            }
         }
 
         private void Set_進貨單列表()
@@ -245,9 +286,9 @@ namespace 進銷存系統
             if (庫存ID > 0)
                 q進貨單列表 = q進貨單列表.Where(q => q.庫存地點ID == 庫存ID);
 
-            if(_dtDateStart.Year > 1 &&  _dtDateEnd.Year > 1)
+            if (_dtDateStart.Year > 1 &&  _dtDateEnd.Year > 1)
                 q進貨單列表 = q進貨單列表.Where(q => q.進貨日期 >= _dtDateStart &&  q.進貨日期 <= _dtDateEnd);
-            
+
             dv進貨單列表.DataSource = q進貨單列表.ToDataTable();
 
             if (SQLData.IsAdmin == (int)User_LV.User)
@@ -279,22 +320,43 @@ namespace 進銷存系統
                 dv進貨單明細.Columns["商品ID"].Visible = false;
             }
 
-            this.ResetGridStyle(dv進貨單明細);            
+            this.ResetGridStyle(dv進貨單明細);
         }
 
-        private void CallInsert商品列表(進貨單列表 data)
+        private void CallInsert進貨單列表(進貨單列表 data)
         {
-            //if (sqlProduct.Insert商品列表(data) <= 0)
-            //{
-            //    MessageBox.Show("新增失敗");
-            //    return;
-            //}
+            if (sqlProduct.Insert進貨單列表(data) <= 0)
+            {
+                MessageBox.Show("新增失敗");
+                return;
+            }
 
-            //var find1 = SQLData.db.商品列表.FirstOrDefault(o => o.廠商ID == data.廠商ID &&
-            //                                                    o.商品類型ID ==  data.商品類型ID &&
-            //                                                    o.商品ID == data.商品ID);
-            //SQLData.db.Entry(find1).Reload();
-            //this.ReloadData();
+            var find1 = SQLData.db.進貨單列表.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號);
+            SQLData.db.Entry(find1).Reload();
+            this.ReloadData();
+        }
+
+        private void CallUpdate進貨單列表(進貨單列表 data)
+        {
+            if (sqlProduct.Update進貨單列表(data) <= 0)
+            {
+                MessageBox.Show("修改失敗");
+                return;
+            }
+
+            var find1 = SQLData.db.進貨單列表.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號);
+            SQLData.db.Entry(find1).Reload();
+            this.ReloadData();
+        }
+
+        private void CallDelete進貨單列表(進貨單列表 data)
+        {
+            if (sqlProduct.Delete進貨單列表(data.進貨單編號) <= 0)
+            {
+                MessageBox.Show("刪除失敗");
+                return;
+            }
+            this.ReloadData();
         }
         #endregion        
     }

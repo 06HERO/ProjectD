@@ -39,8 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txt明細筆數 = new System.Windows.Forms.TextBox();
-            this.txt進貨成本 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -159,27 +157,6 @@
             this.txt明細筆數.Text = "0";
             this.txt明細筆數.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // txt進貨成本
-            // 
-            this.txt進貨成本.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt進貨成本.Location = new System.Drawing.Point(469, 106);
-            this.txt進貨成本.MaxLength = 10;
-            this.txt進貨成本.Name = "txt進貨成本";
-            this.txt進貨成本.Size = new System.Drawing.Size(176, 29);
-            this.txt進貨成本.TabIndex = 37;
-            this.txt進貨成本.Text = "0";
-            this.txt進貨成本.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(390, 106);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 20);
-            this.label4.TabIndex = 36;
-            this.label4.Text = "進貨成本";
-            // 
             // btnCancel
             // 
             this.btnCancel.AutoSize = true;
@@ -211,8 +188,6 @@
             this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.txt進貨成本);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.txt明細筆數);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.msk進貨日期);
@@ -245,8 +220,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txt明細筆數;
-        private System.Windows.Forms.TextBox txt進貨成本;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
     }

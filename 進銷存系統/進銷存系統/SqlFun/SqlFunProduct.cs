@@ -248,13 +248,40 @@ namespace 進銷存系統.SqlFun
 
         #region 進貨單列表和明細
         public DataTable Get進貨單列表()
-        {            
+        {
             return SQLData.db.進貨單列表.ToDataTable();
         }
 
         public DataTable Get進貨單明細()
         {
             return SQLData.db.進貨單明細.ToDataTable();
+        }
+
+        public int Insert進貨單列表(進貨單列表 InData)
+        {
+            int 進貨單編號 = InData.進貨單編號;
+            byte 廠商ID = InData.廠商ID;
+            int 庫存地點ID = InData.庫存地點ID;
+            DateTime 進貨日期 = InData.進貨日期;
+            byte 明細筆數 = InData.明細筆數;
+
+            return SQLData.db.Insert進貨單列表(進貨單編號, 廠商ID, 庫存地點ID, 進貨日期, 明細筆數);
+        }
+
+        public int Update進貨單列表(進貨單列表 InData)
+        {
+            int 進貨單編號 = InData.進貨單編號;
+
+            int 庫存地點ID = InData.庫存地點ID;
+            DateTime 進貨日期 = InData.進貨日期;
+            byte 明細筆數 = InData.明細筆數;
+
+            return SQLData.db.Update進貨單列表(進貨單編號, 庫存地點ID, 進貨日期, 明細筆數);
+        }
+
+        public int Delete進貨單列表(int 進貨單編號)
+        {
+            return SQLData.db.Delete進貨單列表(進貨單編號);
         }
         #endregion
     }

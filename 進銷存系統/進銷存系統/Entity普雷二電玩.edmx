@@ -170,6 +170,9 @@
         <Function Name="Delete商品類型列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
         </Function>
+        <Function Name="Delete進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="進貨單編號" Type="int" Mode="In" />
+        </Function>
         <Function Name="Delete廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
         </Function>
@@ -266,6 +269,13 @@
           <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
           <Parameter Name="商品類型名稱" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="Insert進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="進貨單編號" Type="int" Mode="In" />
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+          <Parameter Name="庫存地點ID" Type="int" Mode="In" />
+          <Parameter Name="進貨日期" Type="datetime" Mode="In" />
+          <Parameter Name="明細筆數" Type="tinyint" Mode="In" />
+        </Function>
         <Function Name="Insert廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
           <Parameter Name="廠商名稱" Type="nvarchar" Mode="In" />
@@ -286,6 +296,12 @@
         <Function Name="Update商品類型列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
           <Parameter Name="商品類型名稱" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Update進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="進貨單編號" Type="int" Mode="In" />
+          <Parameter Name="庫存地點ID" Type="int" Mode="In" />
+          <Parameter Name="進貨日期" Type="datetime" Mode="In" />
+          <Parameter Name="明細筆數" Type="tinyint" Mode="In" />
         </Function>
         <Function Name="Update廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
@@ -496,6 +512,22 @@
             <End Role="庫存地點列表" EntitySet="庫存地點列表" />
             <End Role="商品在庫數量" EntitySet="商品在庫數量" />
           </AssociationSet>
+          <FunctionImport Name="Delete進貨單列表">
+            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Insert進貨單列表">
+            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+            <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+            <Parameter Name="庫存地點ID" Mode="In" Type="Int32" />
+            <Parameter Name="進貨日期" Mode="In" Type="DateTime" />
+            <Parameter Name="明細筆數" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="Update進貨單列表">
+            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+            <Parameter Name="庫存地點ID" Mode="In" Type="Int32" />
+            <Parameter Name="進貨日期" Mode="In" Type="DateTime" />
+            <Parameter Name="明細筆數" Mode="In" Type="Byte" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="使用者列表">
           <Key>
@@ -844,6 +876,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Delete進貨單列表" FunctionName="普雷二電玩Model.Store.Delete進貨單列表" />
+          <FunctionImportMapping FunctionImportName="Insert進貨單列表" FunctionName="普雷二電玩Model.Store.Insert進貨單列表" />
+          <FunctionImportMapping FunctionImportName="Update進貨單列表" FunctionName="普雷二電玩Model.Store.Update進貨單列表" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
