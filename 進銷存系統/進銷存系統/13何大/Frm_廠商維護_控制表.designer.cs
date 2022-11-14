@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm_廠商維護_控制表));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -37,6 +37,8 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.tSB_恢復 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton7 = new System.Windows.Forms.ToolStripButton();
             this.dGV_廠商維護_控制單 = new System.Windows.Forms.DataGridView();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_廠商維護_控制單)).BeginInit();
@@ -52,7 +54,9 @@
             this.toolStripButton3,
             this.toolStripButton4,
             this.toolStripButton5,
-            this.tSB_恢復});
+            this.tSB_恢復,
+            this.toolStripButton6,
+            this.toolStripButton7});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -110,12 +114,31 @@
             // 
             // tSB_恢復
             // 
+            this.tSB_恢復.Enabled = false;
             this.tSB_恢復.Image = ((System.Drawing.Image)(resources.GetObject("tSB_恢復.Image")));
             this.tSB_恢復.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB_恢復.Name = "tSB_恢復";
-            this.tSB_恢復.Size = new System.Drawing.Size(84, 36);
-            this.tSB_恢復.Text = "恢復";
+            this.tSB_恢復.Size = new System.Drawing.Size(160, 36);
+            this.tSB_恢復.Text = "顯示全部資料";
             this.tSB_恢復.Click += new System.EventHandler(this.tSB_恢復_Click);
+            // 
+            // toolStripButton6
+            // 
+            this.toolStripButton6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton6.Image")));
+            this.toolStripButton6.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton6.Name = "toolStripButton6";
+            this.toolStripButton6.Size = new System.Drawing.Size(122, 36);
+            this.toolStripButton6.Text = "調整顯示";
+            this.toolStripButton6.Click += new System.EventHandler(this.toolStripButton6_Click);
+            // 
+            // toolStripButton7
+            // 
+            this.toolStripButton7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton7.Image")));
+            this.toolStripButton7.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton7.Name = "toolStripButton7";
+            this.toolStripButton7.Size = new System.Drawing.Size(84, 36);
+            this.toolStripButton7.Text = "列印";
+            this.toolStripButton7.Click += new System.EventHandler(this.tSB_Print_Click);
             // 
             // dGV_廠商維護_控制單
             // 
@@ -123,14 +146,14 @@
             this.dGV_廠商維護_控制單.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightSalmon;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dGV_廠商維護_控制單.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightSalmon;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dGV_廠商維護_控制單.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dGV_廠商維護_控制單.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dGV_廠商維護_控制單.EnableHeadersVisualStyles = false;
             this.dGV_廠商維護_控制單.Location = new System.Drawing.Point(0, 42);
@@ -138,7 +161,9 @@
             this.dGV_廠商維護_控制單.RowTemplate.Height = 24;
             this.dGV_廠商維護_控制單.Size = new System.Drawing.Size(1164, 456);
             this.dGV_廠商維護_控制單.TabIndex = 1;
+            this.dGV_廠商維護_控制單.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dGV_廠商維護_控制單_ColumnHeaderMouseClick);
             this.dGV_廠商維護_控制單.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dGV_廠商維護_控制單_RowEnter);
+            this.dGV_廠商維護_控制單.Click += new System.EventHandler(this.dGV_廠商維護_控制單_Click);
             // 
             // Frm_廠商維護_控制表
             // 
@@ -169,5 +194,7 @@
         private System.Windows.Forms.DataGridView dGV_廠商維護_控制單;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.ToolStripButton tSB_恢復;
+        private System.Windows.Forms.ToolStripButton toolStripButton6;
+        private System.Windows.Forms.ToolStripButton toolStripButton7;
     }
 }

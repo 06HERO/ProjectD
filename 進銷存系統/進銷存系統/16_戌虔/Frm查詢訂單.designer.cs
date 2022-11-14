@@ -447,7 +447,7 @@
             this.Name = "Frm查詢訂單";
             this.Text = "Frm查詢訂單";
             this.Load += new System.EventHandler(this.Frm查詢訂單_Load);
-            this.SizeChanged += new System.EventHandler(this.Frm查詢訂單_SizeChanged);
+            this.ResizeEnd += new System.EventHandler(this.Frm查詢訂單_ResizeEnd);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv出貨單列表)).EndInit();
