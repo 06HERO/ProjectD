@@ -20,14 +20,17 @@ namespace 庫存查詢DEMO
         {
             InitializeComponent();
         }
+
+        #region//全域變數
         SqlCommandBuilder cmd = new SqlCommandBuilder();
         SqlDataAdapter adapt = null;
         DataTable dt = new DataTable();        
         bool _firstGenerateNum=false;
         bool _top10=false;
         bool _all=false;
-        string _keyword = "";
-    
+        string _keyword = "";        
+        #endregion
+
 
         private void Form庫存_Load(object sender, EventArgs e)
         {        
@@ -43,13 +46,14 @@ namespace 庫存查詢DEMO
         {
             Form關鍵字查詢 f = new Form關鍵字查詢();
             f.ShowDialog();
-            if (f._isOKclick == DialogResult.Cancel)
-                return;
-            _keyword = f.keyword;
-            Showdata();
-            _keyword = "";
-            Setsize();
-            Setcolor();
+            if (f._isOKclick == DialogResult.OK)
+            {
+                _keyword = f.keyword;
+                Showdata();
+                _keyword = "";
+                Setsize();
+                Setcolor();
+            }
         }
         private void btnTOP10_Click(object sender, EventArgs e)
         {
@@ -67,7 +71,9 @@ namespace 庫存查詢DEMO
             Setsize();
             Setcolor();
         }
+
         #region//方法
+
         private void Options()
         {         
             var place = (from a in SQLData.db.fn_庫存列表() select new { a.庫存地點ID, a.庫存地點 }).Distinct().ToList();        
@@ -253,7 +259,11 @@ namespace 庫存查詢DEMO
                 dataGridView1.Columns[6].Width = (int)(dataGridView1.Width * 0.07);
             }           
         }
+
         #endregion
+
+
+        #region//調整
 
         private void Form庫存_SizeChanged(object sender, EventArgs e)
         {
@@ -272,6 +282,38 @@ namespace 庫存查詢DEMO
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+        }
+
+        #endregion
+
+
+        private void btn倉庫列表_Click(object sender, EventArgs e)
+        {
+           
+            Form列表 f = new Form列表();
+            f._placeormanf = "place";
+            f.ShowDialog();
+            if (f._isOKclick == true && f._data1!=null && f._data2!=null)
+            {
+                cbo地點.SelectedValue = f._data1;
+                cbo地點.SelectedText = f._data2;
+                cbo地點.Text = f._data2;
+            }
+            
+        }
+
+        private void btn進貨商列表_Click(object sender, EventArgs e)
+        {
+            
+            Form列表 f = new Form列表();
+            f._placeormanf = "manf";
+            f.ShowDialog();
+            if (f._isOKclick == true && f._data1 != null && f._data2 != null)
+            {
+                cbo廠商.SelectedValue = f._data1;
+                cbo廠商.SelectedText = f._data2;
+                cbo廠商.Text = f._data2;
+            }            
         }
     }
 }

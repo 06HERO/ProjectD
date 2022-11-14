@@ -42,13 +42,16 @@
             this.btn商品關鍵字 = new System.Windows.Forms.Button();
             this.btnTOP10 = new System.Windows.Forms.Button();
             this.btnALL = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn進貨商列表 = new System.Windows.Forms.Button();
+            this.btn倉庫列表 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -202,15 +205,27 @@
             this.btnALL.UseVisualStyleBackColor = false;
             this.btnALL.Click += new System.EventHandler(this.btnALL_Click);
             // 
-            // button1
+            // btn進貨商列表
             // 
-            this.button1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button1.Location = new System.Drawing.Point(108, 121);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 30);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "商品關鍵字";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn進貨商列表.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn進貨商列表.Location = new System.Drawing.Point(729, 121);
+            this.btn進貨商列表.Name = "btn進貨商列表";
+            this.btn進貨商列表.Size = new System.Drawing.Size(125, 30);
+            this.btn進貨商列表.TabIndex = 16;
+            this.btn進貨商列表.Text = "進貨商列表";
+            this.btn進貨商列表.UseVisualStyleBackColor = true;
+            this.btn進貨商列表.Click += new System.EventHandler(this.btn進貨商列表_Click);
+            // 
+            // btn倉庫列表
+            // 
+            this.btn倉庫列表.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn倉庫列表.Location = new System.Drawing.Point(124, 121);
+            this.btn倉庫列表.Name = "btn倉庫列表";
+            this.btn倉庫列表.Size = new System.Drawing.Size(101, 30);
+            this.btn倉庫列表.TabIndex = 17;
+            this.btn倉庫列表.Text = "倉庫列表";
+            this.btn倉庫列表.UseVisualStyleBackColor = true;
+            this.btn倉庫列表.Click += new System.EventHandler(this.btn倉庫列表_Click);
             // 
             // Form庫存
             // 
@@ -218,7 +233,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
             this.ClientSize = new System.Drawing.Size(1272, 681);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn倉庫列表);
+            this.Controls.Add(this.btn進貨商列表);
             this.Controls.Add(this.btnALL);
             this.Controls.Add(this.btnTOP10);
             this.Controls.Add(this.btn商品關鍵字);
@@ -255,7 +271,8 @@
         private System.Windows.Forms.Button btn商品關鍵字;
         private System.Windows.Forms.Button btnTOP10;
         private System.Windows.Forms.Button btnALL;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn進貨商列表;
+        private System.Windows.Forms.Button btn倉庫列表;
     }
 }
 
