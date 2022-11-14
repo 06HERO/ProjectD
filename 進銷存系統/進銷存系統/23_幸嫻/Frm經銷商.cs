@@ -47,14 +47,11 @@ namespace 進銷存系統
                 MessageBox.Show("請先清空資料");
                 return;
             }
-
             if (txtName.Text == "" || txtContect.Text == "" || txtNum.Text == "" || txtPhone.Text == "")
             {
                 MessageBox.Show("請輸入完整資料");
                 return;
             }
-
-
             string Sql = @"INSERT INTO [dbo].[經銷商列表]
                                     ([經銷商名稱],[統一編號],[聯絡人],[聯絡電話])
                                     VALUES(@名稱 , @統編,@聯絡人 ,@電話)";
@@ -65,16 +62,17 @@ namespace 進銷存系統
             paras.Add(new SqlParameter("@聯絡人", txtContect.Text));
             paras.Add(new SqlParameter("@電話", txtPhone.Text));
             paras.Add(new SqlParameter("@經銷商ID", txt經銷商ID.Text));
-
-
             sqlexe(Sql,  paras);
 
             MessageBox.Show("資料新增成功!");
         }
-
-
         private void button2_Click(object sender, EventArgs e)
         {
+            if (txt經銷商ID.Text == "")
+            {
+                MessageBox.Show("請先選取經銷商再做刪除");
+                return;
+            }
             int pk = Convert.ToInt32(txt經銷商ID.Text.Trim());
             string Sql = "DELETE FROM [經銷商列表] WHERE 經銷商ID=@經銷商ID"; 
             List<SqlParameter> paras = new List<SqlParameter>();
@@ -82,7 +80,6 @@ namespace 進銷存系統
             sqlexe(Sql,paras);
 
             MessageBox.Show("資料刪除成功!");
-
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -93,7 +90,6 @@ namespace 進銷存系統
                 return;
 
             }
-
             string Sql = "UPDATE [dbo].[經銷商列表]  " +
                                     "SET [經銷商名稱] = @名稱, [統一編號]= @統一編號, [聯絡人]= @聯絡人 ,[聯絡電話]= @電話 " +
                                     "WHERE [經銷商ID]= " + Convert.ToInt32(txt經銷商ID.Text);
@@ -105,11 +101,9 @@ namespace 進銷存系統
             paras.Add(new SqlParameter("@電話", txtPhone.Text));
             //int pk = Convert.ToInt32(txtName.Text);
             //paras.Add(new SqlParameter("K_fID", (object)pk));
-
             sqlexe(Sql,paras);
 
             MessageBox.Show("資料更新成功!");
-
         }
 
         private void refresh()
@@ -139,8 +133,6 @@ namespace 進銷存系統
         {
             refresh();
         }
-
-
         private void displaypatientinfobysql(string Sql, List<SqlParameter> paras, bool isClear)
         {
             if (isClear)
@@ -160,8 +152,6 @@ namespace 進銷存系統
                 cmd.Parameters.AddRange(paras.ToArray());
 
             SqlDataReader reader = cmd.ExecuteReader();
-
-
             while (reader.Read())
             {
                 txt經銷商ID.Text = reader["經銷商ID"].ToString();
@@ -178,10 +168,8 @@ namespace 進銷存系統
 
             }
 
-
             reader.Close();
             con.Close();
-
         }
     private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
