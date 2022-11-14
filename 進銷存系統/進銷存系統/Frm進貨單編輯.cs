@@ -136,69 +136,21 @@ namespace 進銷存系統
                 return false;
             }
 
+            if (true == string.IsNullOrWhiteSpace(txt進貨成本.Text))
+            {
+                MessageBox.Show("進貨成本空白!");
+                txt進貨成本.Focus();
+                return false;
+            }
 
-            //short 商品ID = Convert.ToInt16(txt商品ID.Text);
-            //if (商品ID == 0)
-            //{
-            //    MessageBox.Show("商品ID不可為 0!");
-            //    txt商品ID.Focus();
-            //    return false;
-            //}
-            //else if (true == SQLData.db.商品列表.Any(w => w.廠商ID == _廠商ID && w.商品類型ID == _商品類別ID && w.商品ID == 商品ID))
-            //{
-            //    MessageBox.Show("商品ID已存在!");
-            //    txt商品ID.Focus();
-            //    return false;
-            //}
+            decimal 進貨成本 = Convert.ToDecimal(txt進貨成本.Text);
+            if (進貨成本 == 0)
+            {
+                MessageBox.Show("進貨成本 0!");
+                txt進貨單編號.Focus();
+                return false;
+            }
 
-            //if (true == string.IsNullOrWhiteSpace(txt商品名稱.Text))
-            //{
-            //    MessageBox.Show("商品名稱空白!");
-            //    txt商品名稱.Focus();
-            //    return false;
-            //}
-
-            //if (true == string.IsNullOrWhiteSpace(txt進貨價.Text))
-            //{
-            //    MessageBox.Show("進貨價空白!");
-            //    txt進貨價.Focus();
-            //    return false;
-            //}
-            //if (true == string.IsNullOrWhiteSpace(txt零售價.Text))
-            //{
-            //    MessageBox.Show("零售價空白!");
-            //    txt零售價.Focus();
-            //    return false;
-            //}
-
-            //decimal 進貨價 = Convert.ToDecimal(txt進貨價.Text);
-            //decimal 零售價 = Convert.ToDecimal(txt零售價.Text);
-            //if (進貨價 == 0m)
-            //{
-            //    MessageBox.Show("進貨價不可為 0!");
-            //    txt進貨價.Focus();
-            //    return false;
-            //}
-            //if (零售價 == 0m)
-            //{
-            //    MessageBox.Show("零售價不可為 0!");
-            //    txt零售價.Focus();
-            //    return false;
-            //}
-
-            //if (_Mode == (int)Change_Mode.Delete)
-            //{
-            //    return true;
-            //}
-
-            //if (零售價 < 進貨價)
-            //{
-            //    if (MessageBox.Show("零售價低於進貨價，確定要這樣嗎？", "確認", MessageBoxButtons.OKCancel,
-            //                         MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.OK)
-            //        return true;
-            //    else
-            //        return false;
-            //}
 
             return true;
         }
