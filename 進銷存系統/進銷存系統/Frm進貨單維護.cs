@@ -196,6 +196,9 @@ namespace 進銷存系統
             this.ShowFrm進貨單列表((int)Change_Mode.Delete);
         }
 
+        #endregion
+
+        #region 方法
         private void ShowFrm進貨單列表(int Mod)
         {
             if (_dt列表Index < 0 || _dt列表Index >= dv進貨單列表.Rows.Count)
@@ -220,10 +223,6 @@ namespace 進銷存系統
 
             frm.ShowDialog();
         }
-
-        #endregion
-
-        #region 方法
         private void ReloadData()
         {
             this.Set_進貨單列表();
