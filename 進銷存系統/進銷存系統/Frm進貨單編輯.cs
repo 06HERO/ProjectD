@@ -155,11 +155,6 @@ namespace 進銷存系統
             return true;
         }
 
-        #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("TEST");
-        }
+        #endregion       
     }
 }
