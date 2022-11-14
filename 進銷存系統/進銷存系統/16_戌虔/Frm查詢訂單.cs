@@ -100,18 +100,15 @@ namespace 進銷存系統
         private void btn新增_Click(object sender, EventArgs e)
         {
             string sql = "INSERT INTO 出貨單列表 (";
-      //      sql += "經銷商ID,";
             sql += "訂單日期,";
             sql += "訂單狀態,";
             sql += "交貨日期";
             sql += ") VALUES (";
-      //    sql += "@K_經銷商ID,";
             sql += "@K_訂單日期,";
             sql += "@K_訂單狀態,";
             sql += "@K_交貨日期)";
 
             List<SqlParameter> paras = new List<SqlParameter>();
-      //       paras.Add(new SqlParameter("K_經銷商ID", Convert.ToInt32("255")));
             paras.Add(new SqlParameter("K_訂單日期", DateTime.Now.ToString("yyyy-MM-dd")));
             paras.Add(new SqlParameter("K_訂單狀態", "草稿"));
             paras.Add(new SqlParameter("K_交貨日期", DateTime.Now.ToString("yyyy-MM-dd")));
@@ -200,7 +197,6 @@ namespace 進銷存系統
             {
                 cbox經銷商ID.Items.Add(reader經銷商ID["經銷商ID"].ToString());
             }
-        //    cbox經銷商ID.Items.Remove("255-測試用");
             con經銷商ID.Close();
             redata();
         }
