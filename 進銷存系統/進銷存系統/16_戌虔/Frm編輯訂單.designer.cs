@@ -160,7 +160,7 @@
             this.btn取消.TabStop = false;
             this.btn取消.Text = "取消訂單";
             this.btn取消.UseVisualStyleBackColor = false;
-            this.btn取消.Click += new System.EventHandler(this.button2_Click);
+            this.btn取消.Click += new System.EventHandler(this.btn取消_Click);
             // 
             // label23
             // 
@@ -531,7 +531,6 @@
             this.cbox廠商ID.Name = "cbox廠商ID";
             this.cbox廠商ID.Size = new System.Drawing.Size(67, 27);
             this.cbox廠商ID.TabIndex = 159;
-            this.cbox廠商ID.DropDown += new System.EventHandler(this.cbox廠商ID_DropDown);
             // 
             // label13
             // 
@@ -573,7 +572,6 @@
             this.cbox類型ID.Name = "cbox類型ID";
             this.cbox類型ID.Size = new System.Drawing.Size(67, 27);
             this.cbox類型ID.TabIndex = 163;
-            this.cbox類型ID.DropDown += new System.EventHandler(this.cbox類型ID_DropDown);
             // 
             // cbox商品ID
             // 
@@ -585,7 +583,6 @@
             this.cbox商品ID.Name = "cbox商品ID";
             this.cbox商品ID.Size = new System.Drawing.Size(67, 27);
             this.cbox商品ID.TabIndex = 164;
-            this.cbox商品ID.DropDown += new System.EventHandler(this.cbox商品ID_DropDown);
             // 
             // labtotaprice
             // 
@@ -652,7 +649,6 @@
             this.label21.Size = new System.Drawing.Size(52, 19);
             this.label21.TabIndex = 171;
             this.label21.Text = "庫存:";
-            this.label21.Visible = false;
             // 
             // txt庫存
             // 
@@ -663,7 +659,6 @@
             this.txt庫存.Size = new System.Drawing.Size(124, 33);
             this.txt庫存.TabIndex = 172;
             this.txt庫存.TabStop = false;
-            this.txt庫存.Visible = false;
             // 
             // Frm編輯訂單
             // 

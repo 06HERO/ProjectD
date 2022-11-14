@@ -20,19 +20,18 @@ namespace 進銷存系統
         {
             InitializeComponent();
         }
-
         public void redgvstyle()
         {
-            //dgv出貨單列表.Columns[0].Width = this.Width * 2 / 30;
-            //dgv出貨單列表.Columns[1].Width = this.Width * 1 / 20;
-            //dgv出貨單列表.Columns[2].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[3].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[4].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[5].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[6].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[7].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[8].Width = this.Width * 1 / 10;
-            //dgv出貨單列表.Columns[9].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[0].Width = this.Width * 2 / 30;
+            dgv出貨單列表.Columns[1].Width = this.Width * 1 / 20;
+            dgv出貨單列表.Columns[2].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[3].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[4].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[5].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[6].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[7].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[8].Width = this.Width * 1 / 10;
+            dgv出貨單列表.Columns[9].Width = this.Width * 1 / 10;
 
             bool isChanged = false;
             foreach (DataGridViewRow r in dgv出貨單列表.Rows)
@@ -63,7 +62,7 @@ namespace 進銷存系統
                 MessageBox.Show("經銷商ID請輸入數字");
                 return;
             }
-            string sql = "select * from 出貨單列表 where 出貨單編號>=1";
+            string sql = "select * from 出貨單列表 where 出貨單編號>=0";
             if (!string.IsNullOrEmpty(txt訂單編號.Text.Trim()))
                 sql += " and 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text.Trim());
             if (!string.IsNullOrEmpty(cbox經銷商ID.Text.Trim()))
@@ -140,31 +139,53 @@ namespace 進銷存系統
                 return;
             DataRow row = dt.Rows[_position];
 
-            COrder or = new COrder();
-            or.訂單編號 = Convert.ToInt32(row["出貨單編號"]);
-            or.聯絡人 = row["聯絡人"].ToString();
-            or.聯絡電話 = row["聯絡電話"].ToString();
-            or.地址 = row["地址"].ToString();
-            or.備註 = row["備註"].ToString();          
-            or.經銷商ID = Convert.ToInt32(row["經銷商ID"]);        
-            or.訂單日期 = row["訂單日期"].ToString();
-            or.交貨日期 = row["交貨日期"].ToString();
-            or.訂單狀態 = row["訂單狀態"].ToString();
+          
             Frm編輯訂單 f = new Frm編輯訂單();
             if (row["訂單狀態"].ToString()=="完成"|| row["訂單狀態"].ToString() == "取消")
-            {               
-                f.or = or;
+            {
+                COrder or1 = new COrder();
+                or1.訂單編號 = Convert.ToInt32(row["出貨單編號"]);
+                or1.聯絡人 = row["聯絡人"].ToString();
+                or1.聯絡電話 = row["聯絡電話"].ToString();
+                or1.地址 = row["地址"].ToString();
+                or1.備註 = row["備註"].ToString();
+                if (row["經銷商ID"] != null)               
+                    or1.經銷商ID = Convert.ToInt32(row["經銷商ID"]);
+                or1.訂單日期 = row["訂單日期"].ToString();
+                or1.交貨日期 = row["交貨日期"].ToString();
+                or1.訂單狀態 = row["訂單狀態"].ToString();
+
+                f.or = or1;
                 f.完成或取消訂單();
                 f.ShowDialog();
                 return;
             }     
              else if (row["訂單狀態"].ToString() == "草稿")                    
             {
-                f.or = or;
-                f.新增訂單();
+                COrder or2 = new COrder();
+                or2.訂單編號 = Convert.ToInt32(row["出貨單編號"]);
+                or2.聯絡人 = row["聯絡人"].ToString();
+                or2.聯絡電話 = row["聯絡電話"].ToString();
+                or2.地址 = row["地址"].ToString();
+                or2.備註 = row["備註"].ToString();
+                or2.訂單日期 = row["訂單日期"].ToString();
+                or2.交貨日期 = row["交貨日期"].ToString();
+                or2.訂單狀態 = row["訂單狀態"].ToString();
+                f.or = or2;
+                f.修改訂單();
                 f.ShowDialog();
                 return;
             }
+            COrder or = new COrder();
+            or.訂單編號 = Convert.ToInt32(row["出貨單編號"]);
+            or.聯絡人 = row["聯絡人"].ToString();
+            or.聯絡電話 = row["聯絡電話"].ToString();
+            or.地址 = row["地址"].ToString();
+            or.備註 = row["備註"].ToString();
+            or.經銷商ID = Convert.ToInt32(row["經銷商ID"]);
+            or.訂單日期 = row["訂單日期"].ToString();
+            or.交貨日期 = row["交貨日期"].ToString();
+            or.訂單狀態 = row["訂單狀態"].ToString();
             f.or = or;
             f.修改訂單();
             f.ShowDialog();
@@ -197,8 +218,7 @@ namespace 進銷存系統
             {
                 cbox經銷商ID.Items.Add(reader經銷商ID["經銷商ID"].ToString());
             }
-            con經銷商ID.Close();
-            redata();
+            con經銷商ID.Close();        
         }
         private void date訂單日期s_CloseUp(object sender, EventArgs e)
         {
@@ -210,7 +230,6 @@ namespace 進銷存系統
         {
             date訂單日期e.CustomFormat = "yyyy-MM-dd";
         }
-
         private void date交貨日期s_CloseUp(object sender, EventArgs e)
         {
             date交貨日期s.CustomFormat = "yyyy-MM-dd";
@@ -249,7 +268,7 @@ namespace 進銷存系統
         {
             txt聯絡電話.Text = null;
         }
-        private void Frm查詢訂單_SizeChanged(object sender, EventArgs e)
+        private void Frm查詢訂單_ResizeEnd(object sender, EventArgs e)
         {
             redgvstyle();
         }

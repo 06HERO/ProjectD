@@ -40,7 +40,6 @@ namespace 進銷存系統
                 txt訂單狀態.Text = value.訂單狀態.ToString();
             }
         }
-
         public void redgvstyle()
         {
             dgv訂單明細.Columns[0].Width = this.Width * 1 / 6;
@@ -60,8 +59,6 @@ namespace 進銷存系統
                 isChanged = !isChanged;
             }
         }
-
-
         public void 新增訂單()
         {          
             btn結案.Visible = false;
@@ -70,8 +67,6 @@ namespace 進銷存系統
             lab訂單狀態.Visible = false;
             btn取消.Visible = false;
            
-
-
             string sql = "SELECT top 1 出貨單編號 FROM 出貨單列表 order by 出貨單編號 desc";
 
             SqlConnection con = new SqlConnection();
@@ -89,7 +84,6 @@ namespace 進銷存系統
             txt訂單狀態.Text = "接收";
             txt訂單狀態.Enabled = false;
         }
-
         public void 修改訂單()
         {
             txt訂單編號.Enabled = false;
@@ -98,7 +92,6 @@ namespace 進銷存系統
             date訂單日期.Enabled = false;
             redata();
         }
-
         public void 完成或取消訂單()
         {
             txt訂單編號.Enabled = false;
@@ -136,8 +129,6 @@ namespace 進銷存系統
 
             redata();
         }
-
-
         private void totalprice()
         {
             SqlConnection con = new SqlConnection();
@@ -153,7 +144,6 @@ namespace 進銷存系統
             }
             con.Close();
         }
-
         private void redata()
         {
             //string sql = "select o.廠商ID,o.商品類型ID,o.商品ID,商品名稱,商品單價,商品數量  from 出貨單明細　o\r\njoin [dbo].[商品列表] ol\r\non o.廠商ID=ol.廠商ID and o.商品類型ID=ol.商品類型ID and o.商品ID=ol.商品ID where 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text);
@@ -240,9 +230,7 @@ namespace 進銷存系統
                 {
                     cbox經銷商ID.Items.Add(reader經銷商ID["經銷商ID"].ToString());
                 }
-            //    cbox經銷商ID.Items.Remove("255-測試用");
                 con經銷商ID.Close();
-
                 totalprice();
                 date交貨日期.MinDate = Convert.ToDateTime(date訂單日期.Text);
                 txt數量.Text = "0";
@@ -250,7 +238,6 @@ namespace 進銷存系統
                 redgvstyle();
             }
         }
-
         private void date訂單日期_ValueChanged(object sender, EventArgs e)
         {
             date訂單日期.CustomFormat = "yyyy-MM-dd";
@@ -264,10 +251,7 @@ namespace 進銷存系統
 
         private void btn送出訂單_Click(object sender, EventArgs e)
         {
-            int a = 0;
-
-      
-      
+            int a = 0;  
             if (string.IsNullOrEmpty(cbox經銷商ID.Text) || date交貨日期.CustomFormat == " " || string.IsNullOrEmpty(txt聯絡電話.Text) || string.IsNullOrEmpty(txt聯絡人.Text))
             {
                 MessageBox.Show("請確認資料完整性");
@@ -278,14 +262,11 @@ namespace 進銷存系統
                 MessageBox.Show("請輸入正確經銷商ID");
                 return;
             }
-
             if ( Convert.ToInt32(cbox經銷商ID.Text) < 1)
             {
                 MessageBox.Show("請輸入正確經銷商ID");
                 return;
             }
-
-
             string message = "                   確定送出訂單嗎?";
             string caption = " ";
             MessageBoxButtons btnIsOK = MessageBoxButtons.YesNo;
@@ -335,6 +316,11 @@ namespace 進銷存系統
 
         private void btn結案_Click(object sender, EventArgs e)
         {
+            if (txt訂單狀態.Text == "草稿")
+            {
+                MessageBox.Show("資料不完整無法結案，如要放棄訂單請按取消訂單");
+                return;
+            }
 
             string message = "                   確定完成訂單嗎?";
             string caption = " ";
@@ -345,8 +331,6 @@ namespace 進銷存系統
             {
                 return;
             }
-
-
 
             List<SqlParameter> paras = new List<SqlParameter>();
             string sql = "UPDATE 出貨單列表 SET ";
@@ -367,7 +351,6 @@ namespace 進銷存系統
             con.Close();
             MessageBox.Show("訂單完成");
             totalprice();
-
         }
 
         private void btn更新_Click(object sender, EventArgs e)
@@ -384,20 +367,12 @@ namespace 進銷存系統
             {
                 MessageBox.Show("請確認資料完整性");
                 return;
-            }
-            //if (Convert.ToInt32(cbox經銷商ID.Text) == 0/* || Convert.ToInt32(cbox經銷商ID.Text) == 255*/)
-            //{
-            //    MessageBox.Show("請確認經銷商ID");
-            //    return;
-            //}
-
+            }         
             if (cbox經銷商ID.Items.Count < Convert.ToInt32(cbox經銷商ID.Text) || Convert.ToInt32(cbox經銷商ID.Text) < 1)
             {
                 MessageBox.Show("請確認經銷商ID是否存在");
                 return;
             }
-
-
             string message = "                   確定更新訂單嗎?";
             string caption = " ";
             MessageBoxButtons btnIsOK = MessageBoxButtons.YesNo;
@@ -407,7 +382,6 @@ namespace 進銷存系統
             {
                 return;
             }
-
             string sql = "UPDATE 出貨單列表 SET ";
             sql += "經銷商ID=@K_經銷商ID,";
             sql += "聯絡人=@K_聯絡人,";
@@ -432,9 +406,7 @@ namespace 進銷存系統
             SqlConnection con = new SqlConnection();
             con.ConnectionString = @"Data Source =.; Initial Catalog = 普雷二電玩; Integrated Security = True";
             con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = sql;
+            SqlCommand cmd = new SqlCommand(sql,con);        
             if (paras != null)
                 cmd.Parameters.AddRange(paras.ToArray());
             cmd.ExecuteNonQuery();
@@ -442,7 +414,7 @@ namespace 進銷存系統
             MessageBox.Show("更新資料成功");
             totalprice();
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void btn取消_Click(object sender, EventArgs e)
         {
             string message = "                   確定取消訂單嗎?";
             string caption = " ";
@@ -453,64 +425,58 @@ namespace 進銷存系統
             {
                 return;
             }
-
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Data Source =.; Initial Catalog = 普雷二電玩; Integrated Security = True";
+            con.Open();
             if (txt訂單狀態.Text=="草稿")
             {
-                string sql草稿L = "DELETE FROM 出貨單明細 WHERE 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text);
-
-                SqlConnection con草稿L= new SqlConnection();
-                con草稿L.ConnectionString = @"Data Source =.; Initial Catalog = 普雷二電玩; Integrated Security = True";
-                con草稿L.Open();
-                SqlCommand cmd草稿L = new SqlCommand();
-                cmd草稿L.Connection = con草稿L;
-                cmd草稿L.CommandText = sql草稿L;
-
+                string sql草稿L = "DELETE FROM 出貨單明細 WHERE 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text);                
+                SqlCommand cmd草稿L = new SqlCommand(sql草稿L, con);               
                 cmd草稿L.ExecuteNonQuery();
-                con草稿L.Close();
-
-                string sql草稿 = "DELETE FROM 出貨單列表 WHERE 出貨單編號="+ Convert.ToInt32(txt訂單編號.Text);
-              
-                SqlConnection con草稿 = new SqlConnection();
-                con草稿.ConnectionString = @"Data Source =.; Initial Catalog = 普雷二電玩; Integrated Security = True";
-                con草稿.Open();
-                SqlCommand cmd草稿 = new SqlCommand();
-                cmd草稿.Connection = con草稿;
-                cmd草稿.CommandText = sql草稿;
-               
+                
+                string sql草稿 = "DELETE FROM 出貨單列表 WHERE 出貨單編號="+ Convert.ToInt32(txt訂單編號.Text);                            
+                SqlCommand cmd草稿 = new SqlCommand(sql草稿,con);                         
                 cmd草稿.ExecuteNonQuery();
-                con草稿.Close();
+
+                string sql庫存 = "update [dbo].[商品在庫數量] set [商品在庫數量].[商品數量]=[商品在庫數量].[商品數量]+b.[商品數量] "+
+                    "from [dbo].[出貨單明細] b where [出貨單編號]= " +Convert.ToInt32(txt訂單編號.Text)+
+                    " and [商品在庫數量].廠商ID=b.廠商ID and [商品在庫數量].商品類型ID=b.商品類型ID and [商品在庫數量].商品ID=b.商品ID";
+                SqlCommand cmd庫存 = new SqlCommand(sql庫存, con);
+                cmd庫存.ExecuteNonQuery();
+
+                string sql明細庫存 = "delete 出貨單明細 where 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text);
+                SqlCommand cmd明細庫存 = new SqlCommand(sql明細庫存, con);
+                cmd明細庫存.ExecuteNonQuery();
+
+                con.Close();
                 MessageBox.Show("草稿刪除");
                 this.Close();
                 totalprice();
                 return;
-
             }
+            string sql接收 = "UPDATE 出貨單列表 SET ";
+            sql接收 += "訂單狀態='取消'";
+            sql接收 += " where 出貨單編號= "+ Convert.ToInt32(txt訂單編號.Text);                          
+            SqlCommand cmd接收 = new SqlCommand(sql接收,con);
+            cmd接收.ExecuteNonQuery();
 
-            List<SqlParameter> paras = new List<SqlParameter>();
-            string sql = "UPDATE 出貨單列表 SET ";
-            sql += "訂單狀態=@K_訂單狀態";
-            sql += " where 出貨單編號=@K_出貨單編號 ";
-            paras.Add(new SqlParameter("K_訂單狀態", "取消"));
-            int pk = Convert.ToInt32(txt訂單編號.Text);
-            paras.Add(new SqlParameter("K_出貨單編號", (object)pk));
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = @"Data Source =.; Initial Catalog = 普雷二電玩; Integrated Security = True";
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = con;
-            cmd.CommandText = sql;
-            if (paras != null)
-                cmd.Parameters.AddRange(paras.ToArray());
-            cmd.ExecuteNonQuery();
+            string sql庫存2 = "update [dbo].[商品在庫數量] set [商品在庫數量].[商品數量]=[商品在庫數量].[商品數量]+b.[商品數量] " +
+                    "from [dbo].[出貨單明細] b where [出貨單編號]= " + Convert.ToInt32(txt訂單編號.Text) +
+                    " and [商品在庫數量].廠商ID=b.廠商ID and [商品在庫數量].商品類型ID=b.商品類型ID and [商品在庫數量].商品ID=b.商品ID";
+            SqlCommand cmd庫存2 = new SqlCommand(sql庫存2, con);
+            cmd庫存2.ExecuteNonQuery();
+
+            string sql明細庫存2 = "delete 出貨單明細 where 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text);
+            SqlCommand cmd明細庫存2 = new SqlCommand(sql明細庫存2, con);
+            cmd明細庫存2.ExecuteNonQuery();
+
             con.Close();
             MessageBox.Show("訂單取消");
             totalprice();
-
             this.Close();
         }
         private void btn加入明細_Click(object sender, EventArgs e)
         {
-
             int a = 0;
             if (!int.TryParse(cbox廠商ID.Text, out a) && !string.IsNullOrEmpty(cbox廠商ID.Text.Trim()))
             {
@@ -546,13 +512,11 @@ namespace 進銷存系統
                 return;
             }
 
-            //if (Convert.ToInt32(txt庫存.Text) < Convert.ToInt32(txt數量.Text))
-            //{
-            //    MessageBox.Show("下訂數量超過庫存");
-            //    return;
-            //}
-
-
+            if (Convert.ToInt32(txt庫存.Text) < Convert.ToInt32(txt數量.Text))
+            {
+                MessageBox.Show("下訂數量超過庫存");
+                return;
+            }
             string sql = "INSERT INTO 出貨單明細 (";
             sql += "出貨單編號,";
             sql += "廠商ID,";
@@ -574,8 +538,15 @@ namespace 進銷存系統
 
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
-            con.Close();
+            string sql庫存 = "update [dbo].[商品在庫數量] set [商品數量] = [商品數量]-" + Convert.ToInt32(txt數量.Text) +
+              "where [廠商ID]= " + Convert.ToInt32(cbox廠商ID.Text) +
+              "and [商品類型ID]=" + Convert.ToInt32(cbox類型ID.Text) +
+              "and [商品ID]=" + Convert.ToInt32(cbox商品ID.Text);
 
+            SqlCommand cmd庫存 = new SqlCommand(sql庫存, con);
+            cmd庫存.ExecuteNonQuery();
+
+            con.Close();
             redata();
             totalprice();
             re庫存();
@@ -600,7 +571,6 @@ namespace 進銷存系統
                 MessageBox.Show("廠商請輸入數字");
                 return;
             }
-
             if (!int.TryParse(cbox類型ID.Text, out a) && !string.IsNullOrEmpty(cbox類型ID.Text.Trim()))
             {
                 MessageBox.Show("類型請輸入數字");
@@ -611,7 +581,6 @@ namespace 進銷存系統
                 MessageBox.Show("編號請輸入數字");
                 return;
             }
-
             SqlConnection con商品列表 = new SqlConnection();
             con商品列表.ConnectionString = @"Data Source =.; Initial Catalog = 普雷二電玩; Integrated Security = True";
             con商品列表.Open();
@@ -654,21 +623,23 @@ namespace 進銷存系統
         }
         private void re庫存()
         {
-            //string sql庫存 = "SELECT * FROM   where ='" + cbox品名.Text + "'";
-            //SqlConnection con庫存 = new SqlConnection();
-            //con庫存.ConnectionString = @"Data Source=.;Initial Catalog=普雷二電玩;Integrated Security=True";
-            //con庫存.Open();
+            if (cbox品名.Text == null)
+                return;
+            
+            string sql庫存 = "SELECT * FROM 商品在庫數量  where 廠商ID=" + Convert.ToInt32(cbox廠商ID.Text) +
+                     " and 商品類型ID=" + Convert.ToInt32(cbox類型ID.Text) + " and 商品ID=" + Convert.ToInt32(cbox商品ID.Text);
+            SqlConnection con庫存 = new SqlConnection();
+            con庫存.ConnectionString = @"Data Source=.;Initial Catalog=普雷二電玩;Integrated Security=True";
+            con庫存.Open();
 
-            //SqlCommand cmd庫存 = new SqlCommand(sql庫存, con庫存);
-            //SqlDataReader reader庫存 = cmd庫存.ExecuteReader();
+            SqlCommand cmd庫存 = new SqlCommand(sql庫存, con庫存);
+            SqlDataReader reader庫存 = cmd庫存.ExecuteReader();
 
-            //while (reader庫存.Read())
-            //{
-            //    txt庫存.Text = reader庫存["庫存"].ToString();
-            //}
-            //con庫存.Close();
-
-            ////加入明細的判斷條件也要修改
+            while (reader庫存.Read())
+            {
+                txt庫存.Text = reader庫存["商品數量"].ToString();
+            }
+            con庫存.Close();
         }
         private void btn刪除品項_Click(object sender, EventArgs e)
         {            
@@ -686,9 +657,15 @@ namespace 進銷存系統
 
             SqlCommand cmd = new SqlCommand(sql, con);
             cmd.ExecuteNonQuery();
+
+            string sql庫存 = "update [dbo].[商品在庫數量] set [商品數量] = [商品數量]+" + Convert.ToInt32(row["商品數量"]) +
+              "where [廠商ID]= " + Convert.ToInt32(row["廠商ID"]) +
+              "and [商品類型ID]=" + Convert.ToInt32(row["商品類型ID"]) +
+              "and [商品ID]=" + Convert.ToInt32(row["商品ID"]);
+            SqlCommand cmd庫存 = new SqlCommand(sql庫存, con);
+            cmd庫存.ExecuteNonQuery();
             con.Close();
 
-            re庫存();
             redata();
             totalprice();
         }
@@ -708,27 +685,7 @@ namespace 進銷存系統
             totalprice();
             this.Close();
         }
-        private void re品名()
-        {
-            re品名();
-        }
-        private void cbox商品ID_DropDown(object sender, EventArgs e)
-        {
-            re品名();
-        }   
-        private void cbox類型ID_DropDown(object sender, EventArgs e)
-        {
-            re品名();
-        }
-        private void cbox廠商ID_DragDrop(object sender, DragEventArgs e)
-        {
-            re品名();
-        }
-        private void cbox廠商ID_DropDown(object sender, EventArgs e)
-        {
-            re品名();
-        }
-
+     
         private void Frm編輯訂單_SizeChanged(object sender, EventArgs e)
         {
             redgvstyle();
