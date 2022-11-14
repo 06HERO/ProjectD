@@ -55,7 +55,7 @@ namespace 庫存查詢DEMO
             _keyword2 = txt2.Text;
             txt1.Clear();
             Showdata();
-            _keyword2 = "";         
+            _keyword2 = "";            
             Setsize();
         }
 
