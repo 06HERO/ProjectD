@@ -16,4 +16,4 @@ namespace 庫存查詢DEMO
         public string company { get; set; }
         public string customer { get; set; }
     }
-}
+} 
