@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="255efb6c89c6449389d8f4956c1c00a2" Name="Diagram1">
+        <EntityTypeShape EntityType="普雷二電玩Model.商品列表" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="普雷二電玩Model.商品類型列表" Width="1.5" PointX="2.875" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="普雷二電玩Model.廠商列表" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="普雷二電玩Model.FK_商品列表_商品類型列表" ManuallyRouted="false" />
+        <AssociationConnector Association="普雷二電玩Model.FK_商品列表_廠商列表" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="普雷二電玩Model.使用者列表" Width="1.5" PointX="0.5" PointY="5.625" />
+        <EntityTypeShape EntityType="普雷二電玩Model.進貨單列表" Width="1.5" PointX="2.875" PointY="5.25" />
+        <AssociationConnector Association="普雷二電玩Model.FK_進貨單列表_廠商列表" />
+        <EntityTypeShape EntityType="普雷二電玩Model.進貨單明細" Width="1.5" PointX="4.625" PointY="5.625" />
+        <AssociationConnector Association="普雷二電玩Model.FK_進貨單明細_進貨單列表" />
+        <EntityTypeShape EntityType="普雷二電玩Model.庫存地點列表" Width="1.5" PointX="3" PointY="8.375" />
+        <AssociationConnector Association="普雷二電玩Model.FK_進貨單列表_庫存地點列表" />
+        <EntityTypeShape EntityType="普雷二電玩Model.出貨單列表" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="普雷二電玩Model.經銷商列表" Width="1.5" PointX="0.75" PointY="10.375" />
+        <AssociationConnector Association="普雷二電玩Model.FK_出貨單列表_經銷商列表" />
+        <EntityTypeShape EntityType="普雷二電玩Model.商品在庫數量" Width="1.5" PointX="0.75" PointY="8.375" />
+        <AssociationConnector Association="普雷二電玩Model.FK_商品在庫數量_庫存地點列表" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

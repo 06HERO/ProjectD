@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="普雷二電玩ModelStoreContainer" CdmEntityContainer="普雷二電玩Entities">
+    <EntitySetMapping Name="商品列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.商品列表">
+        <MappingFragment StoreEntitySet="商品列表">
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+          <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+          <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+          <ScalarProperty Name="零售價" ColumnName="零售價" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="商品類型列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.商品類型列表">
+        <MappingFragment StoreEntitySet="商品類型列表">
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="廠商列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.廠商列表">
+        <MappingFragment StoreEntitySet="廠商列表">
+          <ScalarProperty Name="顯示與否" ColumnName="顯示與否" />
+          <ScalarProperty Name="聯絡電話" ColumnName="聯絡電話" />
+          <ScalarProperty Name="資本總額" ColumnName="資本總額" />
+          <ScalarProperty Name="代表人姓名" ColumnName="代表人姓名" />
+          <ScalarProperty Name="統一編號" ColumnName="統一編號" />
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="使用者列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.使用者列表">
+        <MappingFragment StoreEntitySet="使用者列表">
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="LoginPW" ColumnName="LoginPW" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Insert廠商列表" FunctionName="普雷二電玩Model.Store.Insert廠商列表" />
+    <FunctionImportMapping FunctionImportName="Delete廠商列表" FunctionName="普雷二電玩Model.Store.Delete廠商列表" />
+    <FunctionImportMapping FunctionImportName="Update廠商列表" FunctionName="普雷二電玩Model.Store.Update廠商列表" />
+    <FunctionImportMapping FunctionImportName="Delete商品類型列表" FunctionName="普雷二電玩Model.Store.Delete商品類型列表" />
+    <FunctionImportMapping FunctionImportName="Insert商品類型列表" FunctionName="普雷二電玩Model.Store.Insert商品類型列表" />
+    <FunctionImportMapping FunctionImportName="Update商品類型列表" FunctionName="普雷二電玩Model.Store.Update商品類型列表" />
+    <FunctionImportMapping FunctionImportName="使用者LoginByEntity" FunctionName="普雷二電玩Model.Store.使用者LoginByEntity" />
+    <FunctionImportMapping FunctionImportName="Delete商品列表" FunctionName="普雷二電玩Model.Store.Delete商品列表" />
+    <FunctionImportMapping FunctionImportName="Insert商品列表" FunctionName="普雷二電玩Model.Store.Insert商品列表" />
+    <FunctionImportMapping FunctionImportName="Update商品列表" FunctionName="普雷二電玩Model.Store.Update商品列表" />
+    <EntitySetMapping Name="進貨單列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.進貨單列表">
+        <MappingFragment StoreEntitySet="進貨單列表">
+          <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+          <ScalarProperty Name="明細筆數" ColumnName="明細筆數" />
+          <ScalarProperty Name="進貨日期" ColumnName="進貨日期" />
+          <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="fn_商品列表" FunctionName="普雷二電玩Model.Store.fn_商品列表">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="普雷二電玩Model.fn_商品列表_Result">
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+          <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+          <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+          <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+          <ScalarProperty Name="零售價" ColumnName="零售價" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="進貨單明細">
+      <EntityTypeMapping TypeName="普雷二電玩Model.進貨單明細">
+        <MappingFragment StoreEntitySet="進貨單明細">
+          <ScalarProperty Name="備註" ColumnName="備註" />
+          <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+          <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+          <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="fn_進貨單列表" FunctionName="普雷二電玩Model.Store.fn_進貨單列表">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="普雷二電玩Model.fn_進貨單列表_Result">
+          <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+          <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+          <ScalarProperty Name="庫存地點" ColumnName="庫存地點" />
+          <ScalarProperty Name="進貨日期" ColumnName="進貨日期" />
+          <ScalarProperty Name="明細筆數" ColumnName="明細筆數" />
+          <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="fn_進貨單明細" FunctionName="普雷二電玩Model.Store.fn_進貨單明細">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="普雷二電玩Model.fn_進貨單明細_Result">
+          <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+          <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+          <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+          <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+          <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+          <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+          <ScalarProperty Name="備註" ColumnName="備註" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="庫存地點列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.庫存地點列表">
+        <MappingFragment StoreEntitySet="庫存地點列表">
+          <ScalarProperty Name="地址" ColumnName="地址" />
+          <ScalarProperty Name="庫存地點" ColumnName="庫存地點" />
+          <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="fn_總商品庫存表" FunctionName="普雷二電玩Model.Store.fn_總商品庫存表">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="普雷二電玩Model.fn_總商品庫存表_Result">
+          <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+          <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+          <ScalarProperty Name="總庫存量" ColumnName="總庫存量" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="fn_庫存列表" FunctionName="普雷二電玩Model.Store.fn_庫存列表">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="普雷二電玩Model.fn_庫存列表_Result">
+          <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+          <ScalarProperty Name="庫存地點" ColumnName="庫存地點" />
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+          <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+          <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+          <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+          <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+          <ScalarProperty Name="零售價" ColumnName="零售價" />
+          <ScalarProperty Name="統一編號" ColumnName="統一編號" />
+          <ScalarProperty Name="地址" ColumnName="地址" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="商品在庫數量">
+      <EntityTypeMapping TypeName="普雷二電玩Model.商品在庫數量">
+        <MappingFragment StoreEntitySet="商品在庫數量">
+          <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+          <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+          <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+          <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+          <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

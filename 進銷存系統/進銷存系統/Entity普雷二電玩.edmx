@@ -1,0 +1,870 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="普雷二電玩Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="使用者列表">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LoginPW" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="IsAdmin" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="庫存地點列表">
+          <Key>
+            <PropertyRef Name="庫存地點ID" />
+          </Key>
+          <Property Name="庫存地點ID" Type="int" Nullable="false" />
+          <Property Name="庫存地點" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="地址" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="商品列表">
+          <Key>
+            <PropertyRef Name="廠商ID" />
+            <PropertyRef Name="商品類型ID" />
+            <PropertyRef Name="商品ID" />
+          </Key>
+          <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+          <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+          <Property Name="商品ID" Type="smallint" Nullable="false" />
+          <Property Name="商品名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="進貨價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="零售價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="商品在庫數量">
+          <Key>
+            <PropertyRef Name="庫存地點ID" />
+            <PropertyRef Name="廠商ID" />
+            <PropertyRef Name="商品類型ID" />
+            <PropertyRef Name="商品ID" />
+          </Key>
+          <Property Name="庫存地點ID" Type="int" Nullable="false" />
+          <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+          <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+          <Property Name="商品ID" Type="smallint" Nullable="false" />
+          <Property Name="商品數量" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="商品類型列表">
+          <Key>
+            <PropertyRef Name="商品類型ID" />
+          </Key>
+          <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+          <Property Name="商品類型名稱" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="進貨單列表">
+          <Key>
+            <PropertyRef Name="進貨單編號" />
+          </Key>
+          <Property Name="進貨單編號" Type="int" Nullable="false" />
+          <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+          <Property Name="庫存地點ID" Type="int" Nullable="false" />
+          <Property Name="進貨日期" Type="date" Nullable="false" />
+          <Property Name="明細筆數" Type="tinyint" Nullable="false" />
+          <Property Name="進貨成本" Type="decimal" Precision="15" Scale="2" />
+        </EntityType>
+        <EntityType Name="進貨單明細">
+          <Key>
+            <PropertyRef Name="進貨單編號" />
+            <PropertyRef Name="商品類型ID" />
+            <PropertyRef Name="商品ID" />
+          </Key>
+          <Property Name="進貨單編號" Type="int" Nullable="false" />
+          <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+          <Property Name="商品ID" Type="smallint" Nullable="false" />
+          <Property Name="商品數量" Type="smallint" Nullable="false" />
+          <Property Name="進貨成本" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="備註" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="廠商列表">
+          <Key>
+            <PropertyRef Name="廠商ID" />
+          </Key>
+          <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+          <Property Name="廠商名稱" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="統一編號" Type="nvarchar" MaxLength="10" />
+          <Property Name="代表人姓名" Type="nvarchar" MaxLength="50" />
+          <Property Name="資本總額" Type="decimal" Precision="15" Scale="2" />
+          <Property Name="聯絡電話" Type="nvarchar" MaxLength="20" />
+          <Property Name="顯示與否" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_商品列表_商品類型列表">
+          <End Role="商品類型列表" Type="Self.商品類型列表" Multiplicity="1" />
+          <End Role="商品列表" Type="Self.商品列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="商品類型列表">
+              <PropertyRef Name="商品類型ID" />
+            </Principal>
+            <Dependent Role="商品列表">
+              <PropertyRef Name="商品類型ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_商品列表_廠商列表">
+          <End Role="廠商列表" Type="Self.廠商列表" Multiplicity="1" />
+          <End Role="商品列表" Type="Self.商品列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="廠商列表">
+              <PropertyRef Name="廠商ID" />
+            </Principal>
+            <Dependent Role="商品列表">
+              <PropertyRef Name="廠商ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_商品在庫數量_庫存地點列表">
+          <End Role="庫存地點列表" Type="Self.庫存地點列表" Multiplicity="1" />
+          <End Role="商品在庫數量" Type="Self.商品在庫數量" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="庫存地點列表">
+              <PropertyRef Name="庫存地點ID" />
+            </Principal>
+            <Dependent Role="商品在庫數量">
+              <PropertyRef Name="庫存地點ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_進貨單列表_庫存地點列表">
+          <End Role="庫存地點列表" Type="Self.庫存地點列表" Multiplicity="1" />
+          <End Role="進貨單列表" Type="Self.進貨單列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="庫存地點列表">
+              <PropertyRef Name="庫存地點ID" />
+            </Principal>
+            <Dependent Role="進貨單列表">
+              <PropertyRef Name="庫存地點ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_進貨單列表_廠商列表">
+          <End Role="廠商列表" Type="Self.廠商列表" Multiplicity="1" />
+          <End Role="進貨單列表" Type="Self.進貨單列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="廠商列表">
+              <PropertyRef Name="廠商ID" />
+            </Principal>
+            <Dependent Role="進貨單列表">
+              <PropertyRef Name="廠商ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_進貨單明細_進貨單列表">
+          <End Role="進貨單列表" Type="Self.進貨單列表" Multiplicity="1" />
+          <End Role="進貨單明細" Type="Self.進貨單明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="進貨單列表">
+              <PropertyRef Name="進貨單編號" />
+            </Principal>
+            <Dependent Role="進貨單明細">
+              <PropertyRef Name="進貨單編號" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Delete商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品ID" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="Delete商品類型列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="Delete廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="fn_庫存列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="庫存地點ID" Type="int" Nullable="false" />
+                <Property Name="庫存地點" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+                <Property Name="廠商名稱" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="統一編號" Type="nvarchar" MaxLength="10" />
+                <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+                <Property Name="商品類型名稱" Type="nvarchar" MaxLength="30" Nullable="false" />
+                <Property Name="商品ID" Type="smallint" Nullable="false" />
+                <Property Name="商品名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="商品數量" Type="smallint" Nullable="false" />
+                <Property Name="進貨價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="零售價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="地址" Type="nvarchar" MaxLength="100" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+                <Property Name="廠商名稱" Type="nvarchar" MaxLength="20" Nullable="false" />
+                <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+                <Property Name="商品類型名稱" Type="nvarchar" MaxLength="30" Nullable="false" />
+                <Property Name="商品ID" Type="smallint" Nullable="false" />
+                <Property Name="商品名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="進貨價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="零售價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="進貨單編號" Type="int" Nullable="false" />
+                <Property Name="廠商ID" Type="tinyint" Nullable="false" />
+                <Property Name="廠商名稱" Type="nvarchar" MaxLength="100" Nullable="false" />
+                <Property Name="庫存地點ID" Type="int" Nullable="false" />
+                <Property Name="庫存地點" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="進貨日期" Type="datetime" Nullable="false" />
+                <Property Name="明細筆數" Type="tinyint" Nullable="false" />
+                <Property Name="進貨成本" Type="decimal" Precision="15" Scale="2" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_進貨單明細" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="進貨單編號" Type="int" Nullable="false" />
+                <Property Name="商品類型ID" Type="tinyint" Nullable="false" />
+                <Property Name="商品類型名稱" Type="nvarchar" MaxLength="30" Nullable="false" />
+                <Property Name="商品ID" Type="smallint" Nullable="false" />
+                <Property Name="商品名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="商品數量" Type="smallint" Nullable="false" />
+                <Property Name="進貨價" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+                <Property Name="進貨成本" Type="decimal" Precision="15" Scale="2" />
+                <Property Name="備註" Type="nvarchar" MaxLength="300" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="fn_總商品庫存表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="商品類型名稱" Type="nvarchar" MaxLength="30" Nullable="false" />
+                <Property Name="商品名稱" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="總庫存量" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="Insert商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品ID" Type="smallint" Mode="In" />
+          <Parameter Name="商品名稱" Type="nvarchar" Mode="In" />
+          <Parameter Name="進貨價" Type="decimal" Mode="In" />
+          <Parameter Name="零售價" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="Insert商品類型列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品類型名稱" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Insert廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+          <Parameter Name="廠商名稱" Type="nvarchar" Mode="In" />
+          <Parameter Name="統一編號" Type="nvarchar" Mode="In" />
+          <Parameter Name="代表人姓名" Type="nvarchar" Mode="In" />
+          <Parameter Name="資本總額" Type="decimal" Mode="In" />
+          <Parameter Name="聯絡電話" Type="nvarchar" Mode="In" />
+          <Parameter Name="顯示與否" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Update商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品ID" Type="smallint" Mode="In" />
+          <Parameter Name="商品名稱" Type="nvarchar" Mode="In" />
+          <Parameter Name="進貨價" Type="decimal" Mode="In" />
+          <Parameter Name="零售價" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="Update商品類型列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品類型名稱" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Update廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+          <Parameter Name="廠商名稱" Type="nvarchar" Mode="In" />
+          <Parameter Name="統一編號" Type="nvarchar" Mode="In" />
+          <Parameter Name="代表人姓名" Type="nvarchar" Mode="In" />
+          <Parameter Name="資本總額" Type="decimal" Mode="In" />
+          <Parameter Name="聯絡電話" Type="nvarchar" Mode="In" />
+          <Parameter Name="顯示與否" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="使用者LoginByEntity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+          <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsAdmin" Type="tinyint" Mode="InOut" />
+        </Function>
+        <EntityContainer Name="普雷二電玩ModelStoreContainer">
+          <EntitySet Name="使用者列表" EntityType="Self.使用者列表" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="庫存地點列表" EntityType="Self.庫存地點列表" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="商品列表" EntityType="Self.商品列表" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="商品在庫數量" EntityType="Self.商品在庫數量" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="商品類型列表" EntityType="Self.商品類型列表" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="進貨單列表" EntityType="Self.進貨單列表" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="進貨單明細" EntityType="Self.進貨單明細" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="廠商列表" EntityType="Self.廠商列表" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_商品列表_商品類型列表" Association="Self.FK_商品列表_商品類型列表">
+            <End Role="商品類型列表" EntitySet="商品類型列表" />
+            <End Role="商品列表" EntitySet="商品列表" />
+          </AssociationSet>
+          <AssociationSet Name="FK_商品列表_廠商列表" Association="Self.FK_商品列表_廠商列表">
+            <End Role="廠商列表" EntitySet="廠商列表" />
+            <End Role="商品列表" EntitySet="商品列表" />
+          </AssociationSet>
+          <AssociationSet Name="FK_商品在庫數量_庫存地點列表" Association="Self.FK_商品在庫數量_庫存地點列表">
+            <End Role="庫存地點列表" EntitySet="庫存地點列表" />
+            <End Role="商品在庫數量" EntitySet="商品在庫數量" />
+          </AssociationSet>
+          <AssociationSet Name="FK_進貨單列表_庫存地點列表" Association="Self.FK_進貨單列表_庫存地點列表">
+            <End Role="庫存地點列表" EntitySet="庫存地點列表" />
+            <End Role="進貨單列表" EntitySet="進貨單列表" />
+          </AssociationSet>
+          <AssociationSet Name="FK_進貨單列表_廠商列表" Association="Self.FK_進貨單列表_廠商列表">
+            <End Role="廠商列表" EntitySet="廠商列表" />
+            <End Role="進貨單列表" EntitySet="進貨單列表" />
+          </AssociationSet>
+          <AssociationSet Name="FK_進貨單明細_進貨單列表" Association="Self.FK_進貨單明細_進貨單列表">
+            <End Role="進貨單列表" EntitySet="進貨單列表" />
+            <End Role="進貨單明細" EntitySet="進貨單明細" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="普雷二電玩Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="商品列表">
+          <Key>
+            <PropertyRef Name="廠商ID" />
+            <PropertyRef Name="商品類型ID" />
+            <PropertyRef Name="商品ID" />
+          </Key>
+          <Property Name="廠商ID" Type="Byte" Nullable="false" />
+          <Property Name="商品類型ID" Type="Byte" Nullable="false" />
+          <Property Name="商品ID" Type="Int16" Nullable="false" />
+          <Property Name="商品名稱" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="進貨價" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="零售價" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="商品類型列表" Relationship="Self.FK_商品列表_商品類型列表" FromRole="商品列表" ToRole="商品類型列表" />
+          <NavigationProperty Name="廠商列表" Relationship="Self.FK_商品列表_廠商列表" FromRole="商品列表" ToRole="廠商列表" />
+        </EntityType>
+        <EntityType Name="商品類型列表">
+          <Key>
+            <PropertyRef Name="商品類型ID" />
+          </Key>
+          <Property Name="商品類型ID" Type="Byte" Nullable="false" />
+          <Property Name="商品類型名稱" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="商品列表" Relationship="Self.FK_商品列表_商品類型列表" FromRole="商品類型列表" ToRole="商品列表" />
+        </EntityType>
+        <EntityType Name="廠商列表">
+          <Key>
+            <PropertyRef Name="廠商ID" />
+          </Key>
+          <Property Name="廠商ID" Type="Byte" Nullable="false" />
+          <Property Name="廠商名稱" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="商品列表" Relationship="Self.FK_商品列表_廠商列表" FromRole="廠商列表" ToRole="商品列表" />
+          <NavigationProperty Name="進貨單列表" Relationship="普雷二電玩Model.FK_進貨單列表_廠商列表" FromRole="廠商列表" ToRole="進貨單列表" />
+          <Property Name="統一編號" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="代表人姓名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="資本總額" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="聯絡電話" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="顯示與否" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_商品列表_商品類型列表">
+          <End Role="商品類型列表" Type="Self.商品類型列表" Multiplicity="1" />
+          <End Role="商品列表" Type="Self.商品列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="商品類型列表">
+              <PropertyRef Name="商品類型ID" />
+            </Principal>
+            <Dependent Role="商品列表">
+              <PropertyRef Name="商品類型ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_商品列表_廠商列表">
+          <End Role="廠商列表" Type="Self.廠商列表" Multiplicity="1" />
+          <End Role="商品列表" Type="Self.商品列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="廠商列表">
+              <PropertyRef Name="廠商ID" />
+            </Principal>
+            <Dependent Role="商品列表">
+              <PropertyRef Name="廠商ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="普雷二電玩Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="商品列表" EntityType="Self.商品列表" />
+          <EntitySet Name="商品類型列表" EntityType="Self.商品類型列表" />
+          <EntitySet Name="廠商列表" EntityType="Self.廠商列表" />
+          <AssociationSet Name="FK_商品列表_商品類型列表" Association="Self.FK_商品列表_商品類型列表">
+            <End Role="商品類型列表" EntitySet="商品類型列表" />
+            <End Role="商品列表" EntitySet="商品列表" />
+          </AssociationSet>
+          <AssociationSet Name="FK_商品列表_廠商列表" Association="Self.FK_商品列表_廠商列表">
+            <End Role="廠商列表" EntitySet="廠商列表" />
+            <End Role="商品列表" EntitySet="商品列表" />
+          </AssociationSet>
+          <EntitySet Name="使用者列表" EntityType="普雷二電玩Model.使用者列表" />
+          <FunctionImport Name="Insert廠商列表">
+            <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+            <Parameter Name="廠商名稱" Mode="In" Type="String" />
+            <Parameter Name="統一編號" Mode="In" Type="String" />
+            <Parameter Name="代表人姓名" Mode="In" Type="String" />
+            <Parameter Name="資本總額" Mode="In" Type="Decimal" />
+            <Parameter Name="聯絡電話" Mode="In" Type="String" />
+            <Parameter Name="顯示與否" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Delete廠商列表">
+          <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="Update廠商列表">
+            <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+            <Parameter Name="廠商名稱" Mode="In" Type="String" />
+            <Parameter Name="統一編號" Mode="In" Type="String" />
+            <Parameter Name="代表人姓名" Mode="In" Type="String" />
+            <Parameter Name="資本總額" Mode="In" Type="Decimal" />
+            <Parameter Name="聯絡電話" Mode="In" Type="String" />
+            <Parameter Name="顯示與否" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Delete商品類型列表">
+          <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="Insert商品類型列表">
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品類型名稱" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Update商品類型列表">
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品類型名稱" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="使用者LoginByEntity">
+            <Parameter Name="LoginID" Mode="In" Type="String" />
+            <Parameter Name="LoginPW" Mode="In" Type="String" />
+            <Parameter Name="IsAdmin" Mode="InOut" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="Delete商品列表">
+            <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品ID" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="Insert商品列表">
+            <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品ID" Mode="In" Type="Int16" />
+            <Parameter Name="商品名稱" Mode="In" Type="String" />
+            <Parameter Name="進貨價" Mode="In" Type="Decimal" />
+            <Parameter Name="零售價" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Update商品列表">
+            <Parameter Name="廠商ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品ID" Mode="In" Type="Int16" />
+            <Parameter Name="商品名稱" Mode="In" Type="String" />
+            <Parameter Name="進貨價" Mode="In" Type="Decimal" />
+            <Parameter Name="零售價" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="進貨單列表" EntityType="普雷二電玩Model.進貨單列表" />
+          <AssociationSet Name="FK_進貨單列表_廠商列表" Association="普雷二電玩Model.FK_進貨單列表_廠商列表">
+            <End Role="廠商列表" EntitySet="廠商列表" />
+            <End Role="進貨單列表" EntitySet="進貨單列表" />
+          </AssociationSet>
+          <FunctionImport Name="fn_商品列表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_商品列表_Result)" />
+          <FunctionImport Name="fn_庫存列表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_庫存列表_Result)" />         
+          <EntitySet Name="進貨單明細" EntityType="普雷二電玩Model.進貨單明細" />
+          <AssociationSet Name="FK_進貨單明細_進貨單列表" Association="普雷二電玩Model.FK_進貨單明細_進貨單列表">
+            <End Role="進貨單列表" EntitySet="進貨單列表" />
+            <End Role="進貨單明細" EntitySet="進貨單明細" />
+          </AssociationSet>
+          <FunctionImport Name="fn_進貨單列表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_進貨單列表_Result)" />
+          <FunctionImport Name="fn_進貨單明細" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_進貨單明細_Result)" />
+          <EntitySet Name="庫存地點列表" EntityType="普雷二電玩Model.庫存地點列表" />
+          <AssociationSet Name="FK_進貨單列表_庫存地點列表" Association="普雷二電玩Model.FK_進貨單列表_庫存地點列表">
+            <End Role="庫存地點列表" EntitySet="庫存地點列表" />
+            <End Role="進貨單列表" EntitySet="進貨單列表" />
+          </AssociationSet>
+          <FunctionImport Name="fn_總商品庫存表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_總商品庫存表_Result)" />
+          <EntitySet Name="商品在庫數量" EntityType="普雷二電玩Model.商品在庫數量" />
+          <AssociationSet Name="FK_商品在庫數量_庫存地點列表" Association="普雷二電玩Model.FK_商品在庫數量_庫存地點列表">
+            <End Role="庫存地點列表" EntitySet="庫存地點列表" />
+            <End Role="商品在庫數量" EntitySet="商品在庫數量" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="使用者列表">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoginPW" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="進貨單列表">
+          <Key>
+            <PropertyRef Name="進貨單編號" />
+          </Key>
+          <Property Name="進貨單編號" Type="Int32" Nullable="false" />
+          <Property Name="廠商ID" Type="Byte" Nullable="false" />
+          <Property Name="庫存地點ID" Type="Int32" Nullable="false" />
+          <Property Name="進貨日期" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="明細筆數" Type="Byte" Nullable="false" />
+          <Property Name="進貨成本" Type="Decimal" Precision="15" Scale="2" />
+          <NavigationProperty Name="廠商列表" Relationship="普雷二電玩Model.FK_進貨單列表_廠商列表" FromRole="進貨單列表" ToRole="廠商列表" />
+          <NavigationProperty Name="進貨單明細" Relationship="普雷二電玩Model.FK_進貨單明細_進貨單列表" FromRole="進貨單列表" ToRole="進貨單明細" />
+          <NavigationProperty Name="庫存地點列表" Relationship="普雷二電玩Model.FK_進貨單列表_庫存地點列表" FromRole="進貨單列表" ToRole="庫存地點列表" />
+        </EntityType>
+        <Association Name="FK_進貨單列表_廠商列表">
+          <End Type="普雷二電玩Model.廠商列表" Role="廠商列表" Multiplicity="1" />
+          <End Type="普雷二電玩Model.進貨單列表" Role="進貨單列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="廠商列表">
+              <PropertyRef Name="廠商ID" />
+            </Principal>
+            <Dependent Role="進貨單列表">
+              <PropertyRef Name="廠商ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>        
+        <ComplexType Name="fn_商品列表_Result">
+          <Property Type="Byte" Name="廠商ID" Nullable="false" />
+          <Property Type="String" Name="廠商名稱" Nullable="false" MaxLength="20" />
+          <Property Type="Byte" Name="商品類型ID" Nullable="false" />
+          <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+          <Property Type="Int16" Name="商品ID" Nullable="false" />
+          <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="進貨價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="零售價" Nullable="false" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="fn_庫存列表_Result">
+          <Property Type="Int32" Name="庫存地點ID" Nullable="false" />
+          <Property Type="String" Name="庫存地點" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="廠商ID" Nullable="false" />
+          <Property Type="String" Name="廠商名稱" Nullable="false" MaxLength="100" />
+          <Property Type="Byte" Name="商品類型ID" Nullable="false" />
+          <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+          <Property Type="Int16" Name="商品ID" Nullable="false" />
+          <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="商品數量" Nullable="false" />
+          <Property Type="Decimal" Name="進貨價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="零售價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="String" Name="統一編號" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="地址" Nullable="true" MaxLength="100" />
+        </ComplexType>        
+        <EntityType Name="進貨單明細">
+          <Key>
+            <PropertyRef Name="進貨單編號" />
+            <PropertyRef Name="商品類型ID" />
+            <PropertyRef Name="商品ID" />
+          </Key>
+          <Property Name="進貨單編號" Type="Int32" Nullable="false" />
+          <Property Name="商品類型ID" Type="Byte" Nullable="false" />
+          <Property Name="商品ID" Type="Int16" Nullable="false" />
+          <Property Name="商品數量" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="進貨單列表" Relationship="普雷二電玩Model.FK_進貨單明細_進貨單列表" FromRole="進貨單明細" ToRole="進貨單列表" />
+          <Property Name="進貨成本" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="備註" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_進貨單明細_進貨單列表">
+          <End Type="普雷二電玩Model.進貨單列表" Role="進貨單列表" Multiplicity="1" />
+          <End Type="普雷二電玩Model.進貨單明細" Role="進貨單明細" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="進貨單列表">
+              <PropertyRef Name="進貨單編號" />
+            </Principal>
+            <Dependent Role="進貨單明細">
+              <PropertyRef Name="進貨單編號" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="fn_進貨單列表_Result">
+          <Property Type="Int32" Name="進貨單編號" Nullable="false" />
+          <Property Type="Byte" Name="廠商ID" Nullable="false" />
+          <Property Type="String" Name="廠商名稱" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="庫存地點ID" Nullable="false" />
+          <Property Type="String" Name="庫存地點" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="進貨日期" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="明細筆數" Nullable="false" />
+          <Property Type="Decimal" Name="進貨成本" Nullable="true" Precision="15" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="fn_進貨單明細_Result">
+          <Property Type="Int32" Name="進貨單編號" Nullable="false" />
+          <Property Type="Byte" Name="商品類型ID" Nullable="false" />
+          <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+          <Property Type="Int16" Name="商品ID" Nullable="false" />
+          <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="商品數量" Nullable="false" />
+          <Property Type="Decimal" Name="進貨價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="進貨成本" Nullable="true" Precision="15" Scale="2" />
+          <Property Type="String" Name="備註" Nullable="true" MaxLength="300" />
+        </ComplexType>
+        <EntityType Name="庫存地點列表">
+          <Key>
+            <PropertyRef Name="庫存地點ID" />
+          </Key>
+          <Property Name="庫存地點ID" Type="Int32" Nullable="false" />
+          <Property Name="庫存地點" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="進貨單列表" Relationship="普雷二電玩Model.FK_進貨單列表_庫存地點列表" FromRole="庫存地點列表" ToRole="進貨單列表" />
+          <Property Name="地址" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="商品在庫數量" Relationship="普雷二電玩Model.FK_商品在庫數量_庫存地點列表" FromRole="庫存地點列表" ToRole="商品在庫數量" />
+        </EntityType>
+        <Association Name="FK_進貨單列表_庫存地點列表">
+          <End Type="普雷二電玩Model.庫存地點列表" Role="庫存地點列表" Multiplicity="1" />
+          <End Type="普雷二電玩Model.進貨單列表" Role="進貨單列表" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="庫存地點列表">
+              <PropertyRef Name="庫存地點ID" />
+            </Principal>
+            <Dependent Role="進貨單列表">
+              <PropertyRef Name="庫存地點ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="fn_庫存列表1_Result">
+          <Property Type="Int32" Name="庫存地點ID" Nullable="false" />
+          <Property Type="String" Name="庫存地點" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="廠商ID" Nullable="false" />
+          <Property Type="String" Name="廠商名稱" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="統一編號" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="商品類型ID" Nullable="false" />
+          <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+          <Property Type="Int16" Name="商品ID" Nullable="false" />
+          <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="商品數量" Nullable="false" />
+          <Property Type="Decimal" Name="進貨價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="零售價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="String" Name="地址" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="fn_總商品庫存表_Result">
+          <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="總庫存量" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="商品在庫數量">
+          <Key>
+            <PropertyRef Name="庫存地點ID" />
+            <PropertyRef Name="廠商ID" />
+            <PropertyRef Name="商品類型ID" />
+            <PropertyRef Name="商品ID" />
+          </Key>
+          <Property Name="庫存地點ID" Type="Int32" Nullable="false" />
+          <Property Name="廠商ID" Type="Byte" Nullable="false" />
+          <Property Name="商品類型ID" Type="Byte" Nullable="false" />
+          <Property Name="商品ID" Type="Int16" Nullable="false" />
+          <Property Name="商品數量" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="庫存地點列表" Relationship="普雷二電玩Model.FK_商品在庫數量_庫存地點列表" FromRole="商品在庫數量" ToRole="庫存地點列表" />
+        </EntityType>
+        <Association Name="FK_商品在庫數量_庫存地點列表">
+          <End Type="普雷二電玩Model.庫存地點列表" Role="庫存地點列表" Multiplicity="1" />
+          <End Type="普雷二電玩Model.商品在庫數量" Role="商品在庫數量" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="庫存地點列表">
+              <PropertyRef Name="庫存地點ID" />
+            </Principal>
+            <Dependent Role="商品在庫數量">
+              <PropertyRef Name="庫存地點ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>                  
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="普雷二電玩ModelStoreContainer" CdmEntityContainer="普雷二電玩Entities">
+          <EntitySetMapping Name="商品列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.商品列表">
+              <MappingFragment StoreEntitySet="商品列表">
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+                <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+                <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+                <ScalarProperty Name="零售價" ColumnName="零售價" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="商品類型列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.商品類型列表">
+              <MappingFragment StoreEntitySet="商品類型列表">
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="廠商列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.廠商列表">
+              <MappingFragment StoreEntitySet="廠商列表">
+                <ScalarProperty Name="顯示與否" ColumnName="顯示與否" />
+                <ScalarProperty Name="聯絡電話" ColumnName="聯絡電話" />
+                <ScalarProperty Name="資本總額" ColumnName="資本總額" />
+                <ScalarProperty Name="代表人姓名" ColumnName="代表人姓名" />
+                <ScalarProperty Name="統一編號" ColumnName="統一編號" />
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="使用者列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.使用者列表">
+              <MappingFragment StoreEntitySet="使用者列表">
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="LoginPW" ColumnName="LoginPW" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Insert廠商列表" FunctionName="普雷二電玩Model.Store.Insert廠商列表" />
+          <FunctionImportMapping FunctionImportName="Delete廠商列表" FunctionName="普雷二電玩Model.Store.Delete廠商列表" />
+          <FunctionImportMapping FunctionImportName="Update廠商列表" FunctionName="普雷二電玩Model.Store.Update廠商列表" />
+          <FunctionImportMapping FunctionImportName="Delete商品類型列表" FunctionName="普雷二電玩Model.Store.Delete商品類型列表" />
+          <FunctionImportMapping FunctionImportName="Insert商品類型列表" FunctionName="普雷二電玩Model.Store.Insert商品類型列表" />
+          <FunctionImportMapping FunctionImportName="Update商品類型列表" FunctionName="普雷二電玩Model.Store.Update商品類型列表" />
+          <FunctionImportMapping FunctionImportName="使用者LoginByEntity" FunctionName="普雷二電玩Model.Store.使用者LoginByEntity" />
+          <FunctionImportMapping FunctionImportName="Delete商品列表" FunctionName="普雷二電玩Model.Store.Delete商品列表" />
+          <FunctionImportMapping FunctionImportName="Insert商品列表" FunctionName="普雷二電玩Model.Store.Insert商品列表" />
+          <FunctionImportMapping FunctionImportName="Update商品列表" FunctionName="普雷二電玩Model.Store.Update商品列表" />
+          <EntitySetMapping Name="進貨單列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.進貨單列表">
+              <MappingFragment StoreEntitySet="進貨單列表">
+                <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+                <ScalarProperty Name="明細筆數" ColumnName="明細筆數" />
+                <ScalarProperty Name="進貨日期" ColumnName="進貨日期" />
+                <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_商品列表" FunctionName="普雷二電玩Model.Store.fn_商品列表">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="普雷二電玩Model.fn_商品列表_Result">
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+                <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+                <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+                <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+                <ScalarProperty Name="零售價" ColumnName="零售價" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="進貨單明細">
+            <EntityTypeMapping TypeName="普雷二電玩Model.進貨單明細">
+              <MappingFragment StoreEntitySet="進貨單明細">
+                <ScalarProperty Name="備註" ColumnName="備註" />
+                <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+                <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+                <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_進貨單列表" FunctionName="普雷二電玩Model.Store.fn_進貨單列表">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="普雷二電玩Model.fn_進貨單列表_Result">
+                <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+                <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+                <ScalarProperty Name="庫存地點" ColumnName="庫存地點" />
+                <ScalarProperty Name="進貨日期" ColumnName="進貨日期" />
+                <ScalarProperty Name="明細筆數" ColumnName="明細筆數" />
+                <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="fn_進貨單明細" FunctionName="普雷二電玩Model.Store.fn_進貨單明細">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="普雷二電玩Model.fn_進貨單明細_Result">
+                <ScalarProperty Name="進貨單編號" ColumnName="進貨單編號" />
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+                <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+                <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+                <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+                <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+                <ScalarProperty Name="進貨成本" ColumnName="進貨成本" />
+                <ScalarProperty Name="備註" ColumnName="備註" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="庫存地點列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.庫存地點列表">
+              <MappingFragment StoreEntitySet="庫存地點列表">
+                <ScalarProperty Name="地址" ColumnName="地址" />
+                <ScalarProperty Name="庫存地點" ColumnName="庫存地點" />
+                <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fn_總商品庫存表" FunctionName="普雷二電玩Model.Store.fn_總商品庫存表">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="普雷二電玩Model.fn_總商品庫存表_Result">
+                <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+                <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+                <ScalarProperty Name="總庫存量" ColumnName="總庫存量" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="fn_庫存列表" FunctionName="普雷二電玩Model.Store.fn_庫存列表">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="普雷二電玩Model.fn_庫存列表_Result">
+                <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+                <ScalarProperty Name="庫存地點" ColumnName="庫存地點" />
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="廠商名稱" ColumnName="廠商名稱" />
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="商品類型名稱" ColumnName="商品類型名稱" />
+                <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+                <ScalarProperty Name="商品名稱" ColumnName="商品名稱" />
+                <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+                <ScalarProperty Name="進貨價" ColumnName="進貨價" />
+                <ScalarProperty Name="零售價" ColumnName="零售價" />
+                <ScalarProperty Name="統一編號" ColumnName="統一編號" />
+                <ScalarProperty Name="地址" ColumnName="地址" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="商品在庫數量">
+            <EntityTypeMapping TypeName="普雷二電玩Model.商品在庫數量">
+              <MappingFragment StoreEntitySet="商品在庫數量">
+                <ScalarProperty Name="商品數量" ColumnName="商品數量" />
+                <ScalarProperty Name="商品ID" ColumnName="商品ID" />
+                <ScalarProperty Name="商品類型ID" ColumnName="商品類型ID" />
+                <ScalarProperty Name="廠商ID" ColumnName="廠商ID" />
+                <ScalarProperty Name="庫存地點ID" ColumnName="庫存地點ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
