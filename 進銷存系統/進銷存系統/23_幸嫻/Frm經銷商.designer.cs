@@ -45,6 +45,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txt經銷商ID = new System.Windows.Forms.TextBox();
+            this.btn清除 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -96,7 +97,7 @@
             this.button3.BackColor = System.Drawing.Color.CadetBlue;
             this.button3.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button3.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.button3.Location = new System.Drawing.Point(409, 386);
+            this.button3.Location = new System.Drawing.Point(334, 386);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 39);
@@ -110,7 +111,7 @@
             this.button2.BackColor = System.Drawing.Color.CadetBlue;
             this.button2.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button2.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.button2.Location = new System.Drawing.Point(266, 386);
+            this.button2.Location = new System.Drawing.Point(191, 386);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 39);
@@ -124,7 +125,7 @@
             this.button1.BackColor = System.Drawing.Color.CadetBlue;
             this.button1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.button1.ForeColor = System.Drawing.SystemColors.HighlightText;
-            this.button1.Location = new System.Drawing.Point(123, 386);
+            this.button1.Location = new System.Drawing.Point(48, 386);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 39);
@@ -269,11 +270,27 @@
             this.txt經銷商ID.Size = new System.Drawing.Size(759, 29);
             this.txt經銷商ID.TabIndex = 101;
             // 
+            // btn清除
+            // 
+            this.btn清除.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn清除.BackColor = System.Drawing.Color.RosyBrown;
+            this.btn清除.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn清除.ForeColor = System.Drawing.SystemColors.HighlightText;
+            this.btn清除.Location = new System.Drawing.Point(538, 386);
+            this.btn清除.Margin = new System.Windows.Forms.Padding(4);
+            this.btn清除.Name = "btn清除";
+            this.btn清除.Size = new System.Drawing.Size(100, 39);
+            this.btn清除.TabIndex = 104;
+            this.btn清除.Text = "清除";
+            this.btn清除.UseVisualStyleBackColor = false;
+            this.btn清除.Click += new System.EventHandler(this.btn清除_Click);
+            // 
             // Frm經銷商
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(940, 648);
+            this.Controls.Add(this.btn清除);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txt經銷商ID);
             this.Controls.Add(this.button5);
@@ -319,5 +336,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt經銷商ID;
+        private System.Windows.Forms.Button btn清除;
     }
 }

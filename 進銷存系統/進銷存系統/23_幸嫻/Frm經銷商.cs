@@ -42,6 +42,19 @@ namespace 進銷存系統
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (txt經銷商ID.Text != "")
+            {
+                MessageBox.Show("請先清空資料");
+                return;
+            }
+
+            if (txtName.Text == "" || txtContect.Text == "" || txtNum.Text == "" || txtPhone.Text == "")
+            {
+                MessageBox.Show("請輸入完整資料");
+                return;
+            }
+
+
             string Sql = @"INSERT INTO [dbo].[經銷商列表]
                                     ([經銷商名稱],[統一編號],[聯絡人],[聯絡電話])
                                     VALUES(@名稱 , @統編,@聯絡人 ,@電話)";
@@ -74,9 +87,16 @@ namespace 進銷存系統
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (txtName.Text == "" || txtContect.Text == "" || txtNum.Text == "" || txtPhone.Text == "")
+            {
+                MessageBox.Show("請輸入完整資料");
+                return;
+
+            }
+
             string Sql = "UPDATE [dbo].[經銷商列表]  " +
                                     "SET [經銷商名稱] = @名稱, [統一編號]= @統一編號, [聯絡人]= @聯絡人 ,[聯絡電話]= @電話 " +
-                                    "WHERE [統一編號]= @統一編號";
+                                    "WHERE [經銷商ID]= " + Convert.ToInt32(txt經銷商ID.Text);
 
             List<SqlParameter> paras = new List<SqlParameter>();
             paras.Add(new SqlParameter("@名稱", txtName.Text));
@@ -194,6 +214,15 @@ namespace 進銷存系統
 
                 displaypatientinfobysql(Sql, paras, true);
                 }
+        }
+
+        private void btn清除_Click(object sender, EventArgs e)
+        {
+            txt經銷商ID.Text = "";
+            txtName.Text = "";
+            txtNum.Text = "";
+            txtContect.Text = "";
+            txtPhone.Text = "";
         }
     }
 }
