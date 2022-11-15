@@ -201,7 +201,7 @@
             this.lab警語.AutoSize = true;
             this.lab警語.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lab警語.ForeColor = System.Drawing.Color.Red;
-            this.lab警語.Location = new System.Drawing.Point(480, 890);
+            this.lab警語.Location = new System.Drawing.Point(498, 911);
             this.lab警語.Name = "lab警語";
             this.lab警語.Size = new System.Drawing.Size(294, 24);
             this.lab警語.TabIndex = 146;
@@ -221,7 +221,7 @@
             // 
             this.btn送出訂單.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn送出訂單.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn送出訂單.Location = new System.Drawing.Point(656, 857);
+            this.btn送出訂單.Location = new System.Drawing.Point(674, 878);
             this.btn送出訂單.Name = "btn送出訂單";
             this.btn送出訂單.Size = new System.Drawing.Size(106, 30);
             this.btn送出訂單.TabIndex = 144;
