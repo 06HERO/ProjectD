@@ -36,6 +36,34 @@ namespace 庫存查詢DEMO
         {        
             Options();           
         }
+
+        #region//按鈕事件
+        private void btn倉庫列表_Click(object sender, EventArgs e)
+        {
+
+            Form列表 f = new Form列表();
+            f._placeormanf = "place";
+            f.ShowDialog();
+            if (f._isOKclick == true && f._data1 != null && f._data2 != null)
+            {
+                cbo地點.SelectedValue = f._data1;
+                cbo地點.SelectedText = f._data2;
+                cbo地點.Text = f._data2;
+            }
+        }
+        private void btn進貨商列表_Click(object sender, EventArgs e)
+        {
+
+            Form列表 f = new Form列表();
+            f._placeormanf = "manf";
+            f.ShowDialog();
+            if (f._isOKclick == true && f._data1 != null && f._data2 != null)
+            {
+                cbo廠商.SelectedValue = f._data1;
+                cbo廠商.SelectedText = f._data2;
+                cbo廠商.Text = f._data2;
+            }
+        }
         private void btn輸入_Click(object sender, EventArgs e)
         {       
             Showdata();
@@ -71,6 +99,8 @@ namespace 庫存查詢DEMO
             Setsize();
             Setcolor();
         }
+        #endregion
+
 
         #region//方法
 
@@ -287,33 +317,5 @@ namespace 庫存查詢DEMO
         #endregion
 
 
-        private void btn倉庫列表_Click(object sender, EventArgs e)
-        {
-           
-            Form列表 f = new Form列表();
-            f._placeormanf = "place";
-            f.ShowDialog();
-            if (f._isOKclick == true && f._data1!=null && f._data2!=null)
-            {
-                cbo地點.SelectedValue = f._data1;
-                cbo地點.SelectedText = f._data2;
-                cbo地點.Text = f._data2;
-            }
-            
-        }
-
-        private void btn進貨商列表_Click(object sender, EventArgs e)
-        {
-            
-            Form列表 f = new Form列表();
-            f._placeormanf = "manf";
-            f.ShowDialog();
-            if (f._isOKclick == true && f._data1 != null && f._data2 != null)
-            {
-                cbo廠商.SelectedValue = f._data1;
-                cbo廠商.SelectedText = f._data2;
-                cbo廠商.Text = f._data2;
-            }            
-        }
     }
 }

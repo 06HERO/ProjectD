@@ -101,7 +101,7 @@ namespace 庫存查詢DEMO
                 {
                     dt = dataGridView1.DataSource as DataTable;
                     DataTable dtNew = dt.Clone();
-                    DataRow[] rows = dt.Select($"統一編號 = '{_keyword1}'");
+                    DataRow[] rows = dt.Select($"統一編號  LIKE  '{_keyword1}%'");
                     foreach (DataRow row in rows)
                         dtNew.ImportRow(row);
                     dataGridView1.DataSource = dtNew;
