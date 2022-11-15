@@ -270,7 +270,25 @@ namespace 進銷存系統
         }
         private void Frm查詢訂單_ResizeEnd(object sender, EventArgs e)
         {
-            redgvstyle();
+            redata();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Escape))
+            {
+                this.Close();
+            }
+            if (keyData == (Keys.Enter))
+            {
+                redata();
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void Frm查詢訂單_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

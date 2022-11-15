@@ -146,7 +146,6 @@ namespace 進銷存系統
         }
         private void redata()
         {
-            //string sql = "select o.廠商ID,o.商品類型ID,o.商品ID,商品名稱,商品單價,商品數量  from 出貨單明細　o\r\njoin [dbo].[商品列表] ol\r\non o.廠商ID=ol.廠商ID and o.商品類型ID=ol.商品類型ID and o.商品ID=ol.商品ID where 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text);
             string sql = "select o.廠商ID,o.商品類型ID,o.商品ID,ol.商品名稱,o.商品單價,o.商品數量 from 出貨單明細　o join [dbo].[商品列表] ol on o.廠商ID=ol.廠商ID and o.商品類型ID=ol.商品類型ID and o.商品ID=ol.商品ID where 出貨單編號=" + Convert.ToInt32(txt訂單編號.Text)+" order by o.廠商ID,o.商品類型ID,o.商品ID";
 
             SqlConnection con = new SqlConnection();

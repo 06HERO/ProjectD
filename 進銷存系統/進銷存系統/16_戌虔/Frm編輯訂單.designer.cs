@@ -361,7 +361,7 @@
             this.txt備註.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.txt備註.Location = new System.Drawing.Point(130, 290);
             this.txt備註.Name = "txt備註";
-            this.txt備註.Size = new System.Drawing.Size(284, 33);
+            this.txt備註.Size = new System.Drawing.Size(242, 33);
             this.txt備註.TabIndex = 125;
             // 
             // label8
@@ -401,7 +401,7 @@
             this.txt聯絡人.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.txt聯絡人.Location = new System.Drawing.Point(130, 167);
             this.txt聯絡人.Name = "txt聯絡人";
-            this.txt聯絡人.Size = new System.Drawing.Size(284, 33);
+            this.txt聯絡人.Size = new System.Drawing.Size(242, 33);
             this.txt聯絡人.TabIndex = 120;
             // 
             // label5
@@ -441,7 +441,7 @@
             this.txt聯絡電話.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.txt聯絡電話.Location = new System.Drawing.Point(130, 208);
             this.txt聯絡電話.Name = "txt聯絡電話";
-            this.txt聯絡電話.Size = new System.Drawing.Size(284, 33);
+            this.txt聯絡電話.Size = new System.Drawing.Size(242, 33);
             this.txt聯絡電話.TabIndex = 121;
             // 
             // label3
@@ -493,7 +493,7 @@
             this.txt訂單編號.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.txt訂單編號.Location = new System.Drawing.Point(130, 126);
             this.txt訂單編號.Name = "txt訂單編號";
-            this.txt訂單編號.Size = new System.Drawing.Size(284, 33);
+            this.txt訂單編號.Size = new System.Drawing.Size(242, 33);
             this.txt訂單編號.TabIndex = 119;
             // 
             // dgv訂單明細
