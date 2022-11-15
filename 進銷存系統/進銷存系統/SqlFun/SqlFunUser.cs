@@ -59,7 +59,7 @@ namespace 進銷存系統.SqlFun
 
             ObjectParameter objIsAdmin = new ObjectParameter("IsAdmin", typeof(byte));
             SQLData.db.使用者LoginByEntity(LoginID, LoginPW, objIsAdmin);
-            int IsAdmin = (byte)objIsAdmin.Value;
+            short IsAdmin = (short)objIsAdmin.Value;
             if (IsAdmin >= 0)
             {
                 bIsLogin = true;

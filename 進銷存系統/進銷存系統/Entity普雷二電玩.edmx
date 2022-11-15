@@ -315,7 +315,7 @@
         <Function Name="使用者LoginByEntity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
           <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
-          <Parameter Name="IsAdmin" Type="tinyint" Mode="InOut" />
+          <Parameter Name="IsAdmin" Type="smallint" Mode="InOut" />
         </Function>
         <EntityContainer Name="普雷二電玩ModelStoreContainer">
           <EntitySet Name="使用者列表" EntityType="Self.使用者列表" Schema="dbo" store:Type="Tables" />
@@ -464,7 +464,7 @@
           <FunctionImport Name="使用者LoginByEntity">
             <Parameter Name="LoginID" Mode="In" Type="String" />
             <Parameter Name="LoginPW" Mode="In" Type="String" />
-            <Parameter Name="IsAdmin" Mode="InOut" Type="Byte" />
+            <Parameter Name="IsAdmin" Mode="InOut" Type="Int16" />
           </FunctionImport>
           <FunctionImport Name="Delete商品列表">
             <Parameter Name="廠商ID" Mode="In" Type="Byte" />
@@ -513,7 +513,7 @@
             <End Role="商品在庫數量" EntitySet="商品在庫數量" />
           </AssociationSet>
           <FunctionImport Name="Delete進貨單列表">
-            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+          <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Insert進貨單列表">
             <Parameter Name="進貨單編號" Mode="In" Type="Int32" />

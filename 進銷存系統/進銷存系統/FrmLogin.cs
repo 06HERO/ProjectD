@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using 進銷存系統.BaseData;
 using 進銷存系統.SqlFun;
 
 namespace 進銷存系統
@@ -27,18 +28,45 @@ namespace 進銷存系統
         public FrmLogin()
         {
             InitializeComponent();
+
+            _sqlFunUser = new SqlFunUser();
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            _sqlFunUser = new SqlFunUser();
+            
+        }
 
-            txtID.Text = "HERO";
-            txtPW.Text = "hero1208";
+        private void btnDemo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                使用者列表 user = SQLData.db.使用者列表.Where(w => w.IsAdmin ==1).FirstOrDefault();
+                txtID.Text = user.LoginID;
+                txtPW.Text = user.LoginPW;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtID.Text))
+            {
+                MessageBox.Show("請輸入帳號");
+                txtID.Focus();
+                return;
+            }
+
+            //if (string.IsNullOrWhiteSpace(txtPW.Text))
+            //{
+            //    MessageBox.Show("請輸入密碼");
+            //    txtID.Focus();
+            //    return;
+            //}
+
             bool IsAuthenticated = false;
             IsAuthenticated = _sqlFunUser.Login(txtID.Text.Trim(), txtPW.Text.Trim());
             if (true == IsAuthenticated)
@@ -90,6 +118,6 @@ namespace 進銷存系統
                 _IsLockClose = false;
                 Application.Exit();
             }
-        }
+        }        
     }
 }

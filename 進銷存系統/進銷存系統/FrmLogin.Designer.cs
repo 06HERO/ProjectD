@@ -37,57 +37,53 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.timErr = new System.Windows.Forms.Timer(this.components);
+            this.btnDemo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtPW
             // 
             this.txtPW.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtPW.Location = new System.Drawing.Point(32, 192);
-            this.txtPW.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPW.Location = new System.Drawing.Point(24, 154);
             this.txtPW.MaxLength = 20;
             this.txtPW.Name = "txtPW";
-            this.txtPW.Size = new System.Drawing.Size(241, 39);
+            this.txtPW.Size = new System.Drawing.Size(182, 33);
             this.txtPW.TabIndex = 13;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(26, 143);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(20, 114);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 30);
+            this.label1.Size = new System.Drawing.Size(48, 24);
             this.label1.TabIndex = 14;
             this.label1.Text = "密碼";
             // 
             // txtID
             // 
             this.txtID.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtID.Location = new System.Drawing.Point(32, 71);
-            this.txtID.Margin = new System.Windows.Forms.Padding(4);
+            this.txtID.Location = new System.Drawing.Point(24, 57);
             this.txtID.MaxLength = 20;
             this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(232, 39);
+            this.txtID.Size = new System.Drawing.Size(175, 33);
             this.txtID.TabIndex = 11;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(26, 22);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(20, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 30);
+            this.label2.Size = new System.Drawing.Size(67, 24);
             this.label2.TabIndex = 12;
             this.label2.Text = "登入ID";
             // 
             // label6
             // 
             this.label6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label6.Location = new System.Drawing.Point(10, 257);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(8, 206);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(404, 2);
+            this.label6.Size = new System.Drawing.Size(303, 2);
             this.label6.TabIndex = 21;
             this.label6.Text = "label6";
             // 
@@ -95,10 +91,9 @@
             // 
             this.btnLogin.AutoSize = true;
             this.btnLogin.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnLogin.Location = new System.Drawing.Point(289, 318);
-            this.btnLogin.Margin = new System.Windows.Forms.Padding(4);
+            this.btnLogin.Location = new System.Drawing.Point(217, 254);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(125, 42);
+            this.btnLogin.Size = new System.Drawing.Size(94, 34);
             this.btnLogin.TabIndex = 23;
             this.btnLogin.Text = "登入";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -108,10 +103,9 @@
             // 
             this.btnCancel.AutoSize = true;
             this.btnCancel.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnCancel.Location = new System.Drawing.Point(137, 318);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(103, 254);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(125, 42);
+            this.btnCancel.Size = new System.Drawing.Size(94, 34);
             this.btnCancel.TabIndex = 22;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -121,11 +115,24 @@
             // 
             this.timErr.Tick += new System.EventHandler(this.timErr_Tick);
             // 
+            // btnDemo
+            // 
+            this.btnDemo.AutoSize = true;
+            this.btnDemo.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnDemo.Location = new System.Drawing.Point(-1, 282);
+            this.btnDemo.Name = "btnDemo";
+            this.btnDemo.Size = new System.Drawing.Size(94, 34);
+            this.btnDemo.TabIndex = 24;
+            this.btnDemo.Text = "Demo";
+            this.btnDemo.UseVisualStyleBackColor = true;
+            this.btnDemo.Click += new System.EventHandler(this.btnDemo_Click);
+            // 
             // FrmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(427, 394);
+            this.ClientSize = new System.Drawing.Size(320, 315);
+            this.Controls.Add(this.btnDemo);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label6);
@@ -134,6 +141,7 @@
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "系統登入";
@@ -154,5 +162,6 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Timer timErr;
+        private System.Windows.Forms.Button btnDemo;
     }
 }

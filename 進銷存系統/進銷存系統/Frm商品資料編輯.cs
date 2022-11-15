@@ -145,9 +145,12 @@ namespace 進銷存系統
             _廠商ID = Convert.ToByte(cmb廠商.SelectedValue);
             _商品類別ID = Convert.ToByte(cmb商品類別.SelectedValue);
 
-            short 商品IDMax = SQLData.db.商品列表.Where(w => w.廠商ID == _廠商ID && w.商品類型ID == _商品類別ID).
-                                                  Select(s => s.商品ID).Max();
-
+            short 商品IDMax = 0;
+            if( SQLData.db.商品列表.Where(w => w.廠商ID == _廠商ID && w.商品類型ID == _商品類別ID).Count() > 0 )
+            {
+                商品IDMax = SQLData.db.商品列表.Where(w => w.廠商ID == _廠商ID && w.商品類型ID == _商品類別ID).
+                                                      Select(s => s.商品ID).Max();
+            }
             txt商品ID.Text = (商品IDMax+1).ToString();
         }
 

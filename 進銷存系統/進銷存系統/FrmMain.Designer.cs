@@ -32,20 +32,22 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tSB登入人員 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSB真_廠商資料查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.tSB廠商資料查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.tSB商品類別查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.tSB商品資料查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.tSB進貨單查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.tSB庫存查詢 = new System.Windows.Forms.ToolStripButton();
-            this.tSBExit = new System.Windows.Forms.ToolStripButton();
-            this.tSB真_廠商資料查詢編輯 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tSB客戶維護系統 = new System.Windows.Forms.ToolStripButton();
-            this.tSB經銷商查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.tSB訂單查詢 = new System.Windows.Forms.ToolStripButton();
             this.tSB出貨單維護 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSB客戶維護系統 = new System.Windows.Forms.ToolStripButton();
+            this.tSB經銷商查詢編輯 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.tSBExit = new System.Windows.Forms.ToolStripButton();
+            this.tSb關閉所有視窗 = new System.Windows.Forms.ToolStripButton();
+            this.tSB登出 = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +72,8 @@
             this.tSB客戶維護系統,
             this.tSB經銷商查詢編輯,
             this.toolStripSeparator5,
+            this.tSb關閉所有視窗,
+            this.tSB登出,
             this.tSBExit});
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -89,6 +93,16 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(140, 6);
+            // 
+            // tSB真_廠商資料查詢編輯
+            // 
+            this.tSB真_廠商資料查詢編輯.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSB真_廠商資料查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB真_廠商資料查詢編輯.Image")));
+            this.tSB真_廠商資料查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSB真_廠商資料查詢編輯.Name = "tSB真_廠商資料查詢編輯";
+            this.tSB真_廠商資料查詢編輯.Size = new System.Drawing.Size(140, 22);
+            this.tSB真_廠商資料查詢編輯.Text = "真!廠商資料查詢編輯";
+            this.tSB真_廠商資料查詢編輯.Click += new System.EventHandler(this.tSB真_廠商資料查詢編輯_Click);
             // 
             // tSB廠商資料查詢編輯
             // 
@@ -145,35 +159,30 @@
             this.tSB庫存查詢.Text = "庫存查詢";
             this.tSB庫存查詢.Click += new System.EventHandler(this.tSB庫存查詢_Click);
             // 
-            // tSBExit
+            // tSB訂單查詢
             // 
-            this.tSBExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tSBExit.Image = ((System.Drawing.Image)(resources.GetObject("tSBExit.Image")));
-            this.tSBExit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSBExit.Name = "tSBExit";
-            this.tSBExit.Size = new System.Drawing.Size(140, 22);
-            this.tSBExit.Text = "結束程式";
-            this.tSBExit.Click += new System.EventHandler(this.tSBExit_Click);
+            this.tSB訂單查詢.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSB訂單查詢.Image = ((System.Drawing.Image)(resources.GetObject("tSB訂單查詢.Image")));
+            this.tSB訂單查詢.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSB訂單查詢.Name = "tSB訂單查詢";
+            this.tSB訂單查詢.Size = new System.Drawing.Size(140, 22);
+            this.tSB訂單查詢.Text = "訂單查詢";
+            this.tSB訂單查詢.Click += new System.EventHandler(this.tSB訂單查詢_Click);
             // 
-            // tSB真_廠商資料查詢編輯
+            // tSB出貨單維護
             // 
-            this.tSB真_廠商資料查詢編輯.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tSB真_廠商資料查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB真_廠商資料查詢編輯.Image")));
-            this.tSB真_廠商資料查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSB真_廠商資料查詢編輯.Name = "tSB真_廠商資料查詢編輯";
-            this.tSB真_廠商資料查詢編輯.Size = new System.Drawing.Size(140, 22);
-            this.tSB真_廠商資料查詢編輯.Text = "真!廠商資料查詢編輯";
-            this.tSB真_廠商資料查詢編輯.Click += new System.EventHandler(this.tSB真_廠商資料查詢編輯_Click);
+            this.tSB出貨單維護.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSB出貨單維護.Image = ((System.Drawing.Image)(resources.GetObject("tSB出貨單維護.Image")));
+            this.tSB出貨單維護.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSB出貨單維護.Name = "tSB出貨單維護";
+            this.tSB出貨單維護.Size = new System.Drawing.Size(140, 22);
+            this.tSB出貨單維護.Text = "出貨單維護";
+            this.tSB出貨單維護.Click += new System.EventHandler(this.tSB出貨單維護_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(140, 6);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(140, 6);
             // 
             // tSB客戶維護系統
             // 
@@ -195,25 +204,40 @@
             this.tSB經銷商查詢編輯.Text = "經銷商查詢編輯";
             this.tSB經銷商查詢編輯.Click += new System.EventHandler(this.tSB經銷商查詢編輯_Click);
             // 
-            // tSB訂單查詢
+            // toolStripSeparator5
             // 
-            this.tSB訂單查詢.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tSB訂單查詢.Image = ((System.Drawing.Image)(resources.GetObject("tSB訂單查詢.Image")));
-            this.tSB訂單查詢.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSB訂單查詢.Name = "tSB訂單查詢";
-            this.tSB訂單查詢.Size = new System.Drawing.Size(140, 22);
-            this.tSB訂單查詢.Text = "訂單查詢";
-            this.tSB訂單查詢.Click += new System.EventHandler(this.tSB訂單查詢_Click);
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(140, 6);
             // 
-            // tSB出貨單維護
+            // tSBExit
             // 
-            this.tSB出貨單維護.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tSB出貨單維護.Image = ((System.Drawing.Image)(resources.GetObject("tSB出貨單維護.Image")));
-            this.tSB出貨單維護.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tSB出貨單維護.Name = "tSB出貨單維護";
-            this.tSB出貨單維護.Size = new System.Drawing.Size(140, 22);
-            this.tSB出貨單維護.Text = "出貨單維護";
-            this.tSB出貨單維護.Click += new System.EventHandler(this.tSB出貨單維護_Click);
+            this.tSBExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSBExit.Image = ((System.Drawing.Image)(resources.GetObject("tSBExit.Image")));
+            this.tSBExit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSBExit.Name = "tSBExit";
+            this.tSBExit.Size = new System.Drawing.Size(140, 22);
+            this.tSBExit.Text = "結束程式";
+            this.tSBExit.Click += new System.EventHandler(this.tSBExit_Click);
+            // 
+            // tSb關閉所有視窗
+            // 
+            this.tSb關閉所有視窗.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSb關閉所有視窗.Image = ((System.Drawing.Image)(resources.GetObject("tSb關閉所有視窗.Image")));
+            this.tSb關閉所有視窗.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSb關閉所有視窗.Name = "tSb關閉所有視窗";
+            this.tSb關閉所有視窗.Size = new System.Drawing.Size(140, 22);
+            this.tSb關閉所有視窗.Text = "關閉所有視窗";
+            this.tSb關閉所有視窗.Click += new System.EventHandler(this.tSb關閉所有視窗_Click);
+            // 
+            // tSB登出
+            // 
+            this.tSB登出.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSB登出.Image = ((System.Drawing.Image)(resources.GetObject("tSB登出.Image")));
+            this.tSB登出.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSB登出.Name = "tSB登出";
+            this.tSB登出.Size = new System.Drawing.Size(140, 22);
+            this.tSB登出.Text = "登出";
+            this.tSB登出.Click += new System.EventHandler(this.tSB登出_Click);
             // 
             // FrmMain
             // 
@@ -252,6 +276,8 @@
         private System.Windows.Forms.ToolStripButton tSB經銷商查詢編輯;
         private System.Windows.Forms.ToolStripButton tSB訂單查詢;
         private System.Windows.Forms.ToolStripButton tSB出貨單維護;
+        private System.Windows.Forms.ToolStripButton tSb關閉所有視窗;
+        private System.Windows.Forms.ToolStripButton tSB登出;
     }
 }
 
