@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Frm編輯訂單));
             this.btn更新 = new System.Windows.Forms.Button();
             this.btn結案 = new System.Windows.Forms.Button();
             this.lab訂單狀態 = new System.Windows.Forms.Label();
@@ -81,6 +82,9 @@
             this.btn關閉 = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
             this.txt庫存 = new System.Windows.Forms.TextBox();
+            this.btn列印 = new System.Windows.Forms.Button();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv訂單明細)).BeginInit();
             this.SuspendLayout();
@@ -113,7 +117,7 @@
             // 
             this.lab訂單狀態.AutoSize = true;
             this.lab訂單狀態.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lab訂單狀態.Location = new System.Drawing.Point(521, 301);
+            this.lab訂單狀態.Location = new System.Drawing.Point(445, 297);
             this.lab訂單狀態.Name = "lab訂單狀態";
             this.lab訂單狀態.Size = new System.Drawing.Size(90, 19);
             this.lab訂單狀態.TabIndex = 153;
@@ -125,7 +129,7 @@
             this.date交貨日期.CustomFormat = " ";
             this.date交貨日期.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.date交貨日期.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date交貨日期.Location = new System.Drawing.Point(625, 166);
+            this.date交貨日期.Location = new System.Drawing.Point(549, 168);
             this.date交貨日期.Name = "date交貨日期";
             this.date交貨日期.Size = new System.Drawing.Size(242, 33);
             this.date交貨日期.TabIndex = 152;
@@ -139,7 +143,7 @@
             this.date訂單日期.CustomFormat = " ";
             this.date訂單日期.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.date訂單日期.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.date訂單日期.Location = new System.Drawing.Point(625, 124);
+            this.date訂單日期.Location = new System.Drawing.Point(549, 126);
             this.date訂單日期.Name = "date訂單日期";
             this.date訂單日期.Size = new System.Drawing.Size(242, 33);
             this.date訂單日期.TabIndex = 151;
@@ -149,11 +153,10 @@
             // 
             // btn取消
             // 
-            this.btn取消.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn取消.BackColor = System.Drawing.Color.Silver;
             this.btn取消.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btn取消.ForeColor = System.Drawing.Color.Black;
-            this.btn取消.Location = new System.Drawing.Point(675, 79);
+            this.btn取消.Location = new System.Drawing.Point(597, 79);
             this.btn取消.Name = "btn取消";
             this.btn取消.Size = new System.Drawing.Size(93, 30);
             this.btn取消.TabIndex = 150;
@@ -179,7 +182,7 @@
             this.label22.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label22.Location = new System.Drawing.Point(-1, 518);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(955, 2);
+            this.label22.Size = new System.Drawing.Size(820, 2);
             this.label22.TabIndex = 148;
             // 
             // labTotalPrice
@@ -187,7 +190,7 @@
             this.labTotalPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labTotalPrice.AutoSize = true;
             this.labTotalPrice.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labTotalPrice.Location = new System.Drawing.Point(770, 862);
+            this.labTotalPrice.Location = new System.Drawing.Point(635, 818);
             this.labTotalPrice.Name = "labTotalPrice";
             this.labTotalPrice.Size = new System.Drawing.Size(0, 24);
             this.labTotalPrice.TabIndex = 147;
@@ -198,7 +201,7 @@
             this.lab警語.AutoSize = true;
             this.lab警語.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lab警語.ForeColor = System.Drawing.Color.Red;
-            this.lab警語.Location = new System.Drawing.Point(615, 934);
+            this.lab警語.Location = new System.Drawing.Point(480, 890);
             this.lab警語.Name = "lab警語";
             this.lab警語.Size = new System.Drawing.Size(294, 24);
             this.lab警語.TabIndex = 146;
@@ -209,16 +212,16 @@
             this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label20.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label20.Location = new System.Drawing.Point(-1, 896);
+            this.label20.Location = new System.Drawing.Point(-1, 852);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(955, 2);
+            this.label20.Size = new System.Drawing.Size(820, 2);
             this.label20.TabIndex = 145;
             // 
             // btn送出訂單
             // 
             this.btn送出訂單.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn送出訂單.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn送出訂單.Location = new System.Drawing.Point(791, 901);
+            this.btn送出訂單.Location = new System.Drawing.Point(656, 857);
             this.btn送出訂單.Name = "btn送出訂單";
             this.btn送出訂單.Size = new System.Drawing.Size(106, 30);
             this.btn送出訂單.TabIndex = 144;
@@ -232,7 +235,7 @@
             this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("新細明體", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label19.Location = new System.Drawing.Point(598, 862);
+            this.label19.Location = new System.Drawing.Point(463, 818);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(112, 24);
             this.label19.TabIndex = 143;
@@ -241,7 +244,7 @@
             // btn清除產品資訊
             // 
             this.btn清除產品資訊.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn清除產品資訊.Location = new System.Drawing.Point(831, 462);
+            this.btn清除產品資訊.Location = new System.Drawing.Point(714, 462);
             this.btn清除產品資訊.Name = "btn清除產品資訊";
             this.btn清除產品資訊.Size = new System.Drawing.Size(66, 30);
             this.btn清除產品資訊.TabIndex = 134;
@@ -267,7 +270,7 @@
             this.cbox品名.FormattingEnabled = true;
             this.cbox品名.Location = new System.Drawing.Point(80, 462);
             this.cbox品名.Name = "cbox品名";
-            this.cbox品名.Size = new System.Drawing.Size(518, 27);
+            this.cbox品名.Size = new System.Drawing.Size(403, 27);
             this.cbox品名.TabIndex = 130;
             this.cbox品名.DropDownClosed += new System.EventHandler(this.cbox品名_DropDownClosed);
             this.cbox品名.MouseDown += new System.Windows.Forms.MouseEventHandler(this.cbox品名_MouseDown);
@@ -276,7 +279,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label14.Location = new System.Drawing.Point(604, 466);
+            this.label14.Location = new System.Drawing.Point(496, 467);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(52, 19);
             this.label14.TabIndex = 141;
@@ -285,7 +288,7 @@
             // txt數量
             // 
             this.txt數量.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt數量.Location = new System.Drawing.Point(657, 458);
+            this.txt數量.Location = new System.Drawing.Point(549, 459);
             this.txt數量.Name = "txt數量";
             this.txt數量.Size = new System.Drawing.Size(65, 33);
             this.txt數量.TabIndex = 131;
@@ -293,7 +296,7 @@
             // btn加入明細
             // 
             this.btn加入明細.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btn加入明細.Location = new System.Drawing.Point(750, 462);
+            this.btn加入明細.Location = new System.Drawing.Point(633, 462);
             this.btn加入明細.Name = "btn加入明細";
             this.btn加入明細.Size = new System.Drawing.Size(65, 30);
             this.btn加入明細.TabIndex = 133;
@@ -305,7 +308,7 @@
             // 
             this.txt訂單狀態.Enabled = false;
             this.txt訂單狀態.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt訂單狀態.Location = new System.Drawing.Point(625, 294);
+            this.txt訂單狀態.Location = new System.Drawing.Point(549, 290);
             this.txt訂單狀態.Name = "txt訂單狀態";
             this.txt訂單狀態.Size = new System.Drawing.Size(242, 33);
             this.txt訂單狀態.TabIndex = 156;
@@ -338,7 +341,7 @@
             this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label10.Location = new System.Drawing.Point(-1, 352);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(955, 2);
+            this.label10.Size = new System.Drawing.Size(820, 2);
             this.label10.TabIndex = 138;
             // 
             // label9
@@ -347,7 +350,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(35, 301);
+            this.label9.Location = new System.Drawing.Point(26, 300);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(92, 19);
             this.label9.TabIndex = 137;
@@ -356,7 +359,7 @@
             // txt備註
             // 
             this.txt備註.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt備註.Location = new System.Drawing.Point(139, 291);
+            this.txt備註.Location = new System.Drawing.Point(130, 290);
             this.txt備註.Name = "txt備註";
             this.txt備註.Size = new System.Drawing.Size(284, 33);
             this.txt備註.TabIndex = 125;
@@ -365,7 +368,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label8.Location = new System.Drawing.Point(521, 213);
+            this.label8.Location = new System.Drawing.Point(445, 215);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(90, 19);
             this.label8.TabIndex = 136;
@@ -375,7 +378,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(521, 172);
+            this.label7.Location = new System.Drawing.Point(445, 174);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 19);
             this.label7.TabIndex = 135;
@@ -387,7 +390,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label6.Location = new System.Drawing.Point(35, 175);
+            this.label6.Location = new System.Drawing.Point(26, 174);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 19);
             this.label6.TabIndex = 132;
@@ -396,7 +399,7 @@
             // txt聯絡人
             // 
             this.txt聯絡人.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt聯絡人.Location = new System.Drawing.Point(139, 168);
+            this.txt聯絡人.Location = new System.Drawing.Point(130, 167);
             this.txt聯絡人.Name = "txt聯絡人";
             this.txt聯絡人.Size = new System.Drawing.Size(284, 33);
             this.txt聯絡人.TabIndex = 120;
@@ -407,7 +410,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(35, 257);
+            this.label5.Location = new System.Drawing.Point(26, 256);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(92, 19);
             this.label5.TabIndex = 129;
@@ -415,12 +418,10 @@
             // 
             // txt地址
             // 
-            this.txt地址.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt地址.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt地址.Location = new System.Drawing.Point(139, 250);
+            this.txt地址.Location = new System.Drawing.Point(130, 249);
             this.txt地址.Name = "txt地址";
-            this.txt地址.Size = new System.Drawing.Size(728, 33);
+            this.txt地址.Size = new System.Drawing.Size(661, 33);
             this.txt地址.TabIndex = 124;
             // 
             // label4
@@ -429,7 +430,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(35, 216);
+            this.label4.Location = new System.Drawing.Point(26, 215);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 19);
             this.label4.TabIndex = 128;
@@ -438,7 +439,7 @@
             // txt聯絡電話
             // 
             this.txt聯絡電話.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt聯絡電話.Location = new System.Drawing.Point(139, 209);
+            this.txt聯絡電話.Location = new System.Drawing.Point(130, 208);
             this.txt聯絡電話.Name = "txt聯絡電話";
             this.txt聯絡電話.Size = new System.Drawing.Size(284, 33);
             this.txt聯絡電話.TabIndex = 121;
@@ -447,7 +448,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(521, 131);
+            this.label3.Location = new System.Drawing.Point(445, 133);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 19);
             this.label3.TabIndex = 127;
@@ -460,7 +461,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(939, 62);
+            this.panel1.Size = new System.Drawing.Size(804, 62);
             this.panel1.TabIndex = 123;
             // 
             // label1
@@ -481,7 +482,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(35, 134);
+            this.label2.Location = new System.Drawing.Point(26, 133);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 19);
             this.label2.TabIndex = 122;
@@ -490,7 +491,7 @@
             // txt訂單編號
             // 
             this.txt訂單編號.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt訂單編號.Location = new System.Drawing.Point(139, 127);
+            this.txt訂單編號.Location = new System.Drawing.Point(130, 126);
             this.txt訂單編號.Name = "txt訂單編號";
             this.txt訂單編號.Size = new System.Drawing.Size(284, 33);
             this.txt訂單編號.TabIndex = 119;
@@ -506,7 +507,7 @@
             this.dgv訂單明細.Name = "dgv訂單明細";
             this.dgv訂單明細.RowTemplate.Height = 24;
             this.dgv訂單明細.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgv訂單明細.Size = new System.Drawing.Size(920, 270);
+            this.dgv訂單明細.Size = new System.Drawing.Size(785, 233);
             this.dgv訂單明細.TabIndex = 118;
             this.dgv訂單明細.TabStop = false;
             this.dgv訂單明細.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv訂單明細_CellClick);
@@ -516,7 +517,7 @@
             this.cbox經銷商ID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbox經銷商ID.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbox經銷商ID.FormattingEnabled = true;
-            this.cbox經銷商ID.Location = new System.Drawing.Point(626, 210);
+            this.cbox經銷商ID.Location = new System.Drawing.Point(550, 212);
             this.cbox經銷商ID.Name = "cbox經銷商ID";
             this.cbox經銷商ID.Size = new System.Drawing.Size(241, 27);
             this.cbox經銷商ID.TabIndex = 158;
@@ -546,7 +547,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label15.Location = new System.Drawing.Point(187, 414);
+            this.label15.Location = new System.Drawing.Point(158, 413);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(52, 24);
             this.label15.TabIndex = 161;
@@ -556,7 +557,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label16.Location = new System.Drawing.Point(352, 416);
+            this.label16.Location = new System.Drawing.Point(293, 414);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(52, 24);
             this.label16.TabIndex = 162;
@@ -568,7 +569,7 @@
             this.cbox類型ID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbox類型ID.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbox類型ID.FormattingEnabled = true;
-            this.cbox類型ID.Location = new System.Drawing.Point(241, 414);
+            this.cbox類型ID.Location = new System.Drawing.Point(212, 413);
             this.cbox類型ID.Name = "cbox類型ID";
             this.cbox類型ID.Size = new System.Drawing.Size(67, 27);
             this.cbox類型ID.TabIndex = 163;
@@ -579,7 +580,7 @@
             this.cbox商品ID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbox商品ID.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbox商品ID.FormattingEnabled = true;
-            this.cbox商品ID.Location = new System.Drawing.Point(406, 415);
+            this.cbox商品ID.Location = new System.Drawing.Point(347, 413);
             this.cbox商品ID.Name = "cbox商品ID";
             this.cbox商品ID.Size = new System.Drawing.Size(67, 27);
             this.cbox商品ID.TabIndex = 164;
@@ -589,7 +590,7 @@
             this.labtotaprice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labtotaprice.AutoSize = true;
             this.labtotaprice.Font = new System.Drawing.Font("新細明體", 18F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labtotaprice.Location = new System.Drawing.Point(746, 862);
+            this.labtotaprice.Location = new System.Drawing.Point(611, 818);
             this.labtotaprice.Name = "labtotaprice";
             this.labtotaprice.Size = new System.Drawing.Size(0, 24);
             this.labtotaprice.TabIndex = 165;
@@ -598,9 +599,9 @@
             // 
             this.txt單價.Enabled = false;
             this.txt單價.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt單價.Location = new System.Drawing.Point(550, 410);
+            this.txt單價.Location = new System.Drawing.Point(500, 410);
             this.txt單價.Name = "txt單價";
-            this.txt單價.Size = new System.Drawing.Size(172, 33);
+            this.txt單價.Size = new System.Drawing.Size(131, 33);
             this.txt單價.TabIndex = 166;
             this.txt單價.TabStop = false;
             // 
@@ -608,7 +609,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label18.Location = new System.Drawing.Point(497, 419);
+            this.label18.Location = new System.Drawing.Point(447, 419);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(52, 19);
             this.label18.TabIndex = 167;
@@ -627,11 +628,10 @@
             // 
             // btn關閉
             // 
-            this.btn關閉.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn關閉.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btn關閉.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btn關閉.ForeColor = System.Drawing.Color.Black;
-            this.btn關閉.Location = new System.Drawing.Point(774, 79);
+            this.btn關閉.Location = new System.Drawing.Point(696, 79);
             this.btn關閉.Name = "btn關閉";
             this.btn關閉.Size = new System.Drawing.Size(93, 30);
             this.btn關閉.TabIndex = 170;
@@ -644,7 +644,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label21.Location = new System.Drawing.Point(746, 417);
+            this.label21.Location = new System.Drawing.Point(644, 418);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(52, 19);
             this.label21.TabIndex = 171;
@@ -654,18 +654,46 @@
             // 
             this.txt庫存.Enabled = false;
             this.txt庫存.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt庫存.Location = new System.Drawing.Point(795, 410);
+            this.txt庫存.Location = new System.Drawing.Point(693, 411);
             this.txt庫存.Name = "txt庫存";
-            this.txt庫存.Size = new System.Drawing.Size(124, 33);
+            this.txt庫存.Size = new System.Drawing.Size(87, 33);
             this.txt庫存.TabIndex = 172;
             this.txt庫存.TabStop = false;
+            // 
+            // btn列印
+            // 
+            this.btn列印.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn列印.Location = new System.Drawing.Point(283, 79);
+            this.btn列印.Name = "btn列印";
+            this.btn列印.Size = new System.Drawing.Size(65, 30);
+            this.btn列印.TabIndex = 173;
+            this.btn列印.TabStop = false;
+            this.btn列印.Text = "列印";
+            this.btn列印.UseVisualStyleBackColor = true;
+            this.btn列印.Click += new System.EventHandler(this.btn列印_Click);
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Document = this.printDocument1;
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
             // 
             // Frm編輯訂單
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(939, 961);
+            this.ClientSize = new System.Drawing.Size(804, 961);
+            this.Controls.Add(this.btn列印);
             this.Controls.Add(this.txt庫存);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.btn關閉);
@@ -786,5 +814,8 @@
         private System.Windows.Forms.Button btn關閉;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox txt庫存;
+        private System.Windows.Forms.Button btn列印;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }

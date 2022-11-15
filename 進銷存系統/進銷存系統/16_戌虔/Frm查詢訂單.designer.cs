@@ -446,6 +446,7 @@
             this.Controls.Add(this.dgv出貨單列表);
             this.Name = "Frm查詢訂單";
             this.Text = "Frm查詢訂單";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Frm查詢訂單_Load);
             this.ResizeEnd += new System.EventHandler(this.Frm查詢訂單_ResizeEnd);
             this.panel1.ResumeLayout(false);

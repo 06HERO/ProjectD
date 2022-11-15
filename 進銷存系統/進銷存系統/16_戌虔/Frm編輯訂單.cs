@@ -455,7 +455,8 @@ namespace 進銷存系統
                 return;
             }
             string sql接收 = "UPDATE 出貨單列表 SET ";
-            sql接收 += "訂單狀態='取消'";
+            sql接收 += "訂單狀態='取消',";
+            sql接收 += "訂單金額=0";
             sql接收 += " where 出貨單編號= "+ Convert.ToInt32(txt訂單編號.Text);                          
             SqlCommand cmd接收 = new SqlCommand(sql接收,con);
             cmd接收.ExecuteNonQuery();
@@ -623,7 +624,7 @@ namespace 進銷存系統
         }
         private void re庫存()
         {
-            if (cbox品名.Text == null)
+            if (cbox品名.Text == null||string.IsNullOrEmpty(cbox品名.Text.Trim()))
                 return;
             
             string sql庫存 = "SELECT * FROM 商品在庫數量  where 廠商ID=" + Convert.ToInt32(cbox廠商ID.Text) +
@@ -689,6 +690,19 @@ namespace 進銷存系統
         private void Frm編輯訂單_SizeChanged(object sender, EventArgs e)
         {
             redgvstyle();
+        }
+        Bitmap bmp;
+        private void btn列印_Click(object sender, EventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+            bmp = new Bitmap (this.Size.Width, this.Size.Height-100,g);   
+            Graphics g2 = Graphics.FromImage (bmp);
+            g2.CopyFromScreen(this.Location.X, this.Location.Y, -10,-30, this.Size);
+            printPreviewDialog1.ShowDialog();
+        }
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {          
+            e.Graphics.DrawImage(bmp,0,100);
         }
     }
 }
