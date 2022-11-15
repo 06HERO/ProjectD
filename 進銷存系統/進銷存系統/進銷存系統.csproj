@@ -93,6 +93,12 @@
     <Compile Include="21志藝\Form列表.Designer.cs">
       <DependentUpon>Form列表.cs</DependentUpon>
     </Compile>
+    <Compile Include="21志藝\Form經銷商維護系統.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="21志藝\Form經銷商維護系統.Designer.cs">
+      <DependentUpon>Form經銷商維護系統.cs</DependentUpon>
+    </Compile>
     <Compile Include="23_幸嫻\Frm經銷商.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="21志藝\Form列表.resx">
       <DependentUpon>Form列表.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="21志藝\Form經銷商維護系統.resx">
+      <DependentUpon>Form經銷商維護系統.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="23_幸嫻\Frm經銷商.resx">
       <DependentUpon>Frm經銷商.cs</DependentUpon>

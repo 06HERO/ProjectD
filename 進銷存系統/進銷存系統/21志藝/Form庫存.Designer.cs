@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -58,30 +58,30 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Salmon;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("微軟正黑體", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Salmon;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("微軟正黑體", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.Orange;
             this.dataGridView1.Location = new System.Drawing.Point(12, 207);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1248, 462);
+            this.dataGridView1.Size = new System.Drawing.Size(1248, 437);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.Sorted += new System.EventHandler(this.dataGridView1_Sorted);
@@ -170,13 +170,15 @@
             // 
             // btn商品關鍵字
             // 
-            this.btn商品關鍵字.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn商品關鍵字.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn商品關鍵字.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn商品關鍵字.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btn商品關鍵字.Location = new System.Drawing.Point(419, 121);
             this.btn商品關鍵字.Name = "btn商品關鍵字";
             this.btn商品關鍵字.Size = new System.Drawing.Size(142, 30);
             this.btn商品關鍵字.TabIndex = 11;
             this.btn商品關鍵字.Text = "商品關鍵字";
-            this.btn商品關鍵字.UseVisualStyleBackColor = true;
+            this.btn商品關鍵字.UseVisualStyleBackColor = false;
             this.btn商品關鍵字.Click += new System.EventHandler(this.btn關鍵字_Click);
             // 
             // btnTOP10
@@ -207,24 +209,28 @@
             // 
             // btn進貨商列表
             // 
-            this.btn進貨商列表.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn進貨商列表.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn進貨商列表.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn進貨商列表.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btn進貨商列表.Location = new System.Drawing.Point(729, 121);
             this.btn進貨商列表.Name = "btn進貨商列表";
             this.btn進貨商列表.Size = new System.Drawing.Size(125, 30);
             this.btn進貨商列表.TabIndex = 16;
             this.btn進貨商列表.Text = "進貨商列表";
-            this.btn進貨商列表.UseVisualStyleBackColor = true;
+            this.btn進貨商列表.UseVisualStyleBackColor = false;
             this.btn進貨商列表.Click += new System.EventHandler(this.btn進貨商列表_Click);
             // 
             // btn倉庫列表
             // 
-            this.btn倉庫列表.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn倉庫列表.BackColor = System.Drawing.Color.CadetBlue;
+            this.btn倉庫列表.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn倉庫列表.ForeColor = System.Drawing.SystemColors.HighlightText;
             this.btn倉庫列表.Location = new System.Drawing.Point(124, 121);
             this.btn倉庫列表.Name = "btn倉庫列表";
             this.btn倉庫列表.Size = new System.Drawing.Size(101, 30);
             this.btn倉庫列表.TabIndex = 17;
             this.btn倉庫列表.Text = "倉庫列表";
-            this.btn倉庫列表.UseVisualStyleBackColor = true;
+            this.btn倉庫列表.UseVisualStyleBackColor = false;
             this.btn倉庫列表.Click += new System.EventHandler(this.btn倉庫列表_Click);
             // 
             // Form庫存
@@ -232,7 +238,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1272, 681);
+            this.ClientSize = new System.Drawing.Size(1272, 656);
             this.Controls.Add(this.btn倉庫列表);
             this.Controls.Add(this.btn進貨商列表);
             this.Controls.Add(this.btnALL);

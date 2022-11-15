@@ -210,16 +210,18 @@ namespace 庫存查詢DEMO
                             data = data.Where(q => q.廠商ID == smanf);
                     }
                 }
+                //var dataselect = from b in data
+                //                 select new
+                //                 {
+                //                     b.庫存地點,
+                //                     b.商品類型名稱,
+                //                     b.廠商名稱,
+                //                     b.商品ID,
+                //                     b.商品名稱,
+                //                     b.商品數量                                  
+                //                 };
                 var dataselect = from b in data
-                                 select new
-                                 {
-                                     b.庫存地點,
-                                     b.商品類型名稱,
-                                     b.廠商名稱,
-                                     b.商品ID,
-                                     b.商品名稱,
-                                     b.商品數量                                  
-                                 };
+                                 select b;
                 dataGridView1.DataSource = dataselect.ToDataTable();
                 
 
