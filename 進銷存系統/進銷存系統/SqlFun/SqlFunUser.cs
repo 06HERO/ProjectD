@@ -57,17 +57,26 @@ namespace 進銷存系統.SqlFun
             
             //_con.Close();
 
-            ObjectParameter objIsAdmin = new ObjectParameter("IsAdmin", typeof(byte));
-            SQLData.db.使用者LoginByEntity(LoginID, LoginPW, objIsAdmin);
+            ObjectParameter objIsAdmin = new ObjectParameter("IsAdmin", typeof(short));
+            ObjectParameter objisCheck = new ObjectParameter("isCheck", typeof(byte));
+            SQLData.db.使用者LoginByPW(LoginID, LoginPW, objIsAdmin, objisCheck);
             short IsAdmin = (short)objIsAdmin.Value;
+            byte IsCheck = (byte)objisCheck.Value;
+            
             if (IsAdmin >= 0)
             {
                 bIsLogin = true;
                 SQLData.LoginID = LoginID;
                 SQLData.IsAdmin = IsAdmin;
+                SQLData.IsCheck = Convert.ToBoolean(IsCheck);
             }
-
             return bIsLogin;
+        }
+
+        public int CheckCode(string LoginID, string CheckCode)
+        {
+            //int tmp = (SQLData.db.使用者LoginByCheckCode(LoginID, CheckCode);
+            return (SQLData.db.使用者LoginByCheckCode(LoginID, CheckCode));
         }
     }
 }

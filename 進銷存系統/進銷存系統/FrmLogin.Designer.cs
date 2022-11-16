@@ -38,6 +38,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.timErr = new System.Windows.Forms.Timer(this.components);
             this.btnDemo = new System.Windows.Forms.Button();
+            this.btnDemo2 = new System.Windows.Forms.Button();
+            this.txtCheckCode = new System.Windows.Forms.TextBox();
+            this.btnCheckCode = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtPW
@@ -91,7 +94,7 @@
             // 
             this.btnLogin.AutoSize = true;
             this.btnLogin.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnLogin.Location = new System.Drawing.Point(217, 254);
+            this.btnLogin.Location = new System.Drawing.Point(217, 228);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(94, 34);
             this.btnLogin.TabIndex = 23;
@@ -103,7 +106,7 @@
             // 
             this.btnCancel.AutoSize = true;
             this.btnCancel.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnCancel.Location = new System.Drawing.Point(103, 254);
+            this.btnCancel.Location = new System.Drawing.Point(105, 228);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(94, 34);
             this.btnCancel.TabIndex = 22;
@@ -119,7 +122,8 @@
             // 
             this.btnDemo.AutoSize = true;
             this.btnDemo.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnDemo.Location = new System.Drawing.Point(-1, 282);
+            this.btnDemo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnDemo.Location = new System.Drawing.Point(8, 366);
             this.btnDemo.Name = "btnDemo";
             this.btnDemo.Size = new System.Drawing.Size(94, 34);
             this.btnDemo.TabIndex = 24;
@@ -127,11 +131,48 @@
             this.btnDemo.UseVisualStyleBackColor = true;
             this.btnDemo.Click += new System.EventHandler(this.btnDemo_Click);
             // 
+            // btnDemo2
+            // 
+            this.btnDemo2.AutoSize = true;
+            this.btnDemo2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnDemo2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnDemo2.Location = new System.Drawing.Point(112, 366);
+            this.btnDemo2.Name = "btnDemo2";
+            this.btnDemo2.Size = new System.Drawing.Size(94, 34);
+            this.btnDemo2.TabIndex = 25;
+            this.btnDemo2.Text = "Demo2";
+            this.btnDemo2.UseVisualStyleBackColor = true;
+            this.btnDemo2.Click += new System.EventHandler(this.btnDemo2_Click);
+            // 
+            // txtCheckCode
+            // 
+            this.txtCheckCode.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txtCheckCode.Location = new System.Drawing.Point(24, 285);
+            this.txtCheckCode.MaxLength = 6;
+            this.txtCheckCode.Name = "txtCheckCode";
+            this.txtCheckCode.Size = new System.Drawing.Size(166, 33);
+            this.txtCheckCode.TabIndex = 26;
+            // 
+            // btnCheckCode
+            // 
+            this.btnCheckCode.AutoSize = true;
+            this.btnCheckCode.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnCheckCode.Location = new System.Drawing.Point(196, 283);
+            this.btnCheckCode.Name = "btnCheckCode";
+            this.btnCheckCode.Size = new System.Drawing.Size(115, 34);
+            this.btnCheckCode.TabIndex = 27;
+            this.btnCheckCode.Text = "驗證碼登入";
+            this.btnCheckCode.UseVisualStyleBackColor = true;
+            this.btnCheckCode.Click += new System.EventHandler(this.btnCheckCode_Click);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 315);
+            this.ClientSize = new System.Drawing.Size(336, 408);
+            this.Controls.Add(this.btnCheckCode);
+            this.Controls.Add(this.txtCheckCode);
+            this.Controls.Add(this.btnDemo2);
             this.Controls.Add(this.btnDemo);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.btnCancel);
@@ -141,7 +182,7 @@
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "系統登入";
@@ -163,5 +204,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Timer timErr;
         private System.Windows.Forms.Button btnDemo;
+        private System.Windows.Forms.Button btnDemo2;
+        private System.Windows.Forms.TextBox txtCheckCode;
+        private System.Windows.Forms.Button btnCheckCode;
     }
 }
