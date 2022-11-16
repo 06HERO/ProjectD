@@ -105,7 +105,7 @@ AS
 	EXEC sp_sqlexec @SQL	
 GO
 
-ALTER PROC Update使用者PW
+ALTER PROC dbo.Update使用者PW
 @LoginID nvarchar(20),@LoginPW nvarchar(20) = ''
 AS
 	IF NOT EXISTS
@@ -113,17 +113,24 @@ AS
 		SELECT * FROM 使用者列表
 		WHERE LoginID = @LoginID
 	)
-	RETURN
-
-	IF @LoginPW = ''
-	BEGIN
-		EXEC 重置CheckCode -1, @LoginID
-	END
+	RETURN	
 
 	UPDATE [dbo].[使用者列表]
 	SET [LoginPW] = @LoginPW
 	WHERE LoginID = @LoginID
+
+	IF @LoginPW = ''
+	BEGIN
+		EXEC 重置CheckCode -1, @LoginID
+
+		UPDATE [dbo].[使用者列表]
+		SET [CheckCode] = RIGHT(REPLICATE('0',6)  + CAST( (Round(RAND() * 1000000, 0)) as NVARCHAR), 6)
+		WHERE LoginID = @LoginID
+
+		EXEC Mail_CheckCode @LoginID
+	END
 GO
+
 
 -- 新增廠商列表資料
 CREATE PROC dbo.Insert廠商列表
