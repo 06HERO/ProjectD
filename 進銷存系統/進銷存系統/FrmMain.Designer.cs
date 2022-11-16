@@ -177,7 +177,7 @@
             this.tSB經銷商查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB經銷商查詢編輯.Name = "tSB經銷商查詢編輯";
             this.tSB經銷商查詢編輯.Size = new System.Drawing.Size(138, 22);
-            this.tSB經銷商查詢編輯.Text = "    客戶維護系統2";
+            this.tSB經銷商查詢編輯.Text = "    經銷商維護系統2";
             this.tSB經銷商查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB經銷商查詢編輯.Click += new System.EventHandler(this.tSB經銷商查詢編輯_Click);
             // 
@@ -188,7 +188,7 @@
             this.tSB客戶維護系統.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB客戶維護系統.Name = "tSB客戶維護系統";
             this.tSB客戶維護系統.Size = new System.Drawing.Size(138, 22);
-            this.tSB客戶維護系統.Text = "    客戶維護系統1";
+            this.tSB客戶維護系統.Text = "    經銷商維護系統1";
             this.tSB客戶維護系統.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB客戶維護系統.Click += new System.EventHandler(this.tSB客戶維護系統_Click);
             // 
