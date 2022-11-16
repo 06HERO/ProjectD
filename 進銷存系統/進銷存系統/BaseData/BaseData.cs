@@ -30,7 +30,9 @@ namespace 進銷存系統.BaseData
 
         static public string LoginID = string.Empty;
 
-        static public int IsAdmin = -1;        
+        static public int IsAdmin = -1;
+
+        static public bool IsCheck = false;
 
         // 普雷二電玩Entities 成員 IEnumerable<> 直接呼叫 轉換成 DataTable
         static public DataTable ToDataTable<T>(this IEnumerable<T> source)
