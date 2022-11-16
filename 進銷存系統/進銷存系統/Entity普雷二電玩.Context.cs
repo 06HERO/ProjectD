@@ -30,11 +30,11 @@ namespace 進銷存系統
         public virtual DbSet<商品列表> 商品列表 { get; set; }
         public virtual DbSet<商品類型列表> 商品類型列表 { get; set; }
         public virtual DbSet<廠商列表> 廠商列表 { get; set; }
-        public virtual DbSet<使用者列表> 使用者列表 { get; set; }
         public virtual DbSet<進貨單列表> 進貨單列表 { get; set; }
         public virtual DbSet<進貨單明細> 進貨單明細 { get; set; }
         public virtual DbSet<庫存地點列表> 庫存地點列表 { get; set; }
         public virtual DbSet<商品在庫數量> 商品在庫數量 { get; set; }
+        public virtual DbSet<使用者列表> 使用者列表 { get; set; }
     
         public virtual int Insert廠商列表(Nullable<byte> 廠商ID, string 廠商名稱, string 統一編號, string 代表人姓名, Nullable<decimal> 資本總額, string 聯絡電話, string 顯示與否)
         {
@@ -144,19 +144,6 @@ namespace 進銷存系統
                 new ObjectParameter("商品類型名稱", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update商品類型列表", 商品類型IDParameter, 商品類型名稱Parameter);
-        }
-    
-        public virtual int 使用者LoginByEntity(string loginID, string loginPW, ObjectParameter isAdmin)
-        {
-            var loginIDParameter = loginID != null ?
-                new ObjectParameter("LoginID", loginID) :
-                new ObjectParameter("LoginID", typeof(string));
-    
-            var loginPWParameter = loginPW != null ?
-                new ObjectParameter("LoginPW", loginPW) :
-                new ObjectParameter("LoginPW", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("使用者LoginByEntity", loginIDParameter, loginPWParameter, isAdmin);
         }
     
         public virtual int Delete商品列表(Nullable<byte> 廠商ID, Nullable<byte> 商品類型ID, Nullable<short> 商品ID)
@@ -317,6 +304,45 @@ namespace 進銷存系統
                 new ObjectParameter("明細筆數", typeof(byte));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update進貨單列表", 進貨單編號Parameter, 庫存地點IDParameter, 進貨日期Parameter, 明細筆數Parameter);
+        }
+    
+        public virtual int Update使用者PW(string loginID, string loginPW)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            var loginPWParameter = loginPW != null ?
+                new ObjectParameter("LoginPW", loginPW) :
+                new ObjectParameter("LoginPW", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update使用者PW", loginIDParameter, loginPWParameter);
+        }
+    
+        public virtual int 使用者LoginByPW(string loginID, string loginPW, ObjectParameter isAdmin, ObjectParameter isCheck)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            var loginPWParameter = loginPW != null ?
+                new ObjectParameter("LoginPW", loginPW) :
+                new ObjectParameter("LoginPW", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("使用者LoginByPW", loginIDParameter, loginPWParameter, isAdmin, isCheck);
+        }
+    
+        public virtual int 使用者LoginByCheckCode(string loginID, string checkCode)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            var checkCodeParameter = checkCode != null ?
+                new ObjectParameter("CheckCode", checkCode) :
+                new ObjectParameter("CheckCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("使用者LoginByCheckCode", loginIDParameter, checkCodeParameter);
         }
     }
 }

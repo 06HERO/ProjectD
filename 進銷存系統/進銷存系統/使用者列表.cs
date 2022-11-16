@@ -16,6 +16,9 @@ namespace 進銷存系統
     {
         public string LoginID { get; set; }
         public string LoginPW { get; set; }
-        public byte IsAdmin { get; set; }
+        public short IsAdmin { get; set; }
+        public string Email { get; set; }
+        public Nullable<byte> IsCheck { get; set; }
+        public string CheckCode { get; set; }
     }
 }

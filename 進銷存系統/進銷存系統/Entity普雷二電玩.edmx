@@ -10,8 +10,11 @@
             <PropertyRef Name="LoginID" />
           </Key>
           <Property Name="LoginID" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="LoginPW" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="IsAdmin" Type="tinyint" Nullable="false" />
+          <Property Name="LoginPW" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsAdmin" Type="smallint" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsCheck" Type="tinyint" />
+          <Property Name="CheckCode" Type="nvarchar" MaxLength="6" />
         </EntityType>
         <EntityType Name="庫存地點列表">
           <Key>
@@ -285,6 +288,10 @@
           <Parameter Name="聯絡電話" Type="nvarchar" Mode="In" />
           <Parameter Name="顯示與否" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="Update使用者PW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+          <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Update商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
           <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
@@ -312,10 +319,15 @@
           <Parameter Name="聯絡電話" Type="nvarchar" Mode="In" />
           <Parameter Name="顯示與否" Type="varchar" Mode="In" />
         </Function>
-        <Function Name="使用者LoginByEntity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+        <Function Name="使用者LoginByCheckCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+          <Parameter Name="CheckCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="使用者LoginByPW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
           <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
           <Parameter Name="IsAdmin" Type="smallint" Mode="InOut" />
+          <Parameter Name="IsCheck" Type="tinyint" Mode="InOut" />
         </Function>
         <EntityContainer Name="普雷二電玩ModelStoreContainer">
           <EntitySet Name="使用者列表" EntityType="Self.使用者列表" Schema="dbo" store:Type="Tables" />
@@ -428,7 +440,6 @@
             <End Role="廠商列表" EntitySet="廠商列表" />
             <End Role="商品列表" EntitySet="商品列表" />
           </AssociationSet>
-          <EntitySet Name="使用者列表" EntityType="普雷二電玩Model.使用者列表" />
           <FunctionImport Name="Insert廠商列表">
             <Parameter Name="廠商ID" Mode="In" Type="Byte" />
             <Parameter Name="廠商名稱" Mode="In" Type="String" />
@@ -460,12 +471,7 @@
           <FunctionImport Name="Update商品類型列表">
             <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
             <Parameter Name="商品類型名稱" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="使用者LoginByEntity">
-            <Parameter Name="LoginID" Mode="In" Type="String" />
-            <Parameter Name="LoginPW" Mode="In" Type="String" />
-            <Parameter Name="IsAdmin" Mode="InOut" Type="Int16" />
-          </FunctionImport>
+          </FunctionImport>          
           <FunctionImport Name="Delete商品列表">
             <Parameter Name="廠商ID" Mode="In" Type="Byte" />
             <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
@@ -528,15 +534,22 @@
             <Parameter Name="進貨日期" Mode="In" Type="DateTime" />
             <Parameter Name="明細筆數" Mode="In" Type="Byte" />
           </FunctionImport>
+          <FunctionImport Name="Update使用者PW">
+            <Parameter Name="LoginID" Mode="In" Type="String" />
+            <Parameter Name="LoginPW" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="使用者LoginByPW">
+            <Parameter Name="LoginID" Mode="In" Type="String" />
+            <Parameter Name="LoginPW" Mode="In" Type="String" />
+            <Parameter Name="IsAdmin" Mode="InOut" Type="Int16" />
+            <Parameter Name="IsCheck" Mode="InOut" Type="Byte" />
+          </FunctionImport>
+          <EntitySet Name="使用者列表" EntityType="普雷二電玩Model.使用者列表" />
+          <FunctionImport Name="使用者LoginByCheckCode">
+            <Parameter Name="LoginID" Mode="In" Type="String" />
+            <Parameter Name="CheckCode" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="使用者列表">
-          <Key>
-            <PropertyRef Name="LoginID" />
-          </Key>
-          <Property Name="LoginID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="LoginPW" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="IsAdmin" Type="Byte" Nullable="false" />
-        </EntityType>
         <EntityType Name="進貨單列表">
           <Key>
             <PropertyRef Name="進貨單編號" />
@@ -702,7 +715,18 @@
               <PropertyRef Name="庫存地點ID" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>                  
+        </Association>
+        <EntityType Name="使用者列表">
+          <Key>
+            <PropertyRef Name="LoginID" />
+          </Key>
+          <Property Name="LoginID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LoginPW" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="IsAdmin" Type="Int16" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsCheck" Type="Byte" />
+          <Property Name="CheckCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+        </EntityType>                  
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -742,22 +766,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="使用者列表">
-            <EntityTypeMapping TypeName="普雷二電玩Model.使用者列表">
-              <MappingFragment StoreEntitySet="使用者列表">
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="LoginPW" ColumnName="LoginPW" />
-                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Insert廠商列表" FunctionName="普雷二電玩Model.Store.Insert廠商列表" />
           <FunctionImportMapping FunctionImportName="Delete廠商列表" FunctionName="普雷二電玩Model.Store.Delete廠商列表" />
           <FunctionImportMapping FunctionImportName="Update廠商列表" FunctionName="普雷二電玩Model.Store.Update廠商列表" />
           <FunctionImportMapping FunctionImportName="Delete商品類型列表" FunctionName="普雷二電玩Model.Store.Delete商品類型列表" />
           <FunctionImportMapping FunctionImportName="Insert商品類型列表" FunctionName="普雷二電玩Model.Store.Insert商品類型列表" />
           <FunctionImportMapping FunctionImportName="Update商品類型列表" FunctionName="普雷二電玩Model.Store.Update商品類型列表" />
-          <FunctionImportMapping FunctionImportName="使用者LoginByEntity" FunctionName="普雷二電玩Model.Store.使用者LoginByEntity" />
           <FunctionImportMapping FunctionImportName="Delete商品列表" FunctionName="普雷二電玩Model.Store.Delete商品列表" />
           <FunctionImportMapping FunctionImportName="Insert商品列表" FunctionName="普雷二電玩Model.Store.Insert商品列表" />
           <FunctionImportMapping FunctionImportName="Update商品列表" FunctionName="普雷二電玩Model.Store.Update商品列表" />
@@ -879,6 +893,21 @@
           <FunctionImportMapping FunctionImportName="Delete進貨單列表" FunctionName="普雷二電玩Model.Store.Delete進貨單列表" />
           <FunctionImportMapping FunctionImportName="Insert進貨單列表" FunctionName="普雷二電玩Model.Store.Insert進貨單列表" />
           <FunctionImportMapping FunctionImportName="Update進貨單列表" FunctionName="普雷二電玩Model.Store.Update進貨單列表" />
+          <FunctionImportMapping FunctionImportName="Update使用者PW" FunctionName="普雷二電玩Model.Store.Update使用者PW" />
+          <FunctionImportMapping FunctionImportName="使用者LoginByPW" FunctionName="普雷二電玩Model.Store.使用者LoginByPW" />
+          <EntitySetMapping Name="使用者列表">
+            <EntityTypeMapping TypeName="普雷二電玩Model.使用者列表">
+              <MappingFragment StoreEntitySet="使用者列表">
+                <ScalarProperty Name="CheckCode" ColumnName="CheckCode" />
+                <ScalarProperty Name="IsCheck" ColumnName="IsCheck" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="LoginPW" ColumnName="LoginPW" />
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="使用者LoginByCheckCode" FunctionName="普雷二電玩Model.Store.使用者LoginByCheckCode" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
