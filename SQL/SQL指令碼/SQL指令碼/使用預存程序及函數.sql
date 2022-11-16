@@ -21,16 +21,16 @@ SELECT @IsAdmin, @IsCheck
 EXEC Mail_CheckCode 'HERO'
 
 -- 使用者登入檢查驗證碼
-EXEC 使用者LoginByCheckCode 'user', 194591
+EXEC 使用者LoginByCheckCode 'user', 774997
 
 -- 清除使用者證驗登入狀態
-EXEC 重置CheckCode_ByLoginID  'user'
-EXEC 重置CheckCode_ByIsAdmin  0
-EXEC 重置CheckCode_ByLoginID
-
 EXEC 重置CheckCode 0
 EXEC 重置CheckCode -1, 'HERO'
 EXEC 重置CheckCode
+
+--更新密碼
+EXEC Update使用者PW 'user'
+EXEC Update使用者PW 'user', '12345'
 
 -- 新增廠商列表資料
 EXEC Insert廠商列表 1,'台灣索尼股份有限公司 SONY', '23529362', '千葉雄三 (Yuzo Chiba)', 10000000

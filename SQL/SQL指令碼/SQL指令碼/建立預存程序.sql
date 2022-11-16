@@ -105,23 +105,25 @@ AS
 	EXEC sp_sqlexec @SQL	
 GO
 
+ALTER PROC Update使用者PW
+@LoginID nvarchar(20),@LoginPW nvarchar(20) = ''
+AS
+	IF NOT EXISTS
+	(
+		SELECT * FROM 使用者列表
+		WHERE LoginID = @LoginID
+	)
+	RETURN
 
+	IF @LoginPW = ''
+	BEGIN
+		EXEC 重置CheckCode -1, @LoginID
+	END
 
---CREATE PROC Update使用者PW
---@LoginID nvarchar(20),@LoginPW nvarchar(20)
---AS
---	IF NOT EXISTS
---	(
---		SELECT * FROM 使用者列表  
---		WHERE LoginID = @LoginID
---		AND LoginPW = @LoginPW
---	)
---	RETURN
-
---	UPDATE [dbo].[使用者列表]
---	SET [LoginPW] = @LoginPW, [Is驗證] = 1 
---	WHERE LoginID = @LoginID
---GO
+	UPDATE [dbo].[使用者列表]
+	SET [LoginPW] = @LoginPW
+	WHERE LoginID = @LoginID
+GO
 
 -- 新增廠商列表資料
 CREATE PROC dbo.Insert廠商列表
