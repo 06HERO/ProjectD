@@ -32,14 +32,19 @@ namespace 進銷存系統
             _sqlFunUser = new SqlFunUser();
 
             _PWErr = 0;
+
+            // 隱藏 tab 頁標籤
+            tabLogin.SizeMode=TabSizeMode.Fixed;  
+            tabLogin.Appearance= TabAppearance.FlatButtons;
+            tabLogin.ItemSize=new Size(0, 1);
         }
 
         private void FrmLogin_Load(object sender, EventArgs e)
         {
-            btnCheckCode.Enabled = false;
-            txtCheckCode.Enabled = false;
+            tabLogin.SelectedIndex = 0;
 
-            //txtCheckCode.KeyPress += SqlFunBase.Text_KeyPress_INT;
+            txtCheckCode.KeyPress += SqlFunBase.Text_KeyPress_INT;
+            btnShowPW.Click += (object s, EventArgs ev) => { txtPW.UseSystemPasswordChar = !txtPW.UseSystemPasswordChar; };
         }
 
         private void btnDemo_Click(object sender, EventArgs e)
@@ -107,10 +112,9 @@ namespace 進銷存系統
                 }
                 else
                 {
-                    MessageBox.Show("今日初次登入，請至設定EMAIL收取驗證碼後輸入!");
-                    btnLogin.Enabled = false;
-                    btnCheckCode.Enabled = true;
-                    txtCheckCode.Enabled = true;
+                    tabLogin.SelectedIndex = 1;
+
+                    lblCheckCode.Text = "今日初次登入，請至設定EMAIL收取驗證碼後輸入!";
                     txtCheckCode.Focus();
 
                     _PWErr = 0;
@@ -125,31 +129,61 @@ namespace 進銷存系統
                 timErr.Interval = 500;
                 timErr.Start();
 
-                MessageBox.Show($"帳號與密碼不符!,登入錯誤{_PWErr}次，關閉程式");
+                MessageBox.Show($"帳號或密碼不符!,登入錯誤{_PWErr}次，關閉程式");
                 _IsLockClose = false;
                 Application.Exit();
 
                 return;
             }
-            MessageBox.Show($"帳號與密碼不符!,登入錯誤{_PWErr}次");            
+            MessageBox.Show($"帳號或密碼不符!,登入錯誤{_PWErr}次");            
+        }
+
+        private void btnResetPW_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtID.Text))
+            {
+                MessageBox.Show("請輸入帳號");
+                txtID.Focus();
+                return;
+            }
+
+            if( 0 >= SQLData.db.Update使用者PW(txtID.Text.Trim(), string.Empty) )
+            {
+                MessageBox.Show("帳號不符");
+                txtID.Focus();
+                return;
+            }
+
+            tabLogin.SelectedIndex = 1;
+
+            lblCheckCode.Text = "重設密碼，請至設定EMAIL收取驗證碼後輸入!";
         }
 
         private void btnCheckCode_Click(object sender, EventArgs e)
         {
             if (txtCheckCode.Text.Trim().Length < 6)
             {
-                MessageBox.Show("驗證碼長度不足");
+                lblCheckCode.Text = "驗證碼長度不足";
                 txtCheckCode.Focus();
                 return;
             }
 
-            if( 0 <= _sqlFunUser.CheckCode(SQLData.LoginID, txtCheckCode.Text.Trim()))
+            if( 0 <= _sqlFunUser.CheckCode(txtID.Text, txtCheckCode.Text.Trim()))
             {
-                MessageBox.Show("登入成功!");
-                _IsLockClose = false;
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-                return;
+                string PW = SQLData.db.使用者列表.Where(w => w.LoginID == SQLData.LoginID).Select(s => s.LoginPW).FirstOrDefault();
+
+                if(string.IsNullOrWhiteSpace(PW) == false)
+                {
+                    MessageBox.Show("登入成功!");
+                    _IsLockClose = false;
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                    return;
+                }
+                else
+                {
+                    tabLogin.SelectedIndex = 2;
+                }
             }
 
             _PWErr++;
@@ -159,19 +193,53 @@ namespace 進銷存系統
                 timErr.Interval = 500;
                 timErr.Start();
 
-                MessageBox.Show($"驗證碼錯誤!,登入錯誤{_PWErr}次，關閉程式");
-                _IsLockClose = false;
-                Application.Exit();
-
+                lblCheckCode.Text = $"驗證碼錯誤!,登入錯誤{_PWErr}次，關閉程式";
+                btnCheckCode.Enabled = false;
                 return;
             }
-            MessageBox.Show($"驗證碼錯誤!,登入錯誤{_PWErr}次");
+            lblCheckCode.Text = $"驗證碼錯誤!,登入錯誤{_PWErr}次";
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             _IsLockClose = false;
             Application.Exit();
+        }
+
+        private void btnUpdatePW_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtnNewPW.Text))
+            {
+                MessageBox.Show("請輸入密碼");
+                txtnNewPW.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtCheckPW.Text))
+            {
+                MessageBox.Show("請輸入確認密碼");
+                txtCheckPW.Focus();
+                return;
+            }
+
+            if(txtnNewPW.Text.Trim() != txtCheckPW.Text.Trim())
+            {
+                MessageBox.Show("密碼不一致");
+                txtnNewPW.Focus();
+                return;
+            }
+
+            if (0 >= SQLData.db.Update使用者PW(txtID.Text.Trim(), txtnNewPW.Text.Trim()))
+            {
+                MessageBox.Show("重設密碼失敗，請聯絡管理人員");
+                txtID.Focus();
+                return;
+            }
+
+            MessageBox.Show("重設密碼成功!");
+
+            tabLogin.SelectedIndex = 0;
+            txtPW.Text = txtnNewPW.Text.Trim();
         }
 
         private void FrmLogin_FormClosing(object sender, FormClosingEventArgs e)
@@ -182,9 +250,12 @@ namespace 進銷存系統
         private void timErr_Tick(object sender, EventArgs e)
         {
             if (this.BackColor == SystemColors.Control)
-                this.BackColor = Color.Red;
+                this.BackColor = Color.Red;                
             else
                 this.BackColor = SystemColors.Control;
+            
+            tabPage1.BackColor = this.BackColor;
+            tabPage2.BackColor = this.BackColor;
 
             DateTime time = DateTime.Now;
             TimeSpan ts = time.Subtract(_ErrTime);
