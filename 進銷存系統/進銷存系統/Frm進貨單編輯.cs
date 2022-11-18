@@ -17,9 +17,14 @@ namespace 進銷存系統
 
     public partial class Frm進貨單編輯 : Form
     {
+        private const int Type_進貨單列表 = 0;
+        private const int Type_進貨單明細 = 1;
+
         public event CallBack進貨單編輯 callback = null;
 
+        private int _Type = Type_進貨單列表;
         private int _Mode = (int)Change_Mode.None;
+
         private byte _廠商ID = 0;
         private int _庫存地點ID = 0;
         private 進貨單列表 _進貨單列表data = null;
@@ -44,6 +49,7 @@ namespace 進銷存系統
 
             msk進貨日期.Text = _dt進貨日期.ToString("yyyy/MM/dd");
 
+            _Type = Type_進貨單列表;
             _Mode = (int)Change_Mode.Insert;
         }
 
@@ -51,8 +57,9 @@ namespace 進銷存系統
         {
             InitializeComponent();
 
+            _Type = Type_進貨單列表;
             _進貨單列表data = data;
-            _Mode = Mode;
+            _Mode = Mode;            
 
             if (Mode == (int)Change_Mode.Update)
                 lbl標題.Text = "進貨單修改";
@@ -71,6 +78,7 @@ namespace 進銷存系統
             cmb庫存地點.DisplayMember = "庫存地點";
             cmb庫存地點.DataSource = dt庫存地點;
             cmb庫存地點.SelectedValue = _進貨單列表data.庫存地點ID;
+
             msk進貨日期.Text = _進貨單列表data.進貨日期.ToString("yyyy/MM/dd");
             txt明細筆數.Text = _進貨單列表data.明細筆數.ToString();
 
@@ -80,6 +88,36 @@ namespace 進銷存系統
                 msk進貨日期.Enabled = false;
                 txt明細筆數.Enabled = false;
             }
+        }
+
+        public Frm進貨單編輯(fn_進貨單列表_Result data)
+        {
+            InitializeComponent();
+
+            lbl標題.Text = "進貨明細新增";
+
+            txt進貨單編號.Text = data.進貨單編號.ToString();
+            txt進貨單編號.Enabled = false;
+
+            _廠商ID = data.廠商ID;
+
+            cmb廠商.DropDownStyle = ComboBoxStyle.DropDown;
+            cmb廠商.Text = data.廠商名稱;
+            cmb廠商.Enabled =false;            
+
+            cmb庫存地點.DropDownStyle = ComboBoxStyle.DropDown;
+            cmb庫存地點.Text = data.庫存地點;
+            cmb庫存地點.Enabled =false;
+
+            msk進貨日期.Text = data.進貨日期.ToString("yyyy/MM/dd");
+            msk進貨日期.Enabled = false;
+
+            txt明細筆數.Text = data.明細筆數.ToString();
+            txt明細筆數.Enabled = false;
+            
+
+            _Type = Type_進貨單明細;
+            _Mode = (int)Change_Mode.Insert;            
         }
 
         #region 事件

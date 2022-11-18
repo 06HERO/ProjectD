@@ -196,6 +196,28 @@ namespace 進銷存系統
             this.ShowFrm進貨單列表((int)Change_Mode.Delete);
         }
 
+        private void btnInsert明細_Click(object sender, EventArgs e)
+        {
+            if (_dt列表Index < 0 || _dt列表Index >= dv進貨單列表.Rows.Count)
+                return;
+            DataGridViewRow row = dv進貨單列表.Rows[_dt列表Index];
+
+            fn_進貨單列表_Result data = new fn_進貨單列表_Result()
+            {
+                進貨單編號 = Convert.ToInt32(row.Cells["進貨單編號"].Value),
+                廠商ID = Convert.ToByte(row.Cells["廠商ID"].Value),
+                廠商名稱 = row.Cells["廠商名稱"].Value.ToString(),                
+                //庫存地點ID = Convert.ToInt32(row.Cells["庫存地點ID"].Value),
+                庫存地點  = row.Cells["庫存地點"].Value.ToString(),
+                進貨日期 = Convert.ToDateTime(row.Cells["進貨日期"].Value),
+                明細筆數 = Convert.ToByte(row.Cells["明細筆數"].Value)
+            };
+
+            Frm進貨單編輯 frm = new Frm進貨單編輯(data);
+            //frm.callback += CallInsert進貨單列表;
+            frm.ShowDialog();
+        }
+
         #endregion
 
         #region 方法
@@ -261,6 +283,18 @@ namespace 進銷存系統
                     DataGridViewCell cell = row.Cells["商品名稱"];
                     if (cell.Value.ToString().ToLower().Contains(KeyWord.Trim().ToLower()) == true)
                         row.DefaultCellStyle.BackColor = Color.Yellow;
+                }
+                else
+                {
+                    int 進貨單編號 = Convert.ToInt32(row.Cells["進貨單編號"].Value);
+                    int 明細筆數 = Convert.ToInt32(row.Cells["明細筆數"].Value);
+
+                    if(明細筆數 !=  SQLData.db.進貨單明細.Count( c => c.進貨單編號 == 進貨單編號))
+                    {
+                        DataGridViewCell cell = row.Cells["明細筆數"];
+                        cell.Style.BackColor = Color.Red;
+                        cell.Style.ForeColor = Color.Yellow;
+                    }
                 }
             }
         }
