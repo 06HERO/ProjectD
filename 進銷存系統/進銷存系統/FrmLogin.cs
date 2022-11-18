@@ -56,12 +56,16 @@ namespace 進銷存系統
                 if (user == null)
                     return;
 
+                var find1 = SQLData.db.使用者列表.FirstOrDefault(f => f.LoginID == user.LoginID);
+                SQLData.db.Entry(find1).Reload();
+                user = SQLData.db.使用者列表.Where(w => w.IsAdmin == 1).FirstOrDefault();
+
                 txtID.Text = user.LoginID;
                 txtPW.Text = user.LoginPW;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -74,12 +78,16 @@ namespace 進銷存系統
                 if (user == null)
                     return;
 
+                var find1 = SQLData.db.使用者列表.FirstOrDefault(f => f.LoginID == user.LoginID);
+                SQLData.db.Entry(find1).Reload();
+                user = SQLData.db.使用者列表.Where(w => w.IsAdmin == 0).FirstOrDefault();
+
                 txtID.Text = user.LoginID;
                 txtPW.Text = user.LoginPW;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -92,12 +100,12 @@ namespace 進銷存系統
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtPW.Text))
-            {
-                MessageBox.Show("請輸入密碼");
-                txtID.Focus();
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(txtPW.Text))
+            //{
+            //    MessageBox.Show("請輸入密碼");
+            //    txtID.Focus();
+            //    return;
+            //}
 
             bool IsAuthenticated = false;
             IsAuthenticated = _sqlFunUser.Login(txtID.Text.Trim(), txtPW.Text.Trim());
@@ -114,7 +122,13 @@ namespace 進銷存系統
                 {
                     tabLogin.SelectedIndex = 1;
 
-                    lblCheckCode.Text = "今日初次登入，請至設定EMAIL收取驗證碼後輸入!";
+                    string PW = SQLData.db.使用者列表.Where(w => w.LoginID == SQLData.LoginID).Select(s => s.LoginPW).FirstOrDefault();
+                    
+                    if (string.IsNullOrWhiteSpace(PW) == false)
+                        lblCheckCode.Text = "今日初次登入，請至設定EMAIL收取驗證碼後輸入!";
+                    else
+                        lblCheckCode.Text = "使用者初次登入，請至設定EMAIL收取驗證碼後輸入!";
+
                     txtCheckCode.Focus();
 
                     _PWErr = 0;
