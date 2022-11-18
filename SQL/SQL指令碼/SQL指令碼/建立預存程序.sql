@@ -1,8 +1,12 @@
 USE [普雷二電玩]
 GO
 
---Database Mail 密碼
---maauvxczljfqzasw
+--普雷二官方信箱
+--play2sev@gmail.com
+--伺服器名稱:smtp.gmail.com
+--通訊埠編號:587
+--PW:zxcv90-=
+--應用程式PW:jcnkynchqsdmrdkk
 
 -- 取亂數前面補0至6位
 Select RIGHT(REPLICATE('0',6)  + CAST( (Round(RAND() * 1000000, 0)) as NVARCHAR), 6) AS 'RAM'

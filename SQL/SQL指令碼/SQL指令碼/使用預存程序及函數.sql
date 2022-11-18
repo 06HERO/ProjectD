@@ -6,7 +6,8 @@ SELECT * FROM [dbo].[使用者列表]
 
 -- 新增使用者列表
 EXEC Insert使用者列表 'HERO','hero1208', 1, 'shanshonc@gmail.com', 1
-EXEC Insert使用者列表 'user','1234', 0, 'shanshonc@gmail.com'
+EXEC Insert使用者列表 'user','1234', 0, 'shanshonc@gmail.com',0
+EXEC Insert使用者列表 'user2','1234', 0, 'shanshonc@gmail.com'
 
 -- 使用者登入驗證
 DECLARE @IsAdmin tinyint
