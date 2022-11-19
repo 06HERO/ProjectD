@@ -16,10 +16,49 @@ CREATE PROC dbo.Insert使用者列表
 @LoginID nvarchar(20),@LoginPW nvarchar(20),@IsAdmin smallint,
 @Email nvarchar(100), @IsCheck tinyint = 0
 AS
+	IF EXISTS
+	(
+		SELECT * FROM 使用者列表  
+		WHERE LoginID = @LoginID		
+	)
+	RETURN
+
+
 	INSERT INTO [dbo].[使用者列表]
            ([LoginID], [LoginPW], [IsAdmin], [Email], [IsCheck])
      VALUES
            (@LoginID, @LoginPW, @IsAdmin, @Email, @IsCheck)
+GO
+-- 修改使用者列表(LoginPW/IsAdmin/Email/IsCheck)
+CREATE PROC dbo.Update使用者列表
+@LoginID nvarchar(20),@LoginPW nvarchar(20),@IsAdmin smallint,
+@Email nvarchar(100), @IsCheck tinyint = 0
+AS
+	IF NOT EXISTS
+	(
+		SELECT * FROM 使用者列表  
+		WHERE LoginID = @LoginID
+	)
+	RETURN
+
+	UPDATE [dbo].[使用者列表]
+	SET [LoginPW] = @LoginPW, [IsAdmin] = @IsAdmin ,[Email] = @Email,
+	    [IsCheck] = @IsCheck, [CheckCode] = ''
+	WHERE LoginID = @LoginID
+GO
+-- 刪除使用者列表
+CREATE PROC dbo.Delete使用者列表
+@LoginID nvarchar(20)
+AS
+	IF NOT EXISTS
+	(
+		SELECT * FROM 使用者列表
+		WHERE LoginID = @LoginID
+	)
+	RETURN
+
+	DELETE FROM 使用者列表
+	WHERE LoginID = @LoginID
 GO
 
 -- 使用者登入驗證 BY PW
@@ -55,6 +94,7 @@ AS
 	END
 GO
 
+-- 寄驗證碼
 CREATE PROC dbo.Mail_CheckCode
 @LoginID nvarchar(20)
 AS
@@ -71,6 +111,7 @@ AS
 		 @subject = '今日驗證碼';--主旨=tilte
 GO
 
+-- 使用者登入檢查驗證碼
 CREATE PROC dbo.使用者LoginByCheckCode
 @LoginID nvarchar(20), @CheckCode nvarchar(6)
 AS
@@ -87,6 +128,7 @@ AS
 	AND CheckCode = @CheckCode
 GO
 
+-- 清除使用者證驗登入狀態
 CREATE PROC dbo.重置CheckCode
 @IsAdmin smallint = -1, @LoginID nvarchar(20) = ''
 AS
@@ -109,7 +151,8 @@ AS
 	EXEC sp_sqlexec @SQL	
 GO
 
-ALTER PROC dbo.Update使用者PW
+--重設密碼
+CREATE PROC dbo.Update使用者PW
 @LoginID nvarchar(20),@LoginPW nvarchar(20) = ''
 AS
 	IF NOT EXISTS
@@ -134,7 +177,6 @@ AS
 		EXEC Mail_CheckCode @LoginID
 	END
 GO
-
 
 -- 新增廠商列表資料
 CREATE PROC dbo.Insert廠商列表
