@@ -41,6 +41,10 @@
             this.txt明細筆數 = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.lbl商品類別 = new System.Windows.Forms.Label();
+            this.cmb商品類別 = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbl標題
@@ -59,100 +63,100 @@
             // lbl廠商
             // 
             this.lbl廠商.AutoSize = true;
-            this.lbl廠商.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl廠商.Location = new System.Drawing.Point(210, 65);
+            this.lbl廠商.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl廠商.Location = new System.Drawing.Point(72, 104);
             this.lbl廠商.Name = "lbl廠商";
-            this.lbl廠商.Size = new System.Drawing.Size(41, 20);
+            this.lbl廠商.Size = new System.Drawing.Size(48, 24);
             this.lbl廠商.TabIndex = 29;
             this.lbl廠商.Text = "廠商";
             // 
             // cmb廠商
             // 
             this.cmb廠商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb廠商.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cmb廠商.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmb廠商.FormattingEnabled = true;
-            this.cmb廠商.Location = new System.Drawing.Point(260, 62);
+            this.cmb廠商.Location = new System.Drawing.Point(126, 101);
             this.cmb廠商.Name = "cmb廠商";
-            this.cmb廠商.Size = new System.Drawing.Size(385, 28);
+            this.cmb廠商.Size = new System.Drawing.Size(385, 32);
             this.cmb廠商.TabIndex = 28;
             // 
             // txt進貨單編號
             // 
-            this.txt進貨單編號.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt進貨單編號.Location = new System.Drawing.Point(110, 62);
+            this.txt進貨單編號.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt進貨單編號.Location = new System.Drawing.Point(126, 62);
             this.txt進貨單編號.MaxLength = 10;
             this.txt進貨單編號.Name = "txt進貨單編號";
-            this.txt進貨單編號.Size = new System.Drawing.Size(80, 29);
+            this.txt進貨單編號.Size = new System.Drawing.Size(80, 33);
             this.txt進貨單編號.TabIndex = 27;
             this.txt進貨單編號.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(15, 65);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 20);
+            this.label1.Size = new System.Drawing.Size(105, 24);
             this.label1.TabIndex = 26;
             this.label1.Text = "進貨單編號";
             // 
             // lbl庫存地點
             // 
             this.lbl庫存地點.AutoSize = true;
-            this.lbl庫存地點.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl庫存地點.Location = new System.Drawing.Point(670, 65);
+            this.lbl庫存地點.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl庫存地點.Location = new System.Drawing.Point(34, 142);
             this.lbl庫存地點.Name = "lbl庫存地點";
-            this.lbl庫存地點.Size = new System.Drawing.Size(73, 20);
+            this.lbl庫存地點.Size = new System.Drawing.Size(86, 24);
             this.lbl庫存地點.TabIndex = 31;
             this.lbl庫存地點.Text = "庫存地點";
             // 
             // cmb庫存地點
             // 
             this.cmb庫存地點.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb庫存地點.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cmb庫存地點.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmb庫存地點.FormattingEnabled = true;
-            this.cmb庫存地點.Location = new System.Drawing.Point(750, 62);
+            this.cmb庫存地點.Location = new System.Drawing.Point(126, 139);
             this.cmb庫存地點.Name = "cmb庫存地點";
-            this.cmb庫存地點.Size = new System.Drawing.Size(122, 28);
+            this.cmb庫存地點.Size = new System.Drawing.Size(122, 32);
             this.cmb庫存地點.TabIndex = 30;
             // 
             // msk進貨日期
             // 
-            this.msk進貨日期.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.msk進貨日期.Location = new System.Drawing.Point(110, 100);
+            this.msk進貨日期.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.msk進貨日期.Location = new System.Drawing.Point(638, 56);
             this.msk進貨日期.Mask = "0000/00/00";
             this.msk進貨日期.Name = "msk進貨日期";
-            this.msk進貨日期.Size = new System.Drawing.Size(100, 27);
+            this.msk進貨日期.Size = new System.Drawing.Size(100, 33);
             this.msk進貨日期.TabIndex = 33;
             this.msk進貨日期.ValidatingType = typeof(System.DateTime);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(31, 111);
+            this.label2.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(546, 65);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 20);
+            this.label2.Size = new System.Drawing.Size(86, 24);
             this.label2.TabIndex = 32;
             this.label2.Text = "進貨日期";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(216, 107);
+            this.label3.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Location = new System.Drawing.Point(546, 109);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 20);
+            this.label3.Size = new System.Drawing.Size(86, 24);
             this.label3.TabIndex = 34;
             this.label3.Text = "明細筆數";
             // 
             // txt明細筆數
             // 
-            this.txt明細筆數.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt明細筆數.Location = new System.Drawing.Point(295, 106);
+            this.txt明細筆數.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt明細筆數.Location = new System.Drawing.Point(638, 100);
             this.txt明細筆數.MaxLength = 10;
             this.txt明細筆數.Name = "txt明細筆數";
-            this.txt明細筆數.Size = new System.Drawing.Size(80, 29);
+            this.txt明細筆數.Size = new System.Drawing.Size(100, 33);
             this.txt明細筆數.TabIndex = 35;
             this.txt明細筆數.Text = "0";
             this.txt明細筆數.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -181,11 +185,55 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // lbl商品類別
+            // 
+            this.lbl商品類別.AutoSize = true;
+            this.lbl商品類別.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.lbl商品類別.Location = new System.Drawing.Point(34, 217);
+            this.lbl商品類別.Name = "lbl商品類別";
+            this.lbl商品類別.Size = new System.Drawing.Size(86, 24);
+            this.lbl商品類別.TabIndex = 41;
+            this.lbl商品類別.Text = "商品類別";
+            // 
+            // cmb商品類別
+            // 
+            this.cmb商品類別.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb商品類別.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.cmb商品類別.FormattingEnabled = true;
+            this.cmb商品類別.Location = new System.Drawing.Point(126, 217);
+            this.cmb商品類別.Name = "cmb商品類別";
+            this.cmb商品類別.Size = new System.Drawing.Size(130, 32);
+            this.cmb商品類別.TabIndex = 40;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label4.Location = new System.Drawing.Point(34, 265);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(86, 24);
+            this.label4.TabIndex = 42;
+            this.label4.Text = "商品名稱";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(126, 265);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(385, 32);
+            this.comboBox1.TabIndex = 43;
+            // 
             // Frm進貨單編輯
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 461);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.lbl商品類別);
+            this.Controls.Add(this.cmb商品類別);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txt明細筆數);
@@ -222,5 +270,9 @@
         private System.Windows.Forms.TextBox txt明細筆數;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label lbl商品類別;
+        private System.Windows.Forms.ComboBox cmb商品類別;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

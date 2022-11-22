@@ -75,7 +75,6 @@ namespace 進銷存系統.SqlFun
 
         public int CheckCode(string LoginID, string CheckCode)
         {
-            //int tmp = (SQLData.db.使用者LoginByCheckCode(LoginID, CheckCode);
             return (SQLData.db.使用者LoginByCheckCode(LoginID, CheckCode));
         }
     }

@@ -6,18 +6,20 @@ SELECT * FROM [dbo].[使用者列表]
 
 -- 新增使用者列表
 EXEC Insert使用者列表 'HERO','hero1208', 1, 'shanshonc@gmail.com', 1
-EXEC Insert使用者列表 'user','1234', 0, 'shanshonc@gmail.com'
+EXEC Insert使用者列表 'user','1234', 0, 'shanshonc@gmail.com',0
+EXEC Insert使用者列表 'user2','1234', 0, 'shanshonc@gmail.com'
+-- 修改使用者列表(LoginPW/IsAdmin/Email/IsCheck)
+EXEC Update使用者列表 'user','12345', 0, 'shanshonc@gmail.com',1
+-- 刪除使用者列表
+EXEC Delete使用者列表 'user2'
 
 -- 使用者登入驗證
-DECLARE @IsAdmin tinyint
-EXEC 使用者LoginByEntity 'HERO','hero1208' , @IsAdmin OUTPUT
-SELECT @IsAdmin
-
 DECLARE @IsAdmin smallint 
 DECLARE @IsCheck tinyint
 EXEC 使用者LoginByPW 'HERO','hero1208' , @IsAdmin OUTPUT, @IsCheck OUTPUT
 SELECT @IsAdmin, @IsCheck
--- eMail Mail_CheckCode
+
+-- 寄驗證碼
 EXEC Mail_CheckCode 'HERO'
 
 -- 使用者登入檢查驗證碼
@@ -28,7 +30,7 @@ EXEC 重置CheckCode 0
 EXEC 重置CheckCode -1, 'HERO'
 EXEC 重置CheckCode
 
---更新密碼
+--重設密碼
 EXEC Update使用者PW 'user'
 EXEC Update使用者PW 'user', '12345'
 
