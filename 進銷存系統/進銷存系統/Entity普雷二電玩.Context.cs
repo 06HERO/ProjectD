@@ -344,5 +344,70 @@ namespace 進銷存系統
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("使用者LoginByCheckCode", loginIDParameter, checkCodeParameter);
         }
+    
+        public virtual int Delete使用者列表(string loginID)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete使用者列表", loginIDParameter);
+        }
+    
+        public virtual int Insert使用者列表(string loginID, string loginPW, Nullable<short> isAdmin, string email, Nullable<byte> isCheck)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            var loginPWParameter = loginPW != null ?
+                new ObjectParameter("LoginPW", loginPW) :
+                new ObjectParameter("LoginPW", typeof(string));
+    
+            var isAdminParameter = isAdmin.HasValue ?
+                new ObjectParameter("IsAdmin", isAdmin) :
+                new ObjectParameter("IsAdmin", typeof(short));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var isCheckParameter = isCheck.HasValue ?
+                new ObjectParameter("IsCheck", isCheck) :
+                new ObjectParameter("IsCheck", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert使用者列表", loginIDParameter, loginPWParameter, isAdminParameter, emailParameter, isCheckParameter);
+        }
+    
+        public virtual int Update使用者列表(string loginID, string loginPW, Nullable<short> isAdmin, string email, Nullable<byte> isCheck)
+        {
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            var loginPWParameter = loginPW != null ?
+                new ObjectParameter("LoginPW", loginPW) :
+                new ObjectParameter("LoginPW", typeof(string));
+    
+            var isAdminParameter = isAdmin.HasValue ?
+                new ObjectParameter("IsAdmin", isAdmin) :
+                new ObjectParameter("IsAdmin", typeof(short));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var isCheckParameter = isCheck.HasValue ?
+                new ObjectParameter("IsCheck", isCheck) :
+                new ObjectParameter("IsCheck", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update使用者列表", loginIDParameter, loginPWParameter, isAdminParameter, emailParameter, isCheckParameter);
+        }
+    
+        [DbFunction("普雷二電玩Entities", "fn_使用者列表")]
+        public virtual IQueryable<fn_使用者列表_Result> fn_使用者列表()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_使用者列表_Result>("[普雷二電玩Entities].[fn_使用者列表]()");
+        }
     }
 }

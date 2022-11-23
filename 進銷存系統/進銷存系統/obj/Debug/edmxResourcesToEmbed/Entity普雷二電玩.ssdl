@@ -5,8 +5,11 @@
       <PropertyRef Name="LoginID" />
     </Key>
     <Property Name="LoginID" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="LoginPW" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="IsAdmin" Type="tinyint" Nullable="false" />
+    <Property Name="LoginPW" Type="nvarchar" MaxLength="20" />
+    <Property Name="IsAdmin" Type="smallint" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="IsCheck" Type="tinyint" />
+    <Property Name="CheckCode" Type="nvarchar" MaxLength="6" />
   </EntityType>
   <EntityType Name="庫存地點列表">
     <Key>
@@ -157,6 +160,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="Delete使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+  </Function>
   <Function Name="Delete商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
     <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
@@ -165,8 +171,27 @@
   <Function Name="Delete商品類型列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
   </Function>
+  <Function Name="Delete進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="進貨單編號" Type="int" Mode="In" />
+  </Function>
   <Function Name="Delete廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+  </Function>
+  <Function Name="fn_使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="使用者ID" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="密碼" Type="nvarchar" MaxLength="20" />
+          <Property Name="IsAdmin" Type="smallint" Nullable="false" />
+          <Property Name="管理權限" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsCheck" Type="tinyint" />
+          <Property Name="已驗證" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="驗證碼" Type="nvarchar" MaxLength="6" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
   </Function>
   <Function Name="fn_庫存列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <ReturnType>
@@ -249,6 +274,13 @@
       </CollectionType>
     </ReturnType>
   </Function>
+  <Function Name="Insert使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+    <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
+    <Parameter Name="IsAdmin" Type="smallint" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="IsCheck" Type="tinyint" Mode="In" />
+  </Function>
   <Function Name="Insert商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
     <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
@@ -261,6 +293,13 @@
     <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
     <Parameter Name="商品類型名稱" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="Insert進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="進貨單編號" Type="int" Mode="In" />
+    <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
+    <Parameter Name="庫存地點ID" Type="int" Mode="In" />
+    <Parameter Name="進貨日期" Type="datetime" Mode="In" />
+    <Parameter Name="明細筆數" Type="tinyint" Mode="In" />
+  </Function>
   <Function Name="Insert廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
     <Parameter Name="廠商名稱" Type="nvarchar" Mode="In" />
@@ -269,6 +308,17 @@
     <Parameter Name="資本總額" Type="decimal" Mode="In" />
     <Parameter Name="聯絡電話" Type="nvarchar" Mode="In" />
     <Parameter Name="顯示與否" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="Update使用者PW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+    <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="Update使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+    <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
+    <Parameter Name="IsAdmin" Type="smallint" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="IsCheck" Type="tinyint" Mode="In" />
   </Function>
   <Function Name="Update商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
@@ -282,6 +332,12 @@
     <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
     <Parameter Name="商品類型名稱" Type="nvarchar" Mode="In" />
   </Function>
+  <Function Name="Update進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="進貨單編號" Type="int" Mode="In" />
+    <Parameter Name="庫存地點ID" Type="int" Mode="In" />
+    <Parameter Name="進貨日期" Type="datetime" Mode="In" />
+    <Parameter Name="明細筆數" Type="tinyint" Mode="In" />
+  </Function>
   <Function Name="Update廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
     <Parameter Name="廠商名稱" Type="nvarchar" Mode="In" />
@@ -291,10 +347,15 @@
     <Parameter Name="聯絡電話" Type="nvarchar" Mode="In" />
     <Parameter Name="顯示與否" Type="varchar" Mode="In" />
   </Function>
-  <Function Name="使用者LoginByEntity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+  <Function Name="使用者LoginByCheckCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+    <Parameter Name="CheckCode" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="使用者LoginByPW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
     <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
-    <Parameter Name="IsAdmin" Type="tinyint" Mode="InOut" />
+    <Parameter Name="IsAdmin" Type="smallint" Mode="InOut" />
+    <Parameter Name="IsCheck" Type="tinyint" Mode="InOut" />
   </Function>
   <EntityContainer Name="普雷二電玩ModelStoreContainer">
     <EntitySet Name="使用者列表" EntityType="Self.使用者列表" Schema="dbo" store:Type="Tables" />

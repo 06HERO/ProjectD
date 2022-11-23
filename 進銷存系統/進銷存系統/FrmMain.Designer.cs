@@ -32,6 +32,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tSB登入人員 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.tSB使用者編輯維護 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.tSB真_廠商資料查詢編輯 = new System.Windows.Forms.ToolStripButton();
             this.tSB廠商資料查詢編輯 = new System.Windows.Forms.ToolStripButton();
@@ -65,6 +68,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSB登入人員,
             this.toolStripSeparator1,
+            this.toolStripLabel1,
+            this.tSB使用者編輯維護,
+            this.toolStripSeparator6,
             this.toolStripButton1,
             this.tSB真_廠商資料查詢編輯,
             this.tSB廠商資料查詢編輯,
@@ -89,7 +95,7 @@
             this.toolStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(141, 627);
+            this.toolStrip1.Size = new System.Drawing.Size(167, 627);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -98,13 +104,40 @@
             this.tSB登入人員.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.tSB登入人員.ForeColor = System.Drawing.Color.Blue;
             this.tSB登入人員.Name = "tSB登入人員";
-            this.tSB登入人員.Size = new System.Drawing.Size(138, 20);
+            this.tSB登入人員.Size = new System.Drawing.Size(164, 25);
             this.tSB登入人員.Text = "登入人員";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(164, 6);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Font = new System.Drawing.Font("微軟正黑體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.toolStripLabel1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.toolStripLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel1.Image")));
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(164, 25);
+            this.toolStripLabel1.Text = "使用者管理";
+            this.toolStripLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tSB使用者編輯維護
+            // 
+            this.tSB使用者編輯維護.BackColor = System.Drawing.Color.Transparent;
+            this.tSB使用者編輯維護.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tSB使用者編輯維護.Image = ((System.Drawing.Image)(resources.GetObject("tSB使用者編輯維護.Image")));
+            this.tSB使用者編輯維護.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tSB使用者編輯維護.Name = "tSB使用者編輯維護";
+            this.tSB使用者編輯維護.Size = new System.Drawing.Size(164, 26);
+            this.tSB使用者編輯維護.Text = "    使用者編輯維護";
+            this.tSB使用者編輯維護.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tSB使用者編輯維護.Click += new System.EventHandler(this.tSB使用者編輯維護_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(164, 6);
             // 
             // toolStripButton1
             // 
@@ -115,7 +148,7 @@
             this.toolStripButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(138, 25);
+            this.toolStripButton1.Size = new System.Drawing.Size(164, 29);
             this.toolStripButton1.Text = "進貨";
             // 
             // tSB真_廠商資料查詢編輯
@@ -125,7 +158,7 @@
             this.tSB真_廠商資料查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB真_廠商資料查詢編輯.Image")));
             this.tSB真_廠商資料查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB真_廠商資料查詢編輯.Name = "tSB真_廠商資料查詢編輯";
-            this.tSB真_廠商資料查詢編輯.Size = new System.Drawing.Size(138, 22);
+            this.tSB真_廠商資料查詢編輯.Size = new System.Drawing.Size(164, 26);
             this.tSB真_廠商資料查詢編輯.Text = "    真!廠商維護系統";
             this.tSB真_廠商資料查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB真_廠商資料查詢編輯.Click += new System.EventHandler(this.tSB真_廠商資料查詢編輯_Click);
@@ -136,7 +169,7 @@
             this.tSB廠商資料查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB廠商資料查詢編輯.Image")));
             this.tSB廠商資料查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB廠商資料查詢編輯.Name = "tSB廠商資料查詢編輯";
-            this.tSB廠商資料查詢編輯.Size = new System.Drawing.Size(138, 22);
+            this.tSB廠商資料查詢編輯.Size = new System.Drawing.Size(164, 26);
             this.tSB廠商資料查詢編輯.Text = "    廠商維護系統";
             this.tSB廠商資料查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB廠商資料查詢編輯.Click += new System.EventHandler(this.廠商資料查詢編輯_Click);
@@ -147,7 +180,7 @@
             this.tSB進貨單查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB進貨單查詢編輯.Image")));
             this.tSB進貨單查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB進貨單查詢編輯.Name = "tSB進貨單查詢編輯";
-            this.tSB進貨單查詢編輯.Size = new System.Drawing.Size(138, 22);
+            this.tSB進貨單查詢編輯.Size = new System.Drawing.Size(164, 26);
             this.tSB進貨單查詢編輯.Text = "    進貨單維護查詢";
             this.tSB進貨單查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB進貨單查詢編輯.Click += new System.EventHandler(this.tSB進貨單查詢編輯_Click);
@@ -155,7 +188,7 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(164, 6);
             // 
             // toolStripButton4
             // 
@@ -166,7 +199,7 @@
             this.toolStripButton4.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(138, 25);
+            this.toolStripButton4.Size = new System.Drawing.Size(164, 29);
             this.toolStripButton4.Text = "出貨";
             this.toolStripButton4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -176,7 +209,7 @@
             this.tSB經銷商查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB經銷商查詢編輯.Image")));
             this.tSB經銷商查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB經銷商查詢編輯.Name = "tSB經銷商查詢編輯";
-            this.tSB經銷商查詢編輯.Size = new System.Drawing.Size(138, 22);
+            this.tSB經銷商查詢編輯.Size = new System.Drawing.Size(164, 26);
             this.tSB經銷商查詢編輯.Text = "    經銷商維護系統2";
             this.tSB經銷商查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB經銷商查詢編輯.Click += new System.EventHandler(this.tSB經銷商查詢編輯_Click);
@@ -187,7 +220,7 @@
             this.tSB客戶維護系統.Image = ((System.Drawing.Image)(resources.GetObject("tSB客戶維護系統.Image")));
             this.tSB客戶維護系統.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB客戶維護系統.Name = "tSB客戶維護系統";
-            this.tSB客戶維護系統.Size = new System.Drawing.Size(138, 22);
+            this.tSB客戶維護系統.Size = new System.Drawing.Size(164, 26);
             this.tSB客戶維護系統.Text = "    經銷商維護系統1";
             this.tSB客戶維護系統.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB客戶維護系統.Click += new System.EventHandler(this.tSB客戶維護系統_Click);
@@ -198,7 +231,7 @@
             this.tSB出貨單維護.Image = ((System.Drawing.Image)(resources.GetObject("tSB出貨單維護.Image")));
             this.tSB出貨單維護.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB出貨單維護.Name = "tSB出貨單維護";
-            this.tSB出貨單維護.Size = new System.Drawing.Size(138, 22);
+            this.tSB出貨單維護.Size = new System.Drawing.Size(164, 26);
             this.tSB出貨單維護.Text = "    出貨單維護查詢";
             this.tSB出貨單維護.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB出貨單維護.Click += new System.EventHandler(this.tSB出貨單維護_Click);
@@ -206,7 +239,7 @@
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(164, 6);
             // 
             // toolStripButton3
             // 
@@ -217,7 +250,7 @@
             this.toolStripButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(138, 25);
+            this.toolStripButton3.Size = new System.Drawing.Size(164, 29);
             this.toolStripButton3.Text = "商品";
             // 
             // tSB商品類別查詢編輯
@@ -226,7 +259,7 @@
             this.tSB商品類別查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB商品類別查詢編輯.Image")));
             this.tSB商品類別查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB商品類別查詢編輯.Name = "tSB商品類別查詢編輯";
-            this.tSB商品類別查詢編輯.Size = new System.Drawing.Size(138, 22);
+            this.tSB商品類別查詢編輯.Size = new System.Drawing.Size(164, 26);
             this.tSB商品類別查詢編輯.Text = "    商品類別查詢編輯";
             this.tSB商品類別查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB商品類別查詢編輯.Click += new System.EventHandler(this.商品類別查詢編輯_Click);
@@ -237,7 +270,7 @@
             this.tSB商品資料查詢編輯.Image = ((System.Drawing.Image)(resources.GetObject("tSB商品資料查詢編輯.Image")));
             this.tSB商品資料查詢編輯.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB商品資料查詢編輯.Name = "tSB商品資料查詢編輯";
-            this.tSB商品資料查詢編輯.Size = new System.Drawing.Size(138, 22);
+            this.tSB商品資料查詢編輯.Size = new System.Drawing.Size(164, 26);
             this.tSB商品資料查詢編輯.Text = "    商品資料查詢編輯";
             this.tSB商品資料查詢編輯.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB商品資料查詢編輯.Click += new System.EventHandler(this.商品資料查詢編輯_Click);
@@ -245,7 +278,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(164, 6);
             // 
             // toolStripButton5
             // 
@@ -256,7 +289,7 @@
             this.toolStripButton5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(138, 25);
+            this.toolStripButton5.Size = new System.Drawing.Size(164, 29);
             this.toolStripButton5.Text = "交叉查詢";
             // 
             // tSB訂單查詢
@@ -265,7 +298,7 @@
             this.tSB訂單查詢.Image = ((System.Drawing.Image)(resources.GetObject("tSB訂單查詢.Image")));
             this.tSB訂單查詢.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB訂單查詢.Name = "tSB訂單查詢";
-            this.tSB訂單查詢.Size = new System.Drawing.Size(138, 22);
+            this.tSB訂單查詢.Size = new System.Drawing.Size(164, 26);
             this.tSB訂單查詢.Text = "    訂單查詢";
             this.tSB訂單查詢.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB訂單查詢.Click += new System.EventHandler(this.tSB訂單查詢_Click);
@@ -276,7 +309,7 @@
             this.tSB庫存查詢.Image = ((System.Drawing.Image)(resources.GetObject("tSB庫存查詢.Image")));
             this.tSB庫存查詢.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB庫存查詢.Name = "tSB庫存查詢";
-            this.tSB庫存查詢.Size = new System.Drawing.Size(138, 22);
+            this.tSB庫存查詢.Size = new System.Drawing.Size(164, 26);
             this.tSB庫存查詢.Text = "    庫存查詢";
             this.tSB庫存查詢.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB庫存查詢.Click += new System.EventHandler(this.tSB庫存查詢_Click);
@@ -284,7 +317,7 @@
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(138, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(164, 6);
             // 
             // tSb關閉所有視窗
             // 
@@ -293,7 +326,7 @@
             this.tSb關閉所有視窗.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSb關閉所有視窗.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSb關閉所有視窗.Name = "tSb關閉所有視窗";
-            this.tSb關閉所有視窗.Size = new System.Drawing.Size(138, 24);
+            this.tSb關閉所有視窗.Size = new System.Drawing.Size(164, 29);
             this.tSb關閉所有視窗.Text = " 關閉所有視窗";
             this.tSb關閉所有視窗.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSb關閉所有視窗.Click += new System.EventHandler(this.tSb關閉所有視窗_Click);
@@ -305,7 +338,7 @@
             this.tSB登出.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB登出.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSB登出.Name = "tSB登出";
-            this.tSB登出.Size = new System.Drawing.Size(138, 24);
+            this.tSB登出.Size = new System.Drawing.Size(81, 29);
             this.tSB登出.Text = " 登出";
             this.tSB登出.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSB登出.Click += new System.EventHandler(this.tSB登出_Click);
@@ -317,14 +350,14 @@
             this.tSBExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSBExit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tSBExit.Name = "tSBExit";
-            this.tSBExit.Size = new System.Drawing.Size(138, 24);
+            this.tSBExit.Size = new System.Drawing.Size(121, 29);
             this.tSBExit.Text = " 結束程式";
             this.tSBExit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.tSBExit.Click += new System.EventHandler(this.tSBExit_Click);
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
@@ -370,6 +403,9 @@
         private System.Windows.Forms.ToolStripButton toolStripButton4;
         private System.Windows.Forms.ToolStripButton toolStripButton5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripButton tSB使用者編輯維護;
     }
 }
 

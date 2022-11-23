@@ -17,6 +17,8 @@ namespace 進銷存系統
     {
         private List<Form> FormList = null;
 
+        private Frm使用者編輯維護 Frm使用者維護 = null;
+
         private Frm_廠商維護_控制表 Frm廠商維護 = null;
         private Frm廠商列表維護 Frm廠商 = null;
         private Frm商品類別列表維護 Frm商品類別= null;
@@ -44,6 +46,20 @@ namespace 進銷存系統
             this.ReLoad();
         }
 
+        private void tSB使用者編輯維護_Click(object sender, EventArgs e)
+        {
+            if (Frm使用者維護 == null || Frm使用者維護.IsDisposed == true)
+            {
+                Frm使用者維護 = new Frm使用者編輯維護();
+                Frm使用者維護.MdiParent = this;
+                Frm使用者維護.WindowState = FormWindowState.Maximized;
+                Frm使用者維護.Show();
+
+                FormList.Add(Frm使用者維護);
+            }
+            Frm使用者維護.BringToFront();
+        }
+
         private void tSB真_廠商資料查詢編輯_Click(object sender, EventArgs e)
         {
             if (Frm廠商維護 == null || Frm廠商維護.IsDisposed == true)
@@ -56,8 +72,6 @@ namespace 進銷存系統
                 FormList.Add(Frm廠商維護);
             }
             Frm廠商維護.BringToFront();
-
-            
         }
 
         private void 廠商資料查詢編輯_Click(object sender, EventArgs e)
@@ -218,6 +232,8 @@ namespace 進銷存系統
         private void ReLoad()
         {
             tSB登入人員.Visible = false;
+
+            tSB使用者編輯維護.Visible = false;
             tSB真_廠商資料查詢編輯.Visible = false;
             tSB廠商資料查詢編輯.Visible = false;
             tSB商品類別查詢編輯.Visible = false;
@@ -251,6 +267,7 @@ namespace 進銷存系統
                     break;
 
                 case (int)User_LV.Admin:
+                    tSB使用者編輯維護.Visible = true;
                     tSB真_廠商資料查詢編輯.Visible = true;
                     tSB廠商資料查詢編輯.Visible = true;
                     tSB商品類別查詢編輯.Visible = true;
@@ -270,7 +287,6 @@ namespace 進銷存系統
             tSB登入人員.Visible = true;
             tSB登入人員.Text = "登入人員： "  + SQLData.LoginID;
         }
-
         #endregion        
     }
 }
