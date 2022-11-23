@@ -1,6 +1,34 @@
 USE [普雷二電玩]
 GO
 
+--取得 使用者列表 顯示上修改欄位名稱為中文
+SELECT [LoginID]	AS 使用者ID
+      ,[LoginPW]	AS 密碼
+	  , [IsAdmin]
+      ,(CASE WHEN [IsAdmin] = 1 THEN '有' ELSE '無' END) AS 管理權限
+      ,[Email]
+      ,[IsCheck]
+	  ,(CASE WHEN [IsCheck] = 1 THEN '是' ELSE '否' END) AS 已驗證
+      ,[CheckCode]	AS 驗證碼
+FROM [dbo].[使用者列表]
+GO
+CREATE FUNCTION fn_使用者列表()
+RETURNS TABLE
+AS RETURN
+(
+	SELECT [LoginID]	AS 使用者ID
+		  ,[LoginPW]	AS 密碼
+	     , [IsAdmin]
+         ,(CASE WHEN [IsAdmin] = 1 THEN '有' ELSE '無' END) AS 管理權限
+         ,[Email]
+         ,[IsCheck]
+	     ,(CASE WHEN [IsCheck] = 1 THEN '是' ELSE '否' END) AS 已驗證
+         ,[CheckCode]	AS 驗證碼
+	FROM [dbo].[使用者列表]
+)
+GO
+SELECT * FROM fn_使用者列表()
+
 --取得 進貨單列表 Join 廠商列表/庫存地點列表 聯合資料
 SELECT a.進貨單編號, a.廠商ID, b.廠商名稱, a.庫存地點ID, c.庫存地點, a.進貨日期, a.明細筆數, a.進貨成本
 FROM [dbo].[進貨單列表] a
