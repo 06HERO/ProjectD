@@ -73,6 +73,7 @@
       <End Role="廠商列表" EntitySet="廠商列表" />
       <End Role="商品列表" EntitySet="商品列表" />
     </AssociationSet>
+    <EntitySet Name="使用者列表" EntityType="普雷二電玩Model.使用者列表" />
     <FunctionImport Name="Insert廠商列表">
       <Parameter Name="廠商ID" Mode="In" Type="Byte" />
       <Parameter Name="廠商名稱" Mode="In" Type="String" />
@@ -104,6 +105,11 @@
     <FunctionImport Name="Update商品類型列表">
       <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
       <Parameter Name="商品類型名稱" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="使用者LoginByEntity">
+      <Parameter Name="LoginID" Mode="In" Type="String" />
+      <Parameter Name="LoginPW" Mode="In" Type="String" />
+      <Parameter Name="IsAdmin" Mode="InOut" Type="Byte" />
     </FunctionImport>
     <FunctionImport Name="Delete商品列表">
       <Parameter Name="廠商ID" Mode="In" Type="Byte" />
@@ -151,56 +157,15 @@
       <End Role="庫存地點列表" EntitySet="庫存地點列表" />
       <End Role="商品在庫數量" EntitySet="商品在庫數量" />
     </AssociationSet>
-    <FunctionImport Name="Delete進貨單列表">
-      <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
-    </FunctionImport>
-    <FunctionImport Name="Insert進貨單列表">
-      <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
-      <Parameter Name="廠商ID" Mode="In" Type="Byte" />
-      <Parameter Name="庫存地點ID" Mode="In" Type="Int32" />
-      <Parameter Name="進貨日期" Mode="In" Type="DateTime" />
-      <Parameter Name="明細筆數" Mode="In" Type="Byte" />
-    </FunctionImport>
-    <FunctionImport Name="Update進貨單列表">
-      <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
-      <Parameter Name="庫存地點ID" Mode="In" Type="Int32" />
-      <Parameter Name="進貨日期" Mode="In" Type="DateTime" />
-      <Parameter Name="明細筆數" Mode="In" Type="Byte" />
-    </FunctionImport>
-    <FunctionImport Name="Update使用者PW">
-      <Parameter Name="LoginID" Mode="In" Type="String" />
-      <Parameter Name="LoginPW" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="使用者LoginByPW">
-      <Parameter Name="LoginID" Mode="In" Type="String" />
-      <Parameter Name="LoginPW" Mode="In" Type="String" />
-      <Parameter Name="IsAdmin" Mode="InOut" Type="Int16" />
-      <Parameter Name="IsCheck" Mode="InOut" Type="Byte" />
-    </FunctionImport>
-    <EntitySet Name="使用者列表" EntityType="普雷二電玩Model.使用者列表" />
-    <FunctionImport Name="使用者LoginByCheckCode">
-      <Parameter Name="LoginID" Mode="In" Type="String" />
-      <Parameter Name="CheckCode" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Delete使用者列表">
-      <Parameter Name="LoginID" Mode="In" Type="String" />
-    </FunctionImport>
-    <FunctionImport Name="Insert使用者列表">
-      <Parameter Name="LoginID" Mode="In" Type="String" />
-      <Parameter Name="LoginPW" Mode="In" Type="String" />
-      <Parameter Name="IsAdmin" Mode="In" Type="Int16" />
-      <Parameter Name="Email" Mode="In" Type="String" />
-      <Parameter Name="IsCheck" Mode="In" Type="Byte" />
-    </FunctionImport>
-    <FunctionImport Name="Update使用者列表">
-      <Parameter Name="LoginID" Mode="In" Type="String" />
-      <Parameter Name="LoginPW" Mode="In" Type="String" />
-      <Parameter Name="IsAdmin" Mode="In" Type="Int16" />
-      <Parameter Name="Email" Mode="In" Type="String" />
-      <Parameter Name="IsCheck" Mode="In" Type="Byte" />
-    </FunctionImport>
-    <FunctionImport Name="fn_使用者列表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_使用者列表_Result)" />
   </EntityContainer>
+  <EntityType Name="使用者列表">
+    <Key>
+      <PropertyRef Name="LoginID" />
+    </Key>
+    <Property Name="LoginID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LoginPW" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="IsAdmin" Type="Byte" Nullable="false" />
+  </EntityType>
   <EntityType Name="進貨單列表">
     <Key>
       <PropertyRef Name="進貨單編號" />
@@ -321,6 +286,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <ComplexType Name="fn_庫存列表1_Result">
+    <Property Type="Int32" Name="庫存地點ID" Nullable="false" />
+    <Property Type="String" Name="庫存地點" Nullable="false" MaxLength="50" />
+    <Property Type="Byte" Name="廠商ID" Nullable="false" />
+    <Property Type="String" Name="廠商名稱" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="統一編號" Nullable="true" MaxLength="10" />
+    <Property Type="Byte" Name="商品類型ID" Nullable="false" />
+    <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+    <Property Type="Int16" Name="商品ID" Nullable="false" />
+    <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+    <Property Type="Int16" Name="商品數量" Nullable="false" />
+    <Property Type="Decimal" Name="進貨價" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="Decimal" Name="零售價" Nullable="false" Precision="10" Scale="2" />
+    <Property Type="String" Name="地址" Nullable="true" MaxLength="100" />
+  </ComplexType>
   <ComplexType Name="fn_總商品庫存表_Result">
     <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
@@ -352,25 +332,4 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="使用者列表">
-    <Key>
-      <PropertyRef Name="LoginID" />
-    </Key>
-    <Property Name="LoginID" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="LoginPW" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="IsAdmin" Type="Int16" Nullable="false" />
-    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="IsCheck" Type="Byte" />
-    <Property Name="CheckCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-  </EntityType>
-  <ComplexType Name="fn_使用者列表_Result">
-    <Property Type="String" Name="使用者ID" Nullable="false" MaxLength="20" />
-    <Property Type="String" Name="密碼" Nullable="true" MaxLength="20" />
-    <Property Type="Int16" Name="IsAdmin" Nullable="false" />
-    <Property Type="String" Name="管理權限" Nullable="false" MaxLength="2" />
-    <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
-    <Property Type="Byte" Name="IsCheck" Nullable="true" />
-    <Property Type="String" Name="已驗證" Nullable="false" MaxLength="2" />
-    <Property Type="String" Name="驗證碼" Nullable="true" MaxLength="6" />
-  </ComplexType>
 </Schema>

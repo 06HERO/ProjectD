@@ -40,8 +40,7 @@ namespace 進銷存系統
         {
             this.Activated += (object s, EventArgs ev) => { this.ResetGridStyle(); };
             this.Resize += (object s, EventArgs ev) => { this.ResetGridStyle(); };
-            dv廠商列表.ColumnHeaderMouseClick += (object s, DataGridViewCellMouseEventArgs ev) => { this.ResetGridStyle(); };
-
+            dv廠商列表.ColumnHeaderMouseClick +=(object s, DataGridViewCellMouseEventArgs ev) => { this.ResetGridStyle(); };
             txtID.KeyPress += SqlFunBase.Text_KeyPress_INT;
             txt統一編號.KeyPress += SqlFunBase.Text_KeyPress_INT;
             txt資本總額.KeyPress += SqlFunBase.Text_KeyPress_Decimal;

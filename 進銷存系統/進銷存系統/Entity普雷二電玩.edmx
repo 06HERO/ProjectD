@@ -165,9 +165,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="Delete使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
-        </Function>
         <Function Name="Delete商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
           <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
@@ -181,22 +178,6 @@
         </Function>
         <Function Name="Delete廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
-        </Function>
-        <Function Name="fn_使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <ReturnType>
-            <CollectionType>
-              <RowType>
-                <Property Name="使用者ID" Type="nvarchar" MaxLength="20" Nullable="false" />
-                <Property Name="密碼" Type="nvarchar" MaxLength="20" />
-                <Property Name="IsAdmin" Type="smallint" Nullable="false" />
-                <Property Name="管理權限" Type="varchar" MaxLength="2" Nullable="false" />
-                <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
-                <Property Name="IsCheck" Type="tinyint" />
-                <Property Name="已驗證" Type="varchar" MaxLength="2" Nullable="false" />
-                <Property Name="驗證碼" Type="nvarchar" MaxLength="6" />
-              </RowType>
-            </CollectionType>
-          </ReturnType>
         </Function>
         <Function Name="fn_庫存列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <ReturnType>
@@ -279,13 +260,6 @@
             </CollectionType>
           </ReturnType>
         </Function>
-        <Function Name="Insert使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
-          <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
-          <Parameter Name="IsAdmin" Type="smallint" Mode="In" />
-          <Parameter Name="Email" Type="nvarchar" Mode="In" />
-          <Parameter Name="IsCheck" Type="tinyint" Mode="In" />
-        </Function>
         <Function Name="Insert商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
           <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
@@ -317,13 +291,6 @@
         <Function Name="Update使用者PW" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
           <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="Update使用者列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
-          <Parameter Name="LoginPW" Type="nvarchar" Mode="In" />
-          <Parameter Name="IsAdmin" Type="smallint" Mode="In" />
-          <Parameter Name="Email" Type="nvarchar" Mode="In" />
-          <Parameter Name="IsCheck" Type="tinyint" Mode="In" />
         </Function>
         <Function Name="Update商品列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
@@ -582,24 +549,6 @@
             <Parameter Name="LoginID" Mode="In" Type="String" />
             <Parameter Name="CheckCode" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="Delete使用者列表">
-          <Parameter Name="LoginID" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="Insert使用者列表">
-            <Parameter Name="LoginID" Mode="In" Type="String" />
-            <Parameter Name="LoginPW" Mode="In" Type="String" />
-            <Parameter Name="IsAdmin" Mode="In" Type="Int16" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="IsCheck" Mode="In" Type="Byte" />
-          </FunctionImport>
-          <FunctionImport Name="Update使用者列表">
-            <Parameter Name="LoginID" Mode="In" Type="String" />
-            <Parameter Name="LoginPW" Mode="In" Type="String" />
-            <Parameter Name="IsAdmin" Mode="In" Type="Int16" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="IsCheck" Mode="In" Type="Byte" />
-          </FunctionImport>
-          <FunctionImport Name="fn_使用者列表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_使用者列表_Result)" />
         </EntityContainer>
         <EntityType Name="進貨單列表">
           <Key>
@@ -720,7 +669,22 @@
               <PropertyRef Name="庫存地點ID" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>        
+        </Association>
+        <ComplexType Name="fn_庫存列表1_Result">
+          <Property Type="Int32" Name="庫存地點ID" Nullable="false" />
+          <Property Type="String" Name="庫存地點" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="廠商ID" Nullable="false" />
+          <Property Type="String" Name="廠商名稱" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="統一編號" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="商品類型ID" Nullable="false" />
+          <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
+          <Property Type="Int16" Name="商品ID" Nullable="false" />
+          <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="商品數量" Nullable="false" />
+          <Property Type="Decimal" Name="進貨價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="零售價" Nullable="false" Precision="10" Scale="2" />
+          <Property Type="String" Name="地址" Nullable="true" MaxLength="100" />
+        </ComplexType>
         <ComplexType Name="fn_總商品庫存表_Result">
           <Property Type="String" Name="商品類型名稱" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="商品名稱" Nullable="false" MaxLength="50" />
@@ -762,17 +726,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="IsCheck" Type="Byte" />
           <Property Name="CheckCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <ComplexType Name="fn_使用者列表_Result">
-          <Property Type="String" Name="使用者ID" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="密碼" Nullable="true" MaxLength="20" />
-          <Property Type="Int16" Name="IsAdmin" Nullable="false" />
-          <Property Type="String" Name="管理權限" Nullable="false" MaxLength="2" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" />
-          <Property Type="Byte" Name="IsCheck" Nullable="true" />
-          <Property Type="String" Name="已驗證" Nullable="false" MaxLength="2" />
-          <Property Type="String" Name="驗證碼" Nullable="true" MaxLength="6" />
-        </ComplexType>                  
+        </EntityType>                  
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -954,23 +908,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="使用者LoginByCheckCode" FunctionName="普雷二電玩Model.Store.使用者LoginByCheckCode" />
-          <FunctionImportMapping FunctionImportName="Delete使用者列表" FunctionName="普雷二電玩Model.Store.Delete使用者列表" />
-          <FunctionImportMapping FunctionImportName="Insert使用者列表" FunctionName="普雷二電玩Model.Store.Insert使用者列表" />
-          <FunctionImportMapping FunctionImportName="Update使用者列表" FunctionName="普雷二電玩Model.Store.Update使用者列表" />
-          <FunctionImportMapping FunctionImportName="fn_使用者列表" FunctionName="普雷二電玩Model.Store.fn_使用者列表">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="普雷二電玩Model.fn_使用者列表_Result">
-                <ScalarProperty Name="使用者ID" ColumnName="使用者ID" />
-                <ScalarProperty Name="密碼" ColumnName="密碼" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="管理權限" ColumnName="管理權限" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="IsCheck" ColumnName="IsCheck" />
-                <ScalarProperty Name="已驗證" ColumnName="已驗證" />
-                <ScalarProperty Name="驗證碼" ColumnName="驗證碼" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

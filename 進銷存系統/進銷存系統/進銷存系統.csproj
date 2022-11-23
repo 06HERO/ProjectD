@@ -133,10 +133,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Entity普雷二電玩.edmx</DependentUpon>
     </Compile>
-    <Compile Include="fn_使用者列表_Result.cs">
+    <Compile Include="fn_商品列表_Result.cs">
       <DependentUpon>Entity普雷二電玩.tt</DependentUpon>
     </Compile>
-    <Compile Include="fn_商品列表_Result.cs">
+    <Compile Include="fn_庫存列表1_Result.cs">
       <DependentUpon>Entity普雷二電玩.tt</DependentUpon>
     </Compile>
     <Compile Include="fn_庫存列表_Result.cs">
@@ -204,12 +204,6 @@
     </Compile>
     <Compile Include="13何大\Frm_搜尋關鍵字.designer.cs">
       <DependentUpon>Frm_搜尋關鍵字.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Frm使用者編輯維護.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Frm使用者編輯維護.Designer.cs">
-      <DependentUpon>Frm使用者編輯維護.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm商品列表維護.cs">
       <SubType>Form</SubType>
@@ -315,7 +309,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmReport.resx">
       <DependentUpon>FrmReport.cs</DependentUpon>
@@ -331,9 +324,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="13何大\Frm_搜尋關鍵字.resx">
       <DependentUpon>Frm_搜尋關鍵字.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Frm使用者編輯維護.resx">
-      <DependentUpon>Frm使用者編輯維護.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm商品列表維護.resx">
       <DependentUpon>Frm商品列表維護.cs</DependentUpon>

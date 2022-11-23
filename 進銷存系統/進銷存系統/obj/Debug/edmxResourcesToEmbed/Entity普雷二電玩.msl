@@ -34,12 +34,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="使用者列表">
+      <EntityTypeMapping TypeName="普雷二電玩Model.使用者列表">
+        <MappingFragment StoreEntitySet="使用者列表">
+          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+          <ScalarProperty Name="LoginPW" ColumnName="LoginPW" />
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="Insert廠商列表" FunctionName="普雷二電玩Model.Store.Insert廠商列表" />
     <FunctionImportMapping FunctionImportName="Delete廠商列表" FunctionName="普雷二電玩Model.Store.Delete廠商列表" />
     <FunctionImportMapping FunctionImportName="Update廠商列表" FunctionName="普雷二電玩Model.Store.Update廠商列表" />
     <FunctionImportMapping FunctionImportName="Delete商品類型列表" FunctionName="普雷二電玩Model.Store.Delete商品類型列表" />
     <FunctionImportMapping FunctionImportName="Insert商品類型列表" FunctionName="普雷二電玩Model.Store.Insert商品類型列表" />
     <FunctionImportMapping FunctionImportName="Update商品類型列表" FunctionName="普雷二電玩Model.Store.Update商品類型列表" />
+    <FunctionImportMapping FunctionImportName="使用者LoginByEntity" FunctionName="普雷二電玩Model.Store.使用者LoginByEntity" />
     <FunctionImportMapping FunctionImportName="Delete商品列表" FunctionName="普雷二電玩Model.Store.Delete商品列表" />
     <FunctionImportMapping FunctionImportName="Insert商品列表" FunctionName="普雷二電玩Model.Store.Insert商品列表" />
     <FunctionImportMapping FunctionImportName="Update商品列表" FunctionName="普雷二電玩Model.Store.Update商品列表" />
@@ -158,40 +168,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Delete進貨單列表" FunctionName="普雷二電玩Model.Store.Delete進貨單列表" />
-    <FunctionImportMapping FunctionImportName="Insert進貨單列表" FunctionName="普雷二電玩Model.Store.Insert進貨單列表" />
-    <FunctionImportMapping FunctionImportName="Update進貨單列表" FunctionName="普雷二電玩Model.Store.Update進貨單列表" />
-    <FunctionImportMapping FunctionImportName="Update使用者PW" FunctionName="普雷二電玩Model.Store.Update使用者PW" />
-    <FunctionImportMapping FunctionImportName="使用者LoginByPW" FunctionName="普雷二電玩Model.Store.使用者LoginByPW" />
-    <EntitySetMapping Name="使用者列表">
-      <EntityTypeMapping TypeName="普雷二電玩Model.使用者列表">
-        <MappingFragment StoreEntitySet="使用者列表">
-          <ScalarProperty Name="CheckCode" ColumnName="CheckCode" />
-          <ScalarProperty Name="IsCheck" ColumnName="IsCheck" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-          <ScalarProperty Name="LoginPW" ColumnName="LoginPW" />
-          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="使用者LoginByCheckCode" FunctionName="普雷二電玩Model.Store.使用者LoginByCheckCode" />
-    <FunctionImportMapping FunctionImportName="Delete使用者列表" FunctionName="普雷二電玩Model.Store.Delete使用者列表" />
-    <FunctionImportMapping FunctionImportName="Insert使用者列表" FunctionName="普雷二電玩Model.Store.Insert使用者列表" />
-    <FunctionImportMapping FunctionImportName="Update使用者列表" FunctionName="普雷二電玩Model.Store.Update使用者列表" />
-    <FunctionImportMapping FunctionImportName="fn_使用者列表" FunctionName="普雷二電玩Model.Store.fn_使用者列表">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="普雷二電玩Model.fn_使用者列表_Result">
-          <ScalarProperty Name="使用者ID" ColumnName="使用者ID" />
-          <ScalarProperty Name="密碼" ColumnName="密碼" />
-          <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-          <ScalarProperty Name="管理權限" ColumnName="管理權限" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="IsCheck" ColumnName="IsCheck" />
-          <ScalarProperty Name="已驗證" ColumnName="已驗證" />
-          <ScalarProperty Name="驗證碼" ColumnName="驗證碼" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
