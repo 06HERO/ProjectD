@@ -25,6 +25,8 @@ using System.Security.Cryptography;
 using Microsoft.ReportingServices.RdlExpressions.ExpressionHostObjectModel;
 using System.Reflection;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Microsoft.Reporting.WinForms;
+using 進銷存系統.BaseData;
 
 namespace 進銷存系統
 {
@@ -280,7 +282,7 @@ namespace 進銷存系統
 
             _adapter = new SqlDataAdapter(sql, con);
             顯示data(con);
-
+            button4.Visible = false;
             //dataGridView1.Columns[3].DefaultCellStyle.BackColor = Color.Yellow;
 
         }
@@ -334,6 +336,7 @@ namespace 進銷存系統
             string cont1 = dataGridView1.Rows.Count.ToString();
             label9.Text = "總筆數: " + cont1;
 
+            button4.Visible = false;
 
         }
 
@@ -490,7 +493,30 @@ namespace 進銷存系統
            // resetGridStyle();
         }
 
+
         //*********************列印報表*********************//
+
+        private void btn列印_Click(object sender, EventArgs e)
+        {
+
+            DataTable dt = dataGridView1.DataSource as DataTable;
+            List<ReportDataSource> reportDatas = new List<ReportDataSource>()
+            {
+                new ReportDataSource("DataSetOdr", dt)
+            };
+            List<ReportParameter> reportParameters = new List<ReportParameter>()
+            {
+                new ReportParameter("LoginID", SQLData.LoginID),
+
+            };
+
+            FrmReport report = new FrmReport("訂單查詢列表");
+            report.LoadSources(RdlcData.訂單查詢結果Path, reportDatas, reportParameters);
+            report.WindowState = FormWindowState.Maximized;
+            report.Show();
+
+        }
+
     }
 }
 

@@ -92,6 +92,9 @@ namespace 進銷存系統.BaseData
         static public string 商品類別列表清單Path = "進銷存系統.Report.Rpt商品類型列表.rdlc";
 
         static public string 商品列表清單Path = "進銷存系統.Report.Rpt商品列表.rdlc";
+
+        static public string 訂單查詢結果Path = "進銷存系統.Report.Rpt訂單查詢.rdlc";
+
     }
 
     public class cCampany //C#端廠商列表
