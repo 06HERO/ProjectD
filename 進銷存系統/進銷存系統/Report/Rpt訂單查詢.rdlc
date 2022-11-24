@@ -48,7 +48,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>普雷二電玩DataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Student\Documents\GitHub\ProjectD\進銷存系統\進銷存系統\普雷二電玩DataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\shared\ProjectD\進銷存系統\進銷存系統\普雷二電玩DataSet.xsd</rd:SchemaPath>
         <rd:TableName>fn_訂單查詢結果</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

@@ -77,5 +77,32 @@ namespace 進銷存系統.SqlFun
         {
             return (SQLData.db.使用者LoginByCheckCode(LoginID, CheckCode));
         }
+
+        public int Insert使用者列表(使用者列表 InData)
+        {
+            string loginID = InData.LoginID;
+            string loginPW = InData.LoginPW;
+            short isAdmin = InData.IsAdmin;
+            string email = InData.Email;
+            byte isCheck = (byte)InData.IsCheck;
+
+            return SQLData.db.Insert使用者列表(loginID, loginPW, isAdmin, email, isCheck);
+        }
+
+        public int Update使用者列表(使用者列表 InData)
+        {
+            string loginID = InData.LoginID;
+            string loginPW = InData.LoginPW;
+            short isAdmin = InData.IsAdmin;
+            string email = InData.Email;
+            byte isCheck = (byte)InData.IsCheck;
+
+            return SQLData.db.Update使用者列表(loginID, loginPW, isAdmin, email, isCheck);
+        }
+
+        public int Delete使用者列表(string loginID)
+        {
+            return SQLData.db.Delete使用者列表(loginID);
+        }
     }
 }

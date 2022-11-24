@@ -183,26 +183,30 @@
             // btnOK
             // 
             this.btnOK.AutoSize = true;
+            this.btnOK.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnOK.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnOK.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnOK.Location = new System.Drawing.Point(522, 350);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(100, 34);
             this.btnOK.TabIndex = 27;
             this.btnOK.Text = "確定";
-            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.UseVisualStyleBackColor = false;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.AutoSize = true;
+            this.btnCancel.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnCancel.Location = new System.Drawing.Point(416, 350);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(100, 34);
             this.btnCancel.TabIndex = 28;
             this.btnCancel.Text = "取消";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.UseVisualStyleBackColor = false;
             // 
             // Frm商品資料編輯
             // 

@@ -27,39 +27,34 @@ namespace 進銷存系統.SqlFun
         }
 
         #region 廠商列表
-        public DataTable Get廠商列表()
-        {
-            //if (_con.State != ConnectionState.Open)
-            //    _con.Open();
-
-            //string sql = @"SELECT * FROM 廠商列表";
-            //SqlDataReader reader = base.ReaderSql(sql);
-
-            //DataTable DT = new DataTable();
-            //DT.Load(reader);
-
-            //reader.Close();
-            //_con.Close();
-
-            //return DT;
-
-            //廠商列表TableAdapter TA = new 廠商列表TableAdapter();
-            //DataSet普雷二電玩 DS = new DataSet普雷二電玩();
-            //TA.Fill(DS.廠商列表);
-            //return DS.廠商列表;
-
-            //廠商列表TableAdapter TA = new 廠商列表TableAdapter();
-            //DataSet普雷二電玩.廠商列表DataTable DT = TA.GetData();
-            //return DT;
-
-            //return new 廠商列表TableAdapter().GetData();
-            //return SQLData.LinqQueryToDataTable(SQLData.db.廠商列表);
-            return SQLData.db.廠商列表.ToDataTable();
-        }
-
-        //public IEnumerable<廠商列表> Get廠商列表()
+        //public DataTable Get廠商列表()
         //{
-        //    return SQLData.db.廠商列表.AsEnumerable().ToList();            
+        //    //if (_con.State != ConnectionState.Open)
+        //    //    _con.Open();
+
+        //    //string sql = @"SELECT * FROM 廠商列表";
+        //    //SqlDataReader reader = base.ReaderSql(sql);
+
+        //    //DataTable DT = new DataTable();
+        //    //DT.Load(reader);
+
+        //    //reader.Close();
+        //    //_con.Close();
+
+        //    //return DT;
+
+        //    //廠商列表TableAdapter TA = new 廠商列表TableAdapter();
+        //    //DataSet普雷二電玩 DS = new DataSet普雷二電玩();
+        //    //TA.Fill(DS.廠商列表);
+        //    //return DS.廠商列表;
+
+        //    //廠商列表TableAdapter TA = new 廠商列表TableAdapter();
+        //    //DataSet普雷二電玩.廠商列表DataTable DT = TA.GetData();
+        //    //return DT;
+
+        //    //return new 廠商列表TableAdapter().GetData();
+        //    //return SQLData.LinqQueryToDataTable(SQLData.db.廠商列表);
+        //    return SQLData.db.廠商列表.ToDataTable();
         //}
 
         public int Insert廠商(int Id, string Name, string 統一編號, string 代表人姓名, decimal 資本總額, string 聯絡電話, string 顯示與否)
@@ -125,26 +120,26 @@ namespace 進銷存系統.SqlFun
         #endregion
 
         #region 商品類別
-        public DataTable Get商品類別列表()
-        {
-            //if (_con.State != ConnectionState.Open)
-            //    _con.Open();
+        //public DataTable Get商品類別列表()
+        //{
+        //    //if (_con.State != ConnectionState.Open)
+        //    //    _con.Open();
 
-            //string sql = @"SELECT * FROM 商品類型列表";
-            //SqlDataReader reader = base.ReaderSql(sql);
+        //    //string sql = @"SELECT * FROM 商品類型列表";
+        //    //SqlDataReader reader = base.ReaderSql(sql);
 
-            //DataTable DT = new DataTable();
-            //DT.Load(reader);
+        //    //DataTable DT = new DataTable();
+        //    //DT.Load(reader);
 
-            //reader.Close();
-            //_con.Close();
+        //    //reader.Close();
+        //    //_con.Close();
 
-            //return DT;
+        //    //return DT;
 
-            //return new 商品類型列表TableAdapter().GetData();            
-            //return SQLData.LinqQueryToDataTable(SQLData.db.商品類型列表);
-            return SQLData.db.商品類型列表.ToDataTable();
-        }
+        //    //return new 商品類型列表TableAdapter().GetData();            
+        //    //return SQLData.LinqQueryToDataTable(SQLData.db.商品類型列表);
+        //    return SQLData.db.商品類型列表.ToDataTable();
+        //}
 
         //public IEnumerable<商品類型列表> Get商品類別列表()
         //{
@@ -208,11 +203,11 @@ namespace 進銷存系統.SqlFun
 
         #region 商品列表
 
-        public DataTable Get商品列表()
-        {
-            //return SQLData.LinqQueryToDataTable(SQLData.db.商品列表);
-            return SQLData.db.商品列表.ToDataTable();
-        }
+        //public DataTable Get商品列表()
+        //{
+        //    //return SQLData.LinqQueryToDataTable(SQLData.db.商品列表);
+        //    return SQLData.db.商品列表.ToDataTable();
+        //}
 
         public int Insert商品列表(商品列表 ProData)
         {
@@ -247,15 +242,15 @@ namespace 進銷存系統.SqlFun
         #endregion
 
         #region 進貨單列表和明細
-        public DataTable Get進貨單列表()
-        {
-            return SQLData.db.進貨單列表.ToDataTable();
-        }
+        //public DataTable Get進貨單列表()
+        //{
+        //    return SQLData.db.進貨單列表.ToDataTable();
+        //}
 
-        public DataTable Get進貨單明細()
-        {
-            return SQLData.db.進貨單明細.ToDataTable();
-        }
+        //public DataTable Get進貨單明細()
+        //{
+        //    return SQLData.db.進貨單明細.ToDataTable();
+        //}
 
         public int Insert進貨單列表(進貨單列表 InData)
         {

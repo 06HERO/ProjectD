@@ -46,7 +46,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txt出貨單號 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btn列印 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -252,17 +252,18 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.查詢_Click);
             // 
-            // button4
+            // btn列印
             // 
-            this.button4.BackColor = System.Drawing.Color.Azure;
-            this.button4.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(31, 614);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(154, 37);
-            this.button4.TabIndex = 24;
-            this.button4.Text = "列印報表-列表";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btn列印.BackColor = System.Drawing.Color.Azure;
+            this.btn列印.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.btn列印.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn列印.Location = new System.Drawing.Point(31, 614);
+            this.btn列印.Name = "btn列印";
+            this.btn列印.Size = new System.Drawing.Size(154, 37);
+            this.btn列印.TabIndex = 24;
+            this.btn列印.Text = "列印報表-列表";
+            this.btn列印.UseVisualStyleBackColor = false;
+            this.btn列印.Click += new System.EventHandler(this.btn列印_Click);
             // 
             // groupBox1
             // 
@@ -384,7 +385,7 @@
             this.ClientSize = new System.Drawing.Size(1084, 655);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.btn列印);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.button2);
@@ -425,7 +426,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txt出貨單號;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btn列印;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txt訂單金額left;
         private System.Windows.Forms.Label label4;

@@ -285,7 +285,7 @@ namespace 進銷存系統
 
             _adapter = new SqlDataAdapter(sql, con);
             顯示data(con);
-            button4.Visible = false;
+            btn列印.Visible = false;
             //dataGridView1.Columns[3].DefaultCellStyle.BackColor = Color.Yellow;
 
         }
@@ -339,7 +339,7 @@ namespace 進銷存系統
             string cont1 = dataGridView1.Rows.Count.ToString();
             label9.Text = "總筆數: " + cont1;
 
-            button4.Visible = false;
+            btn列印.Visible = false;
 
         }
 
@@ -512,8 +512,7 @@ namespace 進銷存系統
 
         private void btn列印_Click(object sender, EventArgs e)
         {
-
-            DataTable dt = dataGridView1.DataSource as DataTable;
+             DataTable dt = dataGridView1.DataSource as DataTable;
             List<ReportDataSource> reportDatas = new List<ReportDataSource>()
             {
                 new ReportDataSource("DataSetOdr", dt)
@@ -530,7 +529,6 @@ namespace 進銷存系統
             report.Show();
 
         }
-
     }
 }
 

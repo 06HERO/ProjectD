@@ -17,7 +17,7 @@ namespace 進銷存系統
     {
         private List<Form> FormList = null;
 
-        private Frm使用者編輯維護 Frm使用者維護 = null;
+        private Frm使用者列表維護 Frm使用者維護 = null;
 
         private Frm_廠商維護_控制表 Frm廠商維護 = null;
         private Frm廠商列表維護 Frm廠商 = null;
@@ -50,7 +50,7 @@ namespace 進銷存系統
         {
             if (Frm使用者維護 == null || Frm使用者維護.IsDisposed == true)
             {
-                Frm使用者維護 = new Frm使用者編輯維護();
+                Frm使用者維護 = new Frm使用者列表維護();
                 Frm使用者維護.MdiParent = this;
                 Frm使用者維護.WindowState = FormWindowState.Maximized;
                 Frm使用者維護.Show();

@@ -58,7 +58,7 @@ namespace 進銷存系統
             if(Mode == (int)Change_Mode.Update)
                 lbl標題.Text = "商品資料修改";
             else if(Mode == (int)Change_Mode.Delete)
-                lbl標題.Text = "商品資料刪除";            
+                lbl標題.Text = "商品資料刪除";
 
             cmb廠商.DropDownStyle = ComboBoxStyle.DropDown;
             cmb廠商.Text = 廠商;

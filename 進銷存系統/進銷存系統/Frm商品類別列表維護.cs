@@ -40,7 +40,7 @@ namespace 進銷存系統
             dv商品類型列表.ColumnHeaderMouseClick +=(object s, DataGridViewCellMouseEventArgs ev) => { this.ResetGridStyle(); };
             txtID.KeyPress += SqlFunBase.Text_KeyPress_INT;
 
-            dv商品類型列表.DataSource = sqlProduct.Get商品類別列表();           
+            dv商品類型列表.DataSource = SQLData.db.商品類型列表.ToDataTable();
         }        
 
         private void dv商品類型列表_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -224,7 +224,7 @@ namespace 進銷存系統
         {
             txtID.Clear();
             txtName.Clear();
-            dv商品類型列表.DataSource = sqlProduct.Get商品類別列表();
+            dv商品類型列表.DataSource = SQLData.db.商品類型列表.ToDataTable();
             this.ResetGridStyle();
         }
         #endregion        

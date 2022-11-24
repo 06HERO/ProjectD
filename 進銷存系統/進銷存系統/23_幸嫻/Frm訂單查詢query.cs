@@ -33,6 +33,8 @@ namespace 進銷存系統.FrmLara
             bool isChanged = false;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
+                
+                
                 r.DefaultCellStyle.Font = new Font("微軟正黑體", 12);
                 r.DefaultCellStyle.BackColor = Color.MintCream;
                 if (isChanged)

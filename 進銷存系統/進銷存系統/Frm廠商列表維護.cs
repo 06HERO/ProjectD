@@ -47,9 +47,8 @@ namespace 進銷存系統
             txt資本總額.KeyPress += SqlFunBase.Text_KeyPress_Decimal;
             txt聯絡電話.KeyPress += SqlFunBase.Text_KeyPress_INT;
 
-            dv廠商列表.DataSource = sqlProduct.Get廠商列表();
-        }        
-
+            dv廠商列表.DataSource = SQLData.db.廠商列表.ToDataTable();
+        }
         private void dv廠商列表_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.RowIndex >= dv廠商列表.Rows.Count)
@@ -266,7 +265,13 @@ namespace 進銷存系統
         {
             txtID.Clear();
             txtName.Clear();
-            dv廠商列表.DataSource = sqlProduct.Get廠商列表();
+            txt統一編號.Clear();
+            txt代表人姓名.Clear();
+            txt資本總額.Clear();
+            txt聯絡電話.Clear();
+            chk顯示與否.Checked = false;
+
+            dv廠商列表.DataSource = SQLData.db.廠商列表.ToDataTable();
             this.ResetGridStyle();
         }
         #endregion

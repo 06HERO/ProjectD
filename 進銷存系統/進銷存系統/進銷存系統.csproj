@@ -205,11 +205,17 @@
     <Compile Include="13何大\Frm_搜尋關鍵字.designer.cs">
       <DependentUpon>Frm_搜尋關鍵字.cs</DependentUpon>
     </Compile>
-    <Compile Include="Frm使用者編輯維護.cs">
+    <Compile Include="Frm使用者列表維護.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Frm使用者編輯維護.Designer.cs">
-      <DependentUpon>Frm使用者編輯維護.cs</DependentUpon>
+    <Compile Include="Frm使用者列表維護.Designer.cs">
+      <DependentUpon>Frm使用者列表維護.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm使用者編輯.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm使用者編輯.Designer.cs">
+      <DependentUpon>Frm使用者編輯.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm商品列表維護.cs">
       <SubType>Form</SubType>
@@ -315,9 +321,6 @@
     <EmbeddedResource Include="21志藝\Form關鍵字查詢.resx">
       <DependentUpon>Form關鍵字查詢.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Report\Rpt訂單查詢.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -340,8 +343,11 @@
     <EmbeddedResource Include="13何大\Frm_搜尋關鍵字.resx">
       <DependentUpon>Frm_搜尋關鍵字.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Frm使用者編輯維護.resx">
-      <DependentUpon>Frm使用者編輯維護.cs</DependentUpon>
+    <EmbeddedResource Include="Frm使用者列表維護.resx">
+      <DependentUpon>Frm使用者列表維護.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm使用者編輯.resx">
+      <DependentUpon>Frm使用者編輯.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Frm商品列表維護.resx">
       <DependentUpon>Frm商品列表維護.cs</DependentUpon>
@@ -376,6 +382,7 @@
     <EmbeddedResource Include="Frm商品資料編輯.resx">
       <DependentUpon>Frm商品資料編輯.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\Rpt訂單查詢.rdlc" />
     <EntityDeploy Include="Entity普雷二電玩.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Entity普雷二電玩.Designer.cs</LastGenOutput>
@@ -393,7 +400,6 @@
     <None Include="Properties\DataSources\進銷存系統.DataSet普雷二電玩TableAdapters.商品列表TableAdapter.datasource" />
     <None Include="Properties\DataSources\進銷存系統.DataSet普雷二電玩TableAdapters.商品類型列表TableAdapter.datasource" />
     <None Include="Properties\DataSources\進銷存系統.DataSet普雷二電玩TableAdapters.廠商列表TableAdapter.datasource" />
-    <None Include="Properties\DataSources\進銷存系統.FrmLara.Frm訂單查詢query.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

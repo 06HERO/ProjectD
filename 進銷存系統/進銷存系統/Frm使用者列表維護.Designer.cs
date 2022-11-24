@@ -1,6 +1,6 @@
 ﻿namespace 進銷存系統
 {
-    partial class Frm使用者編輯維護
+    partial class Frm使用者列表維護
     {
         /// <summary>
         /// Required designer variable.
@@ -50,6 +50,9 @@
             // 
             this.dv使用者列表.AllowDrop = true;
             this.dv使用者列表.AllowUserToOrderColumns = true;
+            this.dv使用者列表.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("新細明體", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -59,8 +62,8 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dv使用者列表.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dv使用者列表.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dv使用者列表.Location = new System.Drawing.Point(0, 304);
-            this.dv使用者列表.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dv使用者列表.Location = new System.Drawing.Point(0, 250);
+            this.dv使用者列表.Margin = new System.Windows.Forms.Padding(2);
             this.dv使用者列表.Name = "dv使用者列表";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
@@ -72,70 +75,64 @@
             this.dv使用者列表.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dv使用者列表.RowHeadersWidth = 51;
             this.dv使用者列表.RowTemplate.Height = 27;
-            this.dv使用者列表.Size = new System.Drawing.Size(832, 250);
+            this.dv使用者列表.Size = new System.Drawing.Size(634, 210);
             this.dv使用者列表.TabIndex = 1;
             this.dv使用者列表.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dv使用者列表_CellClick);
             // 
             // txtID
             // 
             this.txtID.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtID.Location = new System.Drawing.Point(142, 6);
-            this.txtID.Margin = new System.Windows.Forms.Padding(4);
-            this.txtID.MaxLength = 3;
+            this.txtID.Location = new System.Drawing.Point(110, 15);
+            this.txtID.MaxLength = 20;
             this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(200, 39);
+            this.txtID.Size = new System.Drawing.Size(226, 33);
             this.txtID.TabIndex = 16;
             // 
             // lblID
             // 
             this.lblID.AutoSize = true;
             this.lblID.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lblID.Location = new System.Drawing.Point(13, 9);
-            this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblID.Location = new System.Drawing.Point(10, 17);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(110, 30);
+            this.lblID.Size = new System.Drawing.Size(86, 24);
             this.lblID.TabIndex = 15;
             this.lblID.Text = "使用者ID";
             // 
             // txtPW
             // 
             this.txtPW.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtPW.Location = new System.Drawing.Point(493, 6);
-            this.txtPW.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPW.MaxLength = 3;
+            this.txtPW.Location = new System.Drawing.Point(110, 60);
+            this.txtPW.MaxLength = 20;
             this.txtPW.Name = "txtPW";
-            this.txtPW.Size = new System.Drawing.Size(200, 39);
+            this.txtPW.Size = new System.Drawing.Size(225, 33);
             this.txtPW.TabIndex = 18;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(367, 9);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 30);
+            this.label1.Size = new System.Drawing.Size(86, 24);
             this.label1.TabIndex = 17;
             this.label1.Text = "登入密碼";
             // 
             // txtEMail
             // 
             this.txtEMail.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txtEMail.Location = new System.Drawing.Point(142, 64);
-            this.txtEMail.Margin = new System.Windows.Forms.Padding(4);
-            this.txtEMail.MaxLength = 3;
+            this.txtEMail.Location = new System.Drawing.Point(110, 105);
+            this.txtEMail.MaxLength = 100;
             this.txtEMail.Name = "txtEMail";
-            this.txtEMail.Size = new System.Drawing.Size(551, 39);
+            this.txtEMail.Size = new System.Drawing.Size(414, 33);
             this.txtEMail.TabIndex = 20;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(13, 67);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(10, 108);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 30);
+            this.label2.Size = new System.Drawing.Size(96, 24);
             this.label2.TabIndex = 19;
             this.label2.Text = "Email信箱";
             // 
@@ -143,10 +140,9 @@
             // 
             this.lbl管理權限.AutoSize = true;
             this.lbl管理權限.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl管理權限.Location = new System.Drawing.Point(13, 123);
-            this.lbl管理權限.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbl管理權限.Location = new System.Drawing.Point(10, 152);
             this.lbl管理權限.Name = "lbl管理權限";
-            this.lbl管理權限.Size = new System.Drawing.Size(109, 30);
+            this.lbl管理權限.Size = new System.Drawing.Size(86, 24);
             this.lbl管理權限.TabIndex = 22;
             this.lbl管理權限.Text = "管理權限";
             // 
@@ -155,19 +151,19 @@
             this.cmb管理權限.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb管理權限.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmb管理權限.FormattingEnabled = true;
-            this.cmb管理權限.Location = new System.Drawing.Point(139, 118);
-            this.cmb管理權限.Margin = new System.Windows.Forms.Padding(4);
+            this.cmb管理權限.Location = new System.Drawing.Point(110, 148);
             this.cmb管理權限.Name = "cmb管理權限";
-            this.cmb管理權限.Size = new System.Drawing.Size(112, 38);
+            this.cmb管理權限.Size = new System.Drawing.Size(85, 32);
             this.cmb管理權限.TabIndex = 21;
             // 
             // chk已驗證
             // 
             this.chk已驗證.AutoSize = true;
             this.chk已驗證.Font = new System.Drawing.Font("微軟正黑體", 14.25F);
-            this.chk已驗證.Location = new System.Drawing.Point(302, 120);
+            this.chk已驗證.Location = new System.Drawing.Point(225, 150);
+            this.chk已驗證.Margin = new System.Windows.Forms.Padding(2);
             this.chk已驗證.Name = "chk已驗證";
-            this.chk已驗證.Size = new System.Drawing.Size(107, 34);
+            this.chk已驗證.Size = new System.Drawing.Size(86, 28);
             this.chk已驗證.TabIndex = 24;
             this.chk已驗證.Text = "已驗證";
             this.chk已驗證.UseVisualStyleBackColor = true;
@@ -175,44 +171,50 @@
             // btnDelete
             // 
             this.btnDelete.AutoSize = true;
+            this.btnDelete.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnDelete.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnDelete.Location = new System.Drawing.Point(404, 247);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnDelete.Location = new System.Drawing.Point(515, 198);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(133, 42);
+            this.btnDelete.Size = new System.Drawing.Size(100, 34);
             this.btnDelete.TabIndex = 27;
             this.btnDelete.Text = "刪除";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
             this.btnUpdate.AutoSize = true;
+            this.btnUpdate.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnUpdate.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnUpdate.Location = new System.Drawing.Point(545, 247);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(4);
+            this.btnUpdate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnUpdate.Location = new System.Drawing.Point(409, 198);
             this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(133, 42);
+            this.btnUpdate.Size = new System.Drawing.Size(100, 34);
             this.btnUpdate.TabIndex = 26;
             this.btnUpdate.Text = "修改";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnInsert
             // 
             this.btnInsert.AutoSize = true;
+            this.btnInsert.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnInsert.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.btnInsert.Location = new System.Drawing.Point(686, 247);
-            this.btnInsert.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInsert.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnInsert.Location = new System.Drawing.Point(303, 198);
             this.btnInsert.Name = "btnInsert";
-            this.btnInsert.Size = new System.Drawing.Size(133, 42);
+            this.btnInsert.Size = new System.Drawing.Size(100, 34);
             this.btnInsert.TabIndex = 25;
             this.btnInsert.Text = "新增";
-            this.btnInsert.UseVisualStyleBackColor = true;
+            this.btnInsert.UseVisualStyleBackColor = false;
+            this.btnInsert.Click += new System.EventHandler(this.btnInsert_Click);
             // 
-            // Frm使用者編輯維護
+            // Frm使用者列表維護
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(832, 553);
+            this.ClientSize = new System.Drawing.Size(634, 461);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.btnInsert);
@@ -226,7 +228,8 @@
             this.Controls.Add(this.txtID);
             this.Controls.Add(this.lblID);
             this.Controls.Add(this.dv使用者列表);
-            this.Name = "Frm使用者編輯維護";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "Frm使用者列表維護";
             this.Text = "Frm使用者編輯維護";
             this.Load += new System.EventHandler(this.Frm使用者編輯維護_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dv使用者列表)).EndInit();
