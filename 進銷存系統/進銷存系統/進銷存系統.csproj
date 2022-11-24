@@ -377,11 +377,13 @@
       <DependentUpon>Frm廠商列表維護.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\Rpt商品列表.rdlc" />
+    <EmbeddedResource Include="Report\Rpt商品庫存列表.rdlc" />
     <EmbeddedResource Include="Report\Rpt商品類型列表.rdlc" />
     <EmbeddedResource Include="Report\Rpt廠商列表.rdlc" />
     <EmbeddedResource Include="Frm商品資料編輯.resx">
       <DependentUpon>Frm商品資料編輯.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\Rpt總商品庫存表.rdlc" />
     <EmbeddedResource Include="Report\Rpt訂單查詢.rdlc" />
     <EntityDeploy Include="Entity普雷二電玩.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

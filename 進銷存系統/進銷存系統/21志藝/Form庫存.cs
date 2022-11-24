@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using 進銷存系統;
 using 進銷存系統.BaseData;
 
 namespace 庫存查詢DEMO
@@ -65,7 +68,8 @@ namespace 庫存查詢DEMO
             }
         }
         private void btn輸入_Click(object sender, EventArgs e)
-        {       
+        {
+            meth清除暫存();
             Showdata();
             Setsize();
             Setcolor();
@@ -76,29 +80,78 @@ namespace 庫存查詢DEMO
             f.ShowDialog();
             if (f._isOKclick == DialogResult.OK)
             {
+                meth清除暫存();
                 _keyword = f.keyword;
-                Showdata();
-                _keyword = "";
+                Showdata();               
                 Setsize();
                 Setcolor();
             }
         }
         private void btnTOP10_Click(object sender, EventArgs e)
         {
+            meth清除暫存();
             _top10 = true;
-            Showdata();
-            _top10 = false;
+            Showdata();           
             Setsize();
             Setcolor();
         }
         private void btnALL_Click(object sender, EventArgs e)
-        {          
+        {
+            meth清除暫存();
             _all = true;
-            Showdata();
-            _all = false;
+            Showdata();            
             Setsize();
             Setcolor();
         }
+        private void btn列印_Click(object sender, EventArgs e)
+        {
+            methPrint();
+        }
+
+        private void methPrint()
+        {           
+            if (_all || _top10)
+            {
+                DataTable dt列印 = dataGridView1.DataSource as DataTable;
+                List<ReportDataSource> reportDatas = new List<ReportDataSource>()
+                {
+                   new ReportDataSource("DS總商品庫存表", dt列印)
+                };
+
+                List<ReportParameter> reportParameters = new List<ReportParameter>()
+                {
+                   new ReportParameter("LoginID", SQLData.LoginID)
+                };
+
+                FrmReport report = new FrmReport("庫存列表清單");
+                report.LoadSources(RdlcData.總庫存列表清單Path, reportDatas, reportParameters);               
+                report.Show();
+            }
+            else
+            {
+                DataTable dt列印 = dataGridView1.DataSource as DataTable;
+                List<ReportDataSource> reportDatas = new List<ReportDataSource>()
+                {
+                   new ReportDataSource("DS商品庫存表", dt列印)
+                };
+
+                List<ReportParameter> reportParameters = new List<ReportParameter>()
+                {
+                   new ReportParameter("LoginID", SQLData.LoginID)
+                };
+
+                FrmReport report = new FrmReport("庫存列表清單");
+                report.LoadSources(RdlcData.庫存列表清單Path, reportDatas, reportParameters);               
+                report.Show();
+            }
+        }
+        private void meth清除暫存()
+        {
+            _all = false;
+            _top10 = false;
+            _keyword = "";
+        }
+
         #endregion
 
 
@@ -210,18 +263,17 @@ namespace 庫存查詢DEMO
                             data = data.Where(q => q.廠商ID == smanf);
                     }
                 }
-                //var dataselect = from b in data
-                //                 select new
-                //                 {
-                //                     b.庫存地點,
-                //                     b.商品類型名稱,
-                //                     b.廠商名稱,
-                //                     b.商品ID,
-                //                     b.商品名稱,
-                //                     b.商品數量                                  
-                //                 };
                 var dataselect = from b in data
-                                 select b;
+                                 select new
+                                 {
+                                     b.庫存地點,
+                                     b.商品類型名稱,
+                                     b.廠商名稱,                                    
+                                     b.商品名稱,
+                                     b.商品數量
+                                 };
+                //var dataselect = from b in data
+                //                 select b;
                 dataGridView1.DataSource = dataselect.ToDataTable();
                 
 
@@ -280,15 +332,14 @@ namespace 庫存查詢DEMO
                 dataGridView1.Columns[3].Width = (int)(dataGridView1.Width * 0.10);
             }
 
-            else if (dataGridView1.ColumnCount == 7)
+            else if (dataGridView1.ColumnCount == 6)
             {
                 dataGridView1.Columns[0].Width = (int)(dataGridView1.Width * 0.05);
                 dataGridView1.Columns[1].Width = (int)(dataGridView1.Width * 0.12);
                 dataGridView1.Columns[2].Width = (int)(dataGridView1.Width * 0.12);
-                dataGridView1.Columns[3].Width = (int)(dataGridView1.Width * 0.12);
-                dataGridView1.Columns[4].Width = (int)(dataGridView1.Width * 0.10);
-                dataGridView1.Columns[5].Width = (int)(dataGridView1.Width * 0.30);
-                dataGridView1.Columns[6].Width = (int)(dataGridView1.Width * 0.07);
+                dataGridView1.Columns[3].Width = (int)(dataGridView1.Width * 0.12);               
+                dataGridView1.Columns[4].Width = (int)(dataGridView1.Width * 0.30);
+                dataGridView1.Columns[5].Width = (int)(dataGridView1.Width * 0.07);
             }           
         }
 
@@ -316,8 +367,9 @@ namespace 庫存查詢DEMO
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         }
 
+
         #endregion
 
-
+       
     }
 }
