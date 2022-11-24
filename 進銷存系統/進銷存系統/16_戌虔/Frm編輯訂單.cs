@@ -569,16 +569,19 @@ namespace 進銷存系統
             if (!int.TryParse(cbox廠商ID.Text, out a) &&!string.IsNullOrEmpty(cbox廠商ID.Text.Trim()))
             {
                 MessageBox.Show("廠商請輸入數字");
+                cbox廠商ID.Text = null;
                 return;
             }
             if (!int.TryParse(cbox類型ID.Text, out a) && !string.IsNullOrEmpty(cbox類型ID.Text.Trim()))
             {
                 MessageBox.Show("類型請輸入數字");
+                cbox類型ID.Text = null;
                 return;
             }
             if (!int.TryParse(cbox商品ID.Text, out a) && !string.IsNullOrEmpty(cbox商品ID.Text.Trim()))
             {
                 MessageBox.Show("編號請輸入數字");
+                cbox品名.Text = null;
                 return;
             }
             SqlConnection con商品列表 = new SqlConnection();
@@ -639,6 +642,8 @@ namespace 進銷存系統
             {
                 txt庫存.Text = reader庫存["商品數量"].ToString();
             }
+            if (string.IsNullOrEmpty(txt庫存.Text))
+                txt庫存.Text = "0";
             con庫存.Close();
         }
         private void btn刪除品項_Click(object sender, EventArgs e)

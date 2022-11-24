@@ -524,7 +524,6 @@
             // 
             // cbox廠商ID
             // 
-            this.cbox廠商ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox廠商ID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbox廠商ID.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbox廠商ID.FormattingEnabled = true;
@@ -565,7 +564,6 @@
             // 
             // cbox類型ID
             // 
-            this.cbox類型ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox類型ID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbox類型ID.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbox類型ID.FormattingEnabled = true;
@@ -576,7 +574,6 @@
             // 
             // cbox商品ID
             // 
-            this.cbox商品ID.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbox商品ID.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbox商品ID.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cbox商品ID.FormattingEnabled = true;

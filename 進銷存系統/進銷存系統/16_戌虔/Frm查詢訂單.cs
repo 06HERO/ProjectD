@@ -135,7 +135,7 @@ namespace 進銷存系統
         private void dgv訂單資訊_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DataTable dt = dgv出貨單列表.DataSource as DataTable;
-            if (_position < 0 || _position >= (dgv出貨單列表.RowCount-1))
+            if (_position < 0 || _position >= (dgv出貨單列表.RowCount))
                 return;
             DataRow row = dt.Rows[_position];
 
