@@ -39,8 +39,12 @@ EXEC Insert廠商列表 1,'台灣索尼股份有限公司 SONY', '23529362', '千葉雄三 (Yuzo C
 EXEC Insert廠商列表 2,'香港商任天堂香港有限公司 Nintendo', '90682097', '松本浩之 (Matsumoto Hiroyuki)', 5000000, NULL
 EXEC Insert廠商列表 3,'台灣微軟股份有限公司 MICROSOFT', '23525730', '竇立佛 (Keith R. Dolliver)',10000000, '', 'Y'
 
+SELECT * FROM [dbo].[廠商列表]
+
 --修改廠商列表資料(修改廠商名稱)
-EXEC Update廠商列表 1,'索尼SONY', '23529362', '千葉雄三 (Yuzo Chiba)', 10000000, 3939889, 'n'
+EXEC Update廠商列表 1,'台灣索尼股份有限公司 SONY', '23529362', '千葉雄三 (Yuzo Chiba)', 10000000
+
+EXEC Update廠商列表 8, 'SONY', '23529362', '千葉雄三 (Yuzo Chiba)', 20000000.00, 'y'
 -- 刪除廠商列表資料
 EXEC Delete廠商列表 1
 

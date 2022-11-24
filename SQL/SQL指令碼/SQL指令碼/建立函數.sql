@@ -171,6 +171,25 @@ BEGIN
 	RETURN @商品數量
 END
 SELECT dbo.fn_商品在庫數量加總(1, 1, 1, 1) AS 'ADD數量'
+--fn_訂單查詢結果
+CREATE FUNCTION fn_訂單查詢結果(@編號 nvarchar(3) )
+RETURNS TABLE
+AS
+RETURN
+(
+
+    SELECT a.出貨單編號, 訂單日期, 經銷商名稱 as 客戶 , 訂單金額
+            , SUM([進貨價]*[商品數量]) as 進貨成本, 訂單金額-SUM([進貨價]*[商品數量]) as 毛利,a.備註
+            FROM [出貨單列表]a 
+            JOIN [經銷商列表]b ON a.經銷商ID=b.經銷商ID
+            JOIN [出貨單明細]c ON a.出貨單編號=c.出貨單編號
+            JOIN [商品列表]d ON c.廠商ID=d.廠商ID AND c.[商品類型ID]=d.商品類型ID AND c.[商品ID] = d.商品ID			
+            GROUP BY a.出貨單編號, 訂單日期, 經銷商名稱 , 訂單金額, a.備註
+)
+
+SELECT * FROM fn_訂單查詢結果(3)
+WHERE 出貨單編號 = 1
+
 
 
 

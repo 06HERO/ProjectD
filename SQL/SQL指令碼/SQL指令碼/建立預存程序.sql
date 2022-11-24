@@ -214,6 +214,7 @@ AS
 	(
 		SELECT * FROM [dbo].[廠商列表]
 		WHERE [廠商名稱] = @廠商名稱
+		AND [廠商ID] <> @廠商ID
 	)
 	RETURN
 	
@@ -276,6 +277,7 @@ AS
 	(
 		SELECT * FROM [dbo].[商品類型列表]
 		WHERE [商品類型名稱] = @商品類型名稱
+		AND [商品類型ID] <> @商品類型ID
 	)
 	RETURN
 	
