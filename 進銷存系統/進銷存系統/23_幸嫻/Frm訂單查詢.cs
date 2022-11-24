@@ -37,6 +37,9 @@ namespace 進銷存系統
             InitializeComponent();
 
         }
+        private int _dt列表Index = -1;
+        int _出貨單編號 = -1;
+
         SqlCommandBuilder _builder = new SqlCommandBuilder();
         SqlDataAdapter _adapter = null;
         SqlConnection con = new SqlConnection();
@@ -460,13 +463,24 @@ namespace 進銷存系統
         //點選訂單查詢明細
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
+            _dt列表Index = e.RowIndex;
+            if (_dt列表Index < 0 || _dt列表Index >= dataGridView1.Rows.Count)
+                return;
+
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            if (row == null)
+                return;
+
+            _出貨單編號 = Convert.ToInt32(row.Cells["出貨單編號"].Value);
+
             if (dataGridView1.SelectedRows.Count > 0)
                 _position = e.RowIndex;
 
-            int i = dataGridView1.CurrentCell.RowIndex;
-            int j = dataGridView1.CurrentCell.ColumnIndex;
+            //int i = dataGridView1.CurrentCell.RowIndex;
+            //int j = dataGridView1.CurrentCell.ColumnIndex;
             Frm訂單查詢query f = new Frm訂單查詢query();
-            f.txt訂單編號.Text = dataGridView1.Rows[i].Cells[j].Value.ToString();
+            f.txt訂單編號.Text = _出貨單編號.ToString();
             f.Show();
 
         }
