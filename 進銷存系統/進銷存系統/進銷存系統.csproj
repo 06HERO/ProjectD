@@ -277,6 +277,11 @@
     <Compile Include="廠商列表.cs">
       <DependentUpon>Entity普雷二電玩.tt</DependentUpon>
     </Compile>
+    <Compile Include="普雷二電玩DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>普雷二電玩DataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="進貨單列表.cs">
       <DependentUpon>Entity普雷二電玩.tt</DependentUpon>
     </Compile>
@@ -309,6 +314,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="21志藝\Form關鍵字查詢.resx">
       <DependentUpon>Form關鍵字查詢.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\Rpt訂單查詢.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
@@ -385,6 +393,7 @@
     <None Include="Properties\DataSources\進銷存系統.DataSet普雷二電玩TableAdapters.商品列表TableAdapter.datasource" />
     <None Include="Properties\DataSources\進銷存系統.DataSet普雷二電玩TableAdapters.商品類型列表TableAdapter.datasource" />
     <None Include="Properties\DataSources\進銷存系統.DataSet普雷二電玩TableAdapters.廠商列表TableAdapter.datasource" />
+    <None Include="Properties\DataSources\進銷存系統.FrmLara.Frm訂單查詢query.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -394,6 +403,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="普雷二電玩DataSet.xsc">
+      <DependentUpon>普雷二電玩DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="普雷二電玩DataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>普雷二電玩DataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="普雷二電玩DataSet.xss">
+      <DependentUpon>普雷二電玩DataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
