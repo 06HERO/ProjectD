@@ -133,7 +133,7 @@ namespace 進銷存系統
         {
             refresh();
         }
-        private void displaypatientinfobysql(string Sql, List<SqlParameter> paras, bool isClear)
+        private void displaycustomerinfobysql(string Sql, List<SqlParameter> paras, bool isClear)
         {
             if (isClear)
             {
@@ -159,6 +159,12 @@ namespace 進銷存系統
                 txtNum.Text = reader["統一編號"].ToString();
                 txtContect.Text = reader["聯絡人"].ToString();
                 txtPhone.Text = reader["聯絡電話"].ToString();
+                txtbank.Text = reader["機構代碼"].ToString();
+                txtAccount.Text = reader["帳號"].ToString();
+                txtgrade.Text = reader["信用評等"].ToString();
+                txtcredit.Text = reader["信用額度"].ToString();
+                txtmemo.Text = reader["備註"].ToString();
+
 
                 if (isClear)
                 {
@@ -181,7 +187,7 @@ namespace 進銷存系統
             List<SqlParameter> paras = new List<SqlParameter>();
             paras.Add(new SqlParameter("@經銷商ID", (object)經銷商ID));
 
-            displaypatientinfobysql(Sql, paras, false);
+            displaycustomerinfobysql(Sql, paras, false);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -200,7 +206,7 @@ namespace 進銷存系統
                 List<SqlParameter> paras = new List<SqlParameter>();
                 paras.Add(new SqlParameter("K_Keyword", "%"+f.getkeyword()+ "%"));
 
-                displaypatientinfobysql(Sql, paras, true);
+                displaycustomerinfobysql(Sql, paras, true);
                 }
         }
 
@@ -211,6 +217,37 @@ namespace 進銷存系統
             txtNum.Text = "";
             txtContect.Text = "";
             txtPhone.Text = "";
+        }
+
+        private void txtbank_TextChanged(object sender, EventArgs e)
+        {
+            string Sql = "SELECT * FROM [銀行代碼列表] WHERE 機構代碼=@機構";   
+            List<SqlParameter> paras = new List<SqlParameter>();
+            paras.Add(new SqlParameter("@機構",txtbank.Text.ToString()));
+
+
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = @"Data Source=.;Initial Catalog=普雷二電玩;Integrated Security=True";
+            con.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = Sql;
+            if (paras != null)
+                cmd.Parameters.AddRange(paras.ToArray());
+
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                lblbank.Text = reader["金融機構"].ToString();
+                    //listBox1.Items.Add(reader["經銷商名稱"]).ToString();
+                    //pKeys.Add(Convert.ToInt32(reader["經銷商ID"]));   //加入fID索引 //加入pKeys的索引，但不顯示在listbox
+
+            }
+
+            reader.Close();
+            con.Close();
+
         }
     }
 }
