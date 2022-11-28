@@ -104,7 +104,7 @@ EXEC Delete進貨單列表 3
 -- 建立進貨單明細
 EXEC Insert進貨單明細 1,1,1,100
 EXEC Insert進貨單明細 1,1,2,200,10000000,'手動輸入進貨成本'
-EXEC Insert進貨單明細 1,2,1,300,NULL,'進貨成本先不輸入' 
+EXEC Insert進貨單明細 1,2,1,300,0,'進貨成本先不輸入' 
 
 EXEC Insert進貨單明細 2,1,1,200
 EXEC Insert進貨單明細 2,1,2,400
