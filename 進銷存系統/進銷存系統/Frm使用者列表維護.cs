@@ -35,9 +35,19 @@ namespace 進銷存系統
             dv使用者列表.ReadOnly = true;
             dv使用者列表.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
+            cmb管理權限.Items.Add("不指定");
             cmb管理權限.Items.Add("無");
             cmb管理權限.Items.Add("有");
             cmb管理權限.SelectedIndex = 0;
+            cmb管理權限.SelectedIndexChanged += (object s, EventArgs ev) => { this.Set_使用者列表(); };
+
+            cmb驗證.Items.Add("不指定");
+            cmb驗證.Items.Add("否");
+            cmb驗證.Items.Add("是");
+            cmb驗證.SelectedIndex = 0;
+            cmb驗證.SelectedIndexChanged += (object s, EventArgs ev) => { this.Set_使用者列表(); };
+
+            btnKeyWord.Click += (object s, EventArgs ev) => { this.Set_使用者列表(); };
         }
 
         #region 事件
@@ -49,7 +59,8 @@ namespace 進銷存系統
             dv使用者列表.ColumnHeaderMouseClick += (object s, DataGridViewCellMouseEventArgs ev) => { this.ResetGridStyle(); };
             dv使用者列表.CellClick += (object s, DataGridViewCellEventArgs ev) => { _dtIndex = ev.RowIndex; };
 
-            dv使用者列表.DataSource = SQLData.db.fn_使用者列表().ToDataTable();
+            //dv使用者列表.DataSource = SQLData.db.fn_使用者列表().ToDataTable();
+            this.Set_使用者列表();
         }
 
         private void dv使用者列表_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -58,12 +69,6 @@ namespace 進銷存系統
                 return;
 
             DataGridViewRow row = dv使用者列表.Rows[e.RowIndex];
-
-            txtID.Text = row.Cells["使用者ID"].Value.ToString();
-            txtPW.Text = row.Cells["密碼"].Value.ToString();
-            txtEMail.Text = row.Cells["Email"].Value.ToString();
-            cmb管理權限.SelectedIndex =  Convert.ToInt32(row.Cells["IsAdmin"].Value);
-            chk已驗證.Checked = Convert.ToBoolean(row.Cells["IsCheck"].Value);
         }        
 
         private void btnInsert_Click(object sender, EventArgs e)
@@ -108,9 +113,65 @@ namespace 進銷存系統
             this.ShowFrm使用者資料編輯((int)Change_Mode.Delete);           
         }
 
+        private void btn重置CheckCode_Click(object sender, EventArgs e)
+        {
+            if( SQLData.db.重置CheckCode(0, "") > 0 )
+            {
+                MessageBox.Show("已重置驗證狀態");
+                this.ReloadData();
+            }
+        }
+
         #endregion
 
         #region 方法
+        private void Set_使用者列表()
+        {
+            int i管理權限 = -1;
+            int i驗證 = -1;
+
+            switch (cmb管理權限.Text)
+            {
+                case "無":
+                    i管理權限 = 0;
+                    break;
+
+                case "有":
+                    i管理權限 = 1;
+                    break;
+            }
+
+            switch (cmb驗證.Text)
+            {
+                case "否":
+                    i驗證 = 0;
+                    break;
+
+                case "是":
+                    i驗證 = 1;
+                    break;
+            }
+
+            var q使用者 = SQLData.db.fn_使用者列表();
+
+            if(string.IsNullOrWhiteSpace(txtKeyWord.Text) == false)
+            {
+                q使用者 = q使用者.Where(w => w.使用者ID.Contains(txtKeyWord.Text) ||
+                                             w.Email.Contains(txtKeyWord.Text));
+            }
+
+            if (i管理權限 >= 0)
+                q使用者 = q使用者.Where(w => w.IsAdmin == i管理權限);
+
+            if (i驗證 >= 0)
+                q使用者 = q使用者.Where(w => w.IsCheck == i驗證);
+
+
+            dv使用者列表.DataSource = q使用者.ToDataTable();
+
+            this.ResetGridStyle();
+        }
+
         private void ResetGridStyle()
         {
             if (dv使用者列表.DataSource == null || dv使用者列表.Rows.Count == 0)
@@ -137,34 +198,9 @@ namespace 進銷存系統
 
         private void ReloadData()
         {
-            dv使用者列表.DataSource = SQLData.db.fn_使用者列表().ToDataTable();
-            this.ResetGridStyle();
-
-            txtID.Text = string.Empty;
-            txtPW.Text = string.Empty;
-            txtEMail.Text = string.Empty;
-            cmb管理權限.SelectedIndex = 0;
-            chk已驗證.Checked = false;
+            this.Set_使用者列表();
         }
-
-        private bool CheckData()
-        {
-            if (true == string.IsNullOrWhiteSpace(txtID.Text))
-            {
-                MessageBox.Show("使用者ID空白");
-                txtID.Focus();
-                return false;
-            }
-
-            if (true == string.IsNullOrWhiteSpace(txtEMail.Text))
-            {
-                MessageBox.Show("Email信箱空白");
-                txtEMail.Focus();
-                return false;
-            }
-            return true;
-        }
-
+        
         private void CallInsert(使用者列表 user)
         {
             if (_sqlFunUser.Insert使用者列表(user) <= 0)

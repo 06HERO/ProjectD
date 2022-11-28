@@ -409,5 +409,18 @@ namespace 進銷存系統
         {
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fn_使用者列表_Result>("[普雷二電玩Entities].[fn_使用者列表]()");
         }
+    
+        public virtual int 重置CheckCode(Nullable<short> isAdmin, string loginID)
+        {
+            var isAdminParameter = isAdmin.HasValue ?
+                new ObjectParameter("IsAdmin", isAdmin) :
+                new ObjectParameter("IsAdmin", typeof(short));
+    
+            var loginIDParameter = loginID != null ?
+                new ObjectParameter("LoginID", loginID) :
+                new ObjectParameter("LoginID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("重置CheckCode", isAdminParameter, loginIDParameter);
+        }
     }
 }

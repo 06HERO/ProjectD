@@ -362,6 +362,10 @@
           <Parameter Name="IsAdmin" Type="smallint" Mode="InOut" />
           <Parameter Name="IsCheck" Type="tinyint" Mode="InOut" />
         </Function>
+        <Function Name="重置CheckCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsAdmin" Type="smallint" Mode="In" />
+          <Parameter Name="LoginID" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="普雷二電玩ModelStoreContainer">
           <EntitySet Name="使用者列表" EntityType="Self.使用者列表" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="庫存地點列表" EntityType="Self.庫存地點列表" Schema="dbo" store:Type="Tables" />
@@ -600,6 +604,10 @@
             <Parameter Name="IsCheck" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="fn_使用者列表" IsComposable="true" ReturnType="Collection(普雷二電玩Model.fn_使用者列表_Result)" />
+          <FunctionImport Name="重置CheckCode">
+            <Parameter Name="IsAdmin" Mode="In" Type="Int16" />
+            <Parameter Name="LoginID" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="進貨單列表">
           <Key>
@@ -971,6 +979,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="重置CheckCode" FunctionName="普雷二電玩Model.Store.重置CheckCode" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
