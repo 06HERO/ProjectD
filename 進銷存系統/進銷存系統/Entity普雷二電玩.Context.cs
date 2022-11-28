@@ -422,5 +422,80 @@ namespace 進銷存系統
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("重置CheckCode", isAdminParameter, loginIDParameter);
         }
+    
+        public virtual int Delete進貨單明細(Nullable<int> 進貨單編號, Nullable<byte> 商品類型ID, Nullable<short> 商品ID)
+        {
+            var 進貨單編號Parameter = 進貨單編號.HasValue ?
+                new ObjectParameter("進貨單編號", 進貨單編號) :
+                new ObjectParameter("進貨單編號", typeof(int));
+    
+            var 商品類型IDParameter = 商品類型ID.HasValue ?
+                new ObjectParameter("商品類型ID", 商品類型ID) :
+                new ObjectParameter("商品類型ID", typeof(byte));
+    
+            var 商品IDParameter = 商品ID.HasValue ?
+                new ObjectParameter("商品ID", 商品ID) :
+                new ObjectParameter("商品ID", typeof(short));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete進貨單明細", 進貨單編號Parameter, 商品類型IDParameter, 商品IDParameter);
+        }
+    
+        public virtual int Insert進貨單明細(Nullable<int> 進貨單編號, Nullable<byte> 商品類型ID, Nullable<short> 商品ID, Nullable<short> 商品數量, Nullable<decimal> 進貨成本, string 備註)
+        {
+            var 進貨單編號Parameter = 進貨單編號.HasValue ?
+                new ObjectParameter("進貨單編號", 進貨單編號) :
+                new ObjectParameter("進貨單編號", typeof(int));
+    
+            var 商品類型IDParameter = 商品類型ID.HasValue ?
+                new ObjectParameter("商品類型ID", 商品類型ID) :
+                new ObjectParameter("商品類型ID", typeof(byte));
+    
+            var 商品IDParameter = 商品ID.HasValue ?
+                new ObjectParameter("商品ID", 商品ID) :
+                new ObjectParameter("商品ID", typeof(short));
+    
+            var 商品數量Parameter = 商品數量.HasValue ?
+                new ObjectParameter("商品數量", 商品數量) :
+                new ObjectParameter("商品數量", typeof(short));
+    
+            var 進貨成本Parameter = 進貨成本.HasValue ?
+                new ObjectParameter("進貨成本", 進貨成本) :
+                new ObjectParameter("進貨成本", typeof(decimal));
+    
+            var 備註Parameter = 備註 != null ?
+                new ObjectParameter("備註", 備註) :
+                new ObjectParameter("備註", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Insert進貨單明細", 進貨單編號Parameter, 商品類型IDParameter, 商品IDParameter, 商品數量Parameter, 進貨成本Parameter, 備註Parameter);
+        }
+    
+        public virtual int Update進貨單明細(Nullable<int> 進貨單編號, Nullable<byte> 商品類型ID, Nullable<short> 商品ID, Nullable<short> 商品數量, Nullable<decimal> 進貨成本, string 備註)
+        {
+            var 進貨單編號Parameter = 進貨單編號.HasValue ?
+                new ObjectParameter("進貨單編號", 進貨單編號) :
+                new ObjectParameter("進貨單編號", typeof(int));
+    
+            var 商品類型IDParameter = 商品類型ID.HasValue ?
+                new ObjectParameter("商品類型ID", 商品類型ID) :
+                new ObjectParameter("商品類型ID", typeof(byte));
+    
+            var 商品IDParameter = 商品ID.HasValue ?
+                new ObjectParameter("商品ID", 商品ID) :
+                new ObjectParameter("商品ID", typeof(short));
+    
+            var 商品數量Parameter = 商品數量.HasValue ?
+                new ObjectParameter("商品數量", 商品數量) :
+                new ObjectParameter("商品數量", typeof(short));
+    
+            var 進貨成本Parameter = 進貨成本.HasValue ?
+                new ObjectParameter("進貨成本", 進貨成本) :
+                new ObjectParameter("進貨成本", typeof(decimal));
+    
+            var 備註Parameter = 備註 != null ?
+                new ObjectParameter("備註", 備註) :
+                new ObjectParameter("備註", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Update進貨單明細", 進貨單編號Parameter, 商品類型IDParameter, 商品IDParameter, 商品數量Parameter, 進貨成本Parameter, 備註Parameter);
+        }
     }
 }

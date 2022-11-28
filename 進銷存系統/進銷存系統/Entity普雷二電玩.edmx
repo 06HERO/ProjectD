@@ -179,6 +179,11 @@
         <Function Name="Delete進貨單列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="進貨單編號" Type="int" Mode="In" />
         </Function>
+        <Function Name="Delete進貨單明細" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="進貨單編號" Type="int" Mode="In" />
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品ID" Type="smallint" Mode="In" />
+        </Function>
         <Function Name="Delete廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
         </Function>
@@ -305,6 +310,14 @@
           <Parameter Name="進貨日期" Type="datetime" Mode="In" />
           <Parameter Name="明細筆數" Type="tinyint" Mode="In" />
         </Function>
+        <Function Name="Insert進貨單明細" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="進貨單編號" Type="int" Mode="In" />
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品ID" Type="smallint" Mode="In" />
+          <Parameter Name="商品數量" Type="smallint" Mode="In" />
+          <Parameter Name="進貨成本" Type="decimal" Mode="In" />
+          <Parameter Name="備註" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Insert廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
           <Parameter Name="廠商名稱" Type="nvarchar" Mode="In" />
@@ -342,6 +355,14 @@
           <Parameter Name="庫存地點ID" Type="int" Mode="In" />
           <Parameter Name="進貨日期" Type="datetime" Mode="In" />
           <Parameter Name="明細筆數" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="Update進貨單明細" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="進貨單編號" Type="int" Mode="In" />
+          <Parameter Name="商品類型ID" Type="tinyint" Mode="In" />
+          <Parameter Name="商品ID" Type="smallint" Mode="In" />
+          <Parameter Name="商品數量" Type="smallint" Mode="In" />
+          <Parameter Name="進貨成本" Type="decimal" Mode="In" />
+          <Parameter Name="備註" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="Update廠商列表" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="廠商ID" Type="tinyint" Mode="In" />
@@ -607,6 +628,27 @@
           <FunctionImport Name="重置CheckCode">
             <Parameter Name="IsAdmin" Mode="In" Type="Int16" />
             <Parameter Name="LoginID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Delete進貨單明細">
+            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品ID" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="Insert進貨單明細">
+            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品ID" Mode="In" Type="Int16" />
+            <Parameter Name="商品數量" Mode="In" Type="Int16" />
+            <Parameter Name="進貨成本" Mode="In" Type="Decimal" />
+            <Parameter Name="備註" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Update進貨單明細">
+            <Parameter Name="進貨單編號" Mode="In" Type="Int32" />
+            <Parameter Name="商品類型ID" Mode="In" Type="Byte" />
+            <Parameter Name="商品ID" Mode="In" Type="Int16" />
+            <Parameter Name="商品數量" Mode="In" Type="Int16" />
+            <Parameter Name="進貨成本" Mode="In" Type="Decimal" />
+            <Parameter Name="備註" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="進貨單列表">
@@ -980,6 +1022,9 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="重置CheckCode" FunctionName="普雷二電玩Model.Store.重置CheckCode" />
+          <FunctionImportMapping FunctionImportName="Delete進貨單明細" FunctionName="普雷二電玩Model.Store.Delete進貨單明細" />
+          <FunctionImportMapping FunctionImportName="Insert進貨單明細" FunctionName="普雷二電玩Model.Store.Insert進貨單明細" />
+          <FunctionImportMapping FunctionImportName="Update進貨單明細" FunctionName="普雷二電玩Model.Store.Update進貨單明細" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
