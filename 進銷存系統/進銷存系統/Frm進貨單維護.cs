@@ -182,7 +182,7 @@ namespace 進銷存系統
         private void btnInsert列表_Click(object sender, EventArgs e)
         {
             Frm進貨單編輯 frm = new Frm進貨單編輯();
-            frm.callback += CallInsert進貨單列表;
+            frm.callback列表 += CallInsert進貨單列表;
             frm.ShowDialog();
         }
 
@@ -193,6 +193,11 @@ namespace 進銷存系統
 
         private void btnDelete列表_Click(object sender, EventArgs e)
         {
+            if (SQLData.db.fn_進貨單明細().Any(a => a.進貨單編號 == _進貨單編號))
+            {
+                MessageBox.Show("請先刪除相關進貨單明細後再刪除列表");
+                return;
+            }
             this.ShowFrm進貨單列表((int)Change_Mode.Delete);
         }
 
@@ -206,21 +211,30 @@ namespace 進銷存系統
             {
                 進貨單編號 = Convert.ToInt32(row.Cells["進貨單編號"].Value),
                 廠商ID = Convert.ToByte(row.Cells["廠商ID"].Value),
-                廠商名稱 = row.Cells["廠商名稱"].Value.ToString(),                
-                //庫存地點ID = Convert.ToInt32(row.Cells["庫存地點ID"].Value),
+                廠商名稱 = row.Cells["廠商名稱"].Value.ToString(),
                 庫存地點  = row.Cells["庫存地點"].Value.ToString(),
                 進貨日期 = Convert.ToDateTime(row.Cells["進貨日期"].Value),
                 明細筆數 = Convert.ToByte(row.Cells["明細筆數"].Value)
             };
 
             Frm進貨單編輯 frm = new Frm進貨單編輯(data);
-            //frm.callback += CallInsert進貨單列表;
+            frm.callback明細 += CallInsert進貨單明細;
             frm.ShowDialog();
         }
 
+        private void btnUpdate明細_Click(object sender, EventArgs e)
+        {
+            this.ShowFrm進貨單明細((int)Change_Mode.Update);
+        }
+
+        private void btnDelete明細_Click(object sender, EventArgs e)
+        {
+            this.ShowFrm進貨單明細((int)Change_Mode.Delete);
+        }
         #endregion
 
         #region 方法
+
         private void ShowFrm進貨單列表(int Mod)
         {
             if (_dt列表Index < 0 || _dt列表Index >= dv進貨單列表.Rows.Count)
@@ -239,16 +253,67 @@ namespace 進銷存系統
             Frm進貨單編輯 frm = new Frm進貨單編輯(廠商, data, Mod);
 
             if (Mod == (int)Change_Mode.Update)
-                frm.callback += CallUpdate進貨單列表;
+                frm.callback列表 += CallUpdate進貨單列表;
             else if (Mod == (int)Change_Mode.Delete)
-                frm.callback += CallDelete進貨單列表;
+                frm.callback列表 += CallDelete進貨單列表;
 
             frm.ShowDialog();
         }
+
+        private void ShowFrm進貨單明細(int Mod)
+        {
+            if (_dt列表Index < 0 || _dt列表Index >= dv進貨單列表.Rows.Count)
+                return;
+            DataGridViewRow row = dv進貨單列表.Rows[_dt列表Index];
+
+            fn_進貨單列表_Result data列表 = new fn_進貨單列表_Result()
+            {
+                進貨單編號 = Convert.ToInt32(row.Cells["進貨單編號"].Value),
+                廠商ID = Convert.ToByte(row.Cells["廠商ID"].Value),
+                廠商名稱 = row.Cells["廠商名稱"].Value.ToString(),
+                庫存地點  = row.Cells["庫存地點"].Value.ToString(),
+                進貨日期 = Convert.ToDateTime(row.Cells["進貨日期"].Value),
+                明細筆數 = Convert.ToByte(row.Cells["明細筆數"].Value)
+            };
+
+            if (_dt明細Index < 0 || _dt明細Index >= dv進貨單明細.Rows.Count)
+                return;
+            row = dv進貨單明細.Rows[_dt明細Index];
+
+            string 商品類型名稱 = row.Cells["商品類型名稱"].Value.ToString().Trim();
+            string 商品名稱 = row.Cells["商品名稱"].Value.ToString().Trim();
+
+            進貨單明細 data明細 = new 進貨單明細();
+            data明細.進貨單編號 =  Convert.ToInt32(row.Cells["進貨單編號"].Value);
+            data明細.商品類型ID = Convert.ToByte(row.Cells["商品類型ID"].Value);
+            data明細.商品ID = Convert.ToInt16(row.Cells["商品ID"].Value);
+            data明細.商品數量 = Convert.ToInt16(row.Cells["商品數量"].Value);
+
+            if(row.Cells["進貨成本"].Value != DBNull.Value)
+                data明細.進貨成本 = Convert.ToDecimal(row.Cells["進貨成本"].Value);
+            else
+                data明細.進貨成本 = 0;
+
+            data明細.備註 = row.Cells["備註"].Value.ToString().Trim();
+
+
+            Frm進貨單編輯 frm = new Frm進貨單編輯(data列表, data明細, 商品類型名稱, 商品名稱, Mod);
+
+            if (Mod == (int)Change_Mode.Update)
+                frm.callback明細 += CallUpdate進貨單明細;
+            else if (Mod == (int)Change_Mode.Delete)
+                frm.callback明細 += CallDelete進貨單明細;
+
+            frm.ShowDialog();
+        }
+
         private void ReloadData()
         {
             this.Set_進貨單列表();
             this.ResetGridStyle(dv進貨單列表);
+
+            this.Set_進貨單明細();
+            this.ResetGridStyle(dv進貨單明細);
         }
 
         private void ResetGridStyle()
@@ -333,7 +398,7 @@ namespace 進銷存系統
             this.ResetGridStyle(dv進貨單列表);
         }
 
-        private void Set_進貨單明細(string KeyWord = null)
+        private void Set_進貨單明細()
         {
             int 商品類別ID = Convert.ToInt32(cmb商品類別.SelectedValue);
 
@@ -354,6 +419,8 @@ namespace 進銷存系統
             }
 
             this.ResetGridStyle(dv進貨單明細);
+
+            _dt明細Index = 0;
         }
 
         private void CallInsert進貨單列表(進貨單列表 data)
@@ -391,6 +458,46 @@ namespace 進銷存系統
             }
             this.ReloadData();
         }
-        #endregion        
+
+        private void CallInsert進貨單明細(進貨單明細 data)
+        {
+            if (sqlProduct.Insert進貨單明細(data) <= 0)
+            {
+                MessageBox.Show("新增失敗");
+                return;
+            }
+
+            var find1 = SQLData.db.進貨單明細.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號 &&
+                                                                  o.商品類型ID == data.商品類型ID &&
+                                                                  o.商品ID == data.商品ID);
+            SQLData.db.Entry(find1).Reload();
+            this.ReloadData();
+        }
+
+        private void CallUpdate進貨單明細(進貨單明細 data)
+        {
+            if (sqlProduct.Update進貨單明細(data) <= 0)
+            {
+                MessageBox.Show("修改失敗");
+                return;
+            }
+
+            var find1 = SQLData.db.進貨單明細.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號 &&
+                                                                  o.商品類型ID == data.商品類型ID &&
+                                                                  o.商品ID == data.商品ID);
+            SQLData.db.Entry(find1).Reload();
+            this.ReloadData();
+        }
+
+        private void CallDelete進貨單明細(進貨單明細 data)
+        {
+            if (sqlProduct.Delete進貨單明細(data.進貨單編號, data.商品類型ID, data.商品ID) <= 0)
+            {
+                MessageBox.Show("刪除失敗");
+                return;
+            }
+            this.ReloadData();
+        }
+        #endregion
     }
 }

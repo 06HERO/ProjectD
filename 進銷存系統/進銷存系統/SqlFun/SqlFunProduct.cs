@@ -278,6 +278,35 @@ namespace 進銷存系統.SqlFun
         {
             return SQLData.db.Delete進貨單列表(進貨單編號);
         }
-        #endregion
+
+        public int Insert進貨單明細(進貨單明細 InData)
+        {
+            int 進貨單編號 = InData.進貨單編號;
+            byte 商品類型ID = InData.商品類型ID;
+            short 商品ID = InData.商品ID;
+            short 商品數量 = InData.商品數量;
+            decimal 進貨成本 = Convert.ToDecimal(InData.進貨成本);
+            string 備註 = InData.備註.ToString();            
+
+            return SQLData.db.Insert進貨單明細(進貨單編號, 商品類型ID, 商品ID, 商品數量, 進貨成本, 備註);
+        }
+
+        public int Update進貨單明細(進貨單明細 InData)
+        {
+            int 進貨單編號 = InData.進貨單編號;
+            byte 商品類型ID = InData.商品類型ID;
+            short 商品ID = InData.商品ID;
+            short 商品數量 = InData.商品數量;
+            decimal 進貨成本 = Convert.ToDecimal(InData.進貨成本);
+            string 備註 = InData.備註.ToString();
+
+            return SQLData.db.Update進貨單明細(進貨單編號, 商品類型ID, 商品ID, 商品數量, 進貨成本, 備註);
+        }
+
+        public int Delete進貨單明細(int 進貨單編號, byte 商品類型ID, short 商品ID)
+        {
+            return SQLData.db.Delete進貨單明細(進貨單編號, 商品類型ID, 商品ID);
+        }
     }
+    #endregion
 }

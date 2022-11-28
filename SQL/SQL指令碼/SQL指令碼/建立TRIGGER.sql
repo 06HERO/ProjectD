@@ -69,13 +69,14 @@ AS
 	--INNER JOIN inserted i ON i.商品類型ID = a.商品類型ID AND i.商品ID = a.商品ID	
 
 	--自動計算 進貨單列表.進貨成本
-	UPDATE [dbo].[進貨單列表] SET [進貨成本] = a.進貨成本
+	UPDATE [dbo].[進貨單列表] SET [進貨成本] = ISNULL(a.進貨成本, 0)
 	FROM 
 	(
 		SELECT SUM(a.進貨成本) AS 進貨成本 
 		FROM [dbo].[進貨單明細] a
 		INNER JOIN inserted i ON i.進貨單編號 = a.進貨單編號
 	) AS a
+	WHERE 進貨單編號 = (SELECT 進貨單編號 FROM Inserted)
 GO
 
 -- 建立 TRIGGER，當進貨單明細有修改時，自動修改數量至表中對應商品
@@ -126,13 +127,14 @@ AS
 		AND a.商品ID = @商品ID
 
 	--自動計算 進貨單列表.進貨成本
-	UPDATE [dbo].[進貨單列表] SET [進貨成本] = a.進貨成本
+	UPDATE [dbo].[進貨單列表] SET [進貨成本] = ISNULL(a.進貨成本, 0)
 	FROM 
 	(
 		SELECT SUM(a.進貨成本) AS 進貨成本 
 		FROM [dbo].[進貨單明細] a
 		INNER JOIN inserted i ON i.進貨單編號 = a.進貨單編號
 	) AS a
+	WHERE 進貨單編號 = (SELECT 進貨單編號 FROM Inserted)
 GO
 
 -- 建立 TRIGGER，當進貨單明細有修改時，自動修改數量至表中對應商品
@@ -182,11 +184,13 @@ AS
 		AND a.商品ID = @商品ID
 
 	--自動計算 進貨單列表.進貨成本
-	UPDATE [dbo].[進貨單列表] SET [進貨成本] = a.進貨成本
+	UPDATE [dbo].[進貨單列表] SET [進貨成本] = ISNULL(a.進貨成本, 0)
 	FROM 
 	(
 		SELECT SUM(a.進貨成本) AS 進貨成本 
 		FROM [dbo].[進貨單明細] a
-		INNER JOIN deleted i ON i.進貨單編號 = a.進貨單編號
+		INNER JOIN deleted i ON i.進貨單編號 = a.進貨單編號 
+		                    AND (i.商品類型ID <> a.商品類型ID OR i.商品ID <> a.商品ID)
 	) AS a
+	WHERE 進貨單編號 = (SELECT 進貨單編號 FROM deleted)
 GO
