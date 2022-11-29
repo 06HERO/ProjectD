@@ -410,7 +410,7 @@ namespace 進銷存系統
             if (商品類別ID > 0)
                 q進貨單明細 = q進貨單明細.Where(q => q.商品類型ID == 商品類別ID);
 
-            dv進貨單明細.DataSource = q進貨單明細.ToDataTable();
+            dv進貨單明細.DataSource = q進貨單明細.ToDataTable();            
 
             if (SQLData.IsAdmin == (int)User_LV.User)
             {
@@ -438,15 +438,48 @@ namespace 進銷存系統
 
         private void CallUpdate進貨單列表(進貨單列表 data)
         {
+            DataTable table = SQLData.db.進貨單明細.Where(w => w.進貨單編號 == data.進貨單編號).ToDataTable();
+            if(table.Rows.Count > 0)
+            {
+                foreach (DataRow row in table.Rows)
+                {
+                    進貨單明細 InData = new 進貨單明細();
+                    InData.進貨單編號 = Convert.ToInt32(row["進貨單編號"].ToString());
+                    InData.商品類型ID = Convert.ToByte(row["商品類型ID"].ToString());
+                    InData.商品ID = Convert.ToInt16(row["商品ID"].ToString());
+                    InData.商品數量 = Convert.ToInt16(row["商品數量"].ToString());
+                    InData.進貨成本 = Convert.ToDecimal(row["進貨成本"].ToString());
+                    InData.備註 = row["商品類型ID"].ToString();
+                    sqlProduct.Delete進貨單明細(InData.進貨單編號, InData.商品類型ID, InData.商品ID);
+                }                
+            }
+
+
             if (sqlProduct.Update進貨單列表(data) <= 0)
             {
                 MessageBox.Show("修改失敗");
                 return;
             }
 
+
+            if (table.Rows.Count > 0)
+            {
+                foreach (DataRow row in table.Rows)
+                {
+                    進貨單明細 InData = new 進貨單明細();
+                    InData.進貨單編號 = Convert.ToInt32(row["進貨單編號"].ToString());
+                    InData.商品類型ID = Convert.ToByte(row["商品類型ID"].ToString());
+                    InData.商品ID = Convert.ToInt16(row["商品ID"].ToString());
+                    InData.商品數量 = Convert.ToInt16(row["商品數量"].ToString());
+                    InData.進貨成本 = Convert.ToDecimal(row["進貨成本"].ToString());
+                    InData.備註 = row["商品類型ID"].ToString();
+                    sqlProduct.Insert進貨單明細(InData);
+                }
+            }            
+
             var find1 = SQLData.db.進貨單列表.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號);
             SQLData.db.Entry(find1).Reload();
-            this.ReloadData();
+            this.ReloadData();            
         }
 
         private void CallDelete進貨單列表(進貨單列表 data)
