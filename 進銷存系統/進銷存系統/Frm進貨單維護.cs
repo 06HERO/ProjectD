@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
+using System.Data.Entity;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
@@ -438,48 +440,60 @@ namespace 進銷存系統
 
         private void CallUpdate進貨單列表(進貨單列表 data)
         {
-            DataTable table = SQLData.db.進貨單明細.Where(w => w.進貨單編號 == data.進貨單編號).ToDataTable();
-            if(table.Rows.Count > 0)
+            using (DbContextTransaction transaction = SQLData.db.Database.BeginTransaction())
             {
-                foreach (DataRow row in table.Rows)
+                try
                 {
-                    進貨單明細 InData = new 進貨單明細();
-                    InData.進貨單編號 = Convert.ToInt32(row["進貨單編號"].ToString());
-                    InData.商品類型ID = Convert.ToByte(row["商品類型ID"].ToString());
-                    InData.商品ID = Convert.ToInt16(row["商品ID"].ToString());
-                    InData.商品數量 = Convert.ToInt16(row["商品數量"].ToString());
-                    InData.進貨成本 = Convert.ToDecimal(row["進貨成本"].ToString());
-                    InData.備註 = row["商品類型ID"].ToString();
-                    sqlProduct.Delete進貨單明細(InData.進貨單編號, InData.商品類型ID, InData.商品ID);
-                }                
-            }
+                    DataTable table = SQLData.db.進貨單明細.Where(w => w.進貨單編號 == data.進貨單編號).ToDataTable();
+                    if (table.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in table.Rows)
+                        {
+                            進貨單明細 InData = new 進貨單明細();
+                            InData.進貨單編號 = Convert.ToInt32(row["進貨單編號"].ToString());
+                            InData.商品類型ID = Convert.ToByte(row["商品類型ID"].ToString());
+                            InData.商品ID = Convert.ToInt16(row["商品ID"].ToString());
+                            InData.商品數量 = Convert.ToInt16(row["商品數量"].ToString());
+                            InData.進貨成本 = Convert.ToDecimal(row["進貨成本"].ToString());
+                            InData.備註 = row["商品類型ID"].ToString();
+                            sqlProduct.Delete進貨單明細(InData.進貨單編號, InData.商品類型ID, InData.商品ID);
+                        }
+                    }
 
+                    if (sqlProduct.Update進貨單列表(data) <= 0)
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("修改失敗");
+                        return;
+                    }
 
-            if (sqlProduct.Update進貨單列表(data) <= 0)
-            {
-                MessageBox.Show("修改失敗");
-                return;
-            }
+                    if (table.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in table.Rows)
+                        {
+                            進貨單明細 InData = new 進貨單明細();
+                            InData.進貨單編號 = Convert.ToInt32(row["進貨單編號"].ToString());
+                            InData.商品類型ID = Convert.ToByte(row["商品類型ID"].ToString());
+                            InData.商品ID = Convert.ToInt16(row["商品ID"].ToString());
+                            InData.商品數量 = Convert.ToInt16(row["商品數量"].ToString());
+                            InData.進貨成本 = Convert.ToDecimal(row["進貨成本"].ToString());
+                            InData.備註 = row["商品類型ID"].ToString();
+                            sqlProduct.Insert進貨單明細(InData);
+                        }
+                    }
 
+                    transaction.Commit();
 
-            if (table.Rows.Count > 0)
-            {
-                foreach (DataRow row in table.Rows)
-                {
-                    進貨單明細 InData = new 進貨單明細();
-                    InData.進貨單編號 = Convert.ToInt32(row["進貨單編號"].ToString());
-                    InData.商品類型ID = Convert.ToByte(row["商品類型ID"].ToString());
-                    InData.商品ID = Convert.ToInt16(row["商品ID"].ToString());
-                    InData.商品數量 = Convert.ToInt16(row["商品數量"].ToString());
-                    InData.進貨成本 = Convert.ToDecimal(row["進貨成本"].ToString());
-                    InData.備註 = row["商品類型ID"].ToString();
-                    sqlProduct.Insert進貨單明細(InData);
+                    var find1 = SQLData.db.進貨單列表.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號);
+                    SQLData.db.Entry(find1).Reload();
+                    this.ReloadData();
                 }
-            }            
-
-            var find1 = SQLData.db.進貨單列表.FirstOrDefault(o => o.進貨單編號 == data.進貨單編號);
-            SQLData.db.Entry(find1).Reload();
-            this.ReloadData();            
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show(ex.Message);
+                }
+            }                      
         }
 
         private void CallDelete進貨單列表(進貨單列表 data)
