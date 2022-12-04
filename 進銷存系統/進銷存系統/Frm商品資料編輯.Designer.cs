@@ -43,6 +43,8 @@
             this.txt零售價 = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.txt廠商ID = new System.Windows.Forms.TextBox();
+            this.txt商品類別ID = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lbl標題
@@ -52,8 +54,9 @@
             this.lbl標題.Font = new System.Drawing.Font("微軟正黑體", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lbl標題.ForeColor = System.Drawing.Color.Yellow;
             this.lbl標題.Location = new System.Drawing.Point(0, 0);
+            this.lbl標題.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl標題.Name = "lbl標題";
-            this.lbl標題.Size = new System.Drawing.Size(634, 53);
+            this.lbl標題.Size = new System.Drawing.Size(845, 66);
             this.lbl標題.TabIndex = 1;
             this.lbl標題.Text = "商品資料編輯";
             this.lbl標題.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -62,9 +65,10 @@
             // 
             this.lbl廠商.AutoSize = true;
             this.lbl廠商.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl廠商.Location = new System.Drawing.Point(30, 80);
+            this.lbl廠商.Location = new System.Drawing.Point(40, 100);
+            this.lbl廠商.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl廠商.Name = "lbl廠商";
-            this.lbl廠商.Size = new System.Drawing.Size(48, 24);
+            this.lbl廠商.Size = new System.Drawing.Size(61, 30);
             this.lbl廠商.TabIndex = 15;
             this.lbl廠商.Text = "廠商";
             // 
@@ -73,18 +77,20 @@
             this.cmb廠商.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb廠商.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmb廠商.FormattingEnabled = true;
-            this.cmb廠商.Location = new System.Drawing.Point(122, 80);
+            this.cmb廠商.Location = new System.Drawing.Point(163, 100);
+            this.cmb廠商.Margin = new System.Windows.Forms.Padding(4);
             this.cmb廠商.Name = "cmb廠商";
-            this.cmb廠商.Size = new System.Drawing.Size(500, 32);
+            this.cmb廠商.Size = new System.Drawing.Size(665, 38);
             this.cmb廠商.TabIndex = 14;
             // 
             // lbl商品類別
             // 
             this.lbl商品類別.AutoSize = true;
             this.lbl商品類別.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.lbl商品類別.Location = new System.Drawing.Point(30, 130);
+            this.lbl商品類別.Location = new System.Drawing.Point(40, 162);
+            this.lbl商品類別.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl商品類別.Name = "lbl商品類別";
-            this.lbl商品類別.Size = new System.Drawing.Size(86, 24);
+            this.lbl商品類別.Size = new System.Drawing.Size(109, 30);
             this.lbl商品類別.TabIndex = 17;
             this.lbl商品類別.Text = "商品類別";
             // 
@@ -93,28 +99,31 @@
             this.cmb商品類別.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb商品類別.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.cmb商品類別.FormattingEnabled = true;
-            this.cmb商品類別.Location = new System.Drawing.Point(122, 130);
+            this.cmb商品類別.Location = new System.Drawing.Point(163, 162);
+            this.cmb商品類別.Margin = new System.Windows.Forms.Padding(4);
             this.cmb商品類別.Name = "cmb商品類別";
-            this.cmb商品類別.Size = new System.Drawing.Size(130, 32);
+            this.cmb商品類別.Size = new System.Drawing.Size(172, 38);
             this.cmb商品類別.TabIndex = 16;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(30, 180);
+            this.label1.Location = new System.Drawing.Point(40, 225);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 24);
+            this.label1.Size = new System.Drawing.Size(86, 30);
             this.label1.TabIndex = 18;
             this.label1.Text = "商品ID";
             // 
             // txt商品ID
             // 
             this.txt商品ID.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt商品ID.Location = new System.Drawing.Point(122, 180);
+            this.txt商品ID.Location = new System.Drawing.Point(259, 222);
+            this.txt商品ID.Margin = new System.Windows.Forms.Padding(4);
             this.txt商品ID.MaxLength = 5;
             this.txt商品ID.Name = "txt商品ID";
-            this.txt商品ID.Size = new System.Drawing.Size(80, 33);
+            this.txt商品ID.Size = new System.Drawing.Size(105, 39);
             this.txt商品ID.TabIndex = 19;
             this.txt商品ID.Text = "0";
             this.txt商品ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -122,19 +131,21 @@
             // txt商品名稱
             // 
             this.txt商品名稱.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt商品名稱.Location = new System.Drawing.Point(122, 230);
+            this.txt商品名稱.Location = new System.Drawing.Point(163, 288);
+            this.txt商品名稱.Margin = new System.Windows.Forms.Padding(4);
             this.txt商品名稱.MaxLength = 50;
             this.txt商品名稱.Name = "txt商品名稱";
-            this.txt商品名稱.Size = new System.Drawing.Size(500, 33);
+            this.txt商品名稱.Size = new System.Drawing.Size(665, 39);
             this.txt商品名稱.TabIndex = 21;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(30, 230);
+            this.label2.Location = new System.Drawing.Point(40, 288);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 24);
+            this.label2.Size = new System.Drawing.Size(109, 30);
             this.label2.TabIndex = 20;
             this.label2.Text = "商品名稱";
             // 
@@ -142,9 +153,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(30, 280);
+            this.label3.Location = new System.Drawing.Point(40, 350);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 24);
+            this.label3.Size = new System.Drawing.Size(85, 30);
             this.label3.TabIndex = 22;
             this.label3.Text = "進貨價";
             // 
@@ -152,19 +164,21 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(30, 330);
+            this.label4.Location = new System.Drawing.Point(40, 412);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 24);
+            this.label4.Size = new System.Drawing.Size(85, 30);
             this.label4.TabIndex = 24;
             this.label4.Text = "零售價";
             // 
             // txt進貨價
             // 
             this.txt進貨價.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt進貨價.Location = new System.Drawing.Point(122, 280);
+            this.txt進貨價.Location = new System.Drawing.Point(163, 350);
+            this.txt進貨價.Margin = new System.Windows.Forms.Padding(4);
             this.txt進貨價.MaxLength = 10;
             this.txt進貨價.Name = "txt進貨價";
-            this.txt進貨價.Size = new System.Drawing.Size(150, 33);
+            this.txt進貨價.Size = new System.Drawing.Size(199, 39);
             this.txt進貨價.TabIndex = 25;
             this.txt進貨價.Text = "0";
             this.txt進貨價.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -172,10 +186,11 @@
             // txt零售價
             // 
             this.txt零售價.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.txt零售價.Location = new System.Drawing.Point(122, 330);
+            this.txt零售價.Location = new System.Drawing.Point(163, 412);
+            this.txt零售價.Margin = new System.Windows.Forms.Padding(4);
             this.txt零售價.MaxLength = 10;
             this.txt零售價.Name = "txt零售價";
-            this.txt零售價.Size = new System.Drawing.Size(150, 33);
+            this.txt零售價.Size = new System.Drawing.Size(199, 39);
             this.txt零售價.TabIndex = 26;
             this.txt零售價.Text = "0";
             this.txt零售價.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -186,9 +201,10 @@
             this.btnOK.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btnOK.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnOK.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnOK.Location = new System.Drawing.Point(522, 350);
+            this.btnOK.Location = new System.Drawing.Point(696, 438);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(100, 34);
+            this.btnOK.Size = new System.Drawing.Size(133, 42);
             this.btnOK.TabIndex = 27;
             this.btnOK.Text = "確定";
             this.btnOK.UseVisualStyleBackColor = false;
@@ -201,18 +217,49 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Font = new System.Drawing.Font("微軟正黑體", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.btnCancel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnCancel.Location = new System.Drawing.Point(416, 350);
+            this.btnCancel.Location = new System.Drawing.Point(555, 438);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 34);
+            this.btnCancel.Size = new System.Drawing.Size(133, 42);
             this.btnCancel.TabIndex = 28;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = false;
             // 
+            // txt廠商ID
+            // 
+            this.txt廠商ID.Enabled = false;
+            this.txt廠商ID.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt廠商ID.Location = new System.Drawing.Point(163, 222);
+            this.txt廠商ID.Margin = new System.Windows.Forms.Padding(4);
+            this.txt廠商ID.MaxLength = 5;
+            this.txt廠商ID.Name = "txt廠商ID";
+            this.txt廠商ID.ReadOnly = true;
+            this.txt廠商ID.Size = new System.Drawing.Size(40, 39);
+            this.txt廠商ID.TabIndex = 29;
+            this.txt廠商ID.Text = "0";
+            this.txt廠商ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txt商品類別ID
+            // 
+            this.txt商品類別ID.Enabled = false;
+            this.txt商品類別ID.Font = new System.Drawing.Font("微軟正黑體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.txt商品類別ID.Location = new System.Drawing.Point(211, 222);
+            this.txt商品類別ID.Margin = new System.Windows.Forms.Padding(4);
+            this.txt商品類別ID.MaxLength = 5;
+            this.txt商品類別ID.Name = "txt商品類別ID";
+            this.txt商品類別ID.ReadOnly = true;
+            this.txt商品類別ID.Size = new System.Drawing.Size(40, 39);
+            this.txt商品類別ID.TabIndex = 30;
+            this.txt商品類別ID.Text = "0";
+            this.txt商品類別ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Frm商品資料編輯
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 411);
+            this.ClientSize = new System.Drawing.Size(845, 514);
+            this.Controls.Add(this.txt商品類別ID);
+            this.Controls.Add(this.txt廠商ID);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.txt零售價);
@@ -229,6 +276,7 @@
             this.Controls.Add(this.cmb廠商);
             this.Controls.Add(this.lbl標題);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Frm商品資料編輯";
             this.Text = "商品資料編輯";
             this.Load += new System.EventHandler(this.商品資料編輯_Load);
@@ -254,5 +302,7 @@
         private System.Windows.Forms.TextBox txt零售價;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.TextBox txt廠商ID;
+        private System.Windows.Forms.TextBox txt商品類別ID;
     }
 }

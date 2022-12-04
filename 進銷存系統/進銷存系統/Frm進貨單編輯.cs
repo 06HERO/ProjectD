@@ -247,7 +247,7 @@ namespace 進銷存系統
                             商品數量 = Convert.ToInt16(txt商品數量.Text),
                             進貨成本 = Convert.ToDecimal(txt進貨成本.Text),
                             備註 = txt備註.Text.ToString()
-                        };
+                        };                        
                         break;
 
                     case (int)Change_Mode.Update:
@@ -262,6 +262,9 @@ namespace 進銷存系統
                     case (int)Change_Mode.Delete:
                         break;
                 }
+
+                if (0 == _進貨單明細data.進貨成本 && rabManual.Checked == true)
+                    _進貨單明細data.進貨成本 = -1;
 
                 this.callback明細(_進貨單明細data);
                 this.DialogResult = DialogResult.OK;
@@ -399,6 +402,15 @@ namespace 進銷存系統
             }
             else
             {
+                int 進貨單編號 = Convert.ToInt32(txt進貨單編號.Text);
+                short 商品名稱 = Convert.ToInt16(cmb商品名稱.SelectedValue);
+                if(true == SQLData.db.進貨單明細.Any(a => a.進貨單編號 == 進貨單編號 &&  a.商品ID == 商品名稱))
+                {
+                    MessageBox.Show("明細中已存在同樣商品!");
+                    cmb商品名稱.Focus();
+                    return false;
+                }
+
                 int 商品數量 = Convert.ToInt32(txt商品數量.Text);
                 if (商品數量 == 0)
                 {
@@ -407,16 +419,16 @@ namespace 進銷存系統
                     return false;
                 }
 
-                if(rabManual.Checked == true)
-                {
-                    decimal 進貨成本 = Convert.ToInt32(txt進貨成本.Text);
-                    if (進貨成本 == 0m)
-                    {
-                        MessageBox.Show("手動輸入進貨成本不可為 0 !");
-                        txt商品數量.Focus();
-                        return false;
-                    }
-                }
+                //if(rabManual.Checked == true)
+                //{
+                //    decimal 進貨成本 = Convert.ToInt32(txt進貨成本.Text);
+                //    if (進貨成本 == 0m)
+                //    {
+                //        MessageBox.Show("手動輸入進貨成本不可為 0 !");
+                //        txt商品數量.Focus();
+                //        return false;
+                //    }
+                //}
             }            
             return true;
         }

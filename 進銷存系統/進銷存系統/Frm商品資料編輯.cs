@@ -68,7 +68,9 @@ namespace 進銷存系統
             cmb商品類別.Text = 商品類型;
             cmb商品類別.Enabled =false;
 
-            txt商品ID.Text = data.商品ID.ToString();
+            txt廠商ID.Text = data.廠商ID.ToString();
+            txt商品類別ID.Text = data.商品類型ID.ToString();
+            txt商品ID.Text = data.商品ID.ToString().Substring(2, 3);
             txt商品ID.Enabled = false;
 
             txt商品名稱.Text = data.商品名稱.ToString();
@@ -109,7 +111,7 @@ namespace 進銷存系統
                         {
                             廠商ID = _廠商ID,
                             商品類型ID = _商品類別ID,
-                            商品ID = Convert.ToInt16(txt商品ID.Text),
+                            商品ID = Convert.ToInt16(txt廠商ID.Text + txt商品類別ID.Text + txt商品ID.Text),
                             商品名稱 = txt商品名稱.Text.Trim(),
                             進貨價 = Convert.ToDecimal(txt進貨價.Text),
                             零售價 = Convert.ToDecimal(txt零售價.Text)
@@ -135,7 +137,6 @@ namespace 進銷存系統
             this.DialogResult = DialogResult.Cancel;
         }        
         #endregion
-
         #region 方法
         private void Cmb_SelectedIndexChanged()
         {
@@ -144,6 +145,8 @@ namespace 進銷存系統
 
             _廠商ID = Convert.ToByte(cmb廠商.SelectedValue);
             _商品類別ID = Convert.ToByte(cmb商品類別.SelectedValue);
+            txt廠商ID.Text = cmb廠商.SelectedValue.ToString();
+            txt商品類別ID.Text = cmb商品類別.SelectedValue.ToString();
 
             short 商品IDMax = 0;
             if( SQLData.db.商品列表.Where(w => w.廠商ID == _廠商ID && w.商品類型ID == _商品類別ID).Count() > 0 )
@@ -151,7 +154,11 @@ namespace 進銷存系統
                 商品IDMax = SQLData.db.商品列表.Where(w => w.廠商ID == _廠商ID && w.商品類型ID == _商品類別ID).
                                                       Select(s => s.商品ID).Max();
             }
-            txt商品ID.Text = (商品IDMax+1).ToString();
+
+            if(商品IDMax == 0)
+                txt商品ID.Text = (商品IDMax+1).ToString("000");
+            else
+                txt商品ID.Text = (商品IDMax+1).ToString().Substring(2,3);
         }
 
         private bool CheckData()
@@ -228,6 +235,6 @@ namespace 進銷存系統
 
             return true;
         }
-        #endregion
+        #endregion        
     }
 }
