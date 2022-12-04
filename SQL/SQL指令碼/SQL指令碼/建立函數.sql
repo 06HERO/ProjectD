@@ -143,7 +143,8 @@ GO
 SELECT * FROM fn_總商品庫存表()
 
 --fn_商品在庫數量加總
-CREATE FUNCTION fn_商品在庫數量加總(@庫存地點ID int, @廠商ID tinyint, @商品類型ID tinyint, @商品ID smallint)
+--CREATE FUNCTION fn_商品在庫數量加總(@庫存地點ID int, @廠商ID tinyint, @商品類型ID tinyint, @商品ID smallint)
+CREATE FUNCTION fn_商品在庫數量加總(@庫存地點ID int, @商品ID smallint)
 RETURNS int
 BEGIN
 	DECLARE @商品數量 int
@@ -157,8 +158,8 @@ BEGIN
 				INNER JOIN [dbo].[進貨單明細] b ON b.進貨單編號 = a.進貨單編號
 			) AS a
 			WHERE a.庫存地點ID = @庫存地點ID
-			AND 廠商ID =@廠商ID
-			AND 商品類型ID =@商品類型ID
+			--AND 廠商ID =@廠商ID
+			--AND 商品類型ID =@商品類型ID
 			AND 商品ID = @商品ID
 		)
 
@@ -167,10 +168,11 @@ BEGIN
 		SET @商品數量=0
 	END
 
-
 	RETURN @商品數量
 END
-SELECT dbo.fn_商品在庫數量加總(1, 1, 1, 1) AS 'ADD數量'
+--SELECT dbo.fn_商品在庫數量加總(1, 1, 1, 11001) AS 'ADD數量'
+SELECT dbo.fn_商品在庫數量加總(1, 11001) AS 'ADD數量'
+
 --fn_訂單查詢結果
 CREATE FUNCTION fn_訂單查詢結果(@編號 nvarchar(3) )
 RETURNS TABLE

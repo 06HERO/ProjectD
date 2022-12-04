@@ -57,17 +57,17 @@ EXEC Update商品類型列表 1, '主機名稱'
 EXEC Delete商品類型列表 1
 
 -- 新增商品資料
-EXEC Insert商品列表 1, 1, 1, 'PlayStation 5 數位版', 10200, 14580
-EXEC Insert商品列表 1, 1, 2, 'PlayStation 5 光碟版', 12300, 17580
-EXEC Insert商品列表 1, 2, 1, '戰神：諸神黃昏 God of War Ragnarok', 1000, 1990
+EXEC Insert商品列表 1, 1, 11001, 'PlayStation 5 數位版', 10200, 14580
+EXEC Insert商品列表 1, 1, 11002, 'PlayStation 5 光碟版', 12300, 17580
+EXEC Insert商品列表 1, 2, 12001, '戰神：諸神黃昏 God of War Ragnarok', 1000, 1990
 
-EXEC Insert商品列表 2, 1, 1, 'Nintendo Switch 主機', 5100, 7280
-EXEC Insert商品列表 2, 1, 2, 'Nintendo Switch OLED主機', 7000, 9980
-EXEC Insert商品列表 2, 2, 1, '斯普拉遁 3 Splatoon 3', 780, 1490
+EXEC Insert商品列表 2, 1, 21001, 'Nintendo Switch 主機', 5100, 7280
+EXEC Insert商品列表 2, 1, 21002, 'Nintendo Switch OLED主機', 7000, 9980
+EXEC Insert商品列表 2, 2, 22001, '斯普拉遁 3 Splatoon 3', 780, 1490
 
-EXEC Insert商品列表 3, 1, 1, 'Xbox Series S 主機', 6600, 9480
-EXEC Insert商品列表 3, 1 ,2, 'Xbox Series X 主機', 10700, 15380
-EXEC Insert商品列表 3, 2, 1, 'NBA 2K23 中文版', 990, 1990
+EXEC Insert商品列表 3, 1, 31001, 'Xbox Series S 主機', 6600, 9480
+EXEC Insert商品列表 3, 1 ,31002, 'Xbox Series X 主機', 10700, 15380
+EXEC Insert商品列表 3, 2, 32001, 'NBA 2K23 中文版', 990, 1990
 
 -- 修改商品類型(修改商品名稱)
 EXEC Update商品列表 3, 2, 1, 'NBA 2K23 豪華版', 990, 2390
@@ -102,17 +102,17 @@ EXEC Delete進貨單列表 2
 EXEC Delete進貨單列表 3
 
 -- 建立進貨單明細
-EXEC Insert進貨單明細 1,1,1,100
-EXEC Insert進貨單明細 1,1,2,200,10000000,'手動輸入進貨成本'
-EXEC Insert進貨單明細 1,2,1,300,0,'進貨成本先不輸入' 
+EXEC Insert進貨單明細 1,1,11001,100
+EXEC Insert進貨單明細 1,1,11002,200,10000000,'手動輸入進貨成本'
+EXEC Insert進貨單明細 1,2,12001,300,-1,'進貨成本先不輸入' 
 
-EXEC Insert進貨單明細 2,1,1,200
-EXEC Insert進貨單明細 2,1,2,400
-EXEC Insert進貨單明細 2,2,1,100
+EXEC Insert進貨單明細 2,1,21001,200
+EXEC Insert進貨單明細 2,1,21002,400
+EXEC Insert進貨單明細 2,2,22001,100
 
-EXEC Insert進貨單明細 3,1,1,50
-EXEC Insert進貨單明細 3,1,2,100
-EXEC Insert進貨單明細 3,2,1,300
+EXEC Insert進貨單明細 3,1,31001,50
+EXEC Insert進貨單明細 3,1,31002,100
+EXEC Insert進貨單明細 3,2,32001,300
 
 -- 修改進貨單明細資料(修改 商品數量/進貨成本/備註)
 EXEC Update進貨單明細 1,1,1,90, 1000000, '改成手動輸入進貨成本'

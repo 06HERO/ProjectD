@@ -535,6 +535,12 @@ AS
 	BEGIN
 		SET @進貨成本 = @進貨價 * @商品數量
 	END
+
+	--帶入參數為-1時 進貨成本為0
+	IF @進貨成本  = -1
+	BEGIN
+		SET @進貨成本 = 0
+	END
 	
 	INSERT INTO [dbo].[進貨單明細]
            ([進貨單編號],[商品類型ID], [商品ID], [商品數量],[進貨成本],[備註])
@@ -584,6 +590,12 @@ AS
 		SET @進貨成本 = @進貨價 * @商品數量
 	END
 
+	--帶入參數為-1時 進貨成本為0
+	IF @進貨成本  = -1
+	BEGIN
+		SET @進貨成本 = 0
+	END
+
 	UPDATE [dbo].[進貨單明細]
 	SET [商品數量] = @商品數量, [進貨成本] = @進貨成本, [備註] = @備註
 	WHERE [進貨單編號] = @進貨單編號
@@ -591,7 +603,7 @@ AS
 	  AND [商品ID] = @商品ID
 GO
 --刪除進貨單明細資料
-ALTER PROC dbo.Delete進貨單明細
+CREATE PROC dbo.Delete進貨單明細
 @進貨單編號 int, @商品類型ID tinyint, @商品ID smallint 
 AS
 	DECLARE @廠商ID tinyint

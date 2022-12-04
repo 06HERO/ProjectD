@@ -39,12 +39,15 @@ AS
 
 		--自動計算 商品在庫數量加總
 		DECLARE @ADD數量 int
-		SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @廠商ID, @商品類型ID, @商品ID)		
+
+		--SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @廠商ID, @商品類型ID, @商品ID)
+		SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @商品ID)
+
 		UPDATE [dbo].[商品在庫數量] SET [商品數量] = @ADD數量
 		FROM [dbo].[商品在庫數量] a
 		WHERE a.庫存地點ID = @庫存地點ID
-		  AND a.廠商ID = @廠商ID
-		  AND a.商品類型ID = @商品類型ID
+		  --AND a.廠商ID = @廠商ID
+		  --AND a.商品類型ID = @商品類型ID
 		  AND a.商品ID = @商品ID
 	END
 	ELSE	--尚未有初筆資料時新增	
@@ -118,12 +121,15 @@ AS
 
 	--自動計算 商品在庫數量加總
 	DECLARE @ADD數量 int
-	SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @廠商ID, @商品類型ID, @商品ID)
+
+	--SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @廠商ID, @商品類型ID, @商品ID)
+	SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @商品ID)
+
 	UPDATE [dbo].[商品在庫數量] SET [商品數量] = @ADD數量
 	FROM [dbo].[商品在庫數量] a
 	WHERE a.庫存地點ID = @庫存地點ID
-		AND a.廠商ID = @廠商ID
-		AND a.商品類型ID = @商品類型ID
+		--AND a.廠商ID = @廠商ID
+		--AND a.商品類型ID = @商品類型ID
 		AND a.商品ID = @商品ID
 
 	--自動計算 進貨單列表.進貨成本
@@ -175,12 +181,15 @@ AS
 
 	--自動計算 商品在庫數量加總
 	DECLARE @ADD數量 int
-	SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @廠商ID, @商品類型ID, @商品ID)
+
+	--SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @廠商ID, @商品類型ID, @商品ID)
+	SET @ADD數量 = dbo.fn_商品在庫數量加總(@庫存地點ID, @商品ID)
+
 	UPDATE [dbo].[商品在庫數量] SET [商品數量] = @ADD數量
 	FROM [dbo].[商品在庫數量] a
 	WHERE a.庫存地點ID = @庫存地點ID
-		AND a.廠商ID = @廠商ID
-		AND a.商品類型ID = @商品類型ID
+		--AND a.廠商ID = @廠商ID
+		--AND a.商品類型ID = @商品類型ID
 		AND a.商品ID = @商品ID
 
 	--自動計算 進貨單列表.進貨成本
