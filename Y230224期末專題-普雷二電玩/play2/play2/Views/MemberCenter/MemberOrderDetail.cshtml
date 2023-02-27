@@ -1,0 +1,185 @@
+﻿@model IEnumerable<play2.EFModels.View訂單明細品名對照>
+
+@{
+    ViewData["Title"] = "訂單明細";
+}
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="MemberCenter" asp-action="MemberOrder">訂單查詢</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>訂單明細</span></li>
+    </ul>
+</div>
+
+@{
+    int count = 1;
+    decimal sum = 0;    
+    int orderid=Model.Select(t=>t.DelOrderId).FirstOrDefault();
+    <table class="nk-table">
+                                                        <thead>
+                                                            <tr></tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>
+                                                                    序
+                                                                </th>
+                                                                <th>
+                                                                    商品名稱
+                                                                </th>
+                                                                <th>
+                                                                    商品單價
+                                                                </th>
+                                                                <th>
+                                                                    數量
+                                                                </th>
+                                                                <th>
+                                                                    商品總價
+                                                                </th>                                                                          
+                                                            </tr>
+                                                            
+                                                               
+                                                        @foreach (var item in Model)
+                {
+                sum = (decimal)item.UnitPrice * item.OrderQty;
+                                                                                                <tr>
+                                                                                                        <td>
+                                                                                                            @count
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <a asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId">@item.CommodityName</a>
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            $ @item.UnitPrice
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            @item.OrderQty
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            $ @sum
+                                                                                                        </td>                                                                                                       
+                                                                                                    </tr>
+                    count++;
+                 }
+                                                                       
+                                                        </tbody>
+    </table>
+    <button type="button" class="nk-btn nk-btn-lg nk-btn-rounded btn-warning" style="margin:32px 32px 32px 6px;width:20%;"
+                             data-toggle="modal" data-target="#CancelOrder">
+                                        <span class="ion-information-circled"></span>取消訂單
+    </button>
+
+    <button type="button" class="nk-btn nk-btn-lg nk-btn-rounded btn-success" style="margin:32px 32px 32px 6px;width:20%;"
+                             data-toggle="modal" data-target="#PayOrder">        
+                                        <i class="ion-checkmark-round"></i>訂單撥款
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="CancelOrder" tabindex="-1" role="dialog" aria-labelledby="CancelOrder" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group">
+                                                                        <label for="orderid" class="col-form-label">訂單編號</label>
+                                                                        <input type="text" class="form-control bg-dark text-white" readonly id="orderid" name="orderid" value="@Model.Select(t=>t.DelOrderId).FirstOrDefault()">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="reason" class="col-form-label">原因</label>
+                                                                        <textarea class="form-control" id="reason" name="reason"></textarea>                   
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                                                                    <button type="button" id="btnCancelOrder" class="btn btn-danger">確認</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+    </div>
+
+    <!--ModalPay-->
+    <div class="modal fade" id="PayOrder" tabindex="-1" role="dialog" aria-labelledby="PayOrder" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h2 class="modal-title" id="exampleModalCenterTitle">確定撥款?</h2>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <button type="button" id="btnpay" class="btn btn-danger">確定</button>
+                                        </div>
+                                    </div>
+                                </div>
+    </div>
+}
+
+@section Scripts{
+    <script>
+        const id = @Model.Select(t=>t.DelOrderId).FirstOrDefault();
+        $("#btnCancelOrder").on("click",()=>{           
+            const note = $("#reason").val();
+            $.ajax({
+                url: `@Url.Content("~/MemberCenter/CancelOrder")`,
+                data:{"id":id,"note":note},
+                dataType:"text",
+                type:"post"
+            }).done((data)=>{
+                if(data==="success"){
+                    $("#CancelOrder").removeClass("in");
+                    $(".modal-backdrop").remove();
+                    $("#CancelOrder").hide();
+                    $("#idSmallModalAlertTitle").text("訂單取消成功");                       
+                    $("#idSmallModalAlert").modal("show");
+                    $(".modal-backdrop").remove();
+                    setTimeout(() => { location.href = `@Url.Content("~/MemberCenter/MemberOrder")` }, 1500);
+                }
+                else{
+                    $("#CancelOrder").removeClass("in");
+                    $(".modal-backdrop").remove();
+                    $("#CancelOrder").hide();
+                    $("#idSmallModalAlertTitle").text("發生錯誤");
+                    $("#idSmallModalAlert").modal("show");
+                    $(".modal-backdrop").remove();
+                    setTimeout(() => { location.href = `@Url.Content("~/MemberCenter/MemberOrder")` }, 1500);
+                }
+            }).fail(()=>{
+                alert("發生錯誤");
+            })
+        });
+
+        $("#btnpay").on("click",()=>{
+            $.ajax({
+                url: `@Url.Content("~/MemberCenter/PayOrder")`,
+                data: { "id": id },
+                dataType: "text",
+                type: "post"
+            }).done((data)=>{
+                if (data === "success") {
+                    $("#PayOrder").removeClass("in");
+                    $(".modal-backdrop").remove();
+                    $("#PayOrder").hide();
+                    $("#idSmallModalAlertTitle").text("訂單撥款成功");
+                    $("#idSmallModalAlert").modal("show");
+                    $(".modal-backdrop").remove();
+                    setTimeout(() => { location.href = `@Url.Content("~/MemberCenter/MemberOrder")` }, 1500);
+                }
+                else {
+                    $("#PayOrder").removeClass("in");
+                    $(".modal-backdrop").remove();
+                    $("#PayOrder").hide();
+                    $("#idSmallModalAlertTitle").text("發生錯誤");
+                    $("#idSmallModalAlert").modal("show");
+                    $(".modal-backdrop").remove();
+                    setTimeout(() => { location.href = `@Url.Content("~/MemberCenter/MemberOrder")` }, 1500);
+                }
+            }).fail(()=>{
+                alert("發生錯誤");
+            })
+        });
+
+    </script>
+}

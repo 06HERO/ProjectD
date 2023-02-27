@@ -1,0 +1,254 @@
+﻿@model IEnumerable<play2.EFModels.View一般會員詳細資料>
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewData["Title"] = "一般會員詳細資料";
+}
+
+@{
+    int isCheck = (int)Model.Select(t => t.IsCheck).FirstOrDefault();
+    int count_1 = 1;
+    int count_2 = 1;
+    <form method="post" id="MemberForm" name="MemberForm">
+                <div>
+                    <h4>一般會員詳細資料</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class = "col-sm-2">
+                           會員編號
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Model.Select(t=>t.MemberId).FirstOrDefault()
+                             <input type="hidden" name="MemberId" value="@Model.Select(t=>t.MemberId).FirstOrDefault()" />
+                        </dd>
+
+                        <dt class="col-sm-2">
+                            會員姓名
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Select(t=>t.MemberName).FirstOrDefault()       
+                        </dd>
+
+                        <dt class="col-sm-2">
+                            身分證字號
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Select(t=>t.PersonalNumber).FirstOrDefault()    
+                        </dd>
+
+                        <dt class = "col-sm-2">
+                           登入信箱
+                        </dt>
+                        <dd class = "col-sm-10">
+                            @Model.Select(t=>t.LoginEmail).FirstOrDefault()            
+                            <input type="hidden" name="LoginEmail" value="@Model.Select(t=>t.LoginEmail).FirstOrDefault()" />
+                        </dd>
+
+                        <dt class="col-sm-2">
+                            電話
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Model.Select(t=>t.Phone).FirstOrDefault()            
+                        </dd>      
+                        
+                        @foreach (var item in Model.Select(t => t.Addrest).Distinct())
+                 {                    
+                    if(item==null){
+                                <dt class="col-sm-2">
+                                    常用地址
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    無登記
+                                </dd>
+                     }
+                     else{
+                                <dt class="col-sm-2">
+                                 @if(count_1==1)
+                         {
+                                  <span>常用地址</span>
+                         }
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @item
+                                </dd>
+                    }
+                        count_1++;
+                  }
+
+                          
+                          
+                        @foreach(var item in Model.Select(t => new { t.SwiftCode,t.BankAccount}).Distinct())
+                {
+                    if(item.SwiftCode==null){
+                                <dt class="col-sm-2">
+                                    常用帳戶
+                                </dt>
+                                <dd class="col-sm-10">
+                                    未登記
+                                </dd>
+                    }
+                    else{
+                                <dt class="col-sm-2">
+                                    @if (count_2 == 1)
+                            {
+                                        <span>常用帳戶</span>
+                            }                            
+                                </dt>
+                                <dd class = "col-sm-10">
+                                    @item.SwiftCode－@item.BankAccount       
+                                </dd>
+                    }
+                        count_2++;
+                  }
+                        
+
+                        <dt class = "col-sm-2">
+                            是否認證
+                        </dt>
+                            @if (isCheck == 0)
+                    {
+                             <dd class="col-sm-10">
+                                 未進行信箱認證
+                             </dd>
+                    }
+                    else if (isCheck == -1)
+                    {
+                              <dd class="col-sm-10">
+                                  此帳號已停權
+                              </dd>
+                    }
+                    else if (isCheck == 1)
+                    {
+                             <dd class="col-sm-10">
+                                   認證通過
+                              </dd>
+                    }
+                        
+                        </dl>
+                    </div>
+                    <div id="divbtn" class="d-inline-flex">
+                    <a asp-action="ReguList" class="btn btn-primary mx-2">返回</a>                
+                        @if (isCheck == -1)
+                {
+                    <button data-id="back" type="button" class="btn btn-secondary mx-2">還原</button>
+                }
+                else if (isCheck == 0)
+                {
+                    <button data-id="cancel" type="button" class="btn btn-danger mx-2">註銷</button>
+                }
+                else if (isCheck == 1)
+                {                
+                    <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#Suspens">停權</button>
+                }
+           </div>
+    </form>
+    }
+
+<!-- Modal -->
+<div class="modal fade" id="Suspens" tabindex="-1" role="dialog" aria-labelledby="ModalSuspens" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="SuspensForm" method="post">
+                <div class="form-group">
+                    <label for="orderid" class="col-form-label">會員編號</label>
+                    <input type="text" class="form-control" readonly name="MemberId" value="@Model.Select(t=>t.MemberId).FirstOrDefault()">
+                </div>
+                <div class="form-group">
+                    <label for="orderid" class="col-form-label">會員Email</label>
+                    <input type="text" class="form-control" readonly name="LoginEmail" value="@Model.Select(t=>t.LoginEmail).FirstOrDefault()">
+                </div>
+                <div class="form-group">
+                    <label for="reason" class="col-form-label">原因</label>
+                    <textarea class="form-control" name="Notes"></textarea>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" id="btnsuspens" class="btn btn-danger">確認</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Scripts{
+        <script src="~/js_backend/sweetalert2.all.js"></script>
+        <script src="~/js_backend/sweetalert.min.js"></script>
+        <script>
+            $("#divbtn").on("click", "button[data-id='back']", Back);
+            $("#divbtn").on("click", "button[data-id='cancel']", Cancel);
+            $("#btnsuspens").on("click", Suspens);
+            var formData = new FormData(document.MemberForm);
+
+            function Back() {
+                $("button").attr("disabled", "disabled");
+                $.ajax({
+                    url: `@Url.Content("~/Customer/Back")`,
+                    data: formData,
+                    type: "POST",
+                    dataType: "text",
+                    contentType: false,
+                    processData: false
+                }).done((data) => {
+                    Swal.fire({                        
+                        icon: 'success',
+                        title: '帳號已還原，已發出郵件給顧客',
+                        showConfirmButton: false,
+                        timer: 2200
+                    }).then(() => {
+                        location.href = `@Url.Content("~/Customer/ReguList")`;
+                    });
+                }).fail((err) => {
+                    alert("發生錯誤");
+                })
+            };
+            function Cancel() {
+                $("button").attr("disabled", "disabled");
+                $.ajax({
+                    url: `@Url.Content("~/Customer/ReguCancel")`,
+                    data: formData,
+                    type: "POST",
+                    dataType: "text",
+                    contentType: false,
+                    processData: false
+                }).done((data) => {
+                    if(data==="ok"){
+                        Swal.fire({                           
+                            icon: 'warning',
+                            title: '帳號已註銷，已發出郵件給顧客',
+                            showConfirmButton: false,
+                            timer: 2200
+                        }).then(() => {
+                        location.href = `@Url.Content("~/Customer/ReguList")`;
+                        });
+                    }
+                }).fail((err) => {
+                    alert("發生錯誤");
+                })
+            };
+            function Suspens() {
+            var Data = new FormData(document.SuspensForm);
+                $("button").attr("disabled", "disabled");
+                $.ajax({
+                    url: `@Url.Content("~/Customer/Suspens")`,
+                    data: Data,
+                    type: "POST",
+                    dataType: "text",
+                    contentType: false,
+                    processData: false
+                }).done((data) => {
+                    Swal.fire({                       
+                        icon: 'warning',
+                        title: '取消此會員資格，已發出郵件給顧客',
+                        showConfirmButton: false,
+                        timer: 2200
+                    }).then(() => {
+                        location.href = `@Url.Content("~/Customer/ReguList")`;
+                    });
+                }).fail((err) => {
+                    alert("發生錯誤");
+                })
+            };
+        </script>
+    }

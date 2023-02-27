@@ -1,0 +1,518 @@
+﻿@using Microsoft.AspNetCore.Http
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>普雷二-進銷存管理系統</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!--Favicons-->
+    <link href="~/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/assets_backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/assets_backend/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets_backend/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/assets_backend/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/assets_backend/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/assets_backend/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/assets_backend/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/assets_backend/css/style.css" rel="stylesheet">
+
+
+    @await RenderSectionAsync("Styles", required: false)
+
+
+</head>
+<body>
+
+@{
+        if (Context.Session.GetString(CDictionary.sekey_EmpLoginCheck) == "isCheck")
+        {
+                    <!-- ======= Header ======= -->
+                    <header id="header" class="header fixed-top d-flex align-items-center">
+
+                        <div class="d-flex align-items-center justify-content-between">
+                            <img src="~/assets_backend/img/logo.png"  style="height:48px" />
+                            <span class="d-none d-lg-block" style="font-size: 18px">普雷二-進銷存管理系統</span>
+                            <i class="bi bi-list toggle-sidebar-btn"></i>
+                        </div><!-- End Logo -->
+
+
+
+                        @*        <div class="search-bar">
+            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+            </form>
+        </div><!-- End Search Bar -->
+*@
+                        @*      <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item d-block d-lg-none">
+                    <a class="nav-link nav-icon search-bar-toggle " href="#">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </li><!-- End Search Icon-->
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge bg-primary badge-number">4</span>
+                    </a><!-- End Notification Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <li class="dropdown-header">
+                            You have 4 new notifications
+                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-exclamation-circle text-warning"></i>
+                            <div>
+                                <h4>Lorem Ipsum</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>30 min. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-x-circle text-danger"></i>
+                            <div>
+                                <h4>Atque rerum nesciunt</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>1 hr. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-check-circle text-success"></i>
+                            <div>
+                                <h4>Sit rerum fuga</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>2 hrs. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="notification-item">
+                            <i class="bi bi-info-circle text-primary"></i>
+                            <div>
+                                <h4>Dicta reprehenderit</h4>
+                                <p>Quae dolorem earum veritatis oditseno</p>
+                                <p>4 hrs. ago</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="dropdown-footer">
+                            <a href="#">Show all notifications</a>
+                        </li>
+
+                    </ul><!-- End Notification Dropdown Items -->
+
+                </li><!-- End Notification Nav -->
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span class="badge bg-success badge-number">3</span>
+                    </a><!-- End Messages Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                        <li class="dropdown-header">
+                            You have 3 new messages
+                            <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="message-item">
+                            <a href="#">
+                                <img src="~/assets_backend/img/messages-1.jpg" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>Maria Hudson</h4>
+                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>4 hrs. ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="message-item">
+                            <a href="#">
+                                <img src="~/assets_backend/img/messages-2.jpg" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>Anna Nelson</h4>
+                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>6 hrs. ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="message-item">
+                            <a href="#">
+                                <img src="~/assets_backend/img/messages-3.jpg" alt="" class="rounded-circle">
+                                <div>
+                                    <h4>David Muldon</h4>
+                                    <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                                    <p>8 hrs. ago</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li class="dropdown-footer">
+                            <a href="#">Show all messages</a>
+                        </li>
+
+                    </ul><!-- End Messages Dropdown Items -->
+
+                </li><!-- End Messages Nav -->
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="~/assets_backend/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Kevin Anderson</h6>
+                            <span>Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>帳號設定</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Need Help?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>登出</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+*@
+                    </header><!-- End Header -->
+                <!------------------------------- 專案開始了 ，view寫好以後記得改連結------------------------------->
+                <!-- ======= Sidebar ======= -->
+                <aside id="sidebar" class="sidebar">            
+                    <ul class="sidebar-nav" id="sidebar-nav">
+                    @if (!Context.Session.Keys.Contains(CDictionary.sekey_EmpLoginID))
+                     {
+                            <li class="nav-item">        
+                                <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-person-circle"></i><span>使用者</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a asp-action="Login" asp-controller="BackendLogin">
+                                            <i class="bi bi-box-arrow-in-right"></i><span>登入</span>
+                                        </a>
+                                    </li>                              
+                                </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        string emp = Context.Session.GetString(CDictionary.sekey_EmpLoginID);
+                        string sessionadmin = Context.Session.GetString(CDictionary.sekey_EmpAdmin);
+                        string admin="";
+                        if(sessionadmin=="1"){
+                            admin = "主管";
+                        }
+                        else if(sessionadmin=="2"){
+                            admin = "員工";
+                        }
+                        <li>
+                                  <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-person-circle"></i><span>@admin：@emp</span><i class="bi bi-chevron-down ms-auto"></i>
+                                  </a>
+                                  <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                      <li>
+                                          <a asp-action="Logout" asp-controller="BackendLogin">
+                                              <i class="bi bi-box-arrow-in-right"></i><span>登出</span>
+                                          </a>
+                                      </li>
+                                  </ul>    
+                             </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-bs-target="#customer-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-person-gear"></i><span>會員管理</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                            <ul id="customer-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a asp-action="CompList" asp-controller="Customer">
+                                        <i class="bxs-buildings"></i><span>經銷商</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ReguList" asp-controller="Customer">
+                                            <i class="ri-contacts-fill"></i><span>一般會員</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>         
+                        
+
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-bs-target="#product-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-building-gear"></i><span>產品管理</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                <ul id="product-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a href="~/product/list">
+                                            <i class="bi bi-building-check"></i><span>產品管理</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/product/create">
+                                            <i class="bi bi-building-add"></i><span>產品建檔</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-bs-target="#purchase-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-house-down"></i><span>進貨作業</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                <ul id="purchase-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a href="~/Controller23/supplierList">
+                                            <i class="bi bi-house-gear"></i><span>供應商資料維護</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Controller23/purchaseList">
+                                            <i class="bi bi-house-exclamation"></i><span>進貨單維護與查詢</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-bs-target="#Sale-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-coin"></i><span>出貨作業</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                <ul id="Sale-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">          
+                                    <li>
+                                        <a href="~/orderdelivery/OrderList">
+                                            <i class="bi bi-building-gear"></i><span>出貨單維護</span>
+                                        </a>
+                                    </li>                           
+                                </ul>
+                            </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link collapsed" data-bs-target="#return-nav" data-bs-toggle="collapse" href="#">
+                                <i class="bi bi-arrow-return-left"></i><span>客服退貨</span><i class="bi bi-chevron-down ms-auto"></i>
+                            </a>
+                            <ul id="return-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                <li>
+                                    <a href="~/Controller23/service">
+                                        <i class="bi bi-chat-right-dots-fill"></i><span>客戶訊息列表</span>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="~/Controller23/creditnoteList">
+                                        <i class="bi bi-building-fill-exclamation"></i><span>折讓單查詢</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        if (sessionadmin == "1")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-bs-target="#revenue-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-graph-up"></i><span>營收監控管理</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                <ul id="revenue-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a href="~/Controller23/cost">
+                                            <i class="bi bi-building-gear"></i><span>進貨管理</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Controller23/revenue">
+                                            <i class="bi bi-basket3"></i><span>銷貨管理</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/Controller23/grossprofit">
+                                            <i class="bi bi-piggy-bank"></i><span>獲利分析</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" data-bs-target="#info-nav" data-bs-toggle="collapse" href="#">
+                                    <i class="bi bi-send-fill"></i><span>公司資訊發布管理</span><i class="bi bi-chevron-down ms-auto"></i>
+                                </a>
+                                <ul id="info-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                    <li>
+                                        <a href="~/news/newslist">
+                                            <i class="bi bi-bell-fill"></i><span>新聞管理</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="~/news/createnews">
+                                            <i class="bi bi-bell"></i><span>新聞發布</span>
+                                        </a>
+                                    </li>
+                                    @*<li>
+                                            <a href="tables-data.html">
+                                                 <i class="bi bi-info-circle"></i><span>公司資訊</span>
+                                            </a>
+                                        </li>  *@                 
+                                </ul>
+                            </li>
+                        }
+
+                            <li class="nav-item">
+                                <a class="nav-link collapsed" href="~/Controller23/repair">
+                                    <i class="bi bi-bug-fill"></i>
+                                    <span>維修報錯</span>
+                                </a>
+                            </li>
+                        }
+
+                            <li class="nav-item"><!--開發用-->
+                        <a asp-controller="Home" asp-action="Index" class="nav-link collapsed">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                    <span>前台</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </aside>
+                    <!-- End Sidebar-->
+
+                    <div ><!--class="container"-->
+                        <main role="main" id="main" ><!-- class=" pb-3 main-->
+                        @RenderBody()
+                    </main>
+                </div>
+        }
+        else
+        {
+                    <div class="card text-center">
+                     <div class="card-body">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <h4 class="alert-heading">未進行授權</h4>
+                            <p>偵測到你未進行授權，請先獲得授權再進入此頁面</p>
+                            <hr>
+                                <p class="mb-0">請<a href="~/Home/Index">關閉此頁面</a>或<a href="javascript:history.back()">返回上一頁</a></p>
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+        }
+}
+
+
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span></span></strong>普雷二股份有限公司
+        </div>
+    </footer>
+    <!-- Vendor JS Files -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="~/assets_backend/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/assets_backend/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets_backend/vendor/chart.js/chart.umd.js"></script>
+    <script src="~/assets_backend/vendor/echarts/echarts.min.js"></script>
+    <script src="~/assets_backend/vendor/quill/quill.min.js"></script>
+    <script src="~/assets_backend/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/assets_backend/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/assets_backend/vendor/php-email-form/validate.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/assets_backend/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+<script>
+
+
+</script>

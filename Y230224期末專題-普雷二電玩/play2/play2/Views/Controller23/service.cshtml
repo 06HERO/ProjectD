@@ -1,0 +1,59 @@
+﻿@model IEnumerable<play2.EFModels.TService>
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+
+    ViewData["Title"] = "service";
+}
+
+<h1 class="card-title" style="text-align:center;font-size:3em">客服問題清單</h1>
+<hr >
+<p>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th hidden>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                姓名
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                反應問題
+            </th>
+            <th>
+                普雷二回應
+            </th>
+            <th>動作</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td hidden>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Question)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Answer)
+            </td>
+            <td>
+                    @Html.ActionLink("回應", "serviceRES", "Controller23", new { id = item.Id }, new {@class=" btn btn-success "  })
+                    <a href="~/orderdelivery/OrderList" class="btn btn-danger">銷退</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

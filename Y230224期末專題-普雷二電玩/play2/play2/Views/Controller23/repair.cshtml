@@ -1,0 +1,97 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "repair";
+}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<h1 class="card-title" style="text-align:center;font-size:3em">
+    維修報錯</h1>
+<hr>
+<br>
+
+@section Scripts{
+    <script>
+        //鎖定日期
+        window.onload = function (){
+            date = new Date();
+            year = date.getFullYear();
+            month = date.getMonth() + 1;
+            day = date.getDate();
+            rdate = document.querySelector("#registerd");
+            rdate.value = `${year}-${month}-${day}`;
+            console.log(rdate);
+        }
+        
+
+    </script>
+
+        <script>
+
+        //Demo自動填入
+        let demo = document.querySelector("#demo");
+        let emp = document.querySelector("#emp");
+        let ext = document.querySelector("#ext");
+        let q = document.querySelector("#q");
+        demo.addEventListener("click", function () {
+            emp.value= "林幸嫻";
+            ext.value = "4523";
+            q.value ="字體太小，閱讀困難，建議放大"
+                    })
+
+
+    </script>
+
+    }
+
+<form method="post" action="~/Controller23/repairSave" needs-validation>
+    <div class="mb-3">
+        <label  class="form-label">姓名</label>
+        <input type="text" name="publisher" class="form-control" id="emp" placeholder="請輸入本名，勿用暱稱、綽號...等" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">分機</label>
+        <input type="text" name="extention" class="form-control" id="ext" placeholder="#1234" required>
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">登記日期</label>
+            <input name="registerdate" class="form-control" id="registerd" readonly>
+    </div>
+
+        <div class="mb-3" >
+            <label class="form-label" hidden>結案</label>
+            <input name="closeOrpending" class="form-control" value="N" hidden>
+        </div>
+
+
+
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">問題描述</label>
+        <textarea name="describe" class="form-control" id="q" rows="5"  required></textarea>
+    </div>
+
+    <div style="display:flex ; margin-top:2%">
+        <p>
+                <input id="btn" type="submit" class="btn btn-outline-primary" value="送出" />
+        </p>
+        &nbsp;&nbsp;
+        <p>
+            <button type="button" class="btn btn-warning" id="demo">Demo</button>
+            <img style="height:36px;margin-top:-50px;margin-left:-56px;" src="~/assets/images/cat.gif" />
+        </p>
+
+    </div>
+
+
+
+        <div>
+            <p>
+            <a style="color:blue ; font-size:24px" href="~/Controller23/repairList"><i class="bi bi-arrow-right-circle-fill"></i>已報修清單</a>
+
+            </p>
+        </div>
+
+
+</form>
+
+

@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+
+@section Styles{
+    <styles>
+        .swal2-popup {
+            font-size: 0.5rem;
+                                    }
+    </styles>
+}
+
+@section Scripts{
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script src="~/js_backend/sweetalert.min.js"></script>
+
+    <script>
+        window.onload = function (){
+            Swal.fire({
+                title: '休息是為了走更長遠的路-東尼・史瓦茲',
+                confirmButtonText: '繼續',
+                width: 600,
+                padding: '3em',
+                color: '#6d6f75',
+                background: '#fff url(/SPGimages/trees.png)',
+                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("/SPGimages/nyan-cat.gif")
+                    left top
+                    no-repeat
+                  `
+            })
+
+
+
+        };
+
+
+
+    </script>
+
+}

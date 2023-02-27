@@ -1,0 +1,103 @@
+﻿@model play2.ViewModels.CBackendLoginViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewData["Title"] = "登入";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+            <div class="d-flex justify-content-center py-4">
+                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                    <img src="assets/img/logo.png" alt="">
+                    <span class="d-none d-lg-block">登入</span>
+                </a>
+            </div><!-- End Logo -->
+
+            <div class="card mb-3">
+
+                <div class="card-body">
+
+                    <div class="pt-4 pb-2">
+                        <h5 class="card-title text-center pb-0 fs-4">登入你的帳號</h5>
+                        <p class="text-center small">輸入你的用戶名和密碼</p>
+                    </div>
+
+                    <form name="formLogin" id="formLogin" class="row g-3 needs-validation" novalidate>
+
+                        <div class="col-12">
+                            <label for="txtLoginEmail" class="form-label">用戶名</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                                <input type="text" asp-for="txtLoginId" class="form-control"  required>
+                                <div id="spantxtLoginId" class="text-danger"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="txtLoginPW" class="form-label">密碼</label>
+                            <input type="password" asp-for="txtLoginPw" class="form-control" required>
+                            <div id="spantxtLoginPw" class="text-danger"></div>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-between">
+                            <input id="subLogin" class="btn btn-primary w-25" type="button" value="登入">                            
+                            <input id="demo1" class="btn btn-primary w-25" type="button" value="Demo1">
+                            <input id="demo2" class="btn btn-primary w-25" type="button" value="Demo2">                          
+                        </div>
+                        <div class="col-12">
+                            <p class="small mb-0">忘記密碼了? <a href="#">聯絡你們資訊部門</a></p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#subLogin").on("click", Login);
+        function Login(){
+            $("#subLogin").attr("disabled", "disabled");
+            $("#subLogin").val("登入中...");
+            var formData = new FormData(document.formLogin);
+            $.ajax({
+                url: `@Url.Content("~/BackendLogin/Login")`,
+                type: "POST",
+                data: formData,
+                dataType: "text",
+                contentType: false,
+                processData: false
+            }).done((data)=>{
+                if(data==="success"){
+                    location.href = "@Url.Content("~/Backend/Index")";
+                }
+                else if (data === "fail"){
+                    $("#spantxtLoginPw").text("帳號密碼錯誤");
+                    $("#subLogin").removeAttr("disabled");
+                    $("#subLogin").val("登入");
+                }                
+            }).fail((err)=>{
+                alert("發生錯誤" + err.statusText);
+            })
+        };
+        //這是的Demo1鍵
+        $("#demo1").on("click", () => {
+            $("#txtLoginId").val("play2chu3913");
+            $("#txtLoginPw").val("chu3913");
+        });
+        //這是的Demo2鍵
+        $("#demo2").on("click", () => {
+            $("#txtLoginId").val("play2hsignchu23");
+            $("#txtLoginPw").val("hsignchu23");
+        });
+
+
+
+    </script>
+}

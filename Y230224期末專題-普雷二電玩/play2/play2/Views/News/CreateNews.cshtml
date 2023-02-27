@@ -1,0 +1,185 @@
+﻿@model play2.ViewModels.CNewsViewModel
+
+@{
+    ViewData["Title"] = "EditNews";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+@section Styles{
+    <style>
+        .content {
+            border-radius: 5px;
+            height: 400px;
+            width: 100%;
+        }
+
+        .ql-snow {
+            border-radius: 5px;
+        }
+
+        .showimg {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .imgdiv {
+            height: 400px;
+            width: 80%;
+            background-color: floralwhite;
+            border-radius: 5px;
+            border: solid 1px #dddddd;
+        }
+    </style>
+}
+
+<link href="~/assets/img/favicon.png" rel="icon">
+<link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title " style="text-align:center;font-size:3em">新聞發布</h5>
+            
+                    <hr />
+                    <form asp-action="EditNews" method="post" enctype="multipart/form-data">
+                    <div class="d-flex justify-content-start mt-5 mb-5">
+                        <div class="col-sm-1">
+                            <button asp-action="CreateNews" type="submit" class="btn btn-primary">發布</button>
+                        </div>
+                        <div class="col-sm-1">
+                            <button asp-action="NewsList" type="submit" class="btn btn-danger">取消</button>
+
+                        </div>
+
+                        <div class="col-sm-1">
+                            <input type="button" id="NewsDemo" value="Demo" class="btn btn-info" />
+                            <img style="height:36px;margin-top:-50px;margin-left:-56px;" src="~/assets/images/cat.gif" />
+
+                        </div>
+
+                    </div>
+
+                        <div class="d-flex justify-content-center">
+
+                            <div class="col-lg-9  mt-2">
+
+
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">類型</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-select" name="FNewsType" aria-label="Default select example">
+                                            <option value="1">活動資訊</option>
+                                            <option value="2">永續經營</option>
+                                            <option value="3">其他新聞</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail" class="col-sm-2 col-form-label">標題</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="ndTitle" name="FNewsTitle" class="form-control">
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">圖片上傳</label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="photo" id="imgInput" accept=".jpg, .jpeg, .png" class="form-control" name="photo" type="file">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 ">圖片預覽</label>
+                                    <div class="col-sm-10 imgdiv ">
+                                        <img class="showimg" id="imgPrint" src="~/assets/images/noImage.png" />
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">發布日期</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" name="FNewsDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">內容</label>
+
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="FNewsContent" name="editor" id="editor" class=" content ndContent" name="FNewsContent"></textarea>
+                                    </div>
+                                </div>
+
+                                <br />
+
+                             
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@section Scripts{
+    <script>
+        CKEDITOR.replace('editor');
+        const imgInput = document.querySelector("#imgInput");
+        const imgPrint = document.querySelector("#imgPrint");
+        imgInput.addEventListener("change", () => {
+            const [file] = imgInput.files;
+            if (file) { imgPrint.src = URL.createObjectURL(file) }
+        })
+
+        //---------------------NewsDemo-------------
+
+        const newsDemo = document.querySelector("#NewsDemo");
+        const ndTitle = document.querySelector("#ndTitle");
+
+        newsDemo.addEventListener("click", () => {
+            ndTitle.value = "線上結帳更優惠! 2月份各銀行/支付平台回饋"
+            CKEDITOR.instances.editor.setData(`<h1>【刷玉山卡滿贈超商抵用券】</h1>
+
+                <h2><br />
+                2023/1/1&ndash;1/31、2/1&ndash;2/28</h2>
+
+                <h2>玉山卡滿額送100元<br />
+                玉山卡消費筆滿$1,500，贈7-ELEVEN現金抵用券100元(額滿為止)</h2>
+
+                <p>-</p>
+
+                <h1>【街口支付綁定街口聯名卡付款】最高6%回饋</h1>
+
+                <h2>2023/1/1 &ndash; 2023/6/30</h2>
+
+                <h2>1.當月街口卡消費達5,000元（含街口支付App/實體卡消費）後，於91APP合作品牌之消費金額再加碼 4%街口幣回饋（每月上限回饋100元，並與指定品牌共計回饋，次月底前回饋）。
+                <br />
+                2.首辦新卡者，再享加碼1%街口幣回饋（每月上限回饋100元，與週三加碼併計，次月底前回饋）。<br />
+                <br />
+                3.筆筆消費可享1%街口幣回饋無上限。</h2>
+
+                <p>-</p>
+
+                <h1>【悠遊付指定電商滿千筆筆最高回饋 5%】</h1>
+
+
+                <h2><strong>2023/1/1~3/31</strong></h2>
+
+                <h2>單筆滿 1,000 元以上，每筆扣款享 3% 悠遊付回饋金回饋，每月每戶回饋上限 200 元悠遊付回饋金，活動全期每戶最高回饋 600 元悠遊付回饋金。</h2>
+
+                `)
+        })
+
+
+
+
+    </script>
+}

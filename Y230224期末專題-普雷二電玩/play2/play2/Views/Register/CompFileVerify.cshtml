@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "書面驗證";
+}
+
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="Register" asp-action="ChooseType">會員類型</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="Register" asp-action="CreCompMem">會員資料填寫</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="Register" asp-action="CompFileVerify">信箱驗證</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>書面驗證</span></li>
+    </ul>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="card bg-transparent mb-3" style="width:25rem;">
+        <div class="card-body">
+
+            <div class="pt-4 pb-2">
+                <h3 class="card-title text-center">加入會員</h3>
+                <p class="text-center">書面驗證</p>
+            </div>
+
+            <div id="divpreview" class="col-12">                
+                
+            </div>
+
+            <form name="myform" id="myform" method="post" enctype="multipart/form-data" class="row g-3" autocomplete="off">
+                <div class="col-12">
+                    <label for="file" class="form-label">上傳書面驗證檔案(PDF檔)<span class="text-main-1">*</span></label>
+                    <input type="file" name="file" class="form-control">
+                    <span id="spanfile" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 my-2">
+                    <button id="sub" class="btn btn-dark btn-sm w-100" type="button">上傳</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#sub").on("click", ()=>{
+
+
+            var formData = new FormData(document.myform);
+            $.ajax({
+                url: `@Url.Content("~/Register/CompFileVerify")`,
+                type: "POST",
+                data: formData,
+                dataType: "text",
+                contentType: false,
+                processData: false
+            }).done((data)=>{
+                if(data==="n"){
+                    $("#idSmallModalAlertTitle").text("請上傳檔案");
+                    $("#idSmallModalAlert").modal("show");
+                }
+                else if (data === "err"){
+                    $("#idSmallModalAlertTitle").text("發生錯誤");                               
+                    $("#idSmallModalAlert").modal("show"); 
+                }
+                else if(data==="nopdf"){
+                    $("#idSmallModalAlertTitle").text("請上傳PDF檔");
+                    $("#idSmallModalAlert").modal("show");
+                }
+                else if (data === "success"){
+                    $("#idSmallModalAlertTitle").text("上傳成功，書面審核需要三個工作天，請靜待通知");
+                    $("#idSmallModalAlert").modal("show");
+                    setTimeout(()=>{location.href = "@Url.Content("~/Home/Index")"},1500);    
+                }
+            }).fail((err)=>{
+                $("#idSmallModalAlertTitle").text("發生錯誤");
+                $("#idSmallModalAlert").modal("show"); 
+            })        
+        
+        })
+    </script>
+}
+

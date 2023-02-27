@@ -1,0 +1,335 @@
+﻿@model play2.EFModels.View經銷商會員資料表
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewData["Title"] = "經銷商詳細資料";
+}
+
+<form id="MemberForm" name="MemberForm" method="post" asp-action="CompEdit">
+<div>
+    <h4>經銷商詳細資料</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            會員編號
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MemberId)      
+            <input type="hidden" name="MemberId" value="@Model.MemberId" />
+        </dd>
+
+        <dt class = "col-sm-2">
+           登入信箱
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LoginEmail)   
+            <input type="hidden" name="LoginEmail" value="@Model.LoginEmail" />
+        </dd>
+
+        <dt class = "col-sm-2">
+            是否認證
+        </dt> 
+            @if(Model.IsCheck==0)
+            {
+            <dd class="col-sm-10">
+                未進行信箱認證和書面認證
+            </dd>
+            }
+            else if (Model.IsCheck == -1)
+            {
+                <dd class="col-sm-10">
+                    此帳號已停權
+                </dd>
+            }
+            else if (Model.IsCheck == 2)
+            {
+            <dd class="col-sm-10">
+                未繳交書面認證文件
+            </dd>
+            }
+            else if (Model.IsCheck == 3)
+            {
+            <dd class="col-sm-10">
+                已交書面認證文件，審核中
+            </dd>
+            }
+            else if (Model.IsCheck == 4)
+            {
+            <dd class="col-sm-10">
+                書面認證文件未通過，須重新審核
+            </dd>
+            }
+            else if (Model.IsCheck == 1)
+            {
+            <dd class="col-sm-10">
+                認證通過
+            </dd>
+            }  
+
+        <dt class = "col-sm-2">
+            公司名稱
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CompanyName)
+        </dd>
+
+        <dt class = "col-sm-2">
+            負責人
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PrincipalMan)
+        </dd>
+
+        <dt class = "col-sm-2">
+            統一編號
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TaxIdnumber)
+        </dd>
+
+        <dt class = "col-sm-2">
+            公司電話
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt class = "col-sm-2">
+           公司地址
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Addrest)
+        </dd>
+
+        <dt class = "col-sm-2">
+            銀行帳戶
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.SwiftCode<span>－</span>@Model.BankAccount
+        </dd>   
+
+        <dt class = "col-sm-2">
+           書面認證檔案
+        </dt>
+        <dd class = "col-sm-10">
+           @{
+              if (Model.IsCheck == 3 || Model.IsCheck == 4 || Model.IsCheck == 1)
+              {
+                 <a href="~/NewCompMemberFile/@Model.FilePath" target="_blank" class="btn btn-secondary"><i class="bi bi-collection"></i></a>
+              }             
+            }
+        </dd>
+
+        <dt class = "col-sm-2">
+            信用額度
+        </dt>
+        <dd class = "col-sm-10">
+            <input name="Credits" value="@Model.Credits" class="form-control w-50"/>
+        </dd>
+
+        <dt class = "col-sm-2">
+            信用評等
+        </dt>
+        <dd class = "col-sm-10">
+            <input name="CreditLevel" value="@Model.CreditLevel" class="form-control w-50" />
+        </dd>
+
+        <dt class = "col-sm-2">
+            備註
+        </dt>
+            <textarea name="Notes" class="form-control text-start" style="height: 200px;width:42%;">@Model.Notes</textarea>
+        </dl>
+    </div>
+
+<div id="divbtn" class="d-inline-flex">
+    <a asp-action="CompList" class="btn btn-primary mx-2">返回</a> 
+
+    <button id="edit" type="submit" class="btn btn-danger mx-2">修改</button>
+
+        @if (Model.IsCheck == 3 || Model.IsCheck == 4)
+        {        
+                <button data-id="wa" type="button" class="btn btn-success mx-2">
+                    <i class="bi bi-check-circle">認證通過</i>
+                </button>
+           
+                <button data-id="dewa" type="button" class="btn btn-danger mx-2">
+                    <i class="bi bi-exclamation-octagon">認證無效</i>
+                </button>
+   
+        }
+        else if (Model.IsCheck == 0 || Model.IsCheck == 2)
+        {         
+               <button data-id="cancel" type="button" class="btn btn-warning mx-2">註銷</button>     
+        }
+        else if (Model.IsCheck == 1)
+        {
+              <button type="button" class="btn btn-warning mx-2" data-bs-toggle="modal" data-bs-target="#Suspens">停權</button>
+        }
+        else if(Model.IsCheck==-1){
+            <button data-id="back" type="button" class="btn btn-danger mx-2">還原</button>
+        }
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="Suspens" tabindex="-1" role="dialog" aria-labelledby="ModalSuspens" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form name="SuspensForm" method="post">
+                    <div class="form-group">
+                        <label for="orderid" class="col-form-label">會員編號</label>
+                        <input type="text" class="form-control" readonly name="MemberId" value="@Model.MemberId">
+                    </div>
+                    <div class="form-group">
+                        <label for="orderid" class="col-form-label">會員Email</label>
+                        <input type="text" class="form-control" readonly name="LoginEmail" value="@Model.LoginEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="reason" class="col-form-label">原因</label>
+                        <textarea class="form-control" name="Notes"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+                <button type="button" id="btnsuspens" class="btn btn-danger">確認</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@section Scripts{
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script>
+        $("#divbtn").on("click", "button[data-id='wa']", Pass);
+        $("#divbtn").on("click","button[data-id='dewa']", Fail);
+        $("#divbtn").on("click","button[data-id='cancel']", Cancel);       
+        $("#divbtn").on("click", "button[data-id='back']", Back);
+        $("#btnsuspens").on("click", Suspens);
+        var formData = new FormData(document.MemberForm);
+        function Pass(){
+            $("button").attr("disabled","disabled");
+            $.ajax({
+                url:`@Url.Content("~/Customer/PassWa")`,
+                data: formData,
+                type: "POST",
+                dataType:"text",
+                contentType: false,
+                processData: false
+            }).done((data)=>{         
+                Swal.fire({                   
+                    icon: 'success',
+                    title: '書面認證通過，已發出郵件給顧客',
+                    showConfirmButton: false,
+                    timer: 2200
+                }).then(()=>{
+                    location.href = `@Url.Content("~/Customer/CompList")`;
+                });
+            }).fail((err)=>{
+                    alert("發生錯誤");
+                })           
+            };
+
+        function Fail(){
+            $("button").attr("disabled", "disabled");
+            $.ajax({
+                url: `@Url.Content("~/Customer/FailWa")`,
+                data: formData,
+                type: "POST",
+                dataType: "text",
+                contentType: false,
+                processData: false
+            }).done((data) => {
+                Swal.fire({                   
+                    icon: 'warning',
+                    title: '書面未認證通過，已發出郵件給顧客',
+                    showConfirmButton: false,
+                    timer: 2200
+                }).then(() => {
+                    location.href = `@Url.Content("~/Customer/CompList")`;
+                });
+            }).fail((err) => {
+                alert("發生錯誤");
+            })           
+        };
+
+        function Suspens() {
+            var Data = new FormData(document.SuspensForm);
+            $("button").attr("disabled", "disabled");
+            $.ajax({
+                url: `@Url.Content("~/Customer/Suspens")`,
+                data: Data,
+                type: "POST",
+                dataType: "text",
+                contentType: false,
+                processData: false
+            }).done((data) => {
+                Swal.fire({                   
+                    icon: 'warning',
+                    title: '取消此會員資格，已發出郵件給顧客',
+                    showConfirmButton: false,
+                    timer: 2200
+                }).then(() => {
+                    location.href = `@Url.Content("~/Customer/CompList")`;
+                });
+            }).fail((err) => {
+                alert("發生錯誤");
+            })           
+        };
+
+        function Cancel() {
+            $("button").attr("disabled", "disabled");
+            $.ajax({
+                url: `@Url.Content("~/Customer/CompCancel")`,
+                data: formData,
+                type: "POST",
+                dataType: "text",
+                contentType: false,
+                processData: false
+            }).done((data) => {
+                Swal.fire({                   
+                    icon: 'warning',
+                    title: '帳號已註銷，已發出郵件給顧客',
+                    showConfirmButton: false,
+                    timer: 2200
+                }).then(() => {
+                    location.href = `@Url.Content("~/Customer/CompList")`;
+                });
+            }).fail((err) => {
+                alert("發生錯誤");
+            })
+        };
+
+          function Back() {
+            $("button").attr("disabled", "disabled");
+            $.ajax({
+                url: `@Url.Content("~/Customer/Back")`,
+                data: formData,
+                type: "POST",
+                dataType: "text",
+                contentType: false,
+                processData: false
+            }).done((data) => {
+                Swal.fire({                   
+                    icon: 'success',
+                    title: '帳號已還原，已發出郵件給顧客',
+                    showConfirmButton: false,
+                    timer: 2200
+                }).then(() => {
+                    location.href = `@Url.Content("~/Customer/CompList")`;
+                });
+            }).fail((err) => {
+                alert("發生錯誤");
+            })
+        };
+    </script>
+}

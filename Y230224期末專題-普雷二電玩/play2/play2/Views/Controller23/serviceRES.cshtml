@@ -1,0 +1,89 @@
+﻿@model play2.EFModels.TService
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+
+    ViewData["Title"] = "serviceRES";
+}
+
+<h1>客服回應編輯</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="serviceRES">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label" hidden></label>
+                <input asp-for="Id" class="form-control" hidden />
+                <span asp-validation-for="Id" class="text-danger" hidden></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">姓名</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div style="height:24px"></div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control "  />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div style="height:24px"></div>
+
+            <div class="form-group">
+                <label asp-for="Question" class="control-label">提問</label>
+                <input asp-for="Question" class="form-control " />
+                <span asp-validation-for="Question" class="text-danger"></span>
+            </div>
+            <div style="height:24px"></div>
+
+            <div class="form-group">
+                <label asp-for="Answer" class="control-label">回應</label>
+                <input asp-for="Answer" class="form-control" style="background-color:BlanchedAlmond" id="res" />
+                <span asp-validation-for="Answer" class="text-danger"></span>
+            </div>
+            <div style="height:24px"></div>
+            <div class="form-group" style="display:flex">
+                <input type="submit" value="回信" class="btn btn-primary"  id="resmail"/>
+                <input type="button" value="Demo" class="btn btn-warning" id="demo" style="margin-left:12px" />
+                <img style="height:36px;margin-top:-24px;margin-left:-56px;" src="~/assets/images/cat.gif" />
+
+            </div>
+        </form>
+    </div>
+</div>
+<div style="height:24px"></div>
+
+<div>
+    <a asp-action="service"><i class="bi bi-arrow-left-circle-fill"></i>回到清單</a>
+</div>
+
+@section Scripts {
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script>
+        //確認框框
+        $("#resmail").on("click", swalert);
+        function swalert(){
+            var dfd = jQuery.Deferred();
+            Swal.fire({
+                icon: 'success',
+                title: '回應信件已送出',
+                showConfirmButton: false
+            }).then(function (result) {
+                if (result.value) { dfd.resolve(); }
+                else { dfd.reject(); }
+            });
+        }
+
+        //Demo鍵
+        $("#demo").on("click", demofill);
+        function demofill(){
+            $("#res").val(`謝謝您支持普雷二，普雷二會持續提供優質的服務!`)
+        }
+
+    </script>
+
+}

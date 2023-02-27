@@ -1,0 +1,872 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Text.Json
+@using play2.Models
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - play2</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/play2.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>GoodGames | Community and Store HTML Game Template</title>
+
+    <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
+    <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
+    <meta name="author" content="_nK">
+
+    <!--
+            <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- START: Styles -->
+    @await RenderSectionAsync("Styles", required: false)
+     <style>       
+         #gotop {
+              display: none;
+              position: fixed;
+              right: 20px;
+              bottom: 20px;    
+              padding: 10px 15px;    
+              font-size: 20px;
+              background: #777;
+              color: white;
+              cursor: pointer;
+              z-index:2;
+         }
+
+</style>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- FontAwesome -->
+    <script defer src="~/assets/vendor/fontawesome-free/js/all.js"></script>
+    <script defer src="~/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="~/assets/vendor/ionicons/css/ionicons.min.css">
+
+    <!-- Flickity -->
+    <link rel="stylesheet" href="~/assets/vendor/flickity/dist/flickity.min.css">
+
+    <!-- Photoswipe -->
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/photoswipe/dist/photoswipe.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/photoswipe/dist/default-skin/default-skin.css">
+
+    <!-- Seiyria Bootstrap Slider -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">
+
+    <!-- Summernote -->
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/summernote/dist/summernote-bs4.css">
+
+    <!-- GoodGames -->
+    <link rel="stylesheet" href="~/assets/css/goodgames.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link rel="stylesheet" href="~/css/button.css">
+
+
+    <!-- END: Styles -->
+    <!-- jQuery -->
+    <script src="~/assets/vendor/jquery/dist/jquery.min.js"></script>
+
+    <!-- toastr v2.1.4 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+</head>
+<body>
+    <!--視窗navbar-->
+
+     
+   
+    <div id="gotop">Top</div>
+   
+
+    <nav class="nk-navbar nk-navbar-top nk-navbar-sticky nk-navbar-autohide">
+        <div class="container">
+            <div class="nk-nav-table">
+               
+                <a asp-controller="Home" asp-action="Index" class="nk-nav-logo">
+                    <img src="~/assets/images/logo.png" alt="GoodGames" width="199">
+                </a>
+                               
+                <ul class="nk-nav nk-nav-right d-none d-lg-table-cell" data-nav-mobile="#nk-nav-mobile" style="font-size: 1.5em">
+                    <li id="liLogin" class=" nk-drop-item">               
+                        @if(Context.Session.Keys.Contains(CDictionary.sekey_EmpLoginCheck))
+                        {
+                        <a asp-controller="Backend" asp-action="Index">管理員系統</a>
+                        <ul class="dropdown">
+                            <li>
+                                <a asp-controller="Backend" asp-action="Index"> 後台系統</a>
+                            </li>
+                            <li>
+                                <a asp-controller="Login" asp-action="Logout">登出</a>
+                            </li>
+                        </ul>
+                        }
+                        else if (!Context.Session.Keys.Contains(CDictionary.sekey_Login))
+                        {
+                                <a asp-action="ChooseType" asp-controller="Register">加入會員</a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="#" data-toggle="modal" data-target="#modalLogin">
+                                            登入
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-action="ChooseType" asp-controller="Register">註冊</a>
+                                    </li>
+                                </ul>
+                        }
+                        
+                        else
+                        {
+                                <a asp-controller="MemberCenter" asp-action="MemberData">會員中心</a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a asp-controller="MemberCenter" asp-action="MemberData"> 會員資料</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="MemberCenter" asp-action="MemberOrder"> 訂單查詢</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Login" asp-action="Logout">登出</a>
+                                    </li>
+                                </ul>
+                        }
+                    </li>
+
+                    <li class=" nk-drop-item">
+                        <a asp-controller="Commodity" asp-action="ProList">
+                            產品購買
+                        </a>
+                        <ul class="dropdown">
+                            <li>
+                                <a asp-controller="Commodity" asp-action="ProList" asp-route-id="">產品一覽</a>
+                            </li>
+                            <li>
+                                <a href="~/Cart/CheckCart"> 檢視購物車</a>
+                            </li>
+                            <li>
+                                <a href="~/Cart/CheckoutCart"> 結帳</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class=" nk-drop-item">
+                        <a href="">
+                            關於普雷二
+                        </a>
+                        <ul class="dropdown">
+
+                            <li class=" nk-drop-item">
+                                <ul class="dropdown"></ul>
+                            </li>
+                            <li>
+                                <a href="~/關於/公司沿革"> 公司沿革</a>
+                            </li>
+                            <li>
+                                <a href="~/關於/重大新聞"> 重大新聞</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="~/經銷門市/門市清單">  經銷門市</a>
+                    </li>
+                    <li id="Cart">
+                        
+                        @Html.Partial("_CartPartial")
+                        
+                        @*<a href="~/Cart/CheckCart" class="nk-cart-toggle">
+                        <span id="CartDropDown" class="nk-cart-toggle">
+                        <span class="fa fa-shopping-cart"></span>
+                        <!-- 數產品個數 -->
+                        <span class="nk-badge">27</span>
+                        </span>
+                        </a>
+                        <div class="nk-cart-dropdown">
+
+                            <div class="nk-widget-post">
+                                <a href="store-product.html" class="nk-post-image">
+                                    <img src="~/assets/images/product-5-xs.jpg" alt="In all revolutions of">
+                                </a>
+                                <h3 class="nk-post-title">
+                                    <a href="#" class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+                                    <a href="store-product.html">In all revolutions of</a>
+                                </h3>
+                                <div class="nk-gap-1"></div>
+                                <div class="nk-product-price">€ 23.00</div>
+                            </div>
+
+                            <div class="nk-widget-post">
+                                <a href="store-product.html" class="nk-post-image">
+                                    <img src="~/assets/images/product-7-xs.jpg" alt="With what mingled joy">
+                                </a>
+                                <h3 class="nk-post-title">
+                                    <a href="#" class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+                                    <a href="store-product.html">With what mingled joy</a>
+                                </h3>
+                                <div class="nk-gap-1"></div>
+                                <div class="nk-product-price">€ 14.00</div>
+                            </div>
+                            <!-- 結帳-->
+                            <div class="nk-gap-2"></div>
+                            <div class="text-center">
+                                <a href="store-checkout.html" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">查看購物車</a>
+                            </div>
+                        </div>*@
+                       
+                    </li>
+                </ul>
+
+                <ul class="nk-nav nk-nav-right nk-nav-icons">
+                    <li class="single-icon d-lg-none">
+                        <a href="#" class="no-link-effect" data-nav-toggle="#nk-nav-mobile">
+                            <span class="nk-icon-burger">
+                                <span class="nk-t-1"></span>
+                                <span class="nk-t-2"></span>
+                                <span class="nk-t-3"></span>
+                            </span>
+                        </a>
+                    </li>               
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!--行動裝置navbar-->
+    <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
+        <div class="nano">
+            <div class="nano-content">
+                <a href="index.html" class="nk-nav-logo">
+                    <img src="assets/images/logo.png" alt="" width="120">
+                </a>
+                <div class="nk-navbar-mobile-content">
+                    <ul class="nk-nav">
+                        <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!--登入畫面-->
+    <div class="nk-modal modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="ion-android-close"></span>
+                    </button>
+
+                    <h4 class="mb-0"><span class="text-main-1">登入</span> </h4>
+
+                    <div class="nk-gap-1"></div>
+                    <form name="formLogin" id="formLogin" class="nk-form text-white" method="post">
+                        <div class="row vertical-gap">
+                            <div class="col-md-6">
+                                請輸入帳號(E-mail)及密碼:
+
+                                <div class="nk-gap"></div>
+                                <input type="email" id="txtLoginEmail" name="txtLoginEmail" class="form-control" placeholder="sample@ispan.com">
+                                <span id="spanLoginEmail" class="text-danger"></span>
+                                <div class="nk-gap"></div>
+                                <input type="password" id="txtLoginPW" name="txtLoginPW" class="form-control" placeholder="密碼">
+                                <span id="spanLoginPW" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="nk-gap"></div>
+                                <ul class="nk-social-links-2">     
+                                    <li><input id="demobtn" value="" type="button"/></li>
+                                    <li><input id="demobtnreg" value="" type="button"/></li>
+                                    <li><input id="demobtnemp" value="" type="button"/></li>
+                                </ul>
+                                 <ul class="nk-social-links-2">     
+                                    <li><input id="demonewbtn" value="" type="button" /></li>
+                                    <li><input id="demonewbtnreg" value="" type="button" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="nk-gap-1"></div>
+                        <div class="row vertical-gap">
+                            <div class="col-md-6">
+                                <input id="subLogin" type="button" value="登入" class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block" />
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mnt-5">
+                                    <small>@Html.ActionLink("忘記密碼?", "ForgotPW", "Login")</small>
+                                </div>
+                                <div class="mnt-5">
+                                    <small>
+                                        <a asp-action="ChooseType" asp-controller="Register">想加入普雷迷? 註冊</a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提醒用的Modal(有按鈕的) -->
+    <div class="modal fade" id="idModalAlert" tabindex="-1" role="alertdialog" aria-labelledby="idModalAlert" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="idModalAlertTitle"></h5>
+                    <button type="button" class="close" id="idModalAlertBtnclose1">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>                
+                <div class="modal-footer">        
+                    <button class="btn btn-success" data-dismiss="modal" id="idModalAlertBtnclose2">關閉</button>
+                    <a class="btn btn-primary" id="idModalAlertBtn">確定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 提醒用的Modal(沒有按鈕) --> 
+    <div class="modal fade bd-example-modal-sm" id="idSmallModalAlert" tabindex="-1" role="alertdialog" aria-labelledby="idSmallModalAlert" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="idSmallModalAlertTitle"></h5>
+                    <button type="button" class="close" id="idSmallModalAlertBtnclose">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>   
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+
+            @RenderBody()
+            <img class="nk-page-background-top" src="~/assets/images/bg-top.png" alt="">
+            <img class="nk-page-background-bottom" src="~/assets/images/bg-bottom.png" alt="">
+        </main>
+    </div>
+
+
+    <footer class="nk-footer">
+
+        <div class="container">
+            <div class="nk-gap-3"></div>
+            <div class="row vertical-gap">
+                <div class="col-md-12" style="display:flex">
+                    <div class="nk-widget" onload="init()">
+                        
+                        <h3> 常見問答 </h3>
+                        <div class="nk-widget-content col-md-8">
+                            <form enctype="text/plain" accept-charset="utf-8" >
+                                <div class="row vertical-gap sm-gap">
+                                </div>
+                                <div class="nk-gap"></div>
+                                <input type="button" id="stockback" class="btn btn-light btn-radius" style="height:46px ; font-size:16px; align-content:normal ; margin-right:8px" value="退貨">
+                                <input type="button" id="stockdamage" class="btn btn-light btn-radius" style="height:46px ; font-size:16px; align-content:center ; margin-right:8px" value="貨損">
+                                <input type="button" id="delivery" class="btn btn-light btn-radius" style="height:46px ; font-size:16px; align-content:center ; margin-right:8px" value="配送">
+                                <input type="button" id="fare" class="btn btn-light btn-radius" style="height:46px ; font-size:16px; align-content:center ; margin-right:8px" value="運費">
+
+                            </form>
+
+                                <div style="display:flex">
+                                    <img src="~/assets/images/普雷咪.jpg" style="height: 90px ; margin:12px" >
+                            <div id="res" style="font-size:18px ; margin-top:12px">
+                                尊貴的大人，我是客服普雷咪，陪您闖蕩遊戲世界! 需要提供大人什麼幫助嗎喵?                                                               
+                            </div>
+
+                           </div>
+
+                        </div>
+
+
+
+
+                    </div>
+                    <div>
+
+                        <div class="col-md-36 " >
+                            <div class="nk-widget">
+                                <h4 class="nk-widget-title">問答集找不到答案?</h4>
+                                <div class="nk-widget-content">
+                                    <form action="" class="nk-form nk-form-ajax" novalidate="novalidate"  name="qaform">
+                                        <div class="row vertical-gap sm-gap">
+                                            <div class="col-md-6">
+                                                <input type="email" class="form-control required" name="Email" placeholder="您的Email" id="myemail">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control required" name="Name" placeholder="您的姓名" id="yourname">
+                                            </div>
+                                        </div>
+                                        <div class="nk-gap"></div>
+                                        <textarea class="form-control required" name="Question" rows="5" placeholder="我想說..." id="iwanttosay"></textarea>
+                                        <div class="nk-gap-1"></div>
+                                        <input type="button" class=" btn btn-light " id="msggo" value="送出">
+                                        
+                                        <button type="button" class="btn btn-warning" id="msgdemo">Demo</button>
+                                        <img style="height:36px;margin-top:-58px;margin-left:-72px;" src="~/assets/images/cat.gif" />
+
+                                        <div class="nk-form-response-success"></div>
+                                        <div class="nk-form-response-error"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-6">
+                    <p style="color:deepskyblue">普雷二客服信箱 - play2sev@gmail.com</p>
+                </div>
+            </div>
+            <div class="nk-gap-3"></div>
+        </div>
+        <div class="container">
+            &copy; 2023 - play2    <!-- <a asp-area="" asp-page="/Privacy">Privacy</a>->-->
+        </div>
+
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+        <!-- Object Fit Polyfill -->
+    <script src="~/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
+
+    <!-- GSAP -->
+    <script src="~/assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
+    <script src="~/assets/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
+
+    <!-- Popper -->
+    <script src="~/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Sticky Kit -->
+    <script src="~/assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+
+    <!-- Jarallax -->
+    <script src="~/assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="~/assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
+
+    <!-- imagesLoaded -->
+    <script src="~/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+
+    <!-- Flickity -->
+    <script src="~/assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+
+    <!-- Photoswipe -->
+    <script src="~/assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
+    <script src="~/assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+
+    <!-- Jquery Validation -->
+    <script src="~/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <!-- Jquery Countdown + Moment -->
+    <script src="~/assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
+    <script src="~/assets/vendor/moment/min/moment.min.js"></script>
+    <script src="~/assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+
+    <!-- Hammer.js -->
+    <script src="~/assets/vendor/hammerjs/hammer.min.js"></script>
+
+    <!-- NanoSroller -->
+    <script src="~/assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+
+    <!-- SoundManager2 -->
+    <script src="~/assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+
+    <!-- Seiyria Bootstrap Slider -->
+    <script src="~/assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+
+    <!-- Summernote -->
+    <script src="~/assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+
+    <!-- nK Share -->
+    <script src="~/assets/plugins/nk-share/nk-share.js"></script>
+
+    <!-- GoodGames -->
+    <script src="~/assets/js/goodgames.min.js"></script>
+    <script src="~/assets/js/goodgames-init.js"></script>
+    <!-- END: Scripts -->
+    <!--以下為登入的Ajax-->
+    <script>        
+        $("#subLogin").on("click",Login)
+        function Login(){
+                $("#subLogin").attr("disabled", "disabled");
+                $("#subLogin").val("登入中...");    
+                var formData=new FormData(document.formLogin);
+                $.ajax({
+                    url:`@Url.Content("~/Login/Login")`,
+                    type:"POST",
+                    data:formData,
+                    dataType:"text",
+                    contentType: false, 
+                    processData: false 
+                }).done((data)=>{
+                    if(data==="success"){     
+                        $("#idSmallModalAlertTitle").text("登入成功");                       
+                        $("#idSmallModalAlert").modal("show");
+                        $('.modal-backdrop').remove();
+                        setTimeout(() => { location = location }, 1500);
+                    } 
+                    else if(data==="isLogin"){
+                        location = location;
+                    }
+                    else if(data==="Suspens"){
+                        $("#idSmallModalAlertTitle").text("此帳號已停權，請聯絡官方");                       
+                        $("#idSmallModalAlert").modal("show");
+                        $("#subLogin").removeAttr("disabled");
+                        $("#subLogin").val("登入");
+                    }
+                    else if(data==="noReguverify"){
+                        $("#idModalAlertTitle").text("未做信箱認證，是否要前往認證?");               
+                        $("#idModalAlertBtn").text("前往");
+                        $("#idModalAlertBtn").prop("href",`@Url.Content("~/Register/Verify")`);
+                        $("#idModalAlert").modal("show");          
+                        $("#subLogin").removeAttr("disabled"); 
+                        $("#subLogin").val("登入"); 
+                    }
+                    else if(data==="noComverify"){
+                        $("#idModalAlertTitle").text("未做信箱認證，是否要前往認證?");                     
+                        $("#idModalAlertBtn").text("前往");
+                        $("#idModalAlertBtn").prop("href", `@Url.Content("~/Register/CompVerify")`);
+                        $("#idModalAlert").modal("show");
+                        $("#subLogin").removeAttr("disabled");
+                        $("#subLogin").val("登入");
+                    }
+                    else if (data === "noCompFileverify") {
+                        $("#idModalAlertTitle").text("未做書面認證，是否要前往認證?");                   
+                        $("#idModalAlertBtn").text("前往");
+                        $("#idModalAlertBtn").prop("href", `@Url.Content("~/Register/CompFileVerify")`);
+                        $("#idModalAlert").modal("show");
+                        $("#subLogin").removeAttr("disabled"); 
+                        $("#subLogin").val("登入"); 
+                    }
+                    else if (data === "waitToCheck") {
+                        $("#idSmallModalAlertTitle").text("此帳號還在進行書面認證，請靜待通知");                      
+                        $("#idSmallModalAlert").modal("show");       
+                        $("#subLogin").removeAttr("disabled"); 
+                        $("#subLogin").val("登入");    
+                    }
+                    else if(data==="reToCheck"){
+                        $("#idModalAlertTitle").text("此帳號需重繳書面認證文件，是否前往?");                    
+                        $("#idModalAlertBtn").text("前往");
+                        $("#idModalAlertBtn").prop("href", "@Url.Content("~/Register/CompFileVerify")");
+                        $("#idModalAlert").modal("show");       
+                        $("#subLogin").removeAttr("disabled"); 
+                        $("#subLogin").val("登入"); 
+                    }
+                    else if(data==="noRegister"){
+                        $("#idModalAlertTitle").text("此帳號未註冊，是否前往註冊?");                    
+                        $("#idModalAlertBtn").text("前往");
+                        $("#idModalAlertBtn").prop("href", "@Url.Content("~/Register/ChooseType")");
+                        $("#idModalAlert").modal("show");       
+                        $("#subLogin").removeAttr("disabled"); 
+                        $("#subLogin").val("登入");    
+                    }
+                    else if(data==="isEmpLogin"){
+                        $("#idSmallModalAlertTitle").text("即將導入後台登錄頁面...");
+                        $("#idSmallModalAlert").modal("show");
+                        setTimeout(() => { location.href = "@Url.Content("~/Backend/Index")" }, 1500);
+                    }
+                    else if(data==="f"){                        
+                        $("#spanLoginPW").text("密碼錯誤");
+                        $("#subLogin").removeAttr("disabled");  
+                        $("#subLogin").val("登入");   
+                    }
+                    else if(data==="n"){
+                        $("#spanLoginPW").text("請輸入信箱和密碼");                  
+                        $("#subLogin").removeAttr("disabled");
+                    $("#subLogin").val("登入");
+                }
+                }) 
+        };
+
+        //這是法人登錄的Demo鍵
+        $("#demobtn").on("click",()=>{
+            $("#txtLoginEmail").val("adcd1@gmail.com");
+            $("#txtLoginPW").val("12345678");
+        });
+        //這是一般登錄的Demo鍵
+        $("#demobtnreg").on("click", () => {
+            $("#txtLoginEmail").val("etral3913@gmail.com");
+            $("#txtLoginPW").val("aaasssddd");
+        });
+        //這是員工登錄的Demo鍵
+            $("#demobtnemp").on("click",()=>{
+            $("#txtLoginEmail").val("play2sev@gmail.com");
+            $("#txtLoginPW").val("123456");
+        });
+         //這是新會員法人登錄的Demo鍵
+          $("#demonewbtn").on("click",()=>{
+            $("#txtLoginEmail").val("etral3339@gmail.com");
+            $("#txtLoginPW").val("123456");
+        });
+        //這是新會員一般登錄的Demo鍵
+        $("#demonewbtnreg").on("click", () => {
+            $("#txtLoginEmail").val("edd3339@gmail.com");
+            $("#txtLoginPW").val("123456");
+        });
+        //讓modal的btn可以關閉modal
+        $("#idModalAlertBtnclose1").on("click",()=>{$("#idModalAlert").modal("hide")})
+        $("#idModalAlertBtnclose2").on("click",()=>{$("#idModalAlert").modal("hide")})
+        $("#idSmallModalAlertBtnclose").on("click",()=>{$("#idSmallModalAlert").modal("hide")})
+        //圖片載入失敗的預設圖片
+        //$(document).on("error","image",()=>{
+        //    $(this).prop("src",`@Url.Content("~/assets/images/noImage.png")`);
+        //});
+    </script>
+
+    <script>
+        $(function () {
+            $("#gotop").click(function () {
+                jQuery("html,body").animate({
+                    scrollTop: 0
+                }, 1000);
+            });
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 300) {
+                    $('#gotop').fadeIn("fast");
+                } else {
+                    $('#gotop').stop().fadeOut("fast");
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        //客服簡易問答
+        let res = document.querySelector("#res")
+        let stockback = document.querySelector("#stockback");
+        let stockdamage = document.querySelector("#stockdamage");
+        let delivery = document.querySelector("#delivery");
+        let fare = document.querySelector("#fare");
+
+        stockback.addEventListener("click", function () {
+            res.innerHTML = `<p>很難過沒給大人好的購物體驗......請確認收貨未超過7日、並提供訂單編號或發票號碼，普雷咪確認後會第一回復您的喔喵! </p>`
+        });
+
+        stockdamage.addEventListener("click", function () {
+            res.innerHTML = `<p>很難過沒給大人好的購物體驗......請提供貨況照片、及訂單編號貨發票號碼，普雷咪確認後會第一回復您的喔喵! </p>`
+        });
+
+        delivery.addEventListener("click", function () {
+            res.innerHTML = `<p>訂單總量不超過10件，除非不可抗力情形，貨品會於7個工作日內送達。若超過10件依據配貨情形需要7~10個工作日送達喵。 </p>`
+        });
+
+        fare.addEventListener("click", function () {
+            res.innerHTML = `<p>普雷二運費計算以材積、配送方式計算，還請大人查看信箱的訂購明細哦喵。 </p>`
+        });
+
+
+        //客服訊息傳入Demo
+        let myemail = $("#myemail");
+        let yourname =$("#yourname");
+        let iwanttosay = $("#iwanttosay");
+        let msggo = $("#msggo");
+        let msgdemo = $("#msgdemo");
+        msgdemo.on("click" , demofill);
+        function demofill(){
+            myemail.val(`edd3339@gmail.com`)  ;
+            yourname.val(`莊大`) ;
+            iwanttosay.val(`客服人員何大的產品講解非常仔細，謝謝普雷二`) ;
+        };
+
+        //客服訊息傳入資料庫//沒有成功再找原因
+       msggo.on("click" , saveDB );
+       function saveDB(){
+            //var respones = {};
+            //respones.Name = yourname.val();
+            //respones.Email = myemail.val();
+            //respones.Question = iwanttosay.val();
+            let formData = new FormData(document.qaform);
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "@Url.Content("/Controller23/serviceINP")");
+            //xhr.setRequestHeader('Content-type','application/json');
+            //var data = JSON.stringify(respones);
+            xhr.send(formData);
+            console.log(formData);
+
+            alert(`訊息已傳送，回覆需1~2個工作天，請靜待回覆`);
+           
+
+
+               }
+
+
+
+
+
+
+
+
+    </script>
+    <script>
+        //購物車顯示
+        const CartDrop_Count = $("#CartDrop_Count");
+        const CartDropDown_List = $("#CartDropDown_List");
+        const AddtoCart =$("button[data-id='addtoCart']");
+
+        let cart_json = '';
+        //$(document).ready(function () {
+        //    $("#AddtoCart").click(function () {
+        //        console.log('正常做動');
+        //        load_CartDrop();
+        //    });
+        //});
+        load_CartDrop();
+        function load_CartDrop() {
+            $.ajax({
+                //路徑
+                url: `@Url.Content("~/Cart/Cart_json")`,
+                //檔案類型
+                datatype: "JSON"
+            }).done((datas) => {
+                cart_json = JSON.parse(datas)
+
+                //console.log(cart_json);
+                console.log('載入購物車正常做動');
+                //if(cart_json.length>0){
+                //    CartDrop_Count.addClass("nk-badge");
+                //}else{
+                //    CartDrop_Count.removeClass("nk-badge");
+                //}
+                
+                //顯示數量
+                //CartDrop_Count.text(cart_json.length);
+                CartDropDown_List.empty();
+                let id;
+                $.each(cart_json, (index, value) => {
+                    if (index < 3) {
+                        id = value.CommodityId;
+                        //console.log(value.CommodityId);
+                        CartDropDown_List.prepend(`<div class="nk-widget-post">
+                                                   <a href= '@Url.Content("~/Commodity/Details/${id}")' class="nk-post-image">
+                                                   <img src="/ProductImages/${value.product.PhotoPath}" alt="${value.product.CommodityName}">
+                                                   </a>
+                                                   <h3 class="nk-post-title">
+                                                   <a href= '@Url.Content("~/Cart/RemoveCartItem/${id}")' class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+                                                   <a href= '@Url.Content("~/Commodity/Details/${id}")'>${value.product.CommodityName}</a>
+                                                   </h3>
+                                                   <div class="nk-product-cart-quantity">數量：<span class="text-main-1">${value.qty}</span></div>
+                                                   <div class="nk-product-price">單價：NT$ ${value.price}</div>
+                                                   <div class="nk-product-price">總價：NT$ ${value.price * value.qty}</div></div>`)
+                    }
+
+                })
+            }).fail((err) => { alert(`資料匯入錯誤，請聯絡客服`) })
+        }
+
+        $(document).on("click", "button[data-id='addtoCart']", Cart);
+        function Cart(){
+            //取值
+            const commodityid = $(this).data("commodityid");
+            const cart_id_qty =$(this).prev("input").val();
+            //console.log(commodityid);
+            //console.log(cart_id_qty);
+            //console.log(this);
+            $.ajax({
+                url: `@Url.Content("~/Cart/AddtoCart_json")`,
+                data: {
+                    'id': commodityid, 'count': cart_id_qty},
+                type:"post",
+                dataType:"text"
+            }).done((data)=>{
+                if(data=='no_cart_id'){
+                    location.href = `@Url.Content("~/Commodity/ProList")`
+                }else{
+                    $.ajax({
+                        //路徑
+                        url: `@Url.Content("~/Cart/Cart_json")`,
+                        //檔案類型
+                        datatype: "JSON"
+                    }).done((datas) => {
+                        cart_json = JSON.parse(datas)
+                        toastr["success"](`已加入購物車`);
+                        //console.log(cart_json);
+                        console.log('右上購物車正常做動');
+                        
+                        if (cart_json.length > 0) {
+                            CartDrop_Count.addClass("nk-badge");
+                        } else {
+                            CartDrop_Count.removeClass("nk-badge");
+                        }
+                        //顯示數量
+                        CartDrop_Count.text(cart_json.length);                       
+                       
+                        CartDropDown_List.empty();
+                        let id;
+                        $.each(cart_json, (index, value) => {if(index<3){
+                                id = value.CommodityId;
+                                //console.log(value.CommodityId);
+                                CartDropDown_List.prepend(`<div class="nk-widget-post">
+                                                           <a href= '@Url.Content("~/Commodity/Details/${id}")' class="nk-post-image">
+                                                           <img src="/ProductImages/${value.product.PhotoPath}" alt="${value.product.CommodityName}">
+                                                           </a>
+                                                           <h3 class="nk-post-title">
+                                                           <a href= '@Url.Content("~/Cart/RemoveCartItem/${id}")' class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+                                                           <a href= '@Url.Content("~/Commodity/Details/${id}")'>${value.product.CommodityName}</a>
+                                                           </h3>
+                                                           <div class="nk-product-cart-quantity">數量：<span class="text-main-1">${value.qty}</span></div>
+                                                           <div class="nk-product-price">單價：NT$ ${value.price}</div>
+                                                           <div class="nk-product-price">總價：NT$ ${value.price * value.qty}</div></div>`)
+                        }                          
+
+                        })
+                    }).fail((err) => { alert(`資料匯入錯誤，請聯絡客服`) })
+                }                
+            })
+            
+        };
+        CartDropDown_List.append(` <div class="nk-gap-2"></div>
+                                       <div class="text-center">
+                                       <a href="@Url.Content("~/Cart/CheckCart")" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">查看購物車</a>
+                                       </div>`);
+        //烤土司機 Toastr
+        toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+            "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "2000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                           }
+        
+       
+    </script>
+</body>
+</html>

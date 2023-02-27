@@ -1,0 +1,353 @@
+﻿@model IEnumerable<play2.Models.CShoppingCart_item>
+
+@{
+    ViewData["Title"] = "CheckCart";
+    int freight = 0;
+}
+<br />
+
+<<p>
+    <a asp-action="ShoppingCart"></a>
+</p>
+
+
+<div class="nk-main"></div>
+
+<!-- START: Breadcrumbs -->
+<div class="nk-gap-1"></div>
+<div class="container">
+    <ul class="nk-breadcrumbs">
+
+
+        <li><a asp-controller="home" asp-action="index">首頁</a></li>
+
+
+        <li><span class="fa fa-angle-right"></span></li>
+
+        <li><a asp-controller="Commodity" asp-action="ProList" asp-route-id="">商品一覽</a></li>
+
+
+        <li><span class="fa fa-angle-right"></span></li>
+
+        <li><span>瀏覽購物車</span></li>
+
+    </ul>
+</div>
+
+<div class="nk-gap-1"></div>
+<!-- END: Breadcrumbs -->
+<div class="container">
+    <div class="nk-store nk-store-cart">
+        <div class="table-responsive">
+
+            <!-- START: Products in Cart -->
+            <table class="table nk-store-cart-products">
+                <tbody id="carttable">
+                    @{
+                        int count =0;
+                        int sum_price = 0;
+                        foreach(var item in Model)
+                        {
+                            count++;
+                            
+                            <tr class="cart-item">
+                        <td class="nk-product-cart-thumb">
+                            <!-- 圖片檔案-->
+                                <a class="nk-image-box-1 nk-post-image" asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId">
+                                        @if(item.product.PhotoPath == null || item.product.PhotoPath.Trim() == "")
+                                        {
+                                            <img src="~/assets/images/noImage.png" alt="未收入圖片" width="115">
+                                        }
+                                        else
+                                        {
+                                        <img src="~/ProductImages/@item.product.PhotoPath" alt="@item.CommodityId" width="115">
+                                        }                                        
+                            </a>
+                        </td>
+                        <td class="nk-product-cart-title">
+                            <h5 class="h6">商品名稱：</h5>
+                            <div class="nk-gap-1"></div>
+                            <!-- 商品名稱 -->
+                            <h2 class="nk-post-title h4">
+                                <a asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId">@Html.DisplayFor(modelItem => item.product.CommodityName)</a>
+                            </h2>
+                        </td>
+                        <td class="nk-product-cart-price">
+                            <h5 class="h6">售價：</h5>
+                            <div class="nk-gap-1"></div>
+                            <!--售價-->
+                            
+                            <strong>@item.price.ToString()</strong>
+                        </td>
+                        <td class="nk-product-cart-quantity">
+                            <h5 class="h6">數量：</h5>
+                            <div class="nk-gap-1"></div>
+
+                            <div class="nk-form"> 
+                                <!-- 數量上限-->
+                                        @if (item.qty >= 9)
+                                        {
+                                            item.qty = 9;
+                                        }
+                                        else if (item.product.StockQty < item.qty)
+                                        {
+                                            item.qty = (int)item.product.StockQty;
+                                        }
+                                        else if(item.qty < 1)
+                                        {
+                                            item.qty = 1;
+                                        }
+                                        <input type="number" data-CommodityId="@item.CommodityId" class="form-control" value="@item.qty.ToString()" min="1"
+                                           max="9" data-id="qty">
+                                        <input type="hidden" value="@item.price" data-id="price">
+                            </div>
+                        </td>
+                        <td class="nk-product-cart-total">
+                            <h5 class="h6">總價：</h5>
+                            <div class="nk-gap-1"></div>
+                            <!-- 總價 -->
+                                    @{
+                                        item.total_price = item.price * item.qty;
+                                    }
+                                    <strong data-id="sum" >
+
+                                        <span class="sum_1">
+                                           @{
+                                                @item.total_price.ToString();
+											}
+										</span>
+                                        
+                                       </strong>
+                        </td>
+                                <td class="nk-product-cart-remove">
+                                    <a asp-controller="Cart" asp-action="RemoveCartItem" asp-route-id="@item.CommodityId"><span class="ion-android-close"></span></a>
+                                </td>
+                            </tr>
+                            sum_price = sum_price + (int)item.total_price;
+                        }
+                     
+                    }    
+                </tbody>
+            </table>
+            <!-- END: Products in Cart -->
+
+        </div>
+        <div class="nk-gap-1"></div>
+        <a class="nk-btn nk-btn-rounded nk-btn-color-white float-right" asp-controller="Cart" asp-action="checkCart">刷新購物車</a>
+
+
+
+        <div class="clearfix"></div>
+        <div class="nk-gap-2"></div>
+        <div class="row vertical-gap">
+            <div class="col-md-6">
+
+                <!-- START: Calculate Shipping -->
+                <h3 class="nk-title h4">@*試算運費*@</h3>
+                <form action="#" class="nk-form">
+                    <label for="country-sel">@*縣市*@ <span class="text-main-1">@***@</span>@*:*@</label>
+                    @*<select name="country" class="form-control required" id="country-sel">
+                        <option value="">選擇區域</option>
+					</select>*@
+
+                    <div class="nk-gap-1"></div>
+                    <div class="row vertical-gap">
+                        <div class="col-sm-6">
+                            <label for="state">@*地區*@<span class="text-main-1">@***@</span>@*:*@</label>
+                            @*<input type="text" class="form-control required" name="state" id="state">*@
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="zip">@*郵遞區號*@ <span class="text-main-1">@***@</span>@*:*@</label>
+                            @*<input type="tel" class="form-control required" name="zip" id="zip">*@
+                        </div>
+                    </div>
+
+                    <div class="nk-gap-1"></div>
+                    @*<a class="nk-btn nk-btn-rounded nk-btn-color-white float-right" href="#">更新總價</a>*@
+                </form>
+                <!-- END: Calculate Shipping -->
+
+            </div>
+            <div class="col-md-6">
+                <!-- START: Cart Totals -->
+                <h3 class="nk-title h4">購物車總價</h3>
+                <table class="nk-table nk-table-sm">
+                    <tbody>
+                        <tr class="nk-store-cart-totals-subtotal">
+                            <td>
+                                產品價格
+                            </td>
+                            <td>
+                            <em id="sum_price">
+							    NT$ @sum_price
+                            </em>
+                            </td>
+                        </tr>
+                        <tr class="nk-store-cart-totals-shipping">
+                            <td>
+                                運費（1500 以上免運）
+                            </td>
+                            <td>
+                                <em id="freight">
+                                @{
+                                    if (sum_price >= 1500)
+                                    {
+                                        freight = 0;
+                                    }
+                                    else
+                                    {
+                                        freight = 60;
+                                    }
+                                    sum_price = sum_price + freight;
+                                }
+                                NT$@freight
+                                </em>
+                            </td>
+                        </tr>
+                        <tr class="nk-store-cart-totals-total">
+                            <td>
+                                總價
+                            </td>
+                            <td >
+								<em id="sum_price_freight">
+                                NT$ @sum_price
+                                </em>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- END: Cart Totals -->
+            </div>
+        </div>
+        
+        <div class="nk-gap-2"></div>
+        <a class="nk-btn nk-btn-rounded nk-btn-color-main-1 float-right" href="~/Cart/CheckoutCart">確認訂單</a>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="nk-gap-2"></div>
+
+@section Scripts{
+    <script>
+        //var td = document.querySelector(".sum_1"); 
+        //console.log(td.innerHTML);
+
+        //    var tds = document.querySelectorAll(".sum_1"),i;
+        //    for (i = 0; i < tds.length; ++i) {
+        //        console.log(tds[i].innerHTML);
+        //    }
+        //單件商品計算
+        
+        $("#carttable").on("change", "input[data-id='qty']", Cartchenge);
+        $("#carttable").on("change", "input[data-id='qty']", Sum);
+        
+        function Cartchenge(){
+            const commodityid = $(this).data("commodityid");
+            const cart_id_qty = $(this).val();
+            //console.log("校正品id"+commodityid);
+            //console.log("校正數量"+cart_id_qty);
+            
+            $.ajax({
+                url: `@Url.Content("~/Cart/changetoCart_json")`,
+                data: {
+                    'id': commodityid, 'count': cart_id_qty
+                },
+                type: "post",
+                dataType: "text"
+            }).done((data) => {
+                if (data == 'no_cart_id') {
+                    location.href = `@Url.Content("~/Commodity/ProList")`
+                } else {
+                    $.ajax({
+                        //路徑
+                        url: `@Url.Content("~/Cart/Cart_json")`,
+                        //檔案類型
+                        datatype: "JSON"
+                    }).done((datas) => {
+                        cart_json = JSON.parse(datas)
+                        toastr["success"](`已改動購物車`);
+                        //console.log(cart_json);
+                        console.log('右上購物車正常做動');
+
+                        if (cart_json.length > 0) {
+                            CartDrop_Count.addClass("nk-badge");
+                        } else {
+                            CartDrop_Count.removeClass("nk-badge");
+                        }
+                        //顯示數量
+                        CartDrop_Count.text(cart_json.length);
+                        
+                        CartDropDown_List.empty();
+                        let id;
+                        var total_price =0;
+                        $.each(cart_json, (index, value) => {
+                            total_price +=value.price * value.qty;
+                            if (index < 4) {
+                                id = value.CommodityId;
+                                //console.log(value.CommodityId);
+                                CartDropDown_List.prepend(`<div class="nk-widget-post">
+                                                                   <a href= '@Url.Content("~/Commodity/Details/${id}")' class="nk-post-image">
+                                                                   <img src="/ProductImages/${value.product.PhotoPath}" alt="${value.product.CommodityName}">
+                                                                   </a>
+                                                                   <h3 class="nk-post-title">
+                                                                   <a href= '@Url.Content("~/Cart/RemoveCartItem/${id}")' class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+                                                                   <a href= '@Url.Content("~/Commodity/Details/${id}")'>${value.product.CommodityName}</a>
+                                                                   </h3>
+                                                                   <div class="nk-product-cart-quantity">數量：<span class="text-main-1">${value.qty}</span></div>
+                                                                   <div class="nk-product-price">單價：NT$ ${value.price}</div>
+                                                                   <div class="nk-product-price">總價：NT$ ${value.price * value.qty}</div></div>`)
+                            }
+                            console.log(total_price);
+                            document.getElementById("sum_price").innerText = parseFloat(total_price);
+                            if(total_price<1500){
+                                document.getElementById("freight").innerText = 60;
+                                freight = 60;
+                            }else{
+                                document.getElementById("freight").innerText = 0;
+                                freight =0;
+                            }
+                            document.getElementById("sum_price_freight").innerText = freight+total_price;
+                        })
+                    }).fail((err) => { alert(`資料匯入錯誤，請聯絡客服`) })
+                }
+            })
+        }
+        //單欄計算
+        function Sum(){
+            var qty = $(this).val()
+            var price =$(this).next("input[data-id='price']").val();
+            var sum = qty*price;
+            var total = $(this).parent().parent().parent().find("strong[data-id='sum']").text(sum);            
+        }
+        //多欄計算
+        const tds = document.querySelectorAll(".sum_1");
+        console.log(tds[0].textContent);
+        var i;
+        var sum_price = 0;
+        for(i=0;i<tds.length;i++){
+            sum_price+=parseFloat(tds[i].innerHTML);
+        }
+        console.log(sum_price);
+        //var tds = document.querySelectorAll(".sum_1"); 
+        
+            
+            //document.getElementById("sum_price").innerText = parseFloat(money);
+            //if(money<1500){
+            //    document.getElementById("freight").innerText = 60;
+            //    freight = 60;
+            //}else{
+            //    document.getElementById("freight").innerText = 0;
+            //    freight =0;
+            //}
+            //document.getElementById("sum_price_freight").innerText = freight+money;
+            
+        
+        
+    </script>
+}
+
+
+
+

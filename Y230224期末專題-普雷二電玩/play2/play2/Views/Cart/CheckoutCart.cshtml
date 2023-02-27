@@ -1,0 +1,369 @@
+﻿@model IEnumerable<play2.Models.CShoppingCart_item>
+@using play2.EFModels
+@using System.Text.Json;
+@using play2.Models;
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "CheckoutCart";
+    string Type = Context.Session.GetString(CDictionary.sekey_LoginType);
+
+
+
+}
+<div class="nk-main">
+
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+            <li><a asp-controller="home" asp-action="index">首頁</a></li>
+
+
+            <li><span class="fa fa-angle-right"></span></li>
+
+            <li><a asp-controller="Commodity" asp-action="ProList" asp-route-id="">商品一覽</a></li>
+
+
+            <li><span class="fa fa-angle-right"></span></li>
+
+            <li><a asp-controller="Cart" asp-action="CheckCart">購物車</a></li>
+
+
+            <li><span class="fa fa-angle-right"></span></li>
+
+            <li><span>結帳</span></li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+
+
+
+    <form id="CheckforCart" method="post" asp-action="CreatveOrder" >
+        <div class="container">
+
+            <div class="nk-store ">
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">訂單</span>資訊</span></h3>
+
+                <!-- START: Billing Details -->
+                <div class="nk-gap"></div>
+                <div class="nk-form">
+                    <div class="row vertical-gap">
+                        <div class="col-lg-6">
+                            <div class="row vertical-gap">
+                                @* <div class="col-sm-6">
+                                <label for="fname">會員帳戶<span class="text-main-1">*</span>:</label>
+                                <!-- 會員ID-->
+                                <input type="hidden" class="form-control required" name="MemberId" id="MemberId" value="@Model.FirstOrDefault(t=>t.member_id!=null).member_id"  style="background-color:transparent">
+                                </div>*@
+                                <!-- 收件人 -->
+                                <div class="col-sm-6">
+                                    <label for="lname">會員名稱<span class="text-main-1">*</span>:<span id="ContactMan_hint"></span></label>
+                                    <input type="text" class="form-control required" name="ContactMan" id="ContactMan" value="@Model.FirstOrDefault(t=>t.member_name!=null).member_name">
+                                </div>
+
+                            </div>
+
+                            @*<div class="nk-gap-1"></div>
+                            <label for="company">Company Name:</label>
+                            <input type="text" class="form-control" name="company" id="company">*@
+
+                            <div class="nk-gap-1"></div>
+                            <div class="row vertical-gap">
+                                <div class="col-sm-6">
+                                    <label for="email">電子郵件<span class="text-main-1">*</span>:</label>
+                                    <input type="email" class="form-control required" name="email" id="email" value="@Model.FirstOrDefault(t=>t.member_email!=null).member_email">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="phone">電話<span class="text-main-1">*</span>:</label>
+                                    <input type="tel" class="form-control required" name="ContactPhone" id="ContactPhone" value="@Model.FirstOrDefault(t=>t.member_phone!=null).member_phone">
+                                </div>
+
+                            </div>
+                            <!-- 國家選擇器 -->
+                            @*<div class="nk-gap-1"></div>
+                            <label for="country-sel">Country <span class="text-main-1">*</span>:</label>
+                            <select name="country" class="form-control required" id="country-sel">
+                            <option value="">Select a country...</option>
+                            </select>*@
+                        </div>
+                        <div class="col-lg-6">
+                            @*<label for="city">縣市<span class="text-main-1">*</span>:</label>
+                            <input type="text" class="form-control required" name="city" id="city">
+
+                            <div class="nk-gap-1"></div>*@
+                            <label for="address">地址<span class="text-main-1">*</span>:</label>
+                            
+                            <input type="text" class="form-control required" name="Adderst" id="Adderst" list="Adderst" value="@Model.Where(t=>t.member_address!=null).Select(t=>t.member_address).FirstOrDefault()">
+                            <datalist id="Adderst">
+                                @foreach(var add in Model)
+                                {
+                                    <option value="@add.member_address"></option>
+                                }
+                            </datalist>
+
+                            <div class="nk-gap-1"></div>
+                           
+                                @{ @if (Type == "Comp")
+                                    {
+                                        <div >
+                                            <label for="swiftCode">常用銀行（代號）<span class="text-main-1">*</span>：</label>
+                                            <div class="d-inline-flex">
+                                            <input type="text" class="form-control required w-50 bg-dark text-white" name="swiftCode" id="swiftCode" value="@Model.Where(t=>t.member_Bank_num!=null).Select(t=>t.member_Bank_num).FirstOrDefault()" readonly>
+                                            <span style="font-size:20px"> － </span>
+                                            <input type="text" class="form-control required bg-dark text-white" name="bankaccount" id="bankaccount" value="@Model.Where(t=>t.member_Card_Num!=null).Select(t=>t.member_Card_Num).FirstOrDefault().Trim()" readonly>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div >
+                                            <label for="swiftCode">常用銀行（代號）<span class="text-main-1">*</span>：</label>
+                                            <div class="d-inline-flex">
+                                            <input type="text" class="form-control required w-50" name="swiftCode" id="swiftCode" maxlength="3" value="@Model.Where(t=>t.member_Bank_num!=null).Select(t=>t.member_Bank_num).FirstOrDefault()">
+                                            <span style="font-size:20px"> － </span>
+                                            <input type="text" class="form-control required " name="bankaccount" id="bankaccount" maxlength="14" value="@Model.Where(t=>t.member_Card_Num!=null).Select(t=>t.member_Card_Num).FirstOrDefault().Trim()" >
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                
+                                    
+                                                                   
+                                @*<div class="col-sm-6">
+                                    @{
+                                        @if (Type == "Comp")
+                                        {
+                                            <label for="state">常用銀行（代號-帳戶）<span class="text-main-1 w-25">*</span>：</label>
+                                            <div class="d-inline-flex">
+                                                <input type="text" class=" w-50 bg-dark text-white" name="swiftCode" id="swiftCode" value="@Model.Where(t=>t.member_Bank_num!=null).Select(t=>t.member_Bank_num).FirstOrDefault()" readonly>                                                
+                                            </div>
+                                            <div>
+                                            <span style="font-size:20px"> － </span>
+                                            <input type="tel" class=" bg-dark text-white" name="bankaccount" id="bankaccount" value="@Model.Where(t=>t.member_Card_Num!=null).Select(t=>t.member_Card_Num).FirstOrDefault()" readonly>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <label for="state">常用銀行（代號-帳戶）<span class="text-main-1 w-25">*</span>：</label>
+                                            <div class="d-inline-flex">
+                                                <input type="text" class="form-control w-50" name="swiftCode" id="swiftCode" value="@Model.Where(t=>t.member_Bank_num!=null).Select(t=>t.member_Bank_num).FirstOrDefault()">
+                                                <span style="font-size:20px"> － </span>
+                                                <input type="tel" class="form-control" name="bankaccount" id="bankaccount" value="@Model.Where(t=>t.member_Card_Num!=null).Select(t=>t.member_Card_Num).FirstOrDefault()">
+
+                                            </div>
+                                        }
+                                    }
+
+
+										</div>*@
+                                <div class="nk-gap-1"></div>
+
+                            
+
+
+                        </div>
+                    </div>
+                       
+                    <div class="col-sm-6 ml-auto">
+                        <div class="nk-gap-1"></div>
+                        <label for="zip">普雷二銀行帳戶<span class="text-main-1 w-100">（繳費帳戶）</span>：</label>
+                        <div class="d-inline-flex">
+                            <input type="text" class="form-control w-50 bg-dark text-white" name="" id="" value="700" readonly style="background-color:transparent">
+                            <span style="font-size:20px"> － </span>
+                            <input type="tel" class="form-control bg-dark text-white" name="" id="" value="0001267070xxxx" readonly style="background-color:transparent">
+                        </div>
+                    </div>
+                    <!-- END: Billing Details -->
+
+
+                    <div class="nk-gap-3"></div>
+                    <label class="custom-control custom-checkbox">
+
+                        <span class="custom-control-indicator"></span>
+                        <div>須送至不同的位置請在訂單需求附註，或使用兩筆訂單。</div>
+                    </label>
+                    <div class="nk-form">
+                        <div class="nk-gap-1"></div>
+                        <label for="notes">訂單需求</label>
+                        <textarea class="form-control" name="Notes" id="Notes" placeholder="請輸入您的需求" rows="6"></textarea>
+                    </div>
+                </div>
+
+                <!-- START: Order Products -->
+                <div class="nk-gap-3"></div>
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">您的</span>商品</span></h3>
+                <div class="nk-gap"></div>
+                <div class="table-responsive">
+                    <table class="nk-table nk-table-sm">
+                        <thead class="thead-default">
+                            <tr>
+                                <th class="nk-product-cart-title">產品</th>
+                                <th class="nk-product-cart-total">總價</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 迴圈匯入商品 -->
+                            @{
+                                int count = 0;
+                                int sum_price = 0;
+                                int tsum_price = 0;
+                                int freight = 0;
+
+                                foreach (var item in Model)
+                                {
+
+                                    count++;
+                                    item.total_price = item.price * item.qty;
+
+                                    <tr>
+                                        <td class="nk-product-cart-title">
+                                            產品名稱：<a asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId">@item.product.CommodityName</a>  、 數量：@item.qty
+                                        </td>
+
+                                        <td class="nk-product-cart-total">
+                                            NT$ @item.total_price
+                                        </td>
+                                    </tr>
+                                    sum_price = sum_price + (int)item.total_price;
+
+
+                                }
+                            }
+
+                            <tr class="nk-store-cart-totals-subtotal">
+                                <td>
+                                    商品總價
+                                </td>
+                                <td id="sum_price">
+                                    NT$ @sum_price
+                                </td>
+                            </tr>
+                            <tr class="nk-store-cart-totals-shipping">
+                                <td>
+                                    運費（目前滿 1500 免運）
+                                </td>
+                                <td>
+                                    @{
+                                        if (sum_price >= 1500)
+                                        {
+                                            freight = 0;
+                                        }
+                                        else
+                                        {
+                                            freight = 60;
+                                        }
+                                        tsum_price = sum_price + freight;
+                                    }
+                                    NT$@freight
+                                </td>
+                            </tr>
+                            <tr class="nk-store-cart-totals-total">
+                                <td>
+                                    統計總價
+                                </td>
+                                <td id="sum_price">
+                                    NT$ @tsum_price
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END: Order Products -->
+                <input type="hidden" name="SumMoney" id="SumMoney" value="@sum_price"/>
+                <input type="hidden" name="OrderMoney" id="OrderMoney" value="@tsum_price" />
+                <input type="hidden" name="LogisticsMoney" id="LogisticsMoney" value="@freight" />
+                <div class="nk-gap-2"></div>
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">結帳</span>方式</span></h3>
+                <div class="nk-gap-2"></div>
+                <div class="row vertical-gap left"> 
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col">                        
+                        <div class="nk-gap-1"></div>
+                        <label>銀行匯款</label>
+                        <button type="submit" class="nk-btn nk-btn-rounded nk-btn-color-main-1">產生訂單</button>
+                    </div>
+                        <div class="p-3 border bg-gradient">
+                            <div class="col" id="payment-button"></div>
+                        </div>                        
+                    </div>
+                
+            </div>
+        </div>
+        <div class="nk-gap-2"></div>
+    </form>
+   
+
+	@section Scripts{
+        
+        <script src="https://www.paypal.com/sdk/js?client-id=AbA9mLcNkkNDhMaNdLuD1UqsvobpUWuPuf10Zp-sqIaCMANpuYODlfEfm8iH6TZ-Lthr5nv62xZcxLpJ&currency=TWD"></script>
+      <script>
+            const sumprice = document.getElementById("SumMoney").value;//總價
+            const orderMoney = document.getElementById("OrderMoney").value;//總價加運費
+            const LogisticsMoney = document.getElementById("LogisticsMoney").value;//運費
+            const int_LogisticsMoney = parseInt(LogisticsMoney);
+            console.log(sumprice);                  
+            console.log(orderMoney);
+            console.log(int_LogisticsMoney);
+            paypal.Buttons({
+                style: {
+                    shape: 'rect',
+                    size: 'small',
+                },
+                createOrder: function (data, actions) {                    
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value:@ViewBag.OrderMoney,
+                                ccurrency_code: 'TWD',
+                                breakdown: {
+                                item_total: { value: @ViewBag.OrderMoney, 
+                                          currency_code: 'TWD' }
+                                            }
+                            },
+                            //商品匯入
+                        items: [//(x)
+                            @{@foreach (var item in Model)
+                                {
+                                @:{ name: '@item.product.CommodityName',
+                                    <text>unit_amount: {
+                                        value:</text> @item.price<text>,
+                                        currency_code: "TWD" },
+                                        quantity: @item.qty },</text>
+                                }
+                                @if(ViewBag.freight!=0)
+                                {
+                                    <text>{name: "運費",
+                                    unit_amount: {
+                                        value: 60,
+                                        currency_code: "TWD" },
+                                        quantity: 1 },</text>
+                                }
+                             }
+                               ]
+                        }]
+            });
+        },
+
+        // Finalize the transaction
+                 onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                console.log(details),
+                @{Context.Session.SetString(CDictionary.sekey_Product_Cart_payend,"pay_end");}
+                CheckforCart.submit();
+            })
+        },
+        //付款取消後重導向
+        onCancel: function (data) {
+            window.location.
+                replace();
+        }
+            }).render('#payment-button');
+            
+      </script>
+    }

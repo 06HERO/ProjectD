@@ -1,0 +1,662 @@
+﻿
+@{
+    ViewData["Title"] = "門市清單";
+}
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>GoodGames | News</title>
+
+    <meta name="description" content="GoodGames - Bootstrap template for communities and games store">
+    <meta name="keywords" content="game, gaming, template, HTML template, responsive, Bootstrap, premium">
+    <meta name="author" content="_nK">
+
+    <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- START: Styles -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7cOpen+Sans:400,700" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- FontAwesome -->
+    <script defer src="~/assets/vendor/fontawesome-free/js/all.js"></script>
+    <script defer src="~/assets/vendor/fontawesome-free/js/v4-shims.js"></script>
+
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="~/assets/vendor/ionicons/css/ionicons.min.css">
+
+    <!-- Flickity -->
+    <link rel="stylesheet" href="~/assets/vendor/flickity/dist/flickity.min.css">
+
+    <!-- Photoswipe -->
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/photoswipe/dist/photoswipe.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/photoswipe/dist/default-skin/default-skin.css">
+
+    <!-- Seiyria Bootstrap Slider -->
+    <link rel="stylesheet" href="~/assets/vendor/bootstrap-slider/dist/css/bootstrap-slider.min.css">
+
+    <!-- Summernote -->
+    <link rel="stylesheet" type="text/css" href="~/assets/vendor/summernote/dist/summernote-bs4.css">
+
+    <!-- GoodGames -->
+    <link rel="stylesheet" href="~/assets/css/goodgames.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+
+    <!-- END: Styles -->
+    <!-- jQuery -->
+    <script src="~/assets/vendor/jquery/dist/jquery.min.js"></script>
+    
+    @section Styles{
+        <style>        #gotop {
+                                display: none;
+                                position: fixed;
+                                right: 20px;
+                                bottom: 20px;    
+                                padding: 10px 15px;    
+                                font-size: 20px;
+                                background: #777;
+                                color: white;
+                                cursor: pointer;
+                                }
+
+</style>
+    } 
+
+
+</head>
+
+<body>
+
+    <div id="gotop">Top</div>
+    @section  Scripts{
+        <script>
+          $(function(){
+            $("#gotop").click(function(){
+                jQuery("html,body").animate({
+                    scrollTop:0
+                },1000);
+            });
+        $(window).scroll(function() {
+                if ( $(this).scrollTop() > 300){
+                    $('#gotop').fadeIn("fast");
+                } else {
+                    $('#gotop').stop().fadeOut("fast");
+                }
+            });
+        });
+        </script>
+
+        <script>
+            //demo點選新北+高雄比較不會被卡住
+            const ftp= document.querySelector('#ftp');
+            const fnp = document.querySelector('#fnp');
+            const ftn=document.querySelector('#ftn');
+            const fks= document.querySelector('#fks')
+
+            ftp.addEventListener('click' , function(){
+                window.location.hash = "#tp"; 
+            })
+
+            fnp.addEventListener('click' , function(){
+            window.location.hash = "#np"; 
+            })
+
+            ftn.addEventListener('click' , function(){
+            window.location.hash = "#tn"; 
+            })
+
+            fks.addEventListener('click' , function(){
+            window.location.hash = "#ks"; 
+            })
+
+        </script>
+    }
+
+
+
+
+
+    <div id="nk-nav-mobile" class="nk-navbar nk-navbar-side nk-navbar-right-side nk-navbar-overlay-content d-lg-none">
+        <div class="nano">
+            <div class="nano-content">
+                <a href="index.html" class="nk-nav-logo">
+                    <img src="assets/images/logo.png" alt="" width="120">
+                </a>
+                <div class="nk-navbar-mobile-content">
+                    <ul class="nk-nav">
+                        <!-- Here will be inserted menu from [data-mobile-menu="#nk-nav-mobile"] -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <header class="nk-header nk-header-opaque">
+    </header>
+    <!-- START: Breadcrumbs -->
+    <div class=""></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+
+
+
+            <li>經銷門市 - 普雷二夥伴</li>
+
+        </ul>
+    </div>
+    <div class="nk-gap-1"></div>
+    <!-- END: Breadcrumbs -->
+    <br />
+
+
+
+    <div class="container">
+        <div class="row vertical-gap">
+            <div class="">
+
+                <!-- START: Tabs  -->
+                <div class="nk-tabs">
+                    <ul class="nav nav-tabs nav-tabs-fill" role="tablist" style="font-size:26px">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#tp" role="tab" data-toggle="tab" id="ftp">台北</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#np" role="tab" data-toggle="tab" id="fnp">新北</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#tn" role="tab" data-toggle="tab" id="ftn">台南</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#ks" role="tab" data-toggle="tab" id="fks">高雄</a>
+                        </li>
+
+                    </ul>
+                    <div style="height: 24px"></div>
+
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
+                            <div class="nk-gap"></div>
+                            <!-- START: Action Tab -->
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <div class="row vertical-gap">
+
+                                </div>
+                            </div>
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <div class="row vertical-gap">
+                                    
+                                    
+
+                                   <div style="height: 48px"></div>
+                                
+
+                                  <div class="nk-blog-post nk-blog-post-border-bottom">
+
+                            <!-- -----------------台北1------------------ -->
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+                                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.233774584911!2d121.57489640000001!3d25.0600645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1e170c506db1126!2z5a625qiC56aPIOWFp-a5luW6lw!5e0!3m2!1szh-TW!2stw!4v1673535253639!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                    </div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                            <h2 class="nk-post-title h4"  id="tp">台灣家樂福股份有限公司</a></h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (02)8790-5000</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 114台北市內湖區民善街88號(民權大橋旁)</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午11:00-下午10:30</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+                                                                                                                                         <div style="height: 32px"></div>
+
+
+
+                            <!-- -----------------台北2------------------ -->
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.862057711692!2d121.56454731472832!3d25.038754944255412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abba3426608d%3A0x6d162e9286504348!2z5rOV6ZuF5a6i6IKh5Lu95pyJ6ZmQ5YWs5Y-4!5e0!3m2!1szh-TW!2stw!4v1673536317992!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                                    </div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                            <h2 class="nk-post-title h4">法雅客股份有限公司</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (02)2758-0568</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 110臺北市信義區松高路19號8樓</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午11:00-下午09:30</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+
+                                                                   <div style="height: 32px"></div>
+
+
+
+                                     <!-- -----------------台北3------------------ -->
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14456.614963040112!2d121.55554613955074!3d25.062777800000017!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ab866a1e9481%3A0x4753dbeeb986662c!2z54em5Z2kM0Mt5YWn5rmW5peX6Imm5bqX!5e0!3m2!1szh-TW!2stw!4v1673536480985!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                                <h2 class="nk-post-title h4">燦坤實業股份有限公司</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (02)2795-5270</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 114台北市內湖區堤頂大道一段331號</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午11:00-下午11:00</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+
+                                                                   <div style="height: 32px"></div>
+
+
+                                     <!-- -----------------新北1------------------ -->
+                                    <div class="row vertical-gap"  >
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.4227790408727!2d121.52875402372425!3d24.985746195205145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34680203de12d79b%3A0xd490f03fbd9f3ec!2z56We6IWm5ZyL6Zqb!5e0!3m2!1szh-TW!2stw!4v1673536827026!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                                <h2 class="nk-post-title h4" id="np">神腦國際企業股份有限公司</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (02)2218-3588</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 231新北市新店區中正路531號2樓</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午08:30-下午05:30</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+
+                                                                   <div style="height: 32px"></div>
+
+
+                                      <!-- -----------------新北2------------------ -->
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.4227790408727!2d121.52875402372425!3d24.985746195205145!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34680203de12d79b%3A0xd490f03fbd9f3ec!2z56We6IWm5ZyL6Zqb!5e0!3m2!1szh-TW!2stw!4v1673536827026!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                                <h2 class="nk-post-title h4">全國電子股份有限公司</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (02)2298-9922</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 248新北市五股區五工六路55號</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午09:00-下午06:00</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+
+                                                                   <div style="height: 32px"></div>
+
+                                  <!-- -----------------新北3------------------ -->
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115694.7614541839!2d121.3610817690113!3d25.01841470485484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a9ef0115b783%3A0xaf9ab781ec465f3a!2zR2FtZeS8kemWkumkqC3mlrDljJfmsLjlkozlupc!5e0!3m2!1szh-TW!2stw!4v1673537192179!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                                <h2 class="nk-post-title h4">王碁企業-GAME休閒館</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (02)2929-4330</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 234新北市永和區國中路156號1樓</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 中午12:00-下午10:00</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+
+                                                                   <div style="height: 32px"></div>
+
+
+
+                                   <!-- -----------------台南------------------ -->
+                                    <div class="row vertical-gap" id="tn">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117494.57301362907!2d120.08879421640624!3d23.034586400000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e773e100cd04f%3A0xb4ef44eb4332f13f!2z5oSb6LK3IOWPsOWNl-W6lw!5e0!3m2!1szh-TW!2stw!4v1673537569484!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                                <h2 class="nk-post-title h4"  id="tn">愛買股份有限公司</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; 080-061-2029</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 710台南市永康區中正南路533號</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午08:00-下午10:00</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                                                   <div style="height: 32px"></div>
+
+
+                                    <!-- -----------------高雄------------------ -->
+                                    <div class="row vertical-gap">
+                                        <div class="col-lg-5 col-md-5">
+                                                    <div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117866.88027411333!2d120.16618231640624!3d22.603775000000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e03707d916cad%3A0x1e39e9c74cf93e8!2z5aW95biC5aSaIOmrmOmbhOW6lw!5e0!3m2!1szh-TW!2stw!4v1673537368703!5m2!1szh-TW!2stw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
+                                        </div>
+                                        <div class="col-lg-7 col-md-5">
+                                                <h2 class="nk-post-title h4" id="ks">好市多 高雄店</h2><br>
+                                            <div class="nk-post-date mt-10 mb-10">
+                                            </div>
+                                            <div class="nk-post-text">
+                                            <ul style="list-style-type:none">
+                                                 <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">專線 </span> &nbsp; (07)449-9909</li>
+                                                        <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">地址</span>&nbsp; 806高雄市前鎮區中華五路656號</li>
+                                                <li style="margin:4px ; font-size:16px"><span class="badge badge-secondary" style="margin:4px ; font-size:16px">時間 </span>&nbsp; 上午10:00-下午09:30</li>
+                                            </ul>
+                                            </div>
+                                    </div>
+                                </div>
+
+
+
+                                                                   <div style="height: 32px"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                
+                                </div>
+                            </div>
+
+
+
+                            <!-- END: Action Tab -->
+                            <div class="nk-gap"></div>
+                        </div>
+                            <!-- START: Strategy Tab -->
+
+
+                            <!-- END: Strategy Tab -->
+                            <div class="nk-gap"></div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tabs-1-4">
+                            <div class="nk-gap"></div>
+                            <!-- START: Adventure Tab -->
+
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <a href="blog-article.html" class="nk-post-img">
+                                    <img src="~/assets/images/post-6-fw.jpg" alt="At first, for some time, I was not able to answer">
+
+                                    @*<span class="nk-post-categories">
+                                    <span class="bg-main-2">Adventure</span>
+                                    </span>*@
+
+                                </a>
+                                <div class="nk-gap-1"></div>
+                                <h2 class="nk-post-title h4"><a href="blog-article.html">At first, for some time, I was not able to answer</a></h2>
+                                <div class="nk-post-date mt-10 mb-10">
+                                    <span class="fa fa-calendar"></span> Jul 3, 2018
+                                    <span class="fa fa-comments"></span> <a href="#">0 comments</a>
+                                </div>
+                                <div class="nk-post-text">
+                                    <p>This little wandering journey, without settled place of abode, had been so unpleasant to me, that my own house, as I called it to myself, was a perfect settlement to me compared to that...</p>
+                                </div>
+                            </div>
+
+
+
+                            <!-- END: Adventure Tab -->
+                            <div class="nk-gap"></div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tabs-1-5">
+                            <div class="nk-gap"></div>
+                            <!-- START: Racing Tab -->
+
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <a href="blog-article.html" class="nk-post-img">
+                                    <img src="~/assets/images/post-7-fw.jpg" alt="At length one of them called out in a clear">
+
+                                    @* <span class="nk-post-categories">
+                                    <span class="bg-main-5">Racing</span>
+                                    </span>*@
+
+                                </a>
+                                <div class="nk-gap-1"></div>
+                                <h2 class="nk-post-title h4"><a href="blog-article.html">At length one of them called out in a clear</a></h2>
+                                <div class="nk-post-text">
+                                    <p>TJust then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door...</p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <div class="row vertical-gap">
+                                    <div class="col-lg-3 col-md-5">
+                                        <a href="blog-article.html" class="nk-post-img">
+                                            <img src="~/assets/images/post-3-mid-square.jpg" alt="We found a witch! May we burn her?">
+
+                                            @*<span class="nk-post-categories">
+                                            <span class="bg-main-5">Racing</span>
+                                            </span>*@
+
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-9 col-md-7">
+                                        <h2 class="nk-post-title h4"><a href="blog-article.html">We found a witch! May we burn her?</a></h2>
+                                        <div class="nk-post-date mt-10 mb-10">
+                                            <span class="fa fa-calendar"></span> Aug 27, 2018
+                                            <span class="fa fa-comments"></span> <a href="#">7 comments</a>
+                                        </div>
+                                        <div class="nk-post-text">
+                                            <p>And she went on planning to herself how she would manage it. `They must go by the carrier,' she thought; `and how funny it'll seem, sending presents to one's own feet!...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <div class="row vertical-gap">
+                                    <div class="col-lg-3 col-md-5">
+                                        <a href="blog-article.html" class="nk-post-img">
+                                            <img src="~/assets/images/post-4-mid-square.jpg" alt="For good, too though, in consequence">
+
+                                            @*    <span class="nk-post-categories">
+                                            <span class="bg-main-5">Racing</span>
+                                            </span>*@
+
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-9 col-md-7">
+                                        <h2 class="nk-post-title h4"><a href="blog-article.html">For good, too though, in consequence</a></h2>
+                                        <div class="nk-post-date mt-10 mb-10">
+                                            <span class="fa fa-calendar"></span> Aug 14, 2018
+                                            <span class="fa fa-comments"></span> <a href="#">23 comments</a>
+                                        </div>
+                                        <div class="nk-post-text">
+                                            <p>This little wandering journey, without settled place of abode, had been so unpleasant to me, that my own house, as I called it to myself, was a perfect settlement to me compared to that...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- END: Racing Tab -->
+                            <div class="nk-gap"></div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="tabs-1-6">
+                            <div class="nk-gap"></div>
+                            <!-- START: Indie Tab -->
+
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <a href="blog-article.html" class="nk-post-img">
+                                    <img src="~/assets/images/post-5-fw.jpg" alt="He made his passenger captain of one">
+
+                                    @*<span class="nk-post-categories">
+                                    <span class="bg-main-2">Indie</span>
+                                    </span>*@
+
+                                </a>
+                                <div class="nk-gap-1"></div>
+                                <h2 class="nk-post-title h4"><a href="blog-article.html">He made his passenger captain of one</a></h2>
+                                <div class="nk-post-date mt-10 mb-10">
+                                    <span class="fa fa-calendar"></span> Jul 23, 2018
+                                    <span class="fa fa-comments"></span> <a href="#">13 comments</a>
+                                </div>
+                                <div class="nk-post-text">
+                                    <p>Just then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried off to the garden door...</p>
+                                </div>
+                            </div>
+
+
+
+                            <!-- END: Indie Tab -->
+                            <div class="nk-gap"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Tabs -->
+            </div>
+            <!-- END: Posts Grid -->
+
+        </div>
+
+
+        <div class="nk-gap-2"></div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+    <!-- START: Page Background -->
+
+    <img class="nk-page-background-top" src="~/assets/images/bg-top-5.png" alt="">
+    <img class="nk-page-background-bottom" src="~/assets/images/bg-bottom.png" alt="">
+
+    <!-- END: Page Background -->
+    <!-- START: Scripts -->
+    <!-- Object Fit Polyfill -->
+    <script src="~/assets/vendor/object-fit-images/dist/ofi.min.js"></script>
+    <!-- GSAP -->
+    <script src="~/assets/vendor/gsap/src/minified/TweenMax.min.js"></script>
+    <script src="~/assets/vendor/gsap/src/minified/plugins/ScrollToPlugin.min.js"></script>
+    <!-- Popper -->
+    <script src="~/assets/vendor/popper.js/dist/umd/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Sticky Kit -->
+    <script src="~/assets/vendor/sticky-kit/dist/sticky-kit.min.js"></script>
+    <!-- Jarallax -->
+    <script src="~/assets/vendor/jarallax/dist/jarallax.min.js"></script>
+    <script src="~/assets/vendor/jarallax/dist/jarallax-video.min.js"></script>
+    <!-- imagesLoaded -->
+    <script src="~/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <!-- Flickity -->
+    <script src="~/assets/vendor/flickity/dist/flickity.pkgd.min.js"></script>
+    <!-- Photoswipe -->
+    <script src="~/assets/vendor/photoswipe/dist/photoswipe.min.js"></script>
+    <script src="~/assets/vendor/photoswipe/dist/photoswipe-ui-default.min.js"></script>
+    <!-- Jquery Validation -->
+    <script src="~/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <!-- Jquery Countdown + Moment -->
+    <script src="~/assets/vendor/jquery-countdown/dist/jquery.countdown.min.js"></script>
+    <script src="~/assets/vendor/moment/min/moment.min.js"></script>
+    <script src="~/assets/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+    <!-- Hammer.js -->
+    <script src="~/assets/vendor/hammerjs/hammer.min.js"></script>
+    <!-- NanoSroller -->
+    <script src="~/assets/vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js"></script>
+    <!-- SoundManager2 -->
+    <script src="~/assets/vendor/soundmanager2/script/soundmanager2-nodebug-jsmin.js"></script>
+    <!-- Seiyria Bootstrap Slider -->
+    <script src="~/assets/vendor/bootstrap-slider/dist/bootstrap-slider.min.js"></script>
+    <!-- Summernote -->
+    <script src="~/assets/vendor/summernote/dist/summernote-bs4.min.js"></script>
+    <!-- nK Share -->
+    <script src="~/assets/plugins/nk-share/nk-share.js"></script>
+    <!-- GoodGames -->
+    <script src="~/assets/js/goodgames-init.js"></script>
+    <!-- END: Scripts -->
+
+
+
+</body>
+</html>
+

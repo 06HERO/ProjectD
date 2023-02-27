@@ -1,0 +1,129 @@
+﻿@model play2.EFModels.View經銷商會員資料表
+
+@{
+    ViewData["Title"] = "CompanyData";
+}
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>會員資料</span></li>
+    </ul>
+</div>
+
+@{ 
+
+    <div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-5">
+                                                    <label for="CompanyName">公司名稱</label>
+                                                    <input type="email" class="form-control bg-transparent text-white" id="CompanyName" name="CompanyName" value="@Model.CompanyName"
+                                                           readonly  />
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                    <label for="Phone">統一編號</label>
+                                                    <input type="text" class="form-control bg-transparent text-white" id="TaxIdnumber" name="TaxIdnumber" value="@Model.TaxIdnumber"
+                                                       readonly  />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-5">
+                                                    <label for="MemberName">負責人</label>
+                                                    <input type="text" class="form-control bg-transparent text-white" id="PrincipalMan" name="PrincipalMan" value="@Model.PrincipalMan"
+                                                        readonly />
+                                                </div>
+                                                <div class="form-group col-md-5">
+                                                    <label for="PersonalNumber">電話</label>
+                                                    <input type="text" class="form-control bg-transparent text-white" id="Phone" name="Phone" value="@Model.Phone"
+                                                           readonly />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" style="width:83%;">
+                                                <label for="Addrest">公司地址</label>
+                                                <input type="text" class="form-control bg-transparent text-white" id="Addrest" name="Addrest" value="@Model.Addrest" readonly />
+                                            </div>
+                                            
+                                            <div class="form-row">
+                                                  <div class="form-group col-md-2">
+                                                        <label for="inputAddress">常用帳戶</label>
+                                                    <input type="text" class="form-control bg-transparent text-white" id="SwiftCode" name="SwiftCode" value="@Model.SwiftCode" readonly />
+                                                  </div>
+                                                  <div class="form-group col-md-5">
+                                                        <label for="inputAddress">　</label>
+                                                        <input type="text" class="form-control bg-transparent text-white" id="BankAccount" name="BankAccount" value="@Model.BankAccount" readonly />
+                                                  </div>
+                                             </div>
+                                               
+    </div>
+
+    <button type="button" class="nk-btn nk-btn-x2 nk-btn-rounded btn-danger" style="margin:32px 32px 32px 6px;width:20%;" data-toggle="modal" data-target="#ChangePassWord">
+    變更密碼
+    </button>
+}
+
+<!-- Modal -->
+<div class="modal fade" id="ChangePassWord" tabindex="-1" role="dialog" aria-labelledby="ChangePassWord" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">               
+                    <div class="form-group">
+                        <label for="LoginPW" class="col-form-label">新的密碼</label>
+                        <input type="password" class="form-control" id="LoginPW" name="LoginPW">
+                    </div>
+                    <div class="form-group">
+                    <label for="CheckPW" class="col-form-label">確認密碼</label>
+                        <input type="password" class="form-control" id="CheckPW" name="CheckPW">
+                        <span id="spanPW" class="text-danger"></span>
+                    </div>          
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" id="btnchange" class="btn btn-danger">確認</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#btnchange").on("click",()=>{
+            var LoginPw = $("#LoginPW").val();
+            var CheckPw = $("#CheckPW").val();
+            $("#btnchange").attr("disabled", "disabled");            
+            $.ajax({
+                url: `@Url.Content("~/MemberCenter/ChangePW")`,
+                type:"POST",
+                data: { "LoginPw": LoginPw, "CheckPw": CheckPw },
+                dataType:"text"
+            }).done((data)=>{
+                if(data==="fail"){
+                    $("#spanPW").text("密碼不一致");
+                    $("#btnchange").removeAttr("disabled");                    
+                }
+                else if(data==="success"){
+                    $("#ChangePassWord").removeClass("in");
+                    $(".modal-backdrop").remove();
+                    $("#ChangePassWord").hide();
+
+                    $("#idSmallModalAlertTitle").text("密碼已變更");
+                    $("#idSmallModalAlert").modal("show");
+                    $('.modal-backdrop').remove();
+
+                    $("#btnchange").removeAttr("disabled");
+                    $("#LoginPW").val("");
+                    $("#CheckPW").val("");
+                }
+            }).fail(()=>{
+                alert("發生錯誤");
+            });
+
+        });
+
+
+    </script>
+}
+
+

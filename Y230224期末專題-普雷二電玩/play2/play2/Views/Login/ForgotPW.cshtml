@@ -1,0 +1,120 @@
+﻿@{
+    ViewData["Title"] = "密碼變更";
+}
+
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>信箱驗證</span></li>
+    </ul>
+</div>
+
+<div class="d-flex justify-content-center">
+
+    <div class="card bg-transparent mb-3" style="width:25rem;">
+        <div class="card-body">
+
+            <div class="pt-4 pb-2">
+                <h3 class="card-title text-center">更改密碼</h3>             
+            </div>
+
+            <form name="myform" id="myform" method="post" class="row g-3 my-3" autocomplete="off">
+                <div class="col-12 my-3">
+                    <label for="txtEmail" class="form-label">輸入會員Email<span class="text-main-1">*</span></label>                
+                    <input name="txtEmail" id="txtEmail" type="email" class="form-control my-3">
+                  
+                     <button id="subEmail" class="btn btn-primary w-50" type="button">寄送驗證碼</button>                    
+                </div>
+
+                <div class="col-12">
+                    <label for="txtCheckCode" class="form-label">輸入驗證碼<span class="text-main-1">*</span></label>
+                    <input name="txtCheckCode" id="txtCheckCode" class="form-control">
+                    <span id="spanCheckCode" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 my-3">
+                    <button id="subcode" class="btn btn-danger w-50" type="button">下一步，更改密碼</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#subEmail").on("click", SendMail);
+        function SendMail(){
+            $("#subEmail").attr("disabled", "disabled");
+            var a = true;
+            if ($("#txtEmail").val() == "") {
+               alert("請輸入你的帳號信箱");
+                a = false;
+                $("#subEmail").removeAttr("disabled");
+            }
+            if(a==true){
+                var email=$("#txtEmail").val();
+                $.ajax({
+                    url: `@Url.Content("~/Login/MailCode")`,
+                    type: "POST",
+                    data: {"email":email},
+                    dataType: "text",
+                }).done((data)=>{
+                    if(data==="noemail"){
+                        $("#idModalAlertTitle").text("此信箱未註冊，是否要前往註冊?");                    
+                        $("#idModalAlertBtn").text("前往");
+                        $("#idModalAlertBtn").prop("href", "@Url.Content("~/Register/ChooseType")");
+                        $("#idModalAlert").modal("show");                        
+                        $("#subEmail").removeAttr("disabled");                        
+                    }
+                    else if (data === "mailcode") {
+                        $("#idSmallModalAlertTitle").text("驗證信已寄出，請前往信箱確認");                       
+                        $("#idSmallModalAlert").modal("show");                       
+                    }
+                }).fail((err)=>{
+                    alert(`發生錯誤 ${err.statusText}`);
+                    $("#subEmail").removeAttr("disabled");
+                });
+            }
+        };
+
+        $("#subcode").on("click", CheckCode);
+         function CheckCode(){
+            $("#subcode").attr("disabled", "disabled");
+            var a = true;
+            if ($("#txtCheckCode").val() == "") {
+                $("#spanCheckCode").val("請輸入驗證碼");
+                a = false;
+                $("#subcode").removeAttr("disabled");
+            }
+            if (a == true) {
+                var Code = $("#txtCheckCode").val();
+                $.ajax({
+                    url: `@Url.Content("~/Login/CheckCode")`,
+                    type: "POST",
+                    data: {"Code":Code},
+                    dataType: "text",
+                }).done((data) => {
+                    if (data === "f") {                       
+                        $("#idtxtCheckCode").val("錯誤的驗證碼");    
+                        $("#sub").removeAttr("disabled");
+                    }
+                    else if(data==="err"){
+                        $("#idSmallModalAlertTitle").text("發生錯誤");                       
+                        $("#idSmallModalAlert").modal("show");  
+                        setTimeout(()=>{location.href = "@Url.Content("~/Home/Index")"},2000);
+                    }
+                    else if (data === "success") {
+                        location.href = "@Url.Content("~/Login/ChangePW")";
+                    }
+                }).fail((err) => {
+                    $("#idSmallModalAlertTitle").text("發生錯誤");                       
+                    $("#idSmallModalAlert").modal("show");                   
+                    $("#subcode").removeAttr("disabled");
+                });
+            }
+
+         };
+    </script>
+}

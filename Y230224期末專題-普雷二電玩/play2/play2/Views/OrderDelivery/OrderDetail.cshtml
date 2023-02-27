@@ -1,0 +1,1196 @@
+﻿@model play2.ViewModels.COrderDetailViewModel
+
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+@section Styles{
+    <style>
+        td {
+            margin: auto;
+            font-size: 18px;
+            text-align: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: center;
+            font-size: 26px;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        .t1 {
+            width: 20%;
+        }
+
+        .t2 {
+            width: 30%;
+        }
+
+        .t3 {
+            width: 10%;
+        }
+
+        .t4 {
+            width: 10%;
+        }
+
+        .t5 {
+            width: 10%;
+        }
+
+        .t6 {
+            width: 10%;
+        }
+
+
+        .content {
+            border-radius: 5px;
+            height: 200px;
+            width: 100%;
+            resize: none;
+            border: solid 1px #dddddd;
+        }
+
+        .toptext {
+            /*background-color: lightblue;*/
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 36px 36px /50% 50%;
+            justify-content: center;
+        }
+
+        .deliveryinfo {
+            /*  border: solid 1px #dddddd;
+                                                                    padding: 3px;
+                                                                    border-radius: 10px;*/
+        }
+
+        .printcontent {
+            border-radius: 5px;
+            width: 100%;
+            resize: none;
+            border: solid 1px #dddddd;
+        }
+
+    </style>
+}
+
+
+
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title" style="text-align:center;font-size:3em">訂單資訊</h1>
+
+                    <div class="d-flex mt-2 justify-content-between">
+
+                        <div class="p-1 toptext d-flex justify-content-center align-items-center">
+                            <input type="hidden" name="DelOrderId" value="@Model.DelOrderId" />
+                            <h3 class="mt-2 " style="text-align:center">訂單編號：@Model.DelOrderId</h3>
+                        </div>
+
+
+                        <input type="hidden" name="OrderStateName" value="@Model.OrderStateName" />
+                        @if (Model.OrderStateId == 6)
+                        {
+                            <div class="toptext p-1 d-flex" style="background-color:red">
+                                <h3 class="mt-2 " id="orderstate" style="text-align:left;"> 訂單狀態：@Model.OrderStateName</h3>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="toptext p-1 d-flex">
+
+                                <h3 class="mt-2 " id="orderstate" style="text-align:left;"> 訂單狀態：@Model.OrderStateName</h3>
+                            </div>
+
+                        }
+
+
+
+
+                    </div>
+
+                    <br />
+
+
+
+
+                    <ul class="nav nav-tabs nav-tabs-fill" id="myTab" role="tablist" style="font-size:26px">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="true">訂購人資訊</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="Delivery-tab" data-bs-toggle="tab" data-bs-target="#Delivery-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">物流資訊</button>
+                        </li>
+                        @*<li class="nav-item" role="presentation">
+                        <button class="nav-link" id="Delivery-tab" data-bs-toggle="tab" data-bs-target="#print-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">列印畫面(測試用)</button>
+                        </li>*@
+                    </ul>
+
+
+                    <div class="tab-content">
+
+
+
+
+
+                        <!----------------------------------資訊開始----------------------------->
+
+                        <br />
+                        <div class="tab-pane fade show active" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+
+                            <div class="d-flex  justify-content-around">
+                                <div class="col-lg-5 m-20">
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label ">會員編號</label>
+                                        <div class="col-sm-10">
+                                            @if (Model.MemberType == "Comp")
+                                            {
+                                                <form asp-action="CompDetail" asp-controller="Customer">
+                                                    <div class="d-flex">
+                                                        <input name="id" style="background-color:white" class="form-control mr-2" readonly="readonly" value="@Model.MemberId" />
+                                                        <input type="submit" class="btn btn-info ms-3" value="查詢" />
+                                                    </div>
+                                                </form>
+                                            }
+                                            else if (Model.MemberType == "Regu")
+                                            {
+                                                <form asp-action="ReguDetail" asp-controller="Customer">
+                                                    <div class="d-flex">
+                                                        <input name="id" style="background-color:white" class="form-control mr-2" readonly="readonly" value="@Model.MemberId" />
+                                                        <input type="submit" class="btn btn-info ms-3" value="查詢" />
+                                                    </div>
+                                                </form>
+                                            }
+
+                                            <input type="hidden" name="id" value="@Model.MemberId">
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label">會員名稱</label>
+                                        <div class="col-sm-10">
+                                            @if (Model.MemberType == "Comp")
+                                            {
+                                                <input name="MemberName" style="background-color:white" class="form-control" value="@Model.CompanyName" disabled />
+                                            }
+                                            else if (Model.MemberType == "Regu")
+                                            {
+                                                <input name="MemberName" style="background-color:white" class="form-control" value="@Model.MemberName" disabled />
+
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label">會員電話</label>
+                                        <div class="col-sm-10">
+                                            @if (Model.MemberType == "Comp")
+                                            {
+                                                <input name="MemberName" style="background-color:white" class="form-control" value="@Model.CompPhone" disabled />
+                                            }
+                                            else if (Model.MemberType == "Regu")
+                                            {
+                                                <input name="MemberName" style="background-color:white" class="form-control" value="@Model.ReguPhone" disabled />
+
+                                            }
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label">訂單日期</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" style="background-color:white" value="@Model.OrderDate" disabled />
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-lg-5">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!----------------------------------資訊結束----------------------------->
+                        <!----------------------------------物流資訊開始----------------------------->
+                        <div class="tab-pane fade" id="Delivery-tab-pane" role="tabpanel" aria-labelledby="Delivery-tab" tabindex="0">
+                            <form name="DeliveryForm" method="post">
+                                @*<form asp-action="orderedit" method="post">*@
+                                @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                                @*<input asp-for="DelOrderId" name="DelOrderId" type="hidden" style="background-color:white" class="form-control" value="@Model.DelOrderId" />*@
+
+                                <input name="DelOrderId" type="hidden" style="background-color:white" class="form-control" value="@Model.DelOrderId" />
+
+
+                                <div class="mt-3  w-50  deliveryinfo">
+
+                                    <div class="col-sm-11 m-3 d-flex justify-content-end">
+                                        <input id="btnDeliveryEdit" type="button" value="修改訂單資訊" class="btn btn-primary" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <div class="m-3 col-lg-5 w-75">
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2 col-form-label">收件人</label>
+                                                <div class="col-sm-10">
+                                                    @*<input asp-for="ContactMan" id="txtDeliveryName" name="ContactMan" class="form-control" value="@Model.ContactMan" />*@
+                                                    <input id="txtDeliveryName" name="ContactMan" class="isUpdate form-control" value="@Model.ContactMan" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2 col-form-label">收件電話</label>
+                                                <div class="col-sm-10">
+                                                    @*<input asp-for="ContactPhone" id="txtDeliveryPhone" name="ContactPhone" class="form-control" value="@Model.ContactPhone" />*@
+                                                    <input id="txtDeliveryPhone" name="ContactPhone" class="isUpdate form-control" value="@Model.ContactPhone" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2 col-form-label">收件地址</label>
+                                                <div class="col-sm-10">
+                                                    @*<input asp-for="Adderst" id="txtDeliveryAddress" name="Adderst" class="form-control" value="@Model.Adderst" />*@
+                                                    <input id="txtDeliveryAddress" name="Adderst" class="isUpdate form-control" value="@Model.Adderst" />
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-sm-2 col-form-label">配送日期</label>
+                                                <div class="col-sm-10">
+
+                                                    @*<input asp-for="DeliveryDate" id="txtDeliveryDate" name="DeliveryDate" class="form-control" value="@Model.DeliveryDate" />*@
+                                                    @if (Model.DeliveryDate != null)
+                                                    {
+                                                        <input id="txtDeliveryDate" type="date" name="DeliveryDate" class="isUpdate form-control" value="@Model.DeliveryDate.Value.ToString("yyyy-MM-dd")" />
+                                                    }
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="row mb-3  ">
+                                                <label class="col-sm-2  col-form-label">訂單備註</label>
+                                                <div class="col-sm-10">
+                                                    @*<textarea asp-for="Notes" id="txtDeliveryNote" class=" content form-control" name="Notes">@Model.Notes</textarea>*@
+                                                    <textarea id="txtDeliveryNote" class="isUpdate content form-control" name="Notes">@Html.Raw(Model.Notes)</textarea>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </form>
+                        </div>
+
+                        <!----------------------------------物流資訊結束----------------------------->
+
+
+                    </div>
+
+                    <br />
+
+
+                    <ul class="nav nav-tabs nav-tabs-fill" id="myTab2" role="tablist" style="font-size:26px">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane2" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="true">出貨作業</button>
+                        </li>
+                    </ul>
+
+
+
+
+
+
+
+             
+             
+                    <!----------------------------------出貨作業開始----------------------------->
+
+                    <div id="btngroup" class=" d-flex w-100">
+
+                        <span>
+                            @if (Model.OrderStateId <= 4)
+                            {
+                                <input type="button" id="cancelDelivery" class=" btn btn-danger m-3" value="取消訂單" />
+                            }
+
+                        </span>
+                        <form name="AcceptOrderForm">
+                            <input type="hidden" name="DelOrderId" value="@Model.DelOrderId" />
+                        </form>
+
+                        <span>
+                            @if (Model.OrderStateId != 6)
+                            {
+                                <input type="button" id="printOrderDetail" class=" btn btn-primary m-3" value="列印備貨單" />
+
+                            }
+
+                        </span>
+
+
+                        <span id="btnbox2">
+                            @if (Model.OrderStateId == 2)
+                            {
+                                <input type="button" id="btnPickDone" class="btn btn-primary m-3" value="備貨完成" />
+                            }
+                        </span>
+                        <span>
+                            @if (Model.OrderStateId >= 3 && Model.OrderStateId != 6)
+                            {
+                                <input type="button" id="btnprintReceipt" class=" btn btn-primary m-3" value="列印出貨明細" />
+                            }
+                        </span>
+                        <span>
+                            @if (Model.OrderStateId >= 3 && Model.OrderStateId != 6)
+                            {
+                                <input type="button" id="btnprintDelivery" class=" btn btn-primary m-3" value="列印宅配單" />
+                            }
+                        </span>
+                        <span>
+                            @if (Model.OrderStateId == 4)
+                            {
+                                <input type="button" id="finishDelivery" class=" btn btn-primary m-3" value="已送達" />
+                            }
+                        </span>
+
+                        @*<input type="button" id="btnOffShelves" class="btn btn-primary m-3" value="" />*@
+                    </div>
+
+
+
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+
+                                <th class="t1">
+                                    商品編號
+                                </th>
+                                <th class="t2">
+                                    商品名稱
+                                </th>
+                                <th class="t3">
+                                    訂購數量
+                                </th>
+                                <th class="t5">
+                                    退定數量
+                                </th>
+                                <th class="t4">
+                                    單價
+                                </th>
+
+
+                                <th class="t5">
+                                    備貨數量
+                                </th>
+
+                                <th class="t6">
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var od in Model.OrderDetails)
+                            {
+                                <form id="@("cancelForm"+od.CommodityId)" name="@("cancelForm"+od.CommodityId)">
+                                    <input type="hidden" value="@Model.DelOrderId" name="DelOrderId" />
+                                    <input type="hidden" value="@od.CommodityId" name="CommodityId" />
+
+                                <tr>
+                                    <td>
+                                            @od.CommodityId
+                                    </td>
+                                    <td>
+                                            @od.CommodityName
+                                    </td>
+                                    <td id="orderQty" class="orderQty">
+                                            @od.OrderQty
+                                    </td>
+
+                                        @if (od.CancelQty == null)
+                                        {
+                                        <td style="color:red;" id="@("cancelQty"+od.CommodityId)">
+                                            0
+                                        </td>
+                                        }
+                                        else
+                                        {
+                                        <td id="@("cancelQty"+od.CommodityId)" style="color:red;">
+                                                @od.CancelQty
+                                        </td>
+                                        }
+
+                                    <td>
+                                            @od.UnitPrice
+                                    </td>
+
+
+                                    <td>
+                                            @{
+                                                int maxQty = Convert.ToInt32(od.OrderQty) - Convert.ToInt32(od.CancelQty);
+                                            }
+                                            @if (Model.OrderStateId >= 2)
+                                            {
+
+                                                @maxQty
+                                            }
+
+                                    </td>
+
+
+                                    <td>
+                                            @if (Model.OrderStateId == 2)
+                                            {
+
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="@("#m"+od.CommodityId)" data-bs-whatever="mdo">退訂</button>
+                                            }
+
+                                    </td>
+                                </tr>
+
+                                <!--------------------------Modal---------------------------->
+                                <div class="modal fade" id="@("m"+od.CommodityId)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">退訂作業</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">商品名稱</label>
+                                                    <input type="text" class="form-control" readonly="readonly" value="@od.CommodityName">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="recipient-name" class="col-form-label">退訂數量</label>
+                                                    <input type="number" max="@maxQty" value="1" min="0" name="CancelQty" class="form-control" id="@("setcanqty"+od.CommodityId)">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                                                <button type="button" id="btncancel" value="@od.CommodityId" data-bs-dismiss="modal" class="btn btn-primary btncancel">確認</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                </form>
+                            }
+
+                        </tbody>
+                    </table>
+
+
+
+                    <!----------------------------------出貨作業結束----------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="toast-container position-fixed  bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header ">
+
+                <strong class="me-auto">系統提示</strong>
+                <small>just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Hello!
+            </div>
+        </div>
+    </div>
+    <!----------------------------------備貨單列印畫面開始----------------------------->
+    <div style="width:595px;height:842px;" class="tab-pane fade" id="print-tab-pane" role="tabpanel" aria-labelledby="Delivery-tab" tabindex="0">
+
+        <style>
+            td {
+                margin: auto;
+                text-align: center;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            th {
+                text-align: center;
+            }
+
+            table {
+                table-layout: fixed;
+            }
+
+            .t1 {
+                width: 10%;
+            }
+
+            .t2 {
+                width: 30%;
+            }
+
+            .t3 {
+                width: 10%;
+            }
+
+            .t4 {
+                width: 10%;
+            }
+
+            .t5 {
+                width: 10%;
+            }
+
+        </style>
+
+
+
+        <div style="">
+            <h3 style="text-align:center;">備貨單</h3>
+            <div>
+                <h3 class="mt-2  " style="">訂單編號：@Model.DelOrderId</h3>
+            </div>
+
+
+            <div style="display:flex;width:100%">
+
+                <div style="padding:10px;width:50%">
+                    <div>
+                        @if (Model.MemberType == "Comp")
+                        {
+                            <label>會員姓名:@Model.CompanyName</label>
+                        }
+                        else if (Model.MemberType == "Regu")
+                        {
+                            <label>會員姓名:@Model.MemberName</label>
+                        }
+                    </div>
+
+                    <div>
+                        @if (Model.MemberType == "Comp")
+                        {
+                            <label>會員電話:@Model.CompPhone</label>
+                        }
+                        else if (Model.MemberType == "Regu")
+                        {
+                            <label>會員電話:@Model.ReguPhone</label>
+                        }
+                    </div>
+                    <div>
+                        <label>訂單日期:@Model.OrderDate.Value.ToString("yyyy-MM-dd")</label>
+                    </div>
+                </div>
+
+
+                <div style="padding:10px;width:50%">
+                    <div>
+                        <label>收件人:@Model.ContactMan</label>
+                    </div>
+                    <div>
+                        <label>收件電話:@Model.ContactPhone</label>
+                    </div>
+                    <div>
+                        <label>訂單備註:@Model.Notes</label>
+                    </div>
+                </div>
+
+            </div>
+            <hr />
+            <table>
+                <thead>
+                    <tr>
+                        <th class="t1">
+                            商品編號
+                        </th>
+                        <th class="t2">
+                            商品名稱
+                        </th>
+                        <th class="t3">
+                            數量
+                        </th>
+                        <th class="t4">
+                            單價
+                        </th>
+                        <th class="t5">
+                            備貨數量
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var od in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>
+                                @od.CommodityId
+                            </td>
+                            <td>
+                                @od.CommodityName
+                            </td>
+                            <td>
+                                @od.OrderQty
+                            </td>
+                            <td>
+                                @od.UnitPrice
+                            </td>
+                            <td>
+                                ______
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            <hr />
+
+
+            <div style="display:flex;justify-content:space-between">
+                <div></div>
+                <div style="display:flex;">
+                    <table style="border-collapse:collapse;">
+                        <thead style="border:solid 1px black;">
+                            <tr>
+                                <th style="border:solid 1px black;">備貨人</th>
+                                <th style="border:solid 1px black;">理貨人</th>
+                            </tr>
+                        </thead>
+                        <tbody style="border:solid 1px black;">
+                            <tr>
+                                <td style="width:100px;height:50px;border:solid 1px black;"></td>
+                                <td style="width:100px;height:50px;border:solid 1px black;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!----------------------------------備貨單列印畫面結束----------------------------->
+    <!----------------------------------出貨明細列印畫面開始----------------------------->
+    <div style="width:595px;height:842px;" class="tab-pane fade" id="printReceipt" role="tabpanel" aria-labelledby="Delivery-tab" tabindex="0">
+
+        <style>
+            td {
+                margin: auto;
+                text-align: center;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+            th {
+                text-align: center;
+            }
+
+            table {
+                table-layout: fixed;
+            }
+
+            .t1 {
+                width: 10%;
+            }
+
+            .t2 {
+                width: 30%;
+            }
+
+            .t3 {
+                width: 10%;
+            }
+
+            .t4 {
+                width: 10%;
+            }
+
+            .t5 {
+                width: 10%;
+            }
+
+        </style>
+
+
+
+        <div style="">
+            <h3 style="text-align:center;">出貨明細</h3>
+            <div>
+                <h3 class="mt-2  " style="">訂單編號：@Model.DelOrderId</h3>
+            </div>
+
+
+            <div style="display:flex;width:100%">
+
+                <div style="padding:10px;width:50%">
+                    <div>
+                        @if (Model.MemberType == "Comp")
+                        {
+                            <label>會員姓名:@Model.CompanyName</label>
+                        }
+                        else if (Model.MemberType == "Regu")
+                        {
+                            <label>會員姓名:@Model.MemberName</label>
+                        }
+                    </div>
+
+                    <div>
+                        @if (Model.MemberType == "Comp")
+                        {
+                            <label>會員電話:@Model.CompPhone</label>
+                        }
+                        else if (Model.MemberType == "Regu")
+                        {
+                            <label>會員電話:@Model.ReguPhone</label>
+                        }
+                    </div>
+                    <div>
+                        <label>訂單日期:@Model.OrderDate.Value.ToString("yyyy-MM-dd")</label>
+                    </div>
+                </div>
+
+
+                <div style="padding:10px;width:50%">
+                    <div>
+                        <label>收件人:@Model.ContactMan</label>
+                    </div>
+                    <div>
+                        <label>收件電話:@Model.ContactPhone</label>
+                    </div>
+                    <div>
+                        <label>訂單備註:@Model.Notes</label>
+                    </div>
+                </div>
+
+            </div>
+            <hr />
+            <table>
+                <thead>
+                    <tr style="font-size:10px;">
+                        <th class="t1">
+                            商品編號
+                        </th>
+                        <th class="t2">
+                            商品名稱
+                        </th>
+                        <th class="t3">
+                            訂單數量
+                        </th>
+                        <th class="t3">
+                            退訂數量
+                        </th>
+                        <th class="t4">
+                            單價
+                        </th>
+                        <th class="t3">
+                            出貨數量
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        decimal? total = 0;
+
+
+                        foreach (var od in Model.OrderDetails)
+                        {
+                            total = total + (od.UnitPrice * od.PickQty);
+                            <tr>
+                                <td>
+                                    @od.CommodityId
+                                </td>
+                                <td>
+                                    @od.CommodityName
+                                </td>
+                                <td>
+                                    @od.OrderQty
+                                </td>
+                                <td>
+                                    @od.CancelQty
+                                </td>
+                                <td>
+                                    @od.UnitPrice
+                                </td>
+                                <td>
+                                    @od.PickQty
+                                </td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+            <hr />
+
+            <div style="display:flex;justify-content:space-between">
+                <div></div>
+                <div style="">
+                    <div style="display:flex;justify-content:space-between">
+                        <p>商品金額：</p>
+                        <p>@total</p>
+                    </div>
+                    <div style="display:flex;justify-content:space-between">
+                        @if (Model.LogisticsMoney == null) { Model.LogisticsMoney = 0; }
+                        <p>運費：</p>
+                        <p>@Model.LogisticsMoney</p>
+                    </div>
+                    <hr />
+                    <div style="display:flex;justify-content:space-between">
+                        <p>總計：</p>
+                        <p>@(total + Model.LogisticsMoney)</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!----------------------------------出貨明細列印畫面結束----------------------------->
+    <!----------------------------------宅配單列印畫面開始----------------------------->
+
+    <div style="width:595px;height:842px;" class="tab-pane fade" id="printDelivery" role="tabpanel" aria-labelledby="Delivery-tab" tabindex="0">
+
+        <style>
+            td {
+                margin: auto;
+                text-align: center;
+                /*border:solid 1px black;*/
+            }
+
+            th {
+                text-align: center;
+                /*border: solid 1px black;*/
+            }
+
+            table {
+                table-layout: fixed;
+            }
+
+            .t1 {
+                width: 10%;
+            }
+
+            .t2 {
+                width: 30%;
+            }
+
+            .t3 {
+                width: 10%;
+            }
+
+            .t4 {
+                width: 10%;
+            }
+
+            .t5 {
+                width: 10%;
+            }
+
+            .deliverytable td {
+                border: solid 1px black;
+                font-size: 30px
+            }
+        </style>
+
+        <table style="border-collapse:collapse;width:100%;height:400px;">
+            <tbody class="deliverytable" style="border: solid 1px black;">
+                <tr style="border: solid 1px black;height:10%">
+
+                    <td rowspan="3" style="width:10%;writing-mode:vertical-lr;font-size:30px;height:10%">
+                        宅配單 【 配送聯 】
+                    </td>
+                    <td style="width:50%;height:10%;font-size:30px">
+                        配送資訊
+                    </td>
+                    <td style="width:30%;height:10%;font-size:30px">
+                        顧客簽收
+                    </td>
+                </tr>
+                <tr>
+
+                    <td rowspan="2" style="margin:0;text-align:start">
+                        訂單編號:@Model.DelOrderId<br />
+                        收件人:@Model.ContactMan<br />
+                        聯絡電話:@Model.ContactPhone<br />
+                        地址:@Model.Adderst
+
+
+
+                    </td>
+                    <td style="height:45%">
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:start">
+                        備註:@Model.Notes
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <hr />
+        <table style="border-collapse:collapse;width:100%;height:400px;">
+            <tbody class="deliverytable" style="border: solid 1px black;">
+                <tr style="border: solid 1px black;height:10%">
+
+                    <td rowspan="2" style="width:10%;writing-mode:vertical-lr;font-size:30px;height:10%">
+                        宅配單 【 黏貼聯 】
+                    </td>
+                    <td colspan="2" style="height:10%;font-size:30px">
+                        配送資訊
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td rowspan="2" style="margin:0;text-align:start;width:60%">
+                        訂單編號:@Model.DelOrderId<br />
+                        收件人:@Model.ContactMan<br />
+                        聯絡電話:@Model.ContactPhone<br />
+                        地址:@Model.Adderst
+                    </td>
+                    <td rowspan="2" style="height:45%; text-align:start">
+                        備註:@Model.Notes
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+    <!----------------------------------出貨單列印畫面結束----------------------------->
+
+
+
+
+
+
+</section>
+@section Scripts {
+    <script>
+        const printOrderDetail = document.querySelector("#printOrderDetail");
+        const orderstate = document.querySelector("#orderstate ");
+        const btnPickDone = document.querySelector("#btnPickDone");
+        if (btnPickDone != null) {
+            btnPickDone.addEventListener("click", () => {
+                pickDone();
+            })
+        }
+        const btnprintReceipt = document.querySelector("#btnprintReceipt");
+        const btnprintDelivery = document.querySelector("#btnprintDelivery");
+
+        if (btnprintReceipt != null) {
+
+            btnprintReceipt.addEventListener("click", () => {
+                let divContents = $("#printReceipt").html();
+                let printWindow = window.open('', 'HTML to PDF', 'height=842,width=595');
+
+                printWindow.document.write(divContents);
+                printWindow.document.close();
+
+                printWindow.print();
+
+            })
+        }
+        if (btnprintDelivery != null) {
+            btnprintDelivery.addEventListener("click", async () => {
+                let divContents = $("#printDelivery").html();
+                let printWindow = window.open('', 'HTML to PDF', 'height=842,width=595');
+
+                printWindow.document.write(divContents);
+                printWindow.document.close();
+                printWindow.print();
+
+                let formData = new FormData(document.AcceptOrderForm)
+                let response = await fetch(`@Url.Content("~/orderdelivery/DeliveryStart")`, { method: "post", body: formData })
+                let res = await response.json();
+                location.reload();
+            })
+
+        }
+        const finishDelivery = document.querySelector("#finishDelivery");
+        if (finishDelivery != null) {
+            finishDelivery.addEventListener("click", async () => {
+                let formData = new FormData(document.AcceptOrderForm)
+                let response = await fetch(`@Url.Content("~/orderdelivery/DeliveryDone")`, { method: "post", body: formData })
+                let res = await response.json();
+                location.reload();
+            })
+
+        }
+
+        const cancelDelivery = document.querySelector("#cancelDelivery");
+        if (cancelDelivery != null) {
+            cancelDelivery.addEventListener("click", async () => {
+                let formData = new FormData(document.AcceptOrderForm)
+                let response = await fetch(`@Url.Content("~/orderdelivery/CancelDelivery")`, { method: "post", body: formData })
+                let res = await response.json();
+                location.reload();
+            })
+
+        }
+
+
+
+
+        printOrderDetail.addEventListener("click", async (event) => {
+            let divContents = $("#print-tab-pane").html();
+            let printWindow = window.open('', 'HTML to PDF', 'height=842,width=595');
+
+
+            printWindow.document.write(divContents);
+            printWindow.document.close();
+            //開啟列印視窗
+            printWindow.print();
+
+            let formData = new FormData(document.AcceptOrderForm)
+            let response = await fetch(`@Url.Content("~/orderdelivery/AcceptOrder")`, { method: "post", body: formData })
+            let res = await response.json();
+
+            if (res == "接收訂單") {
+                toastBody.innerHTML = res;
+                toast.show();
+                orderstate.innerHTML = "訂單狀態：" + res;
+                let btnbox2 = document.querySelector("#btnbox2");
+                btnbox2.innerHTML = ` <input type="button" id="btnPickDone" class=" btn btn-primary m-3" value="備貨完成" />`
+                let btnPickDone2 = document.querySelector("#btnPickDone");
+                btnPickDone2.addEventListener("click", () => {
+                    pickDone();
+                })
+                location.reload();
+            }
+
+
+        });
+
+
+
+
+
+        const btnDeliveryEdit = document.querySelector("#btnDeliveryEdit")
+        const isUpdate = document.querySelector(".isUpdate")
+        const toastBody = document.querySelector(".toast-body")
+        const toastTrigger = document.getElementById('liveToastBtn')
+        const toastLiveExample = document.getElementById('liveToast')
+        const toast = new bootstrap.Toast(toastLiveExample)
+        btnDeliveryEdit.addEventListener("click", () => {
+            let formData = new FormData(document.DeliveryForm);
+            let xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', () => {
+                //document.querySelector('#div1').innerHTML = xhr.responseText;
+                //alert(xhr.responseText);
+
+                toastBody.innerHTML = xhr.responseText;
+                toast.show()
+
+            })
+            xhr.open("POST", "@Url.Content("/orderdelivery/orderedit")");
+            xhr.send(formData);
+
+            $("#btnDeliveryEdit").addClass("btn-primary").removeClass(" btn-warning")
+
+
+        })
+
+        $(".isUpdate").change(() => {
+
+            $("#btnDeliveryEdit").addClass("btn-warning").removeClass(" btn-primary")
+        });
+
+
+
+        const btncancel = document.querySelector("#btncancel");
+        $(".btncancel").on("click", async function (even) {
+
+            let formName = "cancelForm" + this.value;
+            let form = document.querySelector(`#${formName}`);
+            let cancelQtyName = "cancelQty" + this.value;
+            let cancelQty = document.querySelector(`#${cancelQtyName}`);
+            let setcanQtyName = "setcanqty" + this.value;
+            let setcanQty = document.querySelector(`#${setcanQtyName}`).value;
+
+            let formData = new FormData(form);
+            let response = await fetch(`@Url.Content("~/orderdelivery/CancelDetail")`, { method: "post", body: formData })
+            let res = await response.json();
+
+
+            toastBody.innerHTML = res;
+            toast.show()
+            if (res == "退訂成功") {
+                let recanqty = Number(cancelQty.textContent) + Number(setcanQty)
+                cancelQty.innerHTML = recanqty;
+
+                location.reload();
+
+
+            }
+
+        })
+
+
+
+
+        async function pickDone() {
+
+            let formData = new FormData(document.AcceptOrderForm)
+            let response = await fetch(`@Url.Content("~/orderdelivery/PickDone")`, { method: "post", body: formData })
+            location.reload();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+}

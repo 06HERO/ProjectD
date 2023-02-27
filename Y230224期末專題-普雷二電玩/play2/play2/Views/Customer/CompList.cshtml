@@ -1,0 +1,127 @@
+﻿@model IEnumerable<play2.EFModels.View經銷商會員資料表>
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewData["Title"] = "經銷商列表";
+}
+
+<h1>經銷商列表</h1>
+
+<form asp-action="CompList" asp-controller="Customer">
+<div class="input-group" style="width:15%">
+  <select class="form-select" name="id" id="selectid">
+        <option>全部</option>
+        <option value="1">認證通過</option>
+        <option value="-1">已停權</option>
+        <option value="0">未認證</option>
+        <option value="3">審核中</option>
+        <option value="4">重新審核中</option>
+  </select>
+    <button class="btn btn-outline-secondary" type="submit">查詢</button>
+</div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                會員編號
+            </th>
+            <th>
+                公司名稱
+            </th>  
+            <th>
+               統一編號
+            </th>
+            <th>
+                公司負責人               
+            </th>
+            <th>
+                信箱
+            </th>
+            <th>
+                電話
+            </th>
+            <th>
+                是否認證
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MemberId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CompanyName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaxIdnumber)
+            </td>            
+             <td>
+                @Html.DisplayFor(modelItem => item.PrincipalMan)
+            </td>
+            <td>
+                 @Html.DisplayFor(modelItem => item.LoginEmail)                
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            @{
+                                                    @if (item.IsCheck == 0 || item.IsCheck == 2)
+                    {
+                                                        <td class="bg-info">
+                                                            未認證
+                                                        </td>
+                    }
+                    else if (item.IsCheck == -1)
+                    {
+                                                        <td class="bg-danger">
+                                                            已停權
+                                                        </td>
+                    }                
+                    else if (item.IsCheck == 3)
+                    {
+                                                        <td class="bg-warning">
+                                                            審核中
+                                                        </td>
+                    }
+                    else if (item.IsCheck == 4)
+                    {
+                                                        <td class=" bg-warning">
+                                                            重新審核中
+                                                        </td>
+                    }
+                    else if (item.IsCheck == 1)
+                    {
+                                                        <td>
+                                                            認證通過
+                                                        </td>
+                    }       
+            }
+            <td>
+                <form asp-action="CompDetail" asp-controller="Customer">
+                    <input type="submit" value="詳細資料" class="btn btn-secondary">
+                    <input type="hidden" name="id" value="@item.MemberId">
+                </form>                          
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+@section Scripts{
+    <script>
+         const option=$("#selectid").children("option");
+         console.log(option);
+         $.each(option,(index,value)=>{
+             console.log(value);
+            if ($(value).val() == @ViewBag.Option){$(value).attr("selected","selected");}
+         });
+
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewData["Title"] = "選擇會員類型";
+}
+
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>   
+        <li><span>註冊會員</span></li>
+
+    </ul>
+</div>
+
+
+<div class="row">
+
+    <div class="col-lg-6">
+        <div class="nk-feature-2">
+            <div class="nk-feature-icon">
+                 <span class="fa fa-user fa-fw"></span>
+            </div>
+            <div class="nk-feature-cont text-center">
+                <h3 class="nk-feature-title"><span class="text-main-1">Play2 </span>一般會員註冊</h3>
+                <div class="nk-gap-1"></div>  
+                一般會員註冊需進行信箱認證，即可開通會員。
+                <div class="nk-gap-1"></div>
+               <a asp-controller="Register" asp-action="CreReguMem" class="btn btn-danger">一般會員註冊</a> 
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="nk-feature-2">
+            <div class="nk-feature-icon">
+                <span class="fa fa-building-o fa-fw"></span>
+            </div>
+            <div class="nk-feature-cont text-center">
+                <h3 class="nk-feature-title"><span class="text-main-1">Play2 </span>法人會員註冊</h3>
+                <div class="nk-gap-1"></div>
+                法人會員註冊需先進行信箱認證，再上傳書面認證進行審核。
+                <div class="nk-gap-1"></div>
+                 <a id="download_btn" class="btn btn-success btn-sm">書面認證範本</a>       
+                 <div class="nk-gap-1"></div>
+                <a asp-controller="Register" asp-action="CreCompMem" class="btn btn-danger">法人會員註冊</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<br />
+
+
+@section Scripts{
+    <script>
+        //檔案下載網址
+        var url = `@Url.Content("~/NewCompMemberFile/Play2-Company-WA.pdf")`;
+
+        var a = document.getElementById("download_btn");
+
+        //index為要下載的檔案編號，使用QueryString方式加入網址後方
+        a.href = url;
+
+        //如果想要另開視窗可加上target
+        a.target = "_blank";
+    </script>
+}
+

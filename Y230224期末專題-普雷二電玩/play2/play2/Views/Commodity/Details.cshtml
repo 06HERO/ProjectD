@@ -1,0 +1,678 @@
+﻿@model play2.EFModels.View商品完整資訊
+@using play2.EFModels
+@using System.Text.Json;
+@using play2.Models;
+@using Microsoft.AspNetCore.Http
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+@{
+    List<CShoppingCart_item> cart_Items = new List<CShoppingCart_item>();
+    int qty = 1;
+    if (Context.Session.GetString(CDictionary.sekey_Product_Cart_Add) != null)
+    {
+        string currentCart = Context.Session.GetString(CDictionary.sekey_Product_Cart_Add);
+        cart_Items = JsonSerializer.Deserialize<List<CShoppingCart_item>>(currentCart);
+        var data = cart_Items.Any(m => m.CommodityId.Equals(Model.CommodityId));
+        if (data)
+        {
+            int index = cart_Items.FindIndex(m => m.CommodityId.Equals(Model.CommodityId));
+                    qty = cart_Items[index].qty;
+        }     
+        
+        
+    }
+    if (qty > 20)
+    {
+        qty = 20;
+    }
+    string 資料狀態 = "無收入該資料";
+    string 發布代理狀態 = "待定";
+    //找出這一筆資料位置
+    
+    string Categories_g = "g";
+    string Categories_c = "c";
+    
+}
+
+<div class="nk-main">
+
+    <!-- START: Breadcrumbs -->
+    <div class="nk-gap-1"></div>
+    <div class="container">
+        <ul class="nk-breadcrumbs">
+            <li><a asp-controller="home" asp-action="index">Play2</a></li>         
+            <li><span class="fa fa-angle-right"></span></li>
+            <li><a asp-controller="Commodity" asp-action="ProList">商品一覽</a></li>
+            <li><span class="fa fa-angle-right"></span></li>
+            <!-- 產品名稱 -->
+            <li><span> @Model.CommodityName </span></li>
+        </ul>
+    </div>
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="row vertical-gap">
+            <div class="col-lg-8">
+                <div class="nk-store-product">
+                    <div class="row vertical-gap">
+                        <div class="col-md-6">
+                            <!-- START: Product Photos -->
+                            <div class="nk-popup-gallery">
+                                <div class="nk-gallery-item-box">
+                                    <!-- 圖片位置 -->
+                                    @if (Model.PhotoPath == null || Model.PhotoPath.Trim() == "")
+                                    {                                       
+                                            <img src="~/assets/images/noImage.png">                                       
+                                    }
+                                    else
+                                    {
+                                        <a href="~/ProductImages/@Model.PhotoPath" class="nk-gallery-item">
+                                        <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                                            <img src="~/ProductImages/@Model.PhotoPath">
+                                        </a>
+                                    }      
+                                </div>        
+                            </div>
+                            <!-- END: Product Photos -->
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- 名稱調整 -->
+                            <h2 class="nk-product-title h3"> @Model.CommodityName </h2>
+                            <!-- 宣傳內容介紹-->
+                            <!-- 可能要考慮多一格放置該內容-->
+                            <div class="nk-product-description">
+                                @Html.Raw(@Model.Profile)
+                            </div>
+
+                            <!-- 遊戲版本 -->
+                            <div class="nk-product-price">@Model.GameStation</div>
+
+                            <!-- START: Add to Cart -->
+                            <div class="nk-gap-2"></div>
+                            <form action="#" class="nk-product-addtocart">
+                                <input type="hidden" value="@Model.CommodityId" />
+                                <div class="nk-product-price">NT$ @Model.Price</div>
+                                <div class="nk-gap-1"></div>
+                                <div id="cart_detail" class="input-group">
+                                    <input data-id="cart_id_qty" type="number" class="form-control" value="@qty" min="1" max="20">
+                                   
+                                    <button type="button" data-id="addtoCart" data-commodityid="@Model.CommodityId" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">加入購物車</button>
+                                </div>
+                            </form>
+                            <div class="nk-gap-3"></div>
+                            <!-- END: Add to Cart -->
+                            <!-- 產品細項 -->
+                            <!-- START: Meta -->
+                            <div class="nk-product-meta">
+                              @*  <div><strong>SKU</strong>: 300-200-503</div>*@
+                                @if (Model.Categories == Categories_g)
+                                {
+                                @*<div><strong>遊戲類型</strong>：@{
+                                        if (Model.GameType == null)
+                                        {
+                                                        @資料狀態
+                                        }
+                                        else
+                                        {
+                                                        @Html.DisplayFor(modelItem => Model.GameType)
+                                        }
+                                }</div>*@
+                                <div><strong>最大遊戲人數</strong>：@{
+                                        if (Model.PlayNumber == null)
+                                        {
+                                                        @資料狀態
+                                        }
+                                        else
+                                        {
+                                                        @Html.DisplayFor(modelItem => Model.PlayNumber)
+                                        }
+                                } </div>
+                                <div><strong>遊戲分級</strong>：@{
+                                        if (Model.PegiRating == null)
+                                        {
+                                                         @資料狀態
+                                        }       
+                                        else
+                                        {
+                                                        @Html.DisplayFor(modelItem => Model.PegiRating)
+                                        }
+                                        }</div>
+                                }else if(Model.Categories == Categories_c)
+                                {
+                                    <div>
+                                        <strong>遊戲機顏色</strong>：@{
+                                            if (Model.HostColor == null)
+                                            {
+                                                @資料狀態
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => Model.HostColor)
+                                            }
+                                        }
+                                    </div>
+                                    <div>
+                                         <strong>遊戲版本</strong>：@{
+                                        if (Model.HostStation == null)
+                                        {
+                                                         @資料狀態
+                                        }       
+                                        else
+                                        {
+                                                @Html.DisplayFor(modelItem => Model.HostStation)
+                                        }
+                                    }</div>
+                                }
+
+                                </div>
+                            <!-- END: Meta -->
+                        </div>
+                    </div>
+
+                    <!-- START: Share -->
+                    <div class="nk-gap-2"></div>
+                    <div class="nk-post-share">
+                        <span class="h5">Share Product:</span>
+                        <ul class="nk-social-links-2">
+                            <li><span class="nk-social-facebook" title="Share page on Facebook" data-share="facebook"><span class="fab fa-facebook"></span></span></li>
+                            <li><span class="nk-social-google-plus" title="Share page on Google+" data-share="google-plus"><span class="fab fa-google-plus"></span></span></li>
+                            <li><span class="nk-social-twitter" title="Share page on Twitter" data-share="twitter"><span class="fab fa-twitter"></span></span></li>
+                            <li><span class="nk-social-pinterest" title="Share page on Pinterest" data-share="pinterest"><span class="fab fa-pinterest-p"></span></span></li>
+
+                            <!-- Additional Share Buttons
+                                <li><span class="nk-social-linkedin" title="Share page on LinkedIn" data-share="linkedin"><span class="fab fa-linkedin"></span></span></li>
+                                <li><span class="nk-social-vk" title="Share page on VK" data-share="vk"><span class="fab fa-vk"></span></span></li>
+                            -->
+                        </ul>
+                    </div>
+                    <!-- END: Share -->
+
+                    <div class="nk-gap-2"></div>
+                    
+                    <!-- 介紹與評論區 -->
+                    <!-- START: Tabs -->
+                    <div class="nk-tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#tab-description" role="tab" data-toggle="tab">遊戲內容介紹</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#tab-reviews" role="tab" data-toggle="tab">玩家評價</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <!-- START: Tab Description -->
+                            <div role="tabpanel" class="tab-pane fade show active" id="tab-description">
+                                <div class="nk-gap"></div>
+                                <!-- 遊戲上市時間 -->                               
+                                <strong class="text-white">
+                                    上市時間：@if (Model.ReleaseDate == null)
+                                    {
+                                    @發布代理狀態
+                                    }
+                                    else
+                                    {
+                                        @Html.DisplayFor(modelItem => Model.ReleaseDate)
+                                    }
+                                </strong>
+                                <!-- 製作商 -->
+                                <br />
+                                <strong class="text-white">
+                                    製作公司：@if (Model.Developer == null)
+                                    {
+                                    @發布代理狀態
+                                    }
+                                    else
+                                    {
+                                    @Html.DisplayFor(modelItem => Model.Developer)
+                                    }
+                                </strong>
+                                <br />
+                                <!-- 發行商 -->
+                                <strong class="text-white">
+                                    發行公司：@if (Model.Publisher == null)
+                                    {
+                                    @發布代理狀態
+                                    }
+                                    else
+                                    {
+                                    @Html.DisplayFor(modelItem => Model.Publisher)
+                                    }
+                                    </strong>
+                                    <br />
+							    <!-- 代理商 -->
+                                    <strong class="text-white">
+                                        代理商：@if (Model.Agent == null)
+                                        {
+                                        @發布代理狀態
+                                        }
+                                        else
+                                        {
+                                        @Html.DisplayFor(modelItem => Model.Agent)
+                                        }
+                                    </strong>
+                                    <br />
+								
+                                <div class="nk-gap"></div>
+                                <!-- 官方介紹 -->
+                                <p>@Html.Raw(@Model.Profile)</p>
+
+                                <div class="nk-product-info-row row vertical-gap">
+                                    <div class="col-md-5">
+                                        <div class="nk-product-pegi">
+                                            <div class="nk-gap"></div>
+                                            @{
+                                                string pic_game_level ="";
+                                                switch(Model.PegiRating)
+                                                {
+                                                    case "普遍級":
+                                                        pic_game_level = "/pegirating/普遍級 0+.jpg";
+                                                        break;
+                                                    case "保護級":
+                                                        pic_game_level = "/pegirating/保護級 6+.jpg";
+                                                        break;
+                                                    case "保護級 6+":
+                                                        pic_game_level = "/pegirating/保護級 6+.jpg";
+                                                        break;
+                                                    case "輔導級":
+                                                        pic_game_level = "/pegirating/輔導級 12+.jpg";
+                                                        break;
+                                                    case "輔導級 12+":
+                                                        pic_game_level = "/pegirating/輔導級 12+.jpg";
+                                                        break;
+                                                    case"輔導級 15+":
+                                                        pic_game_level = "/pegirating/輔導級 15+.jpg";
+                                                        break;
+                                                    case"限制級":
+                                                        pic_game_level = "/pegirating/限制級 18+.jpg";
+                                                        break;
+                                                    case"限制級 18+":
+                                                        pic_game_level = "/pegirating/限制級 18+.jpg";
+                                                        break;
+                                                    default:
+                                                        pic_game_level = "/assets/images/pegi-icon.jpg";
+                                                        break;
+                                            }
+											}
+											
+                                            <img src="@pic_game_level" alt="@pic_game_level">
+                                            <div class="nk-product-pegi-cont">
+                                                <strong class="text-white">遊戲分級:
+                                            </strong>
+                                                <div class="nk-gap"></div>
+                                                @if (Model.Categories == Categories_c)
+                                                {
+                                                    @發布代理狀態
+                                                }else
+                                                    {
+                                                        @Model.PegiRating
+                                                    }
+                                                    
+                                            </div>
+                                            <div class="nk-gap"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="nk-gap"></div>
+                                        <strong class="text-white">遊戲類型:</strong>
+                                        <div class="nk-gap"></div>
+                                        <span id="choose_gametype">
+                                        @*@if (Model.GameType == null)
+                                        {
+                                            @發布代理狀態
+                                        }else
+                                            {
+                                                @Model.GameType
+                                            }*@
+										</span>
+                                        <div class="nk-gap"></div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="nk-gap"></div>
+                                        <strong class="text-white">Customer Rating:</strong>
+                                        <div class="nk-gap"></div>
+                                        <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i></div>
+                                        <div class="nk-gap"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- END: Tab Description -->
+
+                            <!--玩家評價區-->
+                            <!-- START: Tab Reviews -->
+                            <div role="tabpanel" class="tab-pane fade" id="tab-reviews">
+                                <div class="nk-gap-2"></div>
+                                <!-- START: Reply -->
+                                <h3 class="h4">Add a Review</h3>
+                                <div class="nk-reply">
+                                    <form action="#" class="nk-form">
+                                        <div class="row vertical-gap sm-gap">
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control required" name="name" placeholder="Name *">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control required" name="title" placeholder="Title *">
+                                            </div>
+                                        </div>
+                                        <div class="nk-gap-1"></div>
+                                        <textarea class="form-control required" name="message" rows="5" placeholder="Your Review *" aria-required="true"></textarea>
+                                        <div class="nk-gap-1"></div>
+                                        <div class="nk-rating">
+                                            <input type="radio" id="review-rate-5" name="review-rate" value="5">
+                                            <label for="review-rate-5">
+                                                <span><i class="far fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                            </label>
+
+                                            <input type="radio" id="review-rate-4" name="review-rate" value="4">
+                                            <label for="review-rate-4">
+                                                <span><i class="far fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                            </label>
+
+                                            <input type="radio" id="review-rate-3" name="review-rate" value="3">
+                                            <label for="review-rate-3">
+                                                <span><i class="far fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                            </label>
+
+                                            <input type="radio" id="review-rate-2" name="review-rate" value="2">
+                                            <label for="review-rate-2">
+                                                <span><i class="far fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                            </label>
+
+                                            <input type="radio" id="review-rate-1" name="review-rate" value="1">
+                                            <label for="review-rate-1">
+                                                <span><i class="far fa-star"></i></span>
+                                                <span><i class="fa fa-star"></i></span>
+                                            </label>
+                                        </div>
+                                        <button class="nk-btn nk-btn-rounded nk-btn-color-dark-3 float-right">Submit</button>
+                                    </form>
+                                </div>
+                                <!-- END: Reply -->
+
+                                <div class="clearfix"></div>
+                                <div class="nk-gap-2"></div>
+                                <div class="nk-comments">
+                                    <!-- 評價區 -->
+                                    <!-- START: Review -->
+                                    <div class="nk-comment">
+                                        <div class="nk-comment-meta">
+                                            <img src="assets/images/avatar-2.jpg" alt="Witch Murder" class="rounded-circle" width="35"> by <a href="#">Witch Murder</a> in 20 September, 2018
+                                            <div class="nk-review-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i></div>
+                                        </div>
+                                        <div class="nk-comment-text">
+                                            <p>Upon replenish great rule. Were tree, given day him night Fruit it moveth all. First they're creature seasons and creature fill a it have fifth, their own subdue brought above divided.</p>
+
+                                            <p>Behold it set, seas seas and meat divided Moveth cattle forth evening above moveth so, signs god a fruitful his after called that whose.</p>
+                                        </div>
+                                    </div>
+                                    <!-- END: Review -->
+                                    <!-- START: Review -->
+                                    <div class="nk-comment">
+                                        <div class="nk-comment-meta">
+                                            <img src="assets/images/avatar-1.jpg" alt="Hitman" class="rounded-circle" width="35"> by <a href="#">Hitman</a> in 14 Jule, 2018
+                                            <div class="nk-review-rating" data-rating="0.5"> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                        </div>
+                                        <div class="nk-comment-text">
+                                            <p> I was awakened at daybreak by the charwoman, and having arrived at the inn, was at first placed inside the coach. :(</p>
+                                        </div>
+                                    </div>
+                                    <!-- END: Review -->
+                                    <!-- START: Review -->
+                                    <div class="nk-comment">
+                                        <div class="nk-comment-meta">
+                                            <img src="assets/images/avatar-3.jpg" alt="Wolfenstein" class="rounded-circle" width="35"> by <a href="#">Wolfenstein</a> in 27 June, 2018
+                                            <div class="nk-review-rating" data-rating="3.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                                        </div>
+                                        <div class="nk-comment-text">
+                                            <p>Divided thing, land it evening earth winged whose great after. Were grass night. To Air itself saw bring fly fowl. Fly years behold spirit day greater of wherein winged and form. Seed open don't thing midst created dry every greater divided of, be man is. Second Bring stars fourth gathering he hath face morning fill. Living so second darkness. Moveth were male. May creepeth. Be tree fourth.</p>
+                                        </div>
+                                    </div>
+                                    <!-- END: Review -->
+                                </div>
+                            </div>
+                            <!-- END: Tab Reviews -->
+
+                        </div>
+                    </div>
+                    <!-- END: Tabs -->
+                </div>
+
+                <!-- START: 相似商品 -->
+                <div class="nk-gap-3"></div>
+                <h3 class="nk-decorated-h-2"><span><span class="text-main-1">相似</span> 商品</span></h3>
+                <div class="nk-gap"></div>
+                <div class="row vertical-gap" id="similargames">
+                    <!-- 隨意推六個與其相似的產品-->
+
+                    @*<div class="col-md-6">
+                        <div class="nk-product-cat">
+                            <a class="nk-product-image" href="store-product.html">
+                                <img src="assets/images/product-11-xs.jpg" alt="She gave my mother">
+                            </a>
+                            <div class="nk-product-cont">
+                                <h3 class="nk-product-title h5"><a href="store-product.html">She gave my mother</a></h3>
+                                <div class="nk-gap-1"></div>
+                                <div class="nk-product-rating" data-rating="3"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-gap-1"></div>
+                                <div class="nk-product-price">€ 14.00</div>
+                            </div>
+                        </div>
+                    </div>*@
+
+                </div>
+                <!-- END: Related Products -->
+            </div>
+            <div class="col-lg-4">
+                <!--
+                    START: Sidebar
+
+                    Additional Classes:
+                        .nk-sidebar-left
+                        .nk-sidebar-right
+                        .nk-sidebar-sticky
+                -->
+                <!-- 右側遊戲類型 -->
+                <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+
+                    <div class="nk-widget nk-widget-highlighted">
+                        <h4 class="nk-widget-title"><span><span class="text-main-1">遊戲</span> 類型</span></h4>
+                        <div class="nk-widget-content">
+                            <ul id="ligametype" class="nk-widget-categories">
+                                
+                                <!--以下是其他商品類型 -->
+                               @* <li><a href="#">RTS</a></li>
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">RPG</a></li>
+                                <li><a href="#">MMO</a></li>
+                                <li><a href="#">MOBA</a></li>
+                                <li><a href="#">Adventure</a></li>
+                                <li><a href="#">Indie</a></li>
+                                <li><a href="#">Strategy</a></li>
+                                <li><a href="#">Racing</a></li>
+                                <li><a href="#">Simulator</a></li>*@
+                            </ul>
+                        </div>
+                    </div>
+
+
+                      <!--以下是其他熱銷商品 -->
+                    <div class="nk-widget nk-widget-highlighted">
+                        <h4 class="nk-widget-title"><span><span class="text-main-1">更多</span> 熱銷商品</span></h4>
+                        <div class="nk-widget-content">
+
+                            <!-- 以下是熱銷商品連結 -->
+                             
+                              <div class="nk-widget-post">
+                                <a href="/Commodity/Details/152" class="nk-post-image">
+                                    <img src="~/ProductImages/5b82f653-b6f9-4d3d-9f14-d0997ea36166.jpg" alt="NINTENDO SWITCH OLED 主機">
+                                </a>
+                                <h3 class="nk-post-title"><a href="/Commodity/Details/152">NINTENDO SWITCH OLED 主機</a></h3>
+                                <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="far fa-star"></i></div>
+                                <div class="nk-product-price">NT$ 10280</div>
+                              </div>
+
+                             <div class="nk-widget-post">
+                                <a href="/Commodity/Details/115" class="nk-post-image">
+                                    <img src="~/ProductImages/b1fa0774-913c-4cdc-9f39-cfd97f4b4ce6.jpg" alt="世界越野冠軍賽 GENERATIONS（WRC GENERATIONS）">
+                                </a>
+                                <h3 class="nk-post-title"><a href="/Commodity/Details/115">世界越野冠軍賽 GENERATIONS（WRC GENERATIONS）</a></h3>
+                                <div class="nk-product-rating" data-rating="4.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half"></i></div>
+                                <div class="nk-product-price">NT$ 1290</div>
+                             </div>
+
+                             <div class="nk-widget-post">
+                                <a href="/Commodity/Details/107" class="nk-post-image">
+                                    <img src="~/ProductImages/95b76ea4-8e41-4bae-a0ab-2b027ab40d18.jpg" alt="航海王 時光旅詩 一般版">
+                                </a>
+                                <h3 class="nk-post-title"><a href="/Commodity/Details/107">航海王 時光旅詩 一般版</a></h3>
+                                <div class="nk-product-rating" data-rating="5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                                <div class="nk-product-price">NT$ 1790</div>      
+                            </div>
+                            
+
+                        </div>
+                    </div>
+
+                </aside>
+                <!-- END: Sidebar -->
+
+            </div>
+        </div>
+    </div>
+    <div class="nk-gap-2"></div>
+ </div>
+ 
+
+@section Scripts{
+    <script>
+       
+        const ligametype = $("#ligametype");
+
+        loadgametype();
+        function loadgametype(){
+            $.ajax({
+                //路徑
+                url: `@Url.Content("~/Commodity/GameType")`,
+                //檔案類型
+                datatype:"JSON"
+            }).done((datas)=>{
+                //console.log(datas);
+                //迴圈抓出
+                $.each(datas,(index,value)=>{
+                    ligametype.append(`<li><a href='@Url.Content("~/Commodity/ProList_tagID/${value.tagId}")'>${value.tagName}</a></li>`);
+                })                
+                
+            }).fail((err)=>{alert(`Gametype資料匯入錯誤`)})
+        }
+        const similargames = $("#similargames")
+        loadsimilargames();
+        function loadsimilargames(){
+            $.ajax({
+                //路徑
+                url: `@Url.Content("~/Commodity/similargames")`,
+                //檔案類型
+                datatype: "JSON"
+            }).done((datas) => {
+
+                var tag=[] ;
+                //console.log(tag);
+                //console.log(datas);
+                for(i=0;i<datas.length;i++){
+                    if (datas[i].commodityId == @Model.CommodityId) {                        
+                        tag[i-1] = datas[i].tagId;
+                        console.log(tag);
+                    }
+                }
+                
+                for(i=0;i<tag.length;i++){
+                    var k =0;
+                    for (j = 0; j < datas.length; j++) {
+                        
+                        if (datas[j].tagId == tag[i] && datas[j].commodityId != @Model.CommodityId /*&& k>=0*/) {
+                            let id = datas[j].commodityId;
+                            let name = datas[j].commodityName;
+                            let PhotoPath = datas[j].photoPath;
+                            let price = datas[j].price;
+                            let gamestation = datas[j].gameStation;
+                            k++;
+                            similargames.prepend(` <div class="col-md-6" data-res="${k}">
+                                                       <div class="nk-product-cat">
+                                                       <a class="nk-product-image" href="@Url.Content("~/Commodity/Details/${id}")">
+                                                        <img src="/ProductImages/${PhotoPath}" alt="${name}">
+                                                       </a>
+                                                       <div class="nk-product-cont">
+                                                       <h3 class="nk-product-title h5"><a href="@Url.Content("~/Commodity/Details/${id}")">${name}</a></h3>
+                                                       <div class="nk-gap-1"></div>
+                                                       <div class="nk-product-rating">遊戲平台：${gamestation}</div>
+                                                       <div class="nk-gap-1"></div>
+                                                       <div class="nk-product-price">NT$ ${price}</div>
+                                                       </div>
+                                                       </div>
+                                                    </div>`);
+                            if(k>5)break;
+                                
+                               
+                            
+                            
+                        } 
+                    }if(k>5)break;
+                    console.log(tag[i]);
+                    
+                }
+                
+                
+
+            }).fail((err) => { alert(`相似遊戲資料匯入錯誤`) })
+        }
+
+        const choose_gametype = $("#choose_gametype ")
+        loadchoose_gametype();
+        function loadchoose_gametype() {
+            $.ajax({
+                //路徑
+                url: `@Url.Content("~/Commodity/similargames")`,
+                //檔案類型
+                datatype: "JSON"
+            }).done((datas) => {
+
+                var tagName ="";
+                //console.log(tag);
+                //console.log(datas);
+                for (i = 0; i < datas.length; i++) {
+                    if (datas[i].commodityId == @Model.CommodityId) {
+                        
+                        if (datas[i].tagName != null && datas[i].tagName != "undefined") {
+                            tagName += datas[i].tagName + '、';
+                        }
+                        
+                        console.log(tagName);
+                    }
+                }
+                choose_gametype.append(`${tagName}`);
+                
+
+
+
+            }).fail((err) => { alert(`相似遊戲資料匯入錯誤`) })
+        }
+        
+    </script>
+}

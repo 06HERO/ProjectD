@@ -1,0 +1,260 @@
+﻿@model IEnumerable<play2.EFModels.View商品tagid>
+@using play2.EFModels
+@{
+    ViewData["Title"] = "產品一覽";
+    string IsShelve_y = "y";
+    string Categories_g = "g";
+    string Categories_c = "c";
+    List<View商品標籤表> list_type = new List<View商品標籤表>();
+
+
+}
+
+<div class="nk-main"></div>
+
+<!-- START: Breadcrumbs -->
+<div class="nk-gap-1"></div>
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="home" asp-action="index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="Commodity" asp-action="ProList" asp-route-id="">商品一覽</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>精選商品</span></li>
+    </ul>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal-xl" id="CartModalAlert" tabindex="-1" role="alertdialog" aria-labelledby="CartModalAlert" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-header">
+            <div class="modal-body">
+                <div class="nk-info-box text-success">
+                    <div class="nk-info-box-icon">
+                        <i class="ion-checkmark-round"></i>
+                    </div>
+                    <h3 class="modal-title" id="CartModalAlertTitle">購物成功～！</h3>
+                    <em>祝你有美的一天，有問題可洽問客服～</em>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container">
+    <!-- START: Categories -->
+    <div class="row vertical-gap">
+        <div class="col-lg-4">
+            <div class="nk-feature-1">
+                <div class="nk-feature-icon">
+                    <img src="~/assets/images/icon-mouse.png" alt="">
+                </div>
+                <div class="nk-feature-cont">
+                    <h3 class="nk-feature-title"><a href="~/Commodity/ProList/1">PC 與 XBox 系列</a></h3>
+                    <h3 class="nk-feature-title text-main-1"><a href="~/Commodity/ProList/1">遊戲瀏覽</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="nk-feature-1">
+                <div class="nk-feature-icon">
+                    <img src="~/assets/images/icon-gamepad.png" alt="">
+                </div>
+                <div class="nk-feature-cont">
+                    <h3 class="nk-feature-title"><a href="~/Commodity/ProList/2">PS 系列</a></h3>
+                    <h3 class="nk-feature-title text-main-1"><a href="~/Commodity/ProList/2">遊戲瀏覽</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="nk-feature-1">
+                <div class="nk-feature-icon">
+                    <img src="~/assets/images/icon-gamepad-2.png" alt="">
+                </div>
+                <div class="nk-feature-cont">
+                    <h3 class="nk-feature-title"><a href="~/Commodity/ProList/3">NS 系列</a></h3>
+                    <h3 class="nk-feature-title text-main-1"><a href="~/Commodity/ProList/3">遊戲瀏覽</a></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+   <div class="nk-gap-1"></div>
+    <form action="#" class="nk-form nk-form-style-1" novalidate="novalidate">
+                                <div class="input-group">
+                                    <ul class="list-group bg-dark" id="searchul" style="width:100%;background-color: #303e47">
+                                        <li class="list-group-item" id="searchfirstli" style="width:100%;background-color: #232930">
+                                        <input type="text" id="searchlist" class="text-white" autocomplete="off" style="border:0px;width:100%;height:100%;background-color: #232930" placeholder="搜尋精彩內容">
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </form>
+</div>
+<!-- END: Categories -->
+<!-- 遊戲產品 -->
+
+<div class="nk-gap-2"></div>
+<h3 class="nk-decorated-h-2"><span><span class="text-main-1">精選</span>遊戲</span></h3>
+<div class="nk-gap"></div>
+<div class="row vertical-gap">
+
+    @{
+        string n = "無收入該資料";
+        int count = 0;
+        foreach (var item in Model)
+        {
+            count++;
+
+            if (item.IsShelves == IsShelve_y)//審核功能
+            {
+                <div class="col-lg-6">
+                    <div class="nk-product-cat-2">
+                        <!--圖片區-->
+                        <a class="nk-product-image" asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId">
+                            <!-- 照片位置帶調整-->
+                            @if (item.PhotoPath == null || item.PhotoPath.Trim() == "")
+                            {
+                                <img src="~/assets/images/noImage.png">
+                            }
+                            else
+                            {
+                                <img src="~/ProductImages/@item.PhotoPath">
+                            }
+                        </a>
+
+                        <div class="nk-product-cont">
+                            <!--產品名稱-->
+                            <h3 class="nk-product-title h3"><a asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId"> @Html.DisplayFor(modelItem => item.CommodityName) </a></h3>
+                            <div class="nk-gap-1"></div>
+                            <!--星等-->
+                            <!--<div class="nk-product-rating" data-rating="3.5"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fas fa-star-half"></i> <i class="far fa-star"></i></div>-->
+                            <!-- 宣傳語 & 歸類 -->
+                            <div class="nk-gap-1" data-id="@item.CommodityId"></div>
+
+                            @if (item.Categories == Categories_g)
+                            {
+                                <div>
+                                    遊戲類型：@{
+                                        @if (item.GameStation == null)
+                                    {
+                                        @n;
+                                    }
+                                    else
+                                    {
+                                            @Html.DisplayFor(modelItem => item.GameStation)
+                                    }
+                                    }</div>
+                                <br>
+                                <div>
+                                    最大遊玩人數：@{
+                                        if (item.PlayNumber == null)
+                                        {
+                                            @n
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.PlayNumber)
+                                        }
+                                    }
+                                </div>
+                                <br>
+                                <div>
+                                    遊戲分級：@{
+                                        if (item.PegiRating == null)
+                                        {
+                                            @n
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(modelItem => item.PegiRating)
+                                        }
+                                    }
+                                </div>
+                            }                           
+                            else
+                            {
+                                <div>該筆資料未收入，請洽客服</div>
+                            }
+
+
+                            <div class="nk-gap-2"></div>
+                            <div class="nk-product-price">NT$ @item.Price.ToString() </div>
+                            <div class="nk-gap-1"></div>
+                            <button data-id="addtoCart" data-CommodityId="@item.CommodityId" class="nk-btn nk-btn-rounded nk-btn-color-dark-3 nk-btn-hover-color-main-1">加入購物車</button>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+    }
+</div>
+
+@section Scripts{
+    <!--購物成功顯示-->
+    <script>
+        window.addEventListener("DOMContentLoaded", LoadCartEndorNot());
+
+        function LoadCartEndorNot() {
+            $.ajax({
+                url: `@Url.Content("~/Commodity/CartEndorNot")`,
+                type: "POST",
+                datatype: "JSON"
+            }).done((data) => {
+                if (data == "Success") {
+                    $("#CartModalAlert").modal("show");
+                }
+                //else if (data == "fail") {
+                //    $("#CartModalAlert").modal("hide");
+                //}
+            }).fail((err) => { alert(`購物資料匯入錯誤`) })
+        };
+
+        const searchlist = document.querySelector("#searchlist");
+        const searchul = document.querySelector("#searchul ");
+        const searchfirstli = document.querySelector("#searchfirstli ");
+
+        $(':not(#searchul)').on("click", () => {
+            $('.searchli').remove();
+
+        })
+        searchlist.addEventListener("keyup", () => {
+            $('.searchli').remove();
+            if (searchlist.value != null) {
+                search();
+            }
+
+
+        })
+
+
+        async function search() {
+            const response = await fetch(`@Url.Content("~/home/search?keyword=${searchlist.value}")`);
+            const datas = await response.json();
+            const item = datas.map(value => {
+                const { commodityId, commodityName, isShelves } = value;
+                if(isShelves =='y'){
+                let a = document.createElement("a")
+                a.href = `@Url.Content("~/Commodity/Details/${commodityId}")`;
+                a.className += "list-group-item searchli text-white"
+                a.style.background = "#232930"
+                a.innerHTML = `${commodityName}`;
+                searchul.append(a);
+                }
+
+
+
+
+            })
+
+        }
+
+
+
+    </script>
+}

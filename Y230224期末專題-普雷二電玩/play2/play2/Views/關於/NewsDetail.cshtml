@@ -1,0 +1,72 @@
+﻿@model play2.EFModels.TNews
+
+@{
+    ViewData["Title"] = "NewsDetail";
+}
+<style>
+    .newsPhoto {
+        height: 400px;
+        object-fit: cover;
+        width: 100%;
+    }
+/*
+    .newscontent {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        height: 26px;
+    }*/
+    .newscontent {
+       /* width:100%;
+        height:800px;*/
+        color:azure;
+        resize: none;
+        opacity:1;
+        background-color:rgba(0 ,0 ,0 ,0);
+        border:0;
+        font-size:1.5em;
+    }
+</style>
+
+<div class="nk-gap-1"></div>
+<!-- END: Breadcrumbs -->
+
+
+
+<div class="container">
+    <div class="row vertical-gap">
+        <div class="col-md-12">
+
+            <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
+
+            <div class="nk-blog-post nk-blog-post-border-bottom">
+                    <img src="~/NewsImages/@Model.FNewsPhotoPath" class="newsPhoto">
+                              
+                                <div class="nk-gap-1 fs-50"></div>
+                                <h2 class="nk-post-title fs-50 ">@Model.FNewsTitle</h2>
+                                <div class="nk-post-date mt-10 mb-10">
+                                     <span class="fa fa-calendar"></span> @Model.FNewsDate.Value.ToString("yyyy-MM-dd")
+                                </div>
+                                <div class="nk-post-text newscontent">
+                                   @Html.Raw(Model.FNewsContent)
+                                </div>
+                            </div>
+                            <div class="nk-gap"></div>
+
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

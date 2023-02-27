@@ -1,0 +1,83 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using Microsoft.AspNetCore.Http
+@using System.Text.Json
+@using play2.Models
+
+<!-- id、aria-labelledby 名稱需與購物車一致 -->
+@{  
+    @*List<CShoppingCart_item> cart_Items = new List<CShoppingCart_item>();
+    if (Context.Session.GetString(CDictionary.sekey_Product_Cart_Add) != null)
+    {
+        string currentCart = Context.Session.GetString(CDictionary.sekey_Product_Cart_Add);
+        cart_Items = JsonSerializer.Deserialize<List<CShoppingCart_item>>(currentCart);
+    }*@
+    
+}
+<a href="~/Cart/CheckCart" class="nk-cart-toggle">
+     <span id="CartDropDown" class="nk-cart-toggle">
+         <span class="fa fa-shopping-cart"></span>
+            <!-- 數產品個數 -->
+        <span @*class="nk-badge"*@ id="CartDrop_Count">@*@cart_Items.Count()*@</span>
+      </span>
+ </a> 
+ 
+<div class="nk-cart-dropdown" id="CartDropDown_List"> 
+    @*@{
+        @if (cart_Items.Count > 0)
+        {
+            int count = 0;
+            foreach (var item in cart_Items)
+            {
+                count++;
+                if(count > 4)
+                {
+                    break;
+                }
+                <div class="nk-widget-post">
+                
+                    <a asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId" class="nk-post-image">
+                        @if (item.product.PhotoPath == null || item.product.PhotoPath.Trim() == "")
+                            {
+                            <img src="~/assets/images/noImage.png" alt="@item.product.CommodityName">
+                        }
+                        else{
+                            <img src="~/ProductImages/@item.product.PhotoPath" alt="@item.product.CommodityName">
+                        }
+                    </a>
+                    <h3 class="nk-post-title">
+                        <a asp-controller="Cart" asp-action="RemoveCartItem" asp-route-id="@item.CommodityId" class="nk-cart-remove-item"><span class="ion-android-close"></span></a>
+                        <a asp-controller="Commodity" asp-action="Details" asp-route-id="@item.CommodityId">@item.product.CommodityName</a>
+                    </h3>
+                    
+                    <div class="nk-product-cart-quantity">數量：@item.qty</div>
+                    <div class="nk-product-price">NT$ @item.price</div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center">
+                <a asp-controller="Commodity" asp-action="ProList" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">請購物</a>
+            </div>
+        }
+    }
+    @if (cart_Items.Count > 0)
+    {
+        <!-- 結帳-->
+            <div class="nk-gap-2"></div>
+                <div class="text-center">
+                    <a asp-controller="Cart" asp-action="CheckCart" class="nk-btn nk-btn-rounded nk-btn-color-main-1 nk-btn-hover-color-white">查看購物車</a>
+            </div>       
+    }*@
+</div>
+
+
+
+
+
+    
+    

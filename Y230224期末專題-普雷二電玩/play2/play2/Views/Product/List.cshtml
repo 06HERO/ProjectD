@@ -1,0 +1,287 @@
+﻿@model IEnumerable<play2.EFModels.View商品完整資訊>
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewData["Title"] = "List";
+}
+@section Styles{
+    <style>
+        td {
+            margin: auto;
+            font-size: 18px;
+            text-align: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: center;
+            font-size: 26px;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        .t1 {
+            width: 5%;
+        }
+
+        .t2 {
+            width: 10%;
+        }
+
+        .t3 {
+            width: 20%;
+        }
+
+        .t4 {
+            width: 5%;
+        }
+
+        .t5 {
+            width: 10%;
+        }
+
+        .t6 {
+            width: 10%;
+        }
+
+        .t7 {
+            width: 10%;
+        }
+
+    </style>
+}
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title" style="text-align:center;font-size:3em">商品清單</h1>
+
+                    <div class=" d-flex w-100">
+                        <input type="button" id="btnOnShelves" class=" btn btn-success m-3"  value="批次上架" />
+                        <input type="button" id="btnOffShelves" class="btn btn-secondary m-3" value="批次下架" />
+                        <div class=" m-3 row  w-100">
+                            <div class="search-form col-sm-10 d-flex">
+                                <input type="text" id="txtSearch" name="query" placeholder="Search" class="form-control" />                
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="t1">
+                                    <input class="form-check-input" type="checkbox" id="checkall">
+                                </th>
+                                <th class="t2">
+                                    商品編號
+                                </th>
+                                <th class="t3">
+                                    商品名稱
+                                </th>
+                                <th class="t4">
+                                    庫存
+                                </th>
+                                <th class="t5">
+                                    售價
+                                </th>
+                                <th class="t6">
+                                    狀態
+                                </th>
+                                <th class="t7">
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <input class="form-check-input isCheck" id="isCheck" value="@item.CommodityId" type="checkbox">
+                                    </td>
+                                    <td>
+                                        @item.CommodityId
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CommodityName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StockQty)
+                                    </td>
+                                    <td>
+                                        @Convert.ToInt32(item.Price)
+                                    </td>
+                                    <td>
+                                        @if (item.IsShelves == "y")
+                                        {
+                                            @:販售中
+                                        }
+                                        else if (item.IsShelves == "n")
+                                        {
+                                            @:已下架
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @Html.ActionLink("查看/編輯", "Edit", "product", new { id = item.CommodityId }, new { @class = "btn btn-warning" })
+                                        @*@Html.ActionLink("刪除", "Delete","product", new { id=item.CommodityId }, new { onclick = "return confirm('確定要刪除嗎?')" ,Class="btn btn-danger"})*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+@section Scripts{
+
+    
+    <script>
+      
+        var _items = [];
+        $(".isCheck").on('change', checkItem)
+
+        $('#checkall').on('click', () => {
+            if ($('#checkall').prop("checked")) {
+
+                $(".isCheck").each(() => {
+                    $(".isCheck").prop("checked", true);
+                })
+                checkItem();
+            }
+            else {
+
+                $(".isCheck").each(() => {
+                    $(".isCheck").prop("checked", false);
+                })
+                checkItem();
+            }
+        })
+
+        $('#btnOnShelves').on('click', () => {
+            checkItem();
+            const xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', () => {
+
+                location.reload();
+            })
+            var arrItems = _items.join(",");
+            xhr.open("post", "@Url.Content("~/product/Onshelves")");
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(`items=${arrItems}`)
+        })
+
+        $('#btnOffShelves').on('click', () => {
+            checkItem();
+            const xhr = new XMLHttpRequest();
+            xhr.addEventListener('load', () => {
+
+                location.reload();
+            })
+            var arrItems = _items.join(",");
+            xhr.open("post", "@Url.Content("~/product/Offshelves")");
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.send(`items=${arrItems}`)
+        })
+
+        function checkItem() {
+            var array = [];
+            $("#isCheck:checked").each(function (index, element) {
+                array.push(this.value)
+            })
+            _items = array;
+        }
+
+
+        const txtSearch = document.querySelector('#txtSearch');
+        const tbody = document.querySelector('tbody');
+
+        txtSearch.addEventListener('keyup', find)
+
+
+        async function find() {
+            const response = await fetch(`@Url.Content("~/product/search?keyword=${txtSearch.value}")`);
+            const datas = await response.json();
+            const item = datas.map(value => {
+                const { commodityId, commodityName, stockQty, price, isShelves } = value;
+                var qty = "";
+                var shelves = "";
+                var dcprice = "";
+                if (isShelves == "y") {
+                    shelves = "販售中"
+                }
+                else if (isShelves == "n") {
+                    shelves = "已下架"
+                }
+
+                if (stockQty != null) {
+                    qty = stockQty;
+                }
+                if (price != null) {
+                    dcprice = price ;
+                }
+
+
+                return (`
+
+                                                 <tr>
+                                               <td>
+                                                              <input class="form-check-input isCheck" id="isCheck" value=" ${commodityId}" type="checkbox">
+                                               </td>
+                                               <td>
+                                                             ${commodityId}
+                                               </td>
+                                               <td>
+                                                             ${commodityName}
+                                               </td>
+                                               <td>
+                                                                   ${qty}
+                                               </td>
+                                               <td>
+                                                             ${dcprice}
+                                               </td>
+                                               <td>
+                                                   ${shelves}
+                                           </td>
+
+                                           <td>
+                                                     <a href="edit/${commodityId}" class="btn btn-warning">查看/編輯</a>
+                                           </td>
+                                       </tr>
+
+                                            `)
+            })
+            tbody.innerHTML = item.join("");
+
+        }
+
+
+
+       
+
+
+
+
+
+
+
+
+
+
+    </script>
+}

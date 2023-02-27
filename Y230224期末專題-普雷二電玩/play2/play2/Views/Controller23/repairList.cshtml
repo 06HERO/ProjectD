@@ -1,0 +1,59 @@
+﻿@using play2.Controllers
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "repairList";
+}
+
+@section Styles{
+    <style>
+
+    </style>
+}
+
+
+
+<h1 class="card-title" style="text-align:center;font-size:3em">已報修清單</h1>
+<hr>
+    <table class="table table-striped  table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" width="5%">序</th>
+            <th scope="col" width="10%">發現時間</th>
+                <th scope="col" width="10%">發現人</th>
+                <th scope="col"width="10%">分機</th>
+                <th scope="col" width="20%">問題描述</th>
+                <th scope="col" width="15%">處理人員</th>
+                <th scope="col" width="15%">處理回覆</th>
+                <th scope="col" width="8%">結案</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int count = 0;
+            foreach (var c in Model)
+            {
+                count++;
+            <tr>
+                <td>@count</td>
+                <td>@c.registerdate</td>
+                <td>@c.publisher</td>
+                <td>@c.extention</td>
+                <td>@c.describe</td>
+                <td>@c.MISprocesser</td>
+                <td>@c.MISresponse</td>
+                <td>@c.closeOrpending</td>
+            </tr>
+                    }
+        }
+
+
+
+
+    </tbody>
+    </table>
+
+    <a href="~/Controller23/repair" class="btn btn-primary">報修</a>
+
+

@@ -1,0 +1,139 @@
+﻿@model play2.ViewModels.CreateReguMemberViewModel
+
+
+@{   
+    ViewData["Title"] = "一般會員註冊";
+}
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="Register" asp-action="ChooseType">會員類型</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>一般會員註冊</span></li>
+    </ul>
+</div>
+     
+          <div class="d-flex justify-content-center">
+
+              <div class="card bg-transparent mb-3" style="width:25rem;">
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h3 class="card-title text-center">加入會員</h3>
+                    <p class="text-center">設定會員信箱及密碼</p>
+                  </div>
+
+                  <form name="myform" id="myform" method="post" class="row g-3" autocomplete="off">   
+                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-12">
+                      <label for="LoginEmail" class="form-label">帳號(Email)<span class="text-main-1">*</span></label>
+                      <input asp-for="LoginEmail" class="form-control">   
+                      <span id="idLoginEmail" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="LoginPw" class="form-label">密碼<span class="text-main-1">*</span></label>
+                      <input asp-for="LoginPw" type="password" class="form-control">     
+                      <span id="idLoginPw" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="CheckPw" class="form-label">確認密碼<span class="text-main-1">*</span></label>
+                      <input asp-for="CheckPw" type="password" class="form-control">  
+                      <span id="idCheckPw" class="text-danger"></span>
+                    </div>        
+                    
+                    <div class="col-12">
+                      <label for="MemberName" class="form-label">姓名<span class="text-main-1">*</span></label>
+                      <input asp-for="MemberName" class="form-control">  
+                      <span id="idMemberName" class="text-danger"></span>
+                    </div>   
+
+                    <div class="col-12">
+                      <label for="PersonalNumber" class="form-label">身分證字號<span class="text-main-1">*</span></label>
+                      <input asp-for="PersonalNumber" class="form-control">  
+                      <span id="idPersonalNumber" class="text-danger"></span>
+                    </div>  
+
+                    <div class="col-12">
+                      <label for="Phone" class="form-label">電話(手機)<span class="text-main-1">*</span></label>
+                      <input asp-for="Phone" class="form-control">  
+                      <span id="idPhone" class="text-danger"></span>
+                    </div>   
+
+                    <div class="col-12 my-2">
+                      <button id="sub" class="btn btn-danger w-100" type="button">下一步，信箱驗證</button>
+                    </div>
+
+                <div class="col-12 my-2">
+                    <button id="btndemo" class="btn btn-danger w-100" type="button">Demo</button>
+                </div>
+
+                    <div class="col-12">
+                      <p class="small mt-1">已經是普雷迷了? <a asp-action="Index" asp-controller="Home" data-toggle="modal" data-target="#modalLogin">登錄</a></p>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+          </div>
+
+
+
+
+            @section Scripts{
+            <script>
+                $("#sub").on("click",function(){ 
+                    $("#sub").attr("disabled","disabled");
+                    var a=true;
+                    if($("#LoginEmail").val()=="" || $("#LoginPw").val()=="" || $("#CheckPw").val()==""|| 
+                       $("#MemberName").val()==""|| $("#Phone").val()==""){
+                        $("#idSmallModalAlertTitle").text("有欄位沒有填寫");                       
+                        $("#idSmallModalAlert").modal("show");                         
+                        a=false;           
+                        $("#sub").removeAttr("disabled");
+                    }
+
+                    if(a==true){
+                        var formData=new FormData(document.myform);
+                        $.ajax({
+                        url:`@Url.Content("~/Register/CreReguMem")`,
+                        type:"POST",
+                        data:formData,
+                        dataType:"text",
+                        contentType: false, 
+                        processData: false 
+                        }).done((data)=>{
+                        if(data==="n"){
+                          $("#idSmallModalAlertTitle").text("有欄位沒有填寫");                       
+                          $("#idSmallModalAlert").modal("show"); 
+                          $("#sub").removeAttr("disabled");
+                        }
+                        else if(data==="f"){
+                          $("#idSmallModalAlertTitle").text("此信箱已註冊");                       
+                          $("#idSmallModalAlert").modal("show");
+                          $("#sub").removeAttr("disabled");
+                        }
+                        else if(data==="i"){
+                          $("#idSmallModalAlertTitle").text("此身分證已註冊");                       
+                          $("#idSmallModalAlert").modal("show");                          
+                          $("#sub").removeAttr("disabled");
+                        }
+                        else if(data==="y") 
+                          location.href="@Url.Content("~/Register/Verify")"; 
+                        })
+                    }
+                });
+
+                 $("#btndemo").on("click",()=>{
+                 $("#LoginEmail").val("edd3339@gmail.com");
+                 $("#LoginPw").val("asd123");
+                 $("#CheckPw").val("asd123");
+                 $("#MemberName").val("志藝");
+                 $("#PersonalNumber").val("F111122223");
+                 $("#Phone").val("0978427415");
+                });
+            </script>
+          }
+

@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "密碼變更";
+}
+
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><a asp-controller="Login" asp-action="ForgotPW">信箱驗證</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>密碼變更</span></li>
+    </ul>
+</div>
+
+<div class="d-flex justify-content-center">
+
+    <div class="card bg-transparent mb-3" style="width:25rem;">
+        <div class="card-body">
+
+            <div class="pt-4 pb-2">
+                <h3 class="card-title text-center">密碼變更</h3>
+            </div>
+
+            <form name="myform" id="myform" method="post" class="row g-3 my-3" autocomplete="off">
+                <div class="col-12 my-3">
+                    <label for="txtPW" class="form-label">輸入密碼<span class="text-main-1">*</span></label>
+                    <input name="txtPW" id="txtPW" type="password" class="form-control my-3">
+                </div>
+
+                <div class="col-12">
+                    <label for="txtCheckPW" class="form-label">確認密碼<span class="text-main-1">*</span></label>
+                    <input name="txtCheckPW" id="txtCheckPW" type="password" class="form-control">
+                </div>
+
+                <div class="col-12 my-3">
+                    <button id="sunpw" class="btn btn-danger w-50" type="button">密碼變更</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $("#sunpw").on("click", ChangPW);
+        function ChangPW() {
+            $("#sunpw").attr("disabled", "disabled");
+            var a = true;
+            if ($("#txtPW").val() == "" || $("#txtCheckPW").val()=="") {
+                alert("請輸入密碼");
+                a = false;
+                $("#sunpw").removeAttr("disabled");
+            }
+            if (a == true) {
+                var PW = $("#txtPW").val();
+                $.ajax({
+                    url: `@Url.Content("~/Login/ChangePW")`,
+                    type: "POST",
+                    data: {"PW":PW},
+                    dataType: "text",
+                }).done((data) => {
+                    if (data === "n") {   
+                       $("#idSmallModalAlertTitle").text("變更密碼失敗");                       
+                       $("#idSmallModalAlert").modal("show");                         
+                    }
+                    else if (data === "failconnect"){
+                        $("#idSmallModalAlertTitle").text("無效的憑證，開始跳轉");                       
+                        $("#idSmallModalAlert").modal("show");  
+                        setTimeout(()=>{location.href = "@Url.Content("~/Home/Index")"},2000);               
+                    }
+                    else if (data === "success") {
+                        $("#idSmallModalAlertTitle").text("密碼以變更，開始跳轉");                       
+                        $("#idSmallModalAlert").modal("show");  
+                        setTimeout(()=>{location.href = "@Url.Content("~/Home/Index")"},2000);                
+                    }
+                }).fail((err) => {
+                    $("#idSmallModalAlertTitle").text("發生錯誤 ${err.statusText}");                       
+                    $("#idSmallModalAlert").modal("show"); 
+                    $("#sunpw").removeAttr("disabled");
+                });
+            }
+        };
+     
+    </script>
+}

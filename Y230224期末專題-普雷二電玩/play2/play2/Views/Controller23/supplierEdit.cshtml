@@ -1,0 +1,249 @@
+﻿@model play2.Controllers.Ctsupplier
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "supplierEdit";
+}
+@section Styles{
+    <style>
+        @@media print {
+          .no-print {
+            display: none;
+          }
+        }          
+        </style>
+        }
+<form method="post" >
+    <h1 class="card-title" style="text-align:center;font-size:3em">
+        供應商修改</h1>
+        <hr >
+    <div class="mb-5" style="margin-left: 30%" needs-validation>
+        <div style="display:flex ;margin-top:12px" >
+            <input type="hidden" name="SupplierID" value="@Model.SupplierID" />
+
+            @*type="hidden"*@
+            <div>
+            <p>
+                統編
+                <br>
+                    <input type="text" name="TaxIDNumber" value="@Model.TaxIDNumber" required id="code" />
+            </p>
+        </div>
+            &nbsp;&nbsp;
+        <div>
+            <p>
+                公司名稱
+                <br>
+                <input type="text" name="SupplierName" style="width:120%" value="@Model.SupplierName" required id="inc" />
+            </p>
+            </div>
+        </div>
+        
+        <div style="display:flex ;margin-top:12px">
+
+        <div>
+            <p>
+                電話
+                <br>
+                    <input type="text" name="Phone" value="@Model.Phone" required id="tel" />
+            </p>
+        </div>
+            &nbsp;&nbsp;
+        <div>
+            <p>
+                負責人
+                <br>
+                <input type="text" name="PrincipalMan" value="@Model.PrincipalMan" required id="people" />
+            </p>
+        </div>
+
+
+        </div>
+        <br>
+        <div style="display:flex ;margin-top:12px">
+            **銀行機構查詢
+            <select id="selbank">
+                <option>001中央信託</option>
+                <option>006合庫商銀</option>
+                <option>010華僑銀行</option>
+                <option>016高雄銀行</option>
+                <option>024運通銀行</option>
+                <option>050臺灣企銀</option>
+                <option>054京城商銀</option>
+                <option>081匯豐銀行</option>
+                <option>102華泰銀行</option>
+                <option>108陽信銀行</option>
+                <option>003交通銀行</option>
+                <option>007第一銀行</option>
+                <option>011上海銀行</option>
+                <option>017兆豐商銀</option>
+                <option>025首都銀行</option>
+                <option>051台北商銀</option>
+                <option>056花蓮企銀</option>
+                <option>083渣打銀行</option>
+                <option>103臺灣新光商銀</option>
+                <option>004台灣銀行</option>
+                <option>008華南銀行</option>
+                <option>012台北富邦</option>
+                <option>018農業金庫</option>
+                <option>039荷蘭銀行</option>
+                <option>052新竹商銀</option>
+                <option>057台東企銀</option>
+                <option>087標旗銀行</option>
+                <option>005土地銀行</option>
+                <option>009彰化銀行</option>
+                <option>013國泰世華</option>
+                <option>021花旗銀行</option>
+                <option>040中華開發</option>
+                <option>053台中商銀</option>
+                <option>075東亞銀行</option>
+                <option>147三信銀行</option>
+                <option>151第七商銀</option>
+                <option>118板信銀行</option>
+                <option>803聯邦銀行</option>
+                <option>807建華銀行</option>
+                <option>812台新銀行</option>
+                <option>822中國信託</option>
+                <option>804中華銀行</option>
+                <option>808玉山銀行</option>
+                <option>814大眾銀行</option>
+                <option>825慶豐銀行</option>
+                <option>805遠東銀行</option>
+                <option>809萬泰銀行</option>
+                <option>815日盛銀行</option>
+                <option>806復華銀行</option>
+                <option>810寶華銀行</option>
+                <option>816安泰銀行</option>
+                <option>700中華郵政</option>
+
+            </select>
+
+        </div>
+
+        <div style="display:flex ;margin-top:12px" >
+
+            <div>
+                <p>
+                    銀行代碼
+                    <br>
+                    <input type="text" name="SwiftCode" value="@Model.SwiftCode" id="num" required />
+                </p>
+            </div>
+            &nbsp;&nbsp;
+            <div>
+                <p>
+                    機構名稱
+                    <br>
+                    <input type="text" name="BankName" value="@Model.BankName" id="bankname" required />
+                </p>
+            </div>
+            &nbsp;&nbsp;
+            <div>
+                <p>
+                    銀行帳號
+                    <br>
+                    <input type="text" name="Account" value="@Model.Account" required id="acc"/>
+                </p>
+            </div>
+            &nbsp;&nbsp;
+        </div>
+        <div style="display:flex ;margin-top:12px">
+            <div>
+                <p>
+                    資本額
+                    <br>
+                    <input type="text" name="CapitalAmount" value="@Model.CapitalAmount" required id="cp"  />
+                </p>
+            </div>
+            &nbsp;&nbsp;
+            <div>
+                <p>
+                    供應商等級
+                    <br>
+                    <input type="text" name="Grade" value="@Model.Grade" required id="grd" />
+                </p>
+            </div>
+
+
+        </div>
+        </div>
+
+        <hr >
+    <div style="display:flex ;margin-top:2% ; margin-left: 30% ">
+            <p>
+            <input type="submit" id="ed" class="btn btn-primary no-print" value="修改" />
+            </p>
+            &nbsp;&nbsp;
+            <p>
+            <button type="button" class="btn btn-warning no-print" id="demo">Demo</button>
+            <img style="height:36px;margin-top:-50px;margin-left:-54px;" src="~/assets/images/cat.gif" />
+
+            </p>
+
+        </div>
+        
+
+    <div style="display:flex ;margin-top:12px ; margin-left: 30%" >
+        <p class="no-print">
+                <a style="color:blue ; font-size:24px" href="~/Controller23/supplierList"><i class="bi bi-arrow-left-circle-fill"></i>回到供應商清單</a>
+            </p>
+        </div>
+
+
+
+
+
+</form>
+@section Scripts{
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script>
+        let demo = document.querySelector("#demo");
+        let code = document.querySelector("#code");
+        let inc = document.querySelector("#inc");
+        let tel = document.querySelector("#tel");
+        let people = document.querySelector("#people");
+        let num = document.querySelector("#num");
+        let bankname = document.querySelector("#bankname");
+        let acc = document.querySelector("#acc");
+        let cp = document.querySelector("#cp");
+        let grd = document.querySelector("#grd");
+
+        demo.addEventListener("click", function () {
+            code.value = "84213531";
+            inc.value = "修改過娛樂電玩股份有限公司";
+            tel.value = "0328885511";
+            people.value = "王改強";
+            num.value ="004";
+            bankname.value = "台灣銀行";
+            acc.value = "741258963214";
+            cp.value = "80,000,000";
+            grd.value = "A";
+        })
+
+      $("#ed").on("click", sure);
+        function sure(){
+            var dfd = jQuery.Deferred();
+            Swal.fire({
+                //position: 'top-end',
+                icon: 'success',
+                title: '完成修改',
+                showConfirmButton: false
+            }).then(function (result) {
+                if (result.value) { dfd.resolve(); }
+                else { dfd.reject(); }
+            });
+
+        }
+
+                console.log($("#ed"));
+
+        
+
+
+
+    </script>
+
+
+
+}

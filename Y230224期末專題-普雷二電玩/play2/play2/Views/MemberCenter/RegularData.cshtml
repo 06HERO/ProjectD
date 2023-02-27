@@ -1,0 +1,190 @@
+﻿@model IEnumerable<play2.EFModels.View一般會員詳細資料>
+
+@{   
+    ViewData["Title"] = "會員資料";
+}
+
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>會員資料</span></li>
+    </ul>
+</div>
+
+
+@{
+    int addrestlength = Model.Select(t => t.Addrest).Distinct().Count();
+    int banklength = Model.Select(t => new { t.SwiftCode, t.BankAccount }).Distinct().Count();
+    <form method="post" id="MemberDataForm" name="MemberDataForm">
+
+                                    <div class="form-row">
+                                           <div class="form-group col-md-6">
+                                                 <label for="LoginEmail">登入信箱</label>
+                                                 <input type="email" class="form-control bg-dark text-white" id="LoginEmail" name="vm[0].LoginEmail" value="@Model.Select(t=>t.LoginEmail).FirstOrDefault()" readonly/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                   <label for="Phone">會員電話</label>
+                                                   <input type="text" class="form-control bg-dark text-white" id="Phone" name="vm[0].Phone" value="@Model.Select(t=>t.Phone).FirstOrDefault()" readonly/>
+                                             </div> 
+                                     </div>
+
+                                    <div class="form-row">
+                                           <div class="form-group col-md-6">
+                                                  <label for="MemberName">會員姓名</label>
+                                                  <input type="text" class="form-control" id="MemberName" name="vm[0].MemberName" value="@Model.Select(t=>t.MemberName).FirstOrDefault()">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                  <label for="PersonalNumber">身分證字號</label>
+                                                  <input type="text" class="form-control bg-dark text-white" id="PersonalNumber" name="vm[0].PersonalNumber" value="@Model.Select(t=>t.PersonalNumber).FirstOrDefault()" readonly/>
+                                           </div>
+                                    </div>
+                                       
+                                    
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="inputAddress">常用地址1</label>
+                                            <input type="text" class="form-control" name="vm[0].Addrest" value="@Model.Select(t => t.Addrest).Distinct().ElementAtOrDefault(0)">
+                                        </div>
+                                        <div class="form-group col-md-2">
+                                            <label for="inputAddress">常用帳戶1</label>
+                                            <input type="text" class="form-control" name="vm[0].SwiftCode" value="@Model.Select(t => t.SwiftCode).Distinct().ElementAtOrDefault(0)" placeholder="銀行代碼">
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="inputAddress">　</label>
+                                            <input type="text" class="form-control" name="vm[0].BankAccount" value="@Model.Select(t => t.BankAccount).Distinct().ElementAtOrDefault(0)" placeholder="帳號">
+                                        </div>
+                                    </div>          
+                                           
+                                    <div class="form-row">
+                                       <div class="form-group col-md-6">
+                                         <label for="inputAddress">常用地址2</label>           
+                                         <input type="text" class="form-control" name="vm[1].Addrest" value="@Model.Select(t => t.Addrest).Distinct().ElementAtOrDefault(1)">
+                                        </div>                
+                                        <div class="form-group col-md-2">
+                                            <label for="inputAddress">常用帳戶2</label>
+                                            <input type="text" class="form-control" name="vm[1].SwiftCode" value="@Model.Select(t => t.SwiftCode).Distinct().ElementAtOrDefault(1)" placeholder="銀行代碼">
+                                        </div>                 
+                                        <div class="form-group col-md-4">
+                                            <label for="inputAddress">　</label>
+                                            <input type="text" class="form-control" name="vm[1].BankAccount" value="@Model.Select(t => t.BankAccount).Distinct().ElementAtOrDefault(1)" placeholder="帳號">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                         <label for="inputAddress">常用地址3</label>
+                                         <input type="text" class="form-control" name="vm[2].Addrest" value="@Model.Select(t => t.Addrest).Distinct().ElementAtOrDefault(2)">
+                                          </div>
+                                         <div class="form-group col-md-2">
+                                            <label for="inputAddress">常用帳戶3</label>
+                                            <input type="text" class="form-control" name="vm[2].SwiftCode" value="@Model.Select(t => t.SwiftCode).Distinct().ElementAtOrDefault(2)" placeholder="銀行代碼">
+                                        </div>                 
+                                        <div class="form-group col-md-4">
+                                            <label for="inputAddress">　</label>
+                                            <input type="text" class="form-control" name="vm[2].BankAccount" value="@Model.Select(t => t.BankAccount).Distinct().ElementAtOrDefault(2)" placeholder="帳號">
+                                        </div>
+                                    </div>    
+
+
+                                        <button type="button" id="btnChangMemberDatas" class="nk-btn nk-btn-x2 nk-btn-rounded btn-success" style="margin:32px 32px 32px 6px;width:20%;">
+                                            <span class="icon ion-paper-airplane"></span>填寫完成
+                                        </button>
+                                        <button type="button" class="nk-btn nk-btn-x2 nk-btn-rounded btn-danger" style="margin:32px 32px 32px 6px;width:20%;"data-toggle="modal" data-target="#ChangePassWord">
+                                            變更密碼
+                                        </button>
+    </form>         
+}
+
+
+<!-- Modal -->
+<div class="modal fade" id="ChangePassWord" tabindex="-1" role="dialog" aria-labelledby="ChangePassWord" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">               
+                    <div class="form-group">
+                        <label for="LoginPW" class="col-form-label">新的密碼</label>
+                        <input type="password" class="form-control" id="LoginPW" name="LoginPW">
+                    </div>
+                    <div class="form-group">
+                        <label for="CheckPW" class="col-form-label">確認密碼</label>
+                        <input type="password" class="form-control" id="CheckPW" name="CheckPW">
+                        <span id="spanPW" class="text-danger"></span>
+                    </div>          
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" id="btnchange" class="btn btn-danger">確認</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#btnChangMemberDatas").on("click",()=>{
+            $("#btnChangMemberDatas").attr("disabled","disabled");
+            var formData=new FormData(document.MemberDataForm);
+            $.ajax({
+                url:`@Url.Content("~/MemberCenter/EditMemberData")`,
+                type:"post",
+                data:formData,
+                dataType:"text",
+                contentType: false, 
+                processData: false 
+            }).done((data)=>{
+                if(data==="success"){
+                    $("#idSmallModalAlertTitle").text("會員資料修改成功");
+                    $("#idSmallModalAlert").modal("show");
+                    $('.modal-backdrop').removeClass("modal-backdrop");
+                    $("#btnChangMemberDatas").removeAttr("disabled");
+                }
+                else{
+                    $("#idSmallModalAlertTitle").text("會員資料修改失敗");
+                    $("#idSmallModalAlert").modal("show");
+                    $('.modal-backdrop').removeClass("modal-backdrop");
+                    $("#btnChangMemberDatas").removeAttr("disabled");
+                }
+            }).fail(()=>{
+                alert("發生錯誤");
+            });
+        
+        })
+
+
+        $("#btnchange").on("click",()=>{
+            var LoginPw = $("#LoginPW").val();
+            var CheckPw = $("#CheckPW").val();
+            $("#btnchange").attr("disabled", "disabled");
+            $.ajax({
+                url: `@Url.Content("~/MemberCenter/ChangePW")`,
+                type:"POST",
+                data: { "LoginPw": LoginPw, "CheckPw": CheckPw },
+                dataType:"text"
+            }).done((data)=>{
+                if(data==="fail"){
+                    $("#spanPW").text("密碼不一致");
+                    $("#btnchange").removeAttr("disabled");                    
+                }
+                else if (data === "success") {
+                    $("#ChangePassWord").removeClass("in");
+                    $(".modal-backdrop").remove();
+                    $("#ChangePassWord").hide();
+
+                    $("#idSmallModalAlertTitle").text("密碼已變更");
+                    $("#idSmallModalAlert").modal("show");
+                    $('.modal-backdrop').remove();
+
+                    $("#btnchange").removeAttr("disabled");
+                    $("#LoginPW").val("");
+                    $("#CheckPW").val("");
+                }
+            }).fail(()=>{
+                alert("發生錯誤");
+            });
+
+        });
+
+    </script>
+}

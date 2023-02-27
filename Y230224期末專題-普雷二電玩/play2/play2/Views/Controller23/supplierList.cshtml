@@ -1,0 +1,201 @@
+﻿@using System.Globalization
+@using play2.Controllers
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "supplierList";
+}
+
+
+@section Styles{
+    <style>
+        @@media print {
+          .no-print {
+            display: none;
+          }
+        }          
+
+        table{
+        }
+
+        .table-bordered {
+            border: 1px solid #ddd !important;
+        }
+
+        td{
+            text-align: center;
+        }
+
+        .p {
+            text-align: center;
+            padding-top: 140px;
+            font-size: 14px;
+        }
+
+    </style>
+}
+
+
+<h1 class="card-title" style="text-align:center;font-size:3em">
+    供應商列表</h1>
+<hr>
+
+<div style="display:flex">
+    <p>
+        <a href="~/Controller23/supplierCreate" class="btn btn-primary no-print">+新增供應商</a>
+        <br>
+    </p>
+    <div style="margin-left:28px ; display:flex">
+        <input type="text" class="form-control no-print" style="height:36px"   id="supinput" />
+        &nbsp;&nbsp;
+        <input type="submit" class="btn btn-outline-secondary no-print " style="height:36px" id="searchname" value="查詢供應商" />
+
+
+    </div>
+
+
+</div>
+<div style="height:12px"></div>
+<div style="height:12px ;margin-bottom:36px">
+    <span class="btn btn-primary active no-print">=查詢區=</span>
+    &nbsp;&nbsp;
+    <button class="btn btn-primary active no-print" id="clearsearch">X 清除</button>
+    </div>
+
+<div id="searchSupplier"></div>
+<div style="height:24px"></div>
+
+<div >
+        <table border="1" class="table table-bordered table-hover">
+            <tr style="background-color:Lavender">
+            <td width="50px">序</td>
+            <td width="250px">公司名稱</td>
+            <td>統編</td>
+            <td width="150px">電話</td>
+            <td>負責人</td>
+                <td width="150px">銀行代碼</td>
+                <td width="250px">機構名稱</td>
+                <td width="300px">銀行帳號</td>
+            <td>資本額</td>
+            <td width="200px">供應商等級</td>
+            <td width="120px" class="no-print">修改</td>
+            <td width="120px" class="no-print">刪除</td>
+            <td width ="120px" class="no-print">附件</td>
+
+        </tr>
+        @{
+            int count = 0;
+            foreach (Ctsupplier s in Model)
+            {
+                count++;
+                <tr>
+                    <td>@count</td>
+                    <td>@s.SupplierName</td>
+                    <td>@s.TaxIDNumber</td>
+                    <td>@s.Phone</td>
+                    <td>@s.PrincipalMan</td>
+                    <td>@s.SwiftCode</td>
+                    <td>@s.BankName</td>
+                    <td>@s.Account</td>
+                    <td>@s.CapitalAmount </td>
+                    <td>@s.Grade</td>
+
+                    <td class="no-print">@Html.ActionLink("修改", "supplierEdit", "Controller23", new { id = s.SupplierID }, new {@class="btn btn-success "  })</td>
+                <td class="no-print">@Html.ActionLink("刪除", "supplierDelete", "Controller23", new { id = s.SupplierID }, new { onclick = "return confirm('請確認是否刪除此筆供應商?')", @class = "btn btn-danger " })</td>
+                    <td class="no-print">
+                    <a href="~/SupplierFile/供應商建檔申請-sony.pdf" target="_blank" class="btn btn-secondary no-print">
+                            <i class="bi bi-collection no-print "></i>
+                                                </a>
+                    </td>
+
+                </tr>
+            }
+        }
+
+    </table>
+</div>
+<div>
+    <div  style="height:100px">
+        <button type="button" class="btn btn-info no-print" onclick="window.print()" style="float:right">列印</button>
+    </div>
+
+</div>
+@section Scripts {
+    <script>
+        //查詢供應商
+        const searchSupplier = $("#searchSupplier"); //table的父元素
+        const supinput = $("#supinput"); //查詢框
+        const searchname = $("#searchname"); //查詢按鍵
+        searchname.on("click", Suppliersearchname);
+        function Suppliersearchname() {
+            let name = supinput.val();
+            $.ajax({
+                url: `@Url.Content("~/Controller23/Suppliersearchname")`,
+                type: "post",
+                data: { "name": name },
+                dataType: "json"
+            }).done((datas) => {
+                console.log(datas);
+                $.each(datas, (index, value) => {
+                    searchSupplier.append(`<table border="1" class="table table-bordered table-hover">
+                    <tr style="background-color:Lavender">
+                    <td width="50px">序</td>
+                    <td width="250px">公司名稱</td>
+                    <td>統編</td>
+                    <td width="150px">電話</td>
+                    <td>負責人</td>
+                        <td width="150px">銀行代碼</td>
+                        <td width="250px">機構名稱</td>
+                        <td width="300px">銀行帳號</td>
+                    <td>資本額</td>
+                    <td width="200px">供應商等級</td>
+                    <td width="120px" class="no-print">修改</td>
+                    <td width="120px" class="no-print">刪除</td>
+                    <td width ="120px" class="no-print">附件</td>
+
+                </tr>
+
+                        <tr>
+                            <td>${value.supplierId}</td>
+                            <td>${value.supplierName}</td>
+                            <td>${value.taxIdnumber}</td>
+                            <td>${value.phone}</td>
+                            <td>${value.principalMan}</td>
+                            <td>${value.swiftCode}</td>
+                            <td>${value.bankName}</td>
+                            <td>${value.account}</td>
+                            <td>${value.capitalAmount}</td>
+                            <td>${value.grade}</td>
+
+                                     <td class="no-print"><a class="btn btn-success " href="/Controller23/supplierEdit/${value.supplierId}">修改</a></td>
+                             <td class="no-print"><a class="btn btn-danger " href="/Controller23/supplierDelete/${value.supplierId}" onclick="return confirm('請確認是否刪除此筆供應商?')">刪除</a></td>
+                            <td class="no-print">
+                            <a href="/SupplierFile/供應商建檔申請-sony.pdf" target="_blank" class="btn btn-secondary no-print">
+                                    <i class="bi bi-collection no-print "></i>
+                                                        </a>
+                            </td>
+
+                        </tr>
+
+                        </table>`);
+                    console.log(searchSupplier);
+                            })
+                            })
+                            ;
+                            };
+       
+        //清除查詢
+        const clearsearch = $("#clearsearch");
+        clearsearch.on("click", searchclear);
+        function searchclear(){
+            searchSupplier.empty();
+        };
+
+
+        </script>
+
+
+
+}
+
+

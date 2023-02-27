@@ -1,0 +1,486 @@
+﻿@model play2.EFModels.View商品完整資訊
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+
+@section Styles{
+    <style>
+        .content {
+            border-radius: 5px;
+            height: 400px;
+            width: 100%;
+            margin-left: -5px;
+            resize: none;
+            border: solid 1px #dddddd;
+        }
+
+        .lbType {
+            margin-right: 10px;
+        }
+
+        .showimg {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .imgdiv {
+            height: 350px;
+            width: 40%;
+            background-color: floralwhite;
+            object-fit: cover;
+            border-radius: 5px;
+            border: solid 1px #dddddd;
+        }
+
+        .imgdiv2 {
+            height: 400px;
+            width: 65%;
+            background-color: floralwhite;
+            object-fit: cover;
+            border-radius: 5px;
+            border: solid 1px #dddddd;
+        }
+    </style>
+        }
+
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title " style="text-align:center;font-size:3em">商品建檔</h1>
+
+                    <ul class="nav nav-tabs nav-tabs-fill" id="myTab" role="tablist" style="font-size:26px">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">遊戲</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">主機/周邊</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+
+                        <!----------------------------------遊戲開始----------------------------->
+
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                            <form asp-action="CreateGame" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="d-flex justify-content-start mt-5 mb-3">
+                                    <div class="col-sm-1">
+                                        <input asp-action="list" type="submit" value="返回" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input asp-action="CreateGame" type="submit" value="建檔" class="btn btn-success btnSweetalert" />
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        <input type="button" id="gameDemo" value="Demo" class="btn btn-info" />
+                                        <img style="height:36px;margin-top:-51px;margin-left:-56px;" src="~/assets/images/cat.gif" />
+
+                                    </div>
+
+                                </div>
+
+                                <div class="d-flex  mt-3 justify-content-around">
+                                    <div class="col-lg-5 m-20">
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">商品名稱</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="CommodityName" id="gdName" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">售價</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Price" id="gdPrice" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">上市日期</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="ReleaseDate" id="gdDate" type="date" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊戲平台</label>
+                                            <div class="col-sm-10">
+                                                <select asp-for="GameStation" class="form-select">
+                                                    <option value="PS4">PS4</option>
+                                                    <option value="PS5">PS5</option>
+                                                    <option value="XBOX">XBOX</option>
+                                                    <option value="NS">NS</option>
+                                                </select>
+                                            </div>
+                                            <span asp-validation-for="GameStation" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊戲分類</label>
+                                            <div class="col-sm-10">
+                                                <div>
+                                                    <input type="checkbox" class="cbType" id="tag1" value="1" name="TagId1">
+                                                    <label class="lbType" for="tag1">動作</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag2" value="2" name="TagId1">
+                                                    <label class="lbType" for="tag2">冒險</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag3" value="3" name="TagId1">
+                                                    <label class="lbType" for="tag3">角色扮演</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag4" value="4" name="TagId1">
+                                                    <label class="lbType" for="tag4">街機</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag5" value="5" name="TagId1">
+                                                    <label class="lbType" for="tag5">射擊</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag6" value="6" name="TagId1">
+                                                    <label class="lbType" for="tag6">益智</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="checkbox" class="cbType" id="tag7" value="7" name="TagId1">
+                                                    <label class="lbType" for="tag7">模擬遊戲</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag8" value="8" name="TagId1">
+                                                    <label class="lbType" for="tag8">教育</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag9" value="9" name="TagId1">
+                                                    <label class="lbType" for="tag9">休閒</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag10" value="10" name="TagId1">
+                                                    <label class="lbType" for="tag10">戰略</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag11" value="11" name="TagId1">
+                                                    <label class="lbType" for="tag11">格鬥</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag12" value="12" name="TagId1">
+                                                    <label class="lbType" for="tag12">運動</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="checkbox" class="cbType" id="tag13" value="13" name="TagId1">
+                                                    <label class="lbType" for="tag13">賽車</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag14" value="14" name="TagId1">
+                                                    <label class="lbType" for="tag14">恐怖</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag15" value="15" name="TagId1">
+                                                    <label class="lbType" for="tag15">家庭</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag16" value="16" name="TagId1">
+                                                    <label class="lbType" for="tag16">音樂</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag17" value="17" name="TagId1">
+                                                    <label class="lbType" for="tag17">派對</label>
+
+                                                    <input type="checkbox" class="cbType" id="tag18" value="18" name="TagId1">
+                                                    <label class="lbType" for="tag18">成人</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊玩人數</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="PlayNumber" id="gdHuman" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="PlayNumber" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊戲分級</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="PegiRating" id="gdLevel" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="PegiRating" class="text-danger"></span>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">官方網站</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="OfficialWebsite" id="gdWeb" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="OfficialWebsite" class="text-danger"></span>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">上傳圖片</label>
+                                            <div class="col-sm-10">
+                                                <input name="photo" accept=".jpg, .jpeg, .png" type="file" id="imgInput" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="PhotoPath" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5">
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">開發商</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Developer" id="gdDev" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Developer" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">出版商</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Publisher" id="gdPub" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Publisher" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">代理商</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Agent" id="gdAge" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Agent" class="text-danger"></span>
+                                        </div>
+
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 ">圖片預覽</label>
+                                            <div class="col-sm-10 imgdiv  ">
+                                                <img class="showimg" id="imgPrint" src="~/assets/images/noImage.png" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3 d-flex justify-content-center">
+                                    <label asp-for="Profile" class="col-sm-1  col-form-label">商品描述</label>
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="Profile" name="editor" id="editor" class="form-control content gdInfo" name="Profile"></textarea>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                        <!----------------------------------遊戲結束----------------------------->
+                        <!----------------------------------主機/周邊開始----------------------------->
+
+                        <div class="tab-pane fade " id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                            <form asp-action="CreateConsole" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="d-flex justify-content-start mb-3 mt-5">
+                                    <div class="col-sm-1">
+                                        <input asp-action="list" type="submit" value="返回" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input asp-action="CreateConsole" type="submit" value="建檔" class="btn btn-success btnSweetalert" />
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input type="button" id="ConsoleDemo" value="Demo" class="btn btn-info " />
+                                        <img style="height:36px;margin-top:-50px;margin-left:-56px;" src="~/assets/images/cat.gif" />
+
+                                    </div>
+                                </div>
+                                <div class="d-flex  mt-3 justify-content-around">
+                                    <div class="col-lg-5 m-20">
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">商品名稱</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="CommodityName" id="cdName" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">售價</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Price" id="cdPrice" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">商品顏色</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="HostColor" id="cdColor" type="text" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="HostColor"  class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊戲平台</label>
+                                            <div class="col-sm-10">
+                                                <select asp-for="HostStation" class="form-select">
+                                                    <option value="PS4">PS4</option>
+                                                    <option value="PS5">PS5</option>
+                                                    <option value="XBOX">XBOX</option>
+                                                    <option value="NS">NS</option>
+                                                </select>
+                                            </div>
+                                            <span asp-validation-for="HostStation" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">上傳圖片</label>
+                                            <div class="col-sm-10">
+                                                <input name="photo" accept=".jpg, .jpeg, .png" id="imgInput2" type="file" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-5">
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 ">圖片預覽</label>
+                                            <div class="col-sm-10 imgdiv2  ">
+                                                <img class="showimg" id="imgPrint2" src="~/assets/images/noImage.png" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script>
+        const btnSweetalert = document.querySelector('.btnSweetalert');
+        $('.btnSweetalert').on("click", () => {
+            swalert();
+        })
+        function swalert() {
+            var dfd = jQuery.Deferred();
+            Swal.fire({
+                icon: 'success',
+                title: '商品建檔完成',
+                showConfirmButton: false
+            }).then(function (result) {
+                if (result.value) { dfd.resolve(); }
+                else { dfd.reject(); }
+            });
+        }
+
+
+
+
+        const imgInput = document.querySelector("#imgInput");
+        const imgPrint = document.querySelector("#imgPrint");
+        const imgInput2 = document.querySelector("#imgInput2");
+        const imgPrint2 = document.querySelector("#imgPrint2");
+        imgInput.addEventListener("change", () => {
+            const [file] = imgInput.files;
+            if (file) { imgPrint.src = URL.createObjectURL(file) }
+        })
+        imgInput2.addEventListener("change", () => {
+            const [file] = imgInput2.files;
+            if (file) { imgPrint2.src = URL.createObjectURL(file) }
+        })
+        CKEDITOR.replace('editor');
+
+
+
+
+        //----------------------GameDemo------------------------
+        const gameDemo = document.querySelector('#gameDemo');
+        const gdName = document.querySelector('#gdName');
+        const gdPrice = document.querySelector('#gdPrice');
+        const gdDate = document.querySelector('#gdDate');
+        const gdHuman = document.querySelector('#gdHuman');
+        const gdLevel = document.querySelector('#gdLevel');
+        const gdWeb = document.querySelector('#gdWeb');
+        const gdDev = document.querySelector('#gdDev');
+        const gdPub = document.querySelector('#gdPub');
+        const gdAge = document.querySelector('#gdAge');
+        const gdInfo = document.querySelector('.gdInfo');
+
+        gameDemo.addEventListener("click", ()=> {
+            gdName.value = "流浪貓的故事 (韓文, 英文, 繁體中文, 日文)";
+            gdPrice.value="300"
+            gdDate.value = "2022-04-28"
+            gdHuman.value = "1人"
+            gdLevel.value = "普遍級"
+            gdWeb.value = "-"
+            gdDev.value = "CFK Co., Ltd."
+            gdPub.value = "CFK Co., Ltd."
+            gdAge.value = "-"
+            CKEDITOR.instances.editor.setData(`<p>一隻失去母親的小貓的故事登上PlayStation&reg;4！</p>
+
+        <p>玩家扮演的小貓必須在街上存活下去直到長大。</p>
+
+        <p>◆飢餓的小貓</p>
+
+        <p>路邊的小貓時常處於飢餓的狀態。 探索街道，尋找食物，不要讓小貓餓死。</p>
+
+        <p>◆結識人類</p>
+
+        <p>街上有許多性格不同的人類。</p>
+
+        <p>有人會疼愛你，有人會給你食物，他們也有各自的情況。</p>
+
+        <p>和街上的人們友好相處，聽他們講述自己的故事吧。</p>
+
+        <p>◆多種結局</p>
+
+        <p>在長大前的最後一天，你至今為止所做的選擇 會發展為各式各樣的結局。</p>
+
+        <p>小貓的未來就在你的手中！</p>`)
+        
+        })
+
+                //----------------------ConsoleDemo------------------------
+
+
+        const consoleDemo = document.querySelector('#ConsoleDemo');
+        const cdName = document.querySelector('#cdName');
+        const cdPrice = document.querySelector('#cdPrice');
+        const cdColor = document.querySelector('#cdColor');
+
+        consoleDemo.addEventListener('click',()=>{
+            cdName.value = "【PS4】「MEGA PACK」同捆組 冰河白 1TB主機";
+            cdPrice.value = "9980";
+            cdColor.value = "白";
+            
+        })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+}

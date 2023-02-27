@@ -1,0 +1,212 @@
+﻿@model IEnumerable<play2.EFModels.TNews>
+
+@{
+    ViewData["Title"] = "NewsList";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+@section Styles{
+    <style>
+        td {
+            /*         margin: auto;*/
+            /*font-size: 28px;*/
+            text-align: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            height: 30px;
+            table-layout: fixed;
+        }
+
+
+        tr:last-child {
+            overflow: clip;
+            text-overflow: clip;
+        }
+
+        th {
+            text-align: center;
+            /*font-size: 28px;*/
+        }
+
+        .th1 {
+            width: 10%;
+        }
+
+        .th2 {
+            width: 15%;
+        }
+
+        .th3 {
+            width: 20%;
+        }
+
+        .th4 {
+            width: 20%;
+        }
+
+        .th5 {
+            width: 15%;
+        }
+
+        .th6 {
+            width: 15%;
+        }
+
+        .lasttd {
+            overflow: clip;
+            text-overflow: clip;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+    </style>
+}
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h1 class="card-title" style="text-align:center;font-size:3em">新聞列表</h1>
+
+                    <div class=" m-3 d-flex  w-100 justify-content-center">
+                        <div class="search-form col-sm-10 d-flex">
+                            <input type="text" id="txtSearch" name="query" placeholder="Search" class="form-control" />
+                        </div>
+                    </div>
+                    <hr />
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="th1">
+                                    編號
+                                </th>
+                                <th class="th2">
+                                    新聞類型
+                                </th>
+                                <th class="th5">
+                                    發布日期
+                                </th>
+                                <th class="th3">
+                                    標題
+                                </th>
+                 
+                                <th class="th6">
+                               
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        <td>
+                                            @item.FNewsId
+                                        </td>
+                                        <td>
+                                            @if (item.FNewsType == 1)
+                                            {
+                                                @:活動資訊
+                                            }
+                                            else if (item.FNewsType == 2)
+                                            {
+                                                @:永續經營
+                                            }
+                                            else if (item.FNewsType == 3)
+                                            {
+                                                @:其他新聞
+                                            }
+
+                                        </td>
+                                        <td>
+                                            @if (item.FNewsDate != null)
+                                            {
+                                                @item.FNewsDate.Value.ToString("yyyy-MM-dd")
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.Raw(item.FNewsTitle)
+                                        </td>
+                                
+
+                                        <td class="lasttd">
+                                                @Html.ActionLink("編輯", "EditNews", "News", new { id = item.FNewsId }, new { @class = "btn btn-warning" }) |
+                                                @Html.ActionLink("刪除", "DeleteNews","News", new { id=item.FNewsId }, new { onclick = "return confirm('確定要刪除嗎?')" ,Class="btn btn-danger"})
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        const txtSearch = document.querySelector('#txtSearch');
+        const tbody = document.querySelector('tbody');
+
+        txtSearch.addEventListener('keyup', find)
+
+
+        async function find() {
+            const response = await fetch(`@Url.Content("~/News/newssearch?keyword=${txtSearch.value}")`);
+            const datas = await response.json();
+            const item = datas.map(value => {
+                const { fNewsId, fNewsType, fNewsDate, fNewsTitle, fNewsContent } = value;
+                let newstypename = "";
+                let newsdate = "";
+                if (fNewsDate != null) {
+                    newsdate = fNewsDate.substring(0, 10);
+                }
+                if (fNewsType == 1) {
+                    newstypename = "活動資訊"
+                }
+                else if (fNewsType == 2) {
+                    newstypename = "永續經營"
+                }
+                else if (fNewsType == 3) {
+                    newstypename = "其他新聞"
+                }
+
+                return (`
+
+                        <tr>
+                            <td>
+                                 ${fNewsId}
+                            </td>
+                            <td>
+                                 ${newstypename}
+                            </td>
+                            <td>
+                                 ${newsdate}
+                            </td>
+                            <td>
+                                 ${fNewsTitle}
+                            </td>
+                            <td>
+                                 ${fNewsContent}
+                            </td>
+                            <td class="lasttd">
+                                 <a href="editnews/${fNewsId}" class="btn btn-warning">編輯</a> |
+                                 <a href="deletenews/${fNewsId}" class="btn btn-danger">刪除</a>
+                           </td>
+                        </tr>
+
+                            `)
+            })
+            tbody.innerHTML = item.join("");
+
+        }
+
+
+    </script>
+}

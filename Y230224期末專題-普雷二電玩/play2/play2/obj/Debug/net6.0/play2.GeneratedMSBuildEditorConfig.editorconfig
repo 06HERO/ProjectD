@@ -1,0 +1,333 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = play2
+build_property.RootNamespace = play2
+build_property.ProjectDir = C:\Users\Student\Documents\GitHub\PSIM_MSIT145\play2\play2\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Student\Documents\GitHub\PSIM_MSIT145\play2\play2
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/BackendLogin/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZExvZ2luXExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/customerEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxjdXN0b21lckVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/Insufficient.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxJbnN1ZmZpY2llbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/newsPublisher.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxuZXdzUHVibGlzaGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/ordersEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxvcmRlcnNFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/personData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxwZXJzb25EYXRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/productEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxwcm9kdWN0RWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/refundEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFxyZWZ1bmRFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/userEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFx1c2VyRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Backend/vendorEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFja2VuZFx2ZW5kb3JFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Cart/CartView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDYXJ0Vmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Cart/CheckCart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDaGVja0NhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Cart/CheckoutCart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxDaGVja291dENhcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Commodity/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW9kaXR5XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Commodity/ProList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW9kaXR5XFByb0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Commodity/ProList_tagID.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tbW9kaXR5XFByb0xpc3RfdGFnSUQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/cost.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXGNvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/creditnoteList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXGNyZWRpdG5vdGVMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/grossprofit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXGdyb3NzcHJvZml0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseDeleteview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlRGVsZXRldmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseEditEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlRWRpdEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseList2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlTGlzdDIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseListbyDate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlTGlzdGJ5RGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseListbyID.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlTGlzdGJ5SUQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/purchaseListbySupplier.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cmNoYXNlTGlzdGJ5U3VwcGxpZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/pursuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHB1cnN1Y2Nlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/repair.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHJlcGFpci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/repairList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHJlcGFpckxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/revenue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHJldmVudWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/service.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHNlcnZpY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/serviceRES.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHNlcnZpY2VSRVMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/supplierCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHN1cHBsaWVyQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/supplierEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHN1cHBsaWVyRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Controller23/supplierList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udHJvbGxlcjIzXHN1cHBsaWVyTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Customer/CompDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ29tcERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Customer/CompList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ29tcExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Customer/ReguDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUmVndURldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Customer/ReguList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUmVndUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Login/ChangePW.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cQ2hhbmdlUFcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Login/ForgotPW.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cRm9yZ290UFcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/MemberCenter/CompanyData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQ2VudGVyXENvbXBhbnlEYXRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/MemberCenter/MemberOrder.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQ2VudGVyXE1lbWJlck9yZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/MemberCenter/MemberOrderDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQ2VudGVyXE1lbWJlck9yZGVyRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/MemberCenter/RegularData.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQ2VudGVyXFJlZ3VsYXJEYXRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/News/CreateNews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xDcmVhdGVOZXdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/News/EditNews.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xFZGl0TmV3cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/News/NewsList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTmV3c1xOZXdzTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/OrderDelivery/OrderDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJEZWxpdmVyeVxPcmRlckRldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/OrderDelivery/OrderList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJEZWxpdmVyeVxPcmRlckxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Product/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Product/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Product/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Register/ChooseType.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcQ2hvb3NlVHlwZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Register/CompFileVerify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcQ29tcEZpbGVWZXJpZnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Register/CompVerify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcQ29tcFZlcmlmeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Register/CreCompMem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcQ3JlQ29tcE1lbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Register/CreReguMem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcQ3JlUmVndU1lbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Register/Verify.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0ZXJcVmVyaWZ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Shared/_CartPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DYXJ0UGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/special/pgErOfBackEnd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3BlY2lhbFxwZ0VyT2ZCYWNrRW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/special/pgErOfFrontEnd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Ncc3BlY2lhbFxwZ0VyT2ZGcm9udEVuZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/樣板.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nc5qij5p2/LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/經銷門市/門市清單.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nc57aT6Yq36ZaA5biCXOmWgOW4gua4heWWri5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/關於/NewsDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nc6Zec5pa8XE5ld3NEZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/關於/公司沿革.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nc6Zec5pa8XOWFrOWPuOayv+mdqS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/關於/重大新聞.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3Nc6Zec5pa8XOmHjeWkp+aWsOiBni5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-wm1g0e6hdf
+
+[C:/Users/Student/Documents/GitHub/PSIM_MSIT145/play2/play2/Views/Shared/_LayoutBackEnd.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRCYWNrRW5kLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-z9zr2satqr

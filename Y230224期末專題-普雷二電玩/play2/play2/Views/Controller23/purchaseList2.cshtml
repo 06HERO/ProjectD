@@ -1,0 +1,79 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "purchaseList";
+}
+
+@section Styles{
+    <style>
+
+
+        th td {
+            text-align: center;
+        }
+
+
+    </style>
+}
+
+
+
+<h1 class="card-title" style="text-align:center;font-size:3em">進貨單查詢維護</h1>
+<hr>
+<a href="~/Controller23/purchaseCreate" class="btn btn-primary">+新增進貨單</a>
+
+<table class="table table-striped" id="PurchaseOdr">
+    <thead>
+        <tr>
+            <th scope="col">進貨單號</th>
+            <th scope="col">進貨日期</th>
+            <th scope="col" >供應商名稱</th>
+            <th scope="col">進貨總價</th>
+            <th scope="col" >倉庫別</th>
+            <th scope="col" >備註</th>
+            <th scope="col">修改</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+
+            decimal pcost = 0;
+
+            foreach (var c in Model)
+            {
+                pcost = c.進貨總價;
+                
+                <tr>
+                    <td>@c.進貨單號</td>
+                    <td>@c.進貨日期</td>
+                    <td>@c.供應商名稱</td>
+                    <td>@pcost.ToString("###,###,##0")</td>
+                    <td>@c.倉庫別</td>
+                    <td>@c.備註</td>
+
+                    <td>@Html.ActionLink("查詢/修改", "purchaseEdit", "Controller23", new { id = c.進貨單號 }, new {@class="btn btn-primary"  })</td>
+                    <td></td>
+
+
+                </tr>
+            }
+        }
+
+
+
+
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+
+
+
+    </script>
+}
+

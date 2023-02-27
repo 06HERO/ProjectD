@@ -1,0 +1,122 @@
+﻿@using play2.Controllers
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "purchaseEdit";
+}
+@section Styles{
+    <style>
+        @@media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+        }
+
+<h1 class="card-title" style="text-align:center;font-size:3em">進貨單查詢</h1>
+<hr >
+
+<div>
+    
+    <table border="1" class="table table-bordered table-hover">
+        <tr style="background-color:Lavender">
+            <td width="10%">進貨單號</td>
+            <td width="10%">進貨日期</td>
+            <td width="5%">商品ID</td>
+
+            <td  width="25%">商品名稱</td>
+            <td width="10%">單價</td>
+            <td  width="10%">數量</td>
+            <td width="10%">小計</td>
+            <td class="no-print" width="5%">修改</td>
+            <td class="no-print" width="5%">刪除</td>
+
+
+
+        </tr>
+        @{
+            decimal price = 0;
+            //int qty = 0;
+            decimal subtotal = 0;
+            decimal total = 0;
+            foreach (CtPurchaseEdit s in Model)
+            {
+                price = s.單價;
+                subtotal = s.小計;
+                total += subtotal;
+
+                            <tr>
+                                <td>@s.進貨單號</td>
+                                <td>@s.進貨日期</td>
+                    <td>@s.商品ID</td>
+
+                                <td>@s.商品名稱</td>
+                    <td>@price.ToString("###,###,##0")</td>
+                                <td>@s.數量</td>
+                    <td>@subtotal.ToString("###,###,##0")</td>
+
+                    <td class="no-print">@Html.ActionLink("修改", "purchaseEditEdit", "Controller23", new { id = s.進貨單號 , commodityId= s.商品ID}, new {@class="btn btn-success ",@id="ed"
+                    })</td>
+                    <td class="no-print">@Html.ActionLink("刪除", "purchaseDelete", "Controller23", new { id = s.進貨單號 ,commodityId= s.商品ID }, new { onclick = "sure();", @class = "btn btn-danger" ,@id="del"})</td>
+
+                            </tr>
+            }
+        }
+
+    </table>
+    <div></div>
+</div>
+本單總計金額 : @total.ToString("###,###,##0")
+
+<div style="align-content:end">
+    <button id="prt" type="button" class="btn btn-info no-print" onclick="window.print()">列印</button>
+</div>
+
+<hr >
+<div class=" no-print">
+    <a style="color:blue ; font-size:24px" href="~/Controller23/purchaseList"><i class="bi bi-arrow-left-circle-fill">回到進貨單查詢維護</i></a>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script src="~/js_backend/sweetalert.min.js"></script>
+
+    <script>
+        $("#del").on("click", sure);
+        //$("#ed").on("click", sure2);
+
+
+        function sure() {
+            var dfd = jQuery.Deferred();
+            Swal.fire({
+                //position: 'top-end',
+                icon: 'success',
+                title: '刪除成功',
+                showConfirmButton: false
+            }).then(function (result) {
+                if (result.value) { dfd.resolve(); }
+                else { dfd.reject(); }
+            }
+        }
+
+        //function sure2() {
+        //    var dfd = jQuery.Deferred();
+        //    Swal.fire({
+        //        //position: 'top-end',
+        //        icon: 'success',
+        //        title: '修改成功',
+        //        showConfirmButton: false
+        //    }).then(function (result) {
+        //        if (result.value) { dfd.resolve(); }
+        //        else { dfd.reject(); }
+        //    }
+        //        }
+
+
+
+    </script>
+
+}

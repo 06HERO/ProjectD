@@ -1,0 +1,161 @@
+﻿@model play2.ViewModels.CNewsViewModel
+
+@{
+    ViewData["Title"] = "EditNews";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+<script src="~/ckeditor/ckeditor.js"></script>
+
+@section Styles{
+    <style>
+        .content {
+            border-radius: 5px;
+            height: 400px;
+            width: 100%;
+        }
+
+        .ql-snow {
+            border-radius: 5px;
+        }
+
+        .showimg {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .imgdiv {
+            height: 400px;
+            width: 80%;
+            background-color: floralwhite;
+            border-radius: 5px;
+            border: solid 1px #dddddd;
+        }
+    </style>
+    }
+
+<link href="~/assets/img/favicon.png" rel="icon">
+<link href="~/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align:center;font-size:3em">新聞編輯</h5>
+
+                    <hr />
+                    <form asp-action="EditNews" method="post" enctype="multipart/form-data">
+                        <div class="d-flex justify-content-center">
+
+                            <div class="col-lg-9  mt-2">
+                                <div class="row mb-3">
+                                    <label asp-for="FNewsId" class="flex col-sm-2 col-form-label">編號</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" value="@Model.FNewsId" class="form-control" disabled>
+                                        <input asp-for="FNewsId" type="hidden" name="FNewsId" value="@Model.FNewsId" class="form-control">
+                                        <input asp-for="FNewsPhotoPath" type="hidden" name="FNewsPhotoPath" value="@Model.FNewsPhotoPath" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="FNewsId" class="text-danger"></span>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">類型</label>
+                                    <div class="col-sm-10">
+                                        <select class="form-select" name="FNewsType" aria-label="Default select example">
+                                            @if (Model.FNewsType == 1)
+                                            {
+                                                <option selected value="1">活動資訊</option>
+                                                <option value="2">永續經營</option>
+                                                <option value="3">其他新聞</option>
+                                            }
+                                            else if (Model.FNewsType == 2)
+                                            {
+                                                <option value="1">活動資訊</option>
+                                                <option selected value="2">永續經營</option>
+                                                <option value="3">其他新聞</option>
+                                            }
+                                            else if (Model.FNewsType == 3)
+                                            {
+                                                <option value="1">活動資訊</option>
+                                                <option value="2">永續經營</option>
+                                                <option selected value="3">其他新聞</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputEmail" class="col-sm-2 col-form-label">標題</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="FNewsTitle" class="form-control" value="@Model.FNewsTitle">
+                                    </div>
+                                </div>
+
+
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">圖片上傳</label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="photo" id="imgInput" accept=".jpg, .jpeg, .png" class="form-control" name="photo" type="file" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 ">圖片預覽</label>
+                                    <div class="col-sm-10 imgdiv ">
+                                        @if (Model.FNewsPhotoPath != null)
+                                        {
+                                            <img class="showimg" id="imgPrint" src="~/NewsImages/@Model.FNewsPhotoPath" />
+                                        }
+                                        else
+                                        {
+                                            <img class="showimg" id="imgPrint" src="~/assets/images/noImage.png" />
+
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-2 col-form-label">發布日期</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" value="@Model.FNewsDate.Value.ToString("yyyy-MM-dd")" disabled>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">內容</label>
+
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="FNewsContent" name="editor" id="editor" class=" content" name="FNewsContent">@Model.FNewsContent</textarea>
+                                    </div>
+                                </div>
+
+                                <br />
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label"></label>
+                                    <div class="col-sm-10">
+                                        <button asp-action="EditNews" type="submit" class="btn btn-primary">送出</button>
+                                        <button asp-action="NewsList" type="submit" class="btn btn-danger">取消</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+@section Scripts{
+    <script>
+        CKEDITOR.replace('editor');
+        const imgInput = document.querySelector("#imgInput");
+        const imgPrint = document.querySelector("#imgPrint");
+        imgInput.addEventListener("change", () => {
+            const [file] = imgInput.files;
+            if (file) { imgPrint.src = URL.createObjectURL(file) }
+        })
+    </script>
+}

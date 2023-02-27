@@ -1,0 +1,97 @@
+﻿@model IEnumerable<play2.EFModels.View訂單完整資訊>
+
+@{
+    ViewData["Title"] = "訂單查詢";
+}
+
+<div class="container">
+    <ul class="nk-breadcrumbs">
+        <li><a asp-controller="Home" asp-action="Index">Play2</a></li>
+        <li><span class="fa fa-angle-right"></span></li>
+        <li><span>訂單查詢</span></li>
+    </ul>
+</div>
+
+<table class="nk-table">
+    <thead>
+        <tr>
+            <th colspan="8">
+                訂單記錄
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>
+                序
+            </th>
+            <th>
+                訂單狀態
+            </th>
+            <th>
+                訂單日期
+            </th>
+            <th>
+                預計配送日期
+            </th>
+            <th>
+                配送地址
+            </th>
+            <th>
+                匯款帳戶
+            </th>
+            <th>
+                備註
+            </th>
+            <th></th>
+        </tr>
+        @{
+            if (Model.Count() == 0)
+            {
+                    <tr>
+                        <td colspan="8">
+                            沒有訂單記錄
+                        </td>
+                    </tr>
+            }
+            else
+            {
+                int count = 1;
+                foreach (var item in Model)
+                {
+                        <tr>
+                            <td>
+                                @count
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderStateName)
+                            </td>
+                            <td>
+                                @item.OrderDate.Value.ToString("yyyy-MM-dd")
+                            </td>
+                            <td>
+                                @item.DeliveryDate.Value.ToString("yyyy-MM-dd")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Adderst)
+                            </td>
+                            <td>
+                                @item.SwiftCode<span>－</span>@item.Bankaccount
+                            </td>
+                            <td>
+                                @Html.Raw(item.Notes)
+                            </td>
+                            <td>                                
+                                <a class="nk-btn nk-btn-rounded nk-btn-color-primary" asp-action="MemberOrderDetail" 
+                                asp-route-id="@item.DelOrderId">訂單明細</a>
+                            </td>
+                        </tr>
+                    count++;
+                }
+            }
+        }
+    </tbody>
+</table>
+
+
+

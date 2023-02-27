@@ -1,0 +1,255 @@
+﻿@using play2.Controllers
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+    ViewBag.Title = "supplierCreate";
+}
+
+
+<form method="post" action="~/Controller23/supplierSave">
+    <h1 class="card-title" style="text-align:center;font-size:3em">
+        供應商新增</h1>
+    <hr>
+    <div style="margin-left: 35%" needs-validation>
+        <div style="display:flex">
+
+            <div>
+                <p>
+                    統編
+                    <br>
+                    <input type="text" name="TaxIDNumber" required  id="code"/>
+                </p>
+            </div>
+            &nbsp;&nbsp;
+            <div >
+                <p>
+                    公司名稱
+                    <br>
+                    <input type="text" name="SupplierName" required id="inc"/>
+                </p>
+            </div>
+        </div>
+        <br>
+            <div style="display:flex">
+
+        <div>
+            <p>
+                電話
+                <br>
+                <input type="text" name="Phone" required id="tel"/>
+            </p>
+        </div>
+                &nbsp;&nbsp;
+        <div>
+            <p>
+                負責人
+                <br>
+                <input type="text" name="PrincipalMan" required id="people" />
+            </p>
+        </div>
+
+            </div>
+        <br>
+
+            <div style="display:flex">
+            <div>
+                <p>
+                    銀行代碼/機構名稱
+                    <br>
+                    <select id="selbank">
+                        <option>001中央信託</option>
+                        <option>006合庫商銀</option>
+                        <option>010華僑銀行</option>
+                        <option>016高雄銀行</option>
+                        <option>024運通銀行</option>
+                        <option>050臺灣企銀</option>
+                        <option>054京城商銀</option>
+                        <option>081匯豐銀行</option>
+                        <option>102華泰銀行</option>
+                        <option>108陽信銀行</option>
+                        <option>003交通銀行</option>
+                        <option>007第一銀行</option>
+                        <option>011上海銀行</option>
+                        <option>017兆豐商銀</option>
+                        <option>025首都銀行</option>
+                        <option>051台北商銀</option>
+                        <option>056花蓮企銀</option>
+                        <option>083渣打銀行</option>
+                        <option>103臺灣新光商銀</option>
+                        <option>004台灣銀行</option>
+                        <option>008華南銀行</option>
+                        <option>012台北富邦</option>
+                        <option>018農業金庫</option>
+                        <option>039荷蘭銀行</option>
+                        <option>052新竹商銀</option>
+                        <option>057台東企銀</option>
+                        <option>087標旗銀行</option>
+                        <option>005土地銀行</option>
+                        <option>009彰化銀行</option>
+                        <option>013國泰世華</option>
+                        <option>021花旗銀行</option>
+                        <option>040中華開發</option>
+                        <option>053台中商銀</option>
+                        <option>075東亞銀行</option>
+                        <option>147三信銀行</option>
+                        <option>151第七商銀</option>
+                        <option>118板信銀行</option>
+                        <option>803聯邦銀行</option>
+                        <option>807建華銀行</option>
+                        <option>812台新銀行</option>
+                        <option>822中國信託</option>
+                        <option>804中華銀行</option>
+                        <option>808玉山銀行</option>
+                        <option>814大眾銀行</option>
+                        <option>825慶豐銀行</option>
+                        <option>805遠東銀行</option>
+                        <option>809萬泰銀行</option>
+                        <option>815日盛銀行</option>
+                        <option>806復華銀行</option>
+                        <option>810寶華銀行</option>
+                        <option>816安泰銀行</option>
+                        <option>700中華郵政</option>
+
+
+                    </select>
+
+                    <label name="SwiftCode"></label>
+                    <label name="BankName"></label>
+
+                    <div id="lbl1">
+                    </div>
+                    <div id="lbl2">
+                    </div>
+
+                </p>
+            </div>
+            &nbsp;
+            <div>
+                <p>
+                    銀行帳號
+                    <br>
+
+                    <input type="text" name="Account" required  id="acc"/>
+                </p>
+            </div>
+            <br>
+
+
+                </div>
+        <br>
+
+        <div style="display:flex">
+
+
+        <div>
+            <p>
+                資本額
+                <br>
+                <input type="text" name="CapitalAmount" required id="cp" />
+            </p>
+        </div>
+            &nbsp;&nbsp;
+
+        <div>
+            <p>
+                供應商等級
+                <br>
+                <input type="text" name="Grade" required  id="grd"/>
+            </p>
+        </div>
+        </div>
+
+    </div>
+            <hr >
+
+    <div style="margin-left: 35% ; margin-top:2%">
+                <div style="display:flex">
+            <p>
+                <input type="submit" class="btn btn-primary" value="新增" />
+            </p>
+            &nbsp;&nbsp;
+            <p>
+                <button type="button" class="btn btn-warning" id="demo">Demo</button>
+                <img style="height:36px;margin-top:-50px;margin-left:-56px;" src="~/assets/images/cat.gif" />
+            </p>
+
+        </div>
+
+
+        <div >
+            <p>
+                <a style="color:blue ; font-size:24px" href="~/Controller23/supplierList"><i class="bi bi-arrow-left-circle-fill"></i>回到供應商清單</a>
+
+            </p>
+        </div>
+
+
+
+    </div>
+
+
+
+</form>
+
+@section Scripts{
+    <script>
+
+        selbank.addEventListener("change" , function(){
+            let selbank = document.querySelector("#selbank");
+            let lbl1 = document.querySelector("#lbl1");
+            let lbl2 = document.querySelector("#lbl2");
+            let selbankVal = selbank.value;
+            let bankcode = selbankVal.slice(0, 3);
+            let bankname = selbankVal.slice(3, 20);
+            lbl1.innerHTML = `<input hidden type="text" name = "SwiftCode" value = ${bankcode} />`;
+            lbl2.innerHTML = `<input hidden type="text" name = "BankName" value = ${bankname} />`;
+            //console.log(bankcode);
+            //console.log(bankname);
+            
+        })
+
+        //Demo自動填入
+        let demo = document.querySelector("#demo");
+        let code = document.querySelector("#code");
+        let inc = document.querySelector("#inc");
+        let tel =document.querySelector("#tel");
+        let people = document.querySelector("#people");
+        let acc = document.querySelector("#acc");
+        let cp = document.querySelector("#cp");
+        let grd = document.querySelector("#grd");
+        
+        demo.addEventListener("click" , function(){
+        code.value= "84213531";
+            inc.value = "大富翁娛樂電玩股份有限公司";
+            tel.value = "0328885511";
+        people.value = "王自強";
+            acc.value = "741258963214";
+        cp.value = "10,000,000";
+            grd.value = "A";
+        })
+
+
+    </script>
+
+
+    <script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+}

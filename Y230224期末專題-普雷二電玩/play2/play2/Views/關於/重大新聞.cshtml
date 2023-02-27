@@ -1,0 +1,211 @@
+﻿@model IEnumerable<play2.EFModels.TNews>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    <style>
+        .newsPhoto {
+            height: 400px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .newscontent {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            height: 26px;
+        }
+
+    </style>
+}
+
+<!-- START: Breadcrumbs -->
+<div class=""></div>
+<div class="container">
+    <ul class="nk-breadcrumbs">
+
+
+
+        <li>新聞中心</li>
+
+    </ul>
+</div>
+<div class="nk-gap-1"></div>
+<!-- END: Breadcrumbs -->
+<br />
+
+
+
+<div class="container">
+    <div class="row vertical-gap">
+        <div class="col-md-12">
+
+            <!-- START: Tabs  -->
+            <div class="nk-tabs">
+                <!--
+                    Additional Classes:
+                        .nav-tabs-fill
+                -->
+                <ul class="nav nav-tabs nav-tabs-fill" role="tablist" style="font-size:26px">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#tabs-1-1" role="tab" data-toggle="tab">最新消息</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tabs-1-2" role="tab" data-toggle="tab">活動資訊</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tabs-1-3" role="tab" data-toggle="tab">永續經營</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tabs-1-4" role="tab" data-toggle="tab">其他消息</a>
+                    </li>
+
+                </ul>
+
+
+                <div class="tab-content">
+                    <!----------------------------------最新消息----------------------------->
+                    <div role="tabpanel" class="tab-pane fade show active" id="tabs-1-1">
+                        <div class="nk-gap"></div>
+                        @foreach (var item in Model)
+                        {
+
+                            <div class="nk-blog-post nk-blog-post-border-bottom">
+                                <a asp-action="newsdetail" asp-route-id="@item.FNewsId" class="">
+                                    <img src="~/NewsImages/@item.FNewsPhotoPath" class="newsPhoto">
+                                </a>
+                                <div class="nk-gap-1"></div>
+                                <h2 class="nk-post-title h4"><a asp-action="newsdetail" asp-route-id="@item.FNewsId">@item.FNewsTitle</a></h2>
+                                <div class="nk-post-date mt-10 mb-10">
+                                    <span class="fa fa-calendar"></span> @item.FNewsDate.Value.ToString("yyyy-MM-dd")
+                                </div>
+                                <div class="nk-post-text newscontent">
+                                    @Html.Raw(item.FNewsContent)
+                                </div>
+                            </div>
+                            <div class="nk-gap"></div>
+
+                        }
+                    </div>
+
+
+                    <!----------------------------------最新消息結束----------------------------->
+                    <!----------------------------------活動資訊----------------------------->
+
+
+                    <div role="tabpanel" class="tab-pane fade " id="tabs-1-2">
+                        <div class="nk-gap"></div>
+                        @foreach (var item in Model)
+                        {
+                            if (item.FNewsType == 1)
+                            {
+
+
+
+                                <div class="nk-blog-post nk-blog-post-border-bottom">
+                                    <a asp-action="newsdetail" asp-route-id="@item.FNewsId" class="">
+                                        <img src="~/NewsImages/@item.FNewsPhotoPath" class="newsPhoto">
+
+                                    </a>
+                                    <div class="nk-gap-1"></div>
+                                    <h2 class="nk-post-title h4"><a asp-action="newsdetail" asp-route-id="@item.FNewsId">@item.FNewsTitle</a></h2>
+                                    <div class="nk-post-date mt-10 mb-10">
+                                        <span class="fa fa-calendar"></span> @item.FNewsDate.Value.ToString("yyyy-MM-dd")
+                                    </div>
+                                    <div class="nk-post-text newscontent">
+                                        @Html.Raw(item.FNewsContent)
+                                    </div>
+                                </div>
+                                <div class="nk-gap"></div>
+                            }
+
+                        }
+                    </div>
+
+                    <!----------------------------------活動資訊結束----------------------------->
+                    <!----------------------------------永續經營----------------------------->
+
+                    <div role="tabpanel" class="tab-pane fade" id="tabs-1-3">
+                        <div class="nk-gap"></div>
+                        @foreach (var item in Model)
+                        {
+                            if (item.FNewsType == 2)
+                            {
+
+
+
+                                <div class="nk-blog-post nk-blog-post-border-bottom">
+                                    <a asp-action="newsdetail" asp-route-id="@item.FNewsId" class="">
+                                        <img src="~/NewsImages/@item.FNewsPhotoPath" class="newsPhoto">
+
+                                    </a>
+                                    <div class="nk-gap-1"></div>
+                                    <h2 class="nk-post-title h4"><a asp-action="newsdetail" asp-route-id="@item.FNewsId">@item.FNewsTitle</a></h2>
+                                    <div class="nk-post-date mt-10 mb-10">
+                                        <span class="fa fa-calendar"></span> @item.FNewsDate.Value.ToString("yyyy-MM-dd")
+                                    </div>
+                                    <div class="nk-post-text newscontent">
+                                        @Html.Raw(item.FNewsContent)
+                                    </div>
+                                </div>
+                                <div class="nk-gap"></div>
+
+                            }
+
+                        }
+                    </div>
+
+                    <!----------------------------------永續經營結束----------------------------->
+                    <!----------------------------------其他消息----------------------------->
+
+                    <div role="tabpanel" class="tab-pane fade" id="tabs-1-4">
+                        <div class="nk-gap"></div>
+                        @foreach (var item in Model)
+                        {
+
+                            if (item.FNewsType == 3)
+                            {
+
+
+                                <div class="nk-blog-post nk-blog-post-border-bottom">
+                                    <a asp-action="newsdetail" asp-route-id="@item.FNewsId" class="">
+                                        <img src="~/NewsImages/@item.FNewsPhotoPath" class="newsPhoto">
+
+                                    </a>
+                                    <div class="nk-gap-1"></div>
+                                    <h2 class="nk-post-title h4"><a asp-action="newsdetail" asp-route-id="@item.FNewsId">@item.FNewsTitle</a></h2>
+                                    <div class="nk-post-date mt-10 mb-10">
+                                        <span class="fa fa-calendar"></span> @item.FNewsDate.Value.ToString("yyyy-MM-dd")
+                                    </div>
+                                    <div class="nk-post-text newscontent">
+                                        @Html.Raw(item.FNewsContent)
+                                    </div>
+                                </div>
+                                <div class="nk-gap"></div>
+
+                            }
+
+                        }
+                    </div>
+
+                    <!----------------------------------其他消息結束----------------------------->
+
+
+                </div>
+                <!-- END: Posts Grid -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

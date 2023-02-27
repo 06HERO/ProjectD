@@ -1,0 +1,374 @@
+﻿
+
+ @{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+
+     ViewData["Title"] = "purchaseCreate";
+}
+
+@section Styles{
+    <style>
+	.modal-confirm {		
+		color: #636363;
+		width: 325px;
+		margin: 30px auto;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;   
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 30px 0 -15px;
+	}
+	.modal-confirm .form-control, .modal-confirm .btn {
+		min-height: 40px;
+		border-radius: 3px; 
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -5px;
+	}	
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;
+		border-radius: 5px;
+		font-size: 13px;
+	}	
+	.modal-confirm .icon-box {
+		color: #fff;		
+		position: absolute;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+		top: -70px;
+		width: 95px;
+		height: 95px;
+		border-radius: 50%;
+		z-index: 9;
+		background: #82ce34;
+		padding: 15px;
+		text-align: center;
+		box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+	}
+	.modal-confirm .icon-box i {
+		font-size: 58px;
+		position: relative;
+		top: 3px;
+	}
+	.modal-confirm.modal-dialog {
+		margin-top: 80px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #82ce34;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+        border: none;
+    }
+	.modal-confirm .btn:hover, .modal-confirm .btn:focus {
+		background: #6fb32b;
+		outline: none;
+	}
+	.trigger-btn {
+		display: inline-block;
+		margin: 100px auto;
+	}
+    </style>
+}
+
+<!--跳出提示-->
+
+
+<h1 class="card-title" style="text-align:center;font-size:3em">新增進貨單</h1>
+<hr >
+<div class=" form-row">
+    <div class="col-md-8">
+        <form asp-action="purchaseCreate" method="post">
+           
+            <div class=" form-row" style="display:flex">
+                <div class=" form-group col-md-4" needs-validation>
+                    <label>進貨日期</label>
+                    <input type="text" name="vm[0].PurchaseDate" id="PurchaseDate" class="form-control" placeholder="範例: 2000-01-01" required>
+                </div>
+                &nbsp;&nbsp;
+                <div class="form-group col-md-6" >
+                    <label>供應商名稱</label>
+                    <select class="form-control" name="vm[0].SupplierId" id="selectSupplier">                     
+                    </select> 
+                </div>
+                &nbsp;&nbsp;
+                <div class="form-group col-md-4">                    
+                    <label>倉庫別</label>
+                    <select class="form-control" name="vm[0].StockroomId" id="selectStock">                       
+                    </select>                    
+                </div>
+             </div>
+
+            <hr>
+
+            <div style="display:flex ;margin:16px" class="col-md-30">
+                <label for="inputname" style="color:blue" >商品名稱查詢</label>
+                <input class="form-control" style="width:180px ; height:36px" id="inputname">
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-success" style="width:80px  ; height:36px" id="btnsearch">查詢</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label for="selectid" style=" color:blue">查到商品</label>
+                <select id="selectid" class="form-control" style="width:180px ; height:36px">        
+                </select>
+                &nbsp;&nbsp;
+                <input type="hidden" id="inputid">
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-success" style="width:120px  ; height:36px" id="btncopy">複製ID</button>
+                &nbsp;&nbsp;             
+                <div id="copyalert"></div>
+            </div>
+
+            <button type="button" id="createDetail" class="btn btn-primary mb-3">+新增明細</button>
+
+            <div id="divDetails" needs-validation></div>
+
+            <hr>
+
+            <div class=" form-group" style="font-size:24px ; font-weight:600 ; display:flex">
+                <span style="width:100px ; margin-top:8px ">總計：</span>&nbsp;&nbsp;
+                <input id="PurchaseCostD" class="form-control-plaintext" readonly value="0">
+                <input  hidden name="vm[0].PurchaseCost" id="PurchaseCost" class="form-control-plaintext" readonly value="0">
+            </div>
+            
+
+
+            <hr>
+
+            <div class="form-group mt-5">
+                <input asp-action="purchaseCreate"  type="submit" value="新增" class="btn btn-primary" id="add" />
+                <input type="button" value="Demo" id="demo" class="btn btn-warning col-md-1" />
+                <img style="height:36px;margin-top:-50px;margin-left:-64px;" src="~/assets/images/cat.gif" />
+
+            </div>
+
+            <div id="addalert" style="margin-top:18px"></div>
+
+        </form>
+    </div>
+</div>
+
+<hr>
+<div>
+    <a style="color:blue ; font-size:24px" href="~/Controller23/purchaseList"><i class="bi bi-arrow-left-circle-fill"></i>回到進貨單查詢維護</a>
+</div>
+
+
+@section Scripts {
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script>
+        //尋找元素標籤，比較不耗效能
+        const PurchaseDate = $("#PurchaseDate");
+        const selectSupplier = $("#selectSupplier");
+        const selectStock = $("#selectStock");   
+        const createDetail = $("#createDetail");
+        const divDetails = $("#divDetails");
+        const PurchaseCost = $("#PurchaseCost");
+        const add = $("#add");
+
+
+        //載入供應商和倉庫別的選項
+        LoadSupplierAndStock();
+        function LoadSupplierAndStock(){
+            $.ajax({ 
+                url: `@Url.Content("~/Controller23/LoadSupplier")` ,
+                dataType:"JSON"
+            }).done((datas)=>{
+                $.each(datas,(index,value)=>{
+                    selectSupplier.append(`<option value="${value.supplierId}">${value.supplierName}</option>`)
+                });
+                add.removeAttr("disabled");
+            }).fail((err) => { alert(`發生錯誤${err.statusText}`) })
+
+            $.ajax({
+                url: `@Url.Content("~/Controller23/LoadStock")`,
+                dataType: "JSON"
+            }).done((datas) => {
+                $.each(datas, (index, value) => {
+                    selectStock.append(`<option value="${value.stockroomId}">${value.stockroom}</option>`);
+                });
+                add.removeAttr("disabled");
+            }).fail((err) => { alert(`發生錯誤${err.statusText}`) })            
+        };
+ 
+        //按鈕新增明細
+        let count=1;
+        let index = 0;
+        $("#createDetail").on("click", () => {
+                        var lab = `<div class="form-row" style="display:flex">
+                                            <div class="form-group col-md-3">
+                                                <label for="CommodityId${index}">商品${count}</label>
+                                                <input class="form-control" name="vm[${index}].CommodityId" id="CommodityId${index}" placeholder="輸入商品ID" data-id="commid" required>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class=" form-group col-md-5">
+                                                <label for="Commodity${index}">商品名稱</label>
+                                                        <input class="form-control" id="Commodity${index}" readonly data-id="commname" required>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class=" form-group col-md-2">
+                                                <label for="UnitPrice${index}">單價</label>
+                                                        <input class="form-control" value="0" name="vm[${index}].UnitPrice" id="UnitPrice${index}" data-id="unti" required>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class=" form-group col-md-2">
+                                                <label for="Qty${index}">數量</label>
+                                                <input class="form-control" value="0" name="vm[${index}].Qty" id="Qty${index}" data-id="qty" required>
+                                            </div>
+                                            &nbsp;&nbsp;
+                                            <div class=" form-group col-md-2">
+                                                <label for="Sum${index}">小計</label>
+                                                <input class="form-control sum"  value="0" name="vm[${index}].Sum" id="Sum${index}" data-id="total" readonly required>
+                                            </div>
+                                        </div>`;
+            divDetails.append(lab);
+            count++;
+            index++;
+        });
+        //小計和總計的計算
+        $("#divDetails").on("blur", "input[data-id='unti']", Sum);
+        $("#divDetails").on("blur", "input[data-id='qty']", Sum);
+        function Sum(){
+            var a = $(this).parent().parent().find("input[data-id='unti']").val();      
+            var b = $(this).parent().parent().find("input[data-id='qty']").val();  
+            var sum=a*b;
+            $(this).parent().parent().find("input[data-id='total']").val(sum);
+
+            var total = 0;
+            $("input[data-id='total']").each(function () {            
+                total += parseInt($(this).val())
+            });
+            $('#PurchaseCost').val(total);
+
+            let totalval = $('#PurchaseCost').val();
+            let totalvalD = totalval.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+            $('#PurchaseCostD').val(totalvalD);
+        };
+       //編輯進貨名細的商品ID隔壁的input會跳出商品名稱
+        $("#divDetails").on("blur", "input[data-id='commid']", getName);       
+        function getName(){
+            var inputName = $(this).parent().parent().find("input[data-id='commname']");
+            var id=$(this).val();
+            $.ajax({
+                url: `@Url.Content("~/Controller23/GetCommudityName")`,
+                type:"post",
+                data: { "id": id },
+                dataType:"text"
+            }).done(function(data){
+                if(data==="n"){inputName.val("無此商品");}
+                else{inputName.val(data);}
+            }).fail((err)=>{alert(`發生錯誤${err.statusText}`)});
+        };        
+        //輸入商品名稱查詢商品ID的功能
+        const inputname=$("#inputname");
+        const btnsearch = $("#btnsearch");
+        const selectid = $("#selectid");
+        const inputid = $("#inputid");
+        const btncopy = $("#btncopy");           
+        btnsearch.on("click",SearchId);
+        function SearchId(){
+            selectid.find("option").remove();
+            let name=inputname.val();
+            $.ajax({
+                url: `@Url.Content("~/Controller23/SearchId")`,
+                type:"post",
+                data: { "name": name },
+                dataType:"json"
+            }).done((datas)=>{
+                if(datas==undefined){
+                }                
+                else if (datas == false){
+                    selectid.append(`<option>無此商品資料，需要建檔</option>`);
+                }
+                else{
+                    $.each(datas,(index,value)=>{
+                        selectid.append(`<option value="${value.commodityId}">${value.commodityId}－${value.commodityName}</option>`)
+                    });
+                    let optionid = selectid.children("option:selected").val();
+                    inputid.val(optionid);
+                }
+            }).fail((err) => { alert(`發生錯誤${err.statusText}`) ;})
+        };
+        //更改下拉是選單時可以更改input hidden的值
+        selectid.on("change",getId);
+        function getId(){
+             let optionid = selectid.children("option:selected").val();             
+             inputid.val(optionid);
+        };
+        //按下複製ID按鈕時把ID複製到剪貼簿(這語法不是所有瀏覽器和裝置都通用，iOS就不能用)
+        btncopy.on("click", async () => {
+            try {
+                var copy = inputid.val();
+                await navigator.clipboard.writeText(copy);
+
+                console.log('複製成功');
+                Swal.fire(
+                'ID已複製!',
+            )
+
+            } catch (error) {
+                console.error(error);
+            }
+
+
+        });
+
+
+
+
+         //Demo鍵自動填入
+        $("#demo").on("click", inputfill);
+        function inputfill(){
+            PurchaseDate.val("2023-02-24");
+            const Commodity0 = $("#Commodity0");
+            const Commodity1 = $("#Commodity1");
+            const CommodityId0 = $("#CommodityId0");
+            const CommodityId1 = $("#CommodityId1");
+            const UnitPrice0 = $("#UnitPrice0");
+            const UnitPrice1 = $("#UnitPrice1");
+            const Qty0 = $("#Qty0");
+            const Qty1 = $("#Qty1");
+            CommodityId0.val(104)  ;
+            CommodityId1.val(138)  ;
+            Commodity0.val("LEGO 星際大戰 天行者傳奇銀河版");
+            Commodity1.val("決勝時刻：現代戰爭 II");
+            UnitPrice0.val(1522)  ;
+            UnitPrice1.val(1862)  ;
+            Qty0.val(20)  ;
+            Qty1.val(10)  ;
+        }
+
+        //確定後跳出確認框框
+        $("#add").on("click", sure);
+        function sure() {
+
+            var dfd = jQuery.Deferred();
+            Swal.fire({
+                //position: 'top-end',
+                icon: 'success',
+                title: '完成新增',
+                showConfirmButton: false
+            }).then(function (result) {
+                if (result.value) { dfd.resolve(); }
+                else { dfd.reject(); }
+            });
+
+        }
+    </script>       
+}
+

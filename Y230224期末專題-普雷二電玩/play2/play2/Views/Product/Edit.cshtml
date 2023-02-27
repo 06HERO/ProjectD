@@ -1,0 +1,432 @@
+﻿@model play2.ViewModels.CProductViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+}
+
+<script src="~/ckeditor/ckeditor.js"></script>
+@section Styles{
+    <style>
+        .content {
+            border-radius: 5px;
+            height: 400px;
+            width: 100%;
+            margin-left: -5px;
+            resize: none;
+        }
+
+        .showimg {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .imgdiv {
+            height: 350px;
+            width: 40%;
+            background-color: floralwhite;
+            object-fit: cover;
+            border-radius: 5px;
+            border: solid 1px #dddddd;
+        }
+
+        .imgdiv2 {
+            height: 400px;
+            width: 80%;
+            background-color: floralwhite;
+            object-fit: cover;
+            border-radius: 5px;
+            border: solid 1px #dddddd;
+        }
+    </style>
+        }
+
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+            <div class="card">
+                <div class="card-body">
+
+                    @{
+                        if (Model.Categories == "g")
+                        {
+                            <h1 class="card-title " style="text-align:center;font-size:3em">遊戲編輯</h1>
+                            <form asp-action="edit" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="d-flex justify-content-start">
+
+                                    <div class="col-sm-1">
+                                        <input asp-action="list" type="submit" value="返回" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input asp-action="edit" type="submit" value="存檔" class="btn btn-success btnSweetalert" />
+                                    </div>
+
+                                </div>
+                                <hr />
+                                <div class="d-flex mt-5 mt-5 justify-content-around">
+                                    <div class="col-lg-5 m-20">
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">商品名稱</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="CommodityId" value="@Model.CommodityId" type="hidden" />
+                                                <input asp-for="CommodityName" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">售價</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Price" class="form-control" />
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">上市日期</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="ReleaseDate" type="text" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">主機平台</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="GameStation" type="text" class="form-control" disabled />
+                                            </div>
+                                            <span asp-validation-for="GameStation" class="text-danger"></span>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊戲分類</label>
+                                            <div class="col-sm-10">
+
+                                                @{
+                                                    var tags = new Dictionary<int, string>();
+                                                    tags.Add(1, "");
+                                                    tags.Add(2, "");
+                                                    tags.Add(3, "");
+                                                    tags.Add(4, "");
+                                                    tags.Add(5, "");
+                                                    tags.Add(6, "");
+                                                    tags.Add(7, "");
+                                                    tags.Add(8, "");
+                                                    tags.Add(9, "");
+                                                    tags.Add(10, "");
+                                                    tags.Add(11, "");
+                                                    tags.Add(12, "");
+                                                    tags.Add(13, "");
+                                                    tags.Add(14, "");
+                                                    tags.Add(15, "");
+                                                    tags.Add(16, "");
+                                                    tags.Add(17, "");
+                                                    tags.Add(18, "");
+
+                                                    foreach (var check in Model.TagComms)
+                                                    {
+                                                        tags[check.TagId] = "checked";
+                                                    }
+
+                                                }
+
+
+
+                                                <div>
+                                                    <input type="checkbox" class="cbType" @tags[1] id="tag1" value="1" name="TagId1">
+                                                    <label class="lbType" for="tag1">動作</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[2] id="tag2" value="2" name="TagId1">
+                                                    <label class="lbType" for="tag2">冒險</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[3] id="tag3" value="3" name="TagId1">
+                                                    <label class="lbType" for="tag3">角色扮演</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[4] id="tag4" value="4" name="TagId1">
+                                                    <label class="lbType" for="tag4">街機</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[5] id="tag5" value="5" name="TagId1">
+                                                    <label class="lbType" for="tag5">射擊</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[6] id="tag6" value="6" name="TagId1">
+                                                    <label class="lbType" for="tag6">益智</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="checkbox" class="cbType" @tags[7] id="tag7" value="7" name="TagId1">
+                                                    <label class="lbType" for="tag7">模擬遊戲</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[8] id="tag8" value="8" name="TagId1">
+                                                    <label class="lbType" for="tag8">教育</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[9] id="tag9" value="9" name="TagId1">
+                                                    <label class="lbType" for="tag9">休閒</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[10] id="tag10" value="10" name="TagId1">
+                                                    <label class="lbType" for="tag10">戰略</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[11] id="tag11" value="11" name="TagId1">
+                                                    <label class="lbType" for="tag11">格鬥</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[12] id="tag12" value="12" name="TagId1">
+                                                    <label class="lbType" for="tag12">運動</label>
+                                                </div>
+
+                                                <div>
+                                                    <input type="checkbox" class="cbType" @tags[13] id="tag13" value="13" name="TagId1">
+                                                    <label class="lbType" for="tag13">賽車</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[14] id="tag14" value="14" name="TagId1">
+                                                    <label class="lbType" for="tag14">恐怖</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[15] id="tag15" value="15" name="TagId1">
+                                                    <label class="lbType" for="tag15">家庭</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[16] id="tag16" value="16" name="TagId1">
+                                                    <label class="lbType" for="tag16">音樂</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[17] id="tag17" value="17" name="TagId1">
+                                                    <label class="lbType" for="tag17">派對</label>
+
+                                                    <input type="checkbox" class="cbType" @tags[18] id="tag18" value="18" name="TagId1">
+                                                    <label class="lbType" for="tag18">成人</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊玩人數</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="PlayNumber" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="PlayNumber" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">遊戲分級</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="PegiRating" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="PegiRating" class="text-danger"></span>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">官方網站</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="OfficialWebsite" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="OfficialWebsite" class="text-danger"></span>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">上傳圖片</label>
+                                            <div class="col-sm-10">
+                                                <input name="photo" id="imgInput" accept=".jpg, .jpeg, .png" type="file" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="PhotoPath" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-5">
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">開發商</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Developer" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Developer" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">出版商</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Publisher" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Publisher" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">代理商</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Agent" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Agent" class="text-danger"></span>
+                                        </div>
+
+
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 ">圖片預覽</label>
+                                            <div class="col-sm-10 imgdiv ">
+                                                @if (Model.PhotoPath != null)
+                                                {
+                                                    <img class="showimg" id="imgPrint" src="~/ProductImages/@Model.PhotoPath" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="showimg" id="imgPrint" src="~/assets/images/noImage.png" />
+
+                                                }
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3 d-flex justify-content-center">
+                                    <label asp-for="Profile" class="col-sm-1  col-form-label">商品描述</label>
+                                    <div class="col-sm-10">
+                                        <textarea asp-for="Profile" name="editor" id="editor" class=" content" name="Profile"></textarea>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <script>
+                                CKEDITOR.replace('editor');
+
+                            </script>
+
+
+                        }
+                        else
+                        {
+                            <h1 class="card-title " style="text-align:center;font-size:3em">主機/周邊編輯</h1>
+                            <form asp-action="edit" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="d-flex justify-content-start">
+
+                                    <div class="col-sm-1">
+                                        <input asp-action="list" type="submit" value="返回" class="btn btn-primary" />
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <input asp-action="ConsoleEdit" type="submit" value="存檔" class="btn btn-success btnSweetalert" />
+                                    </div>
+
+                                </div>
+                                <hr />
+
+                                <div class="d-flex  mt-3 justify-content-around">
+                                    <div class="col-lg-5 m-20">
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">商品名稱</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="CommodityId" value="@Model.CommodityId" type="hidden" />
+                                                <input asp-for="CommodityName" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">售價</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="Price" class="form-control" />
+                                            </div>
+                                            <span asp-validation-for="Price" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">商品顏色</label>
+                                            <div class="col-sm-10">
+                                                <input asp-for="HostColor" class="form-control" />
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">主機平台</label>
+                                            <div class="col-sm-10">
+                                                <select asp-for="HostStation" class="form-select">
+                                                    <option value="PS4">PS4</option>
+                                                    <option value="PS5">PS5</option>
+                                                    <option value="XBOX">XBOX</option>
+                                                    <option value="NS">NS</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label">上傳圖片</label>
+                                            <div class="col-sm-10">
+                                                <input name="photo" accept=".jpg, .jpeg, .png" id="imgInput" type="file" class="form-control" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-lg-5">
+
+
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 ">圖片預覽</label>
+                                            <div class="col-sm-10 imgdiv2 ">
+                                                @if (Model.PhotoPath != null)
+                                                {
+                                                    <img class="showimg" id="imgPrint" src="~/ProductImages/@Model.PhotoPath" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="showimg" id="imgPrint" src="~/assets/images/noImage.png" />
+
+                                                }
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                            </form>
+
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script>
+
+        $('.btnSweetalert').on("click", () => {       
+            swalert();
+        })
+
+        function swalert() {
+            var dfd = jQuery.Deferred();
+            Swal.fire({
+                icon: 'success',
+                title: '編輯完成',
+                showConfirmButton: false
+            }).then(function (result) {
+                if (result.value) { dfd.resolve(); }
+                else { dfd.reject(); }
+            });
+        }
+
+
+
+
+        const imgInput = document.querySelector("#imgInput");
+        const imgPrint = document.querySelector("#imgPrint");
+        imgInput.addEventListener("change", () => {
+            const [file] = imgInput.files;
+            if (file) { imgPrint.src = URL.createObjectURL(file) }
+        })
+
+
+
+
+    </script>
+   }

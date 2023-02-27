@@ -1,0 +1,150 @@
+﻿@model play2.EFModels.TPurchaseDetail
+
+@{
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+
+    ViewData["Title"] = "purchaseEditEdit";
+}
+
+<h1>進貨明細編輯</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="purchaseEditEdit" needs-validation>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PurOrderId" class="control-label" >進貨單號</label>
+
+                <input asp-for="PurOrderId" class="form-control" style="background-color:lightgray" readonly />
+                <span asp-validation-for="PurOrderId" class="text-danger"></span>
+            </div>
+            <br>
+            <hr >
+
+            <div style="display:flex">
+                <div class="form-group">
+                    <label asp-for="CommodityId" class="control-label">商品ID</label>
+                    &nbsp;&nbsp;
+                    <input asp-for="CommodityId" id="CommodityId" class="form-control" required />
+                    <span asp-validation-for="CommodityId" class="text-danger"></span>
+                </div>
+                <input hidden name="oldCommodityId" class="form-control" value="@Model.CommodityId"/>
+
+                <br>
+                &nbsp;&nbsp;
+
+                <div class="form-group">
+                    <label class="control-label">商品名稱</label>
+                    <input id="Commodity" class="form-control" style="background-color:floralwhite" readonly />
+                </div>
+
+            </div>
+            <hr>
+
+            <br>
+
+
+            <div style="display:flex">
+                            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label">單價</label>
+                <input asp-for="UnitPrice" id="price" class="form-control" required />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+
+            <br>
+
+                &nbsp;&nbsp;
+
+            <div class="form-group">
+                <label asp-for="Qty" class="control-label">數量</label>
+                <input asp-for="Qty" id="qty" class="form-control" required />
+                <span asp-validation-for="Qty" class="text-danger"></span>
+            </div>
+
+
+            </div>
+
+
+            <br>
+            <div class="form-group">
+                <label  class="control-label">小計</label>
+                <input id="subt" class="form-control" style="background-color:floralwhite" readonly />
+            </div>
+
+            <br>
+            <div class="form-group">
+                <input type="submit" id="cfm" value="修改" class="btn btn-primary" >
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr >
+<div>
+    <a style="color:blue ; font-size:24px" href="~/Controller23/purchaseEdit"><i class="bi bi-arrow-left-circle-fill">回到進貨單明細頁面</i></a>
+
+</div>
+
+@section Scripts {
+@*    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+*@    <script src="~/js_backend/sweetalert2.all.js"></script>
+    <script src="~/js_backend/sweetalert.min.js"></script>
+    <script>
+
+        //載入時 與 編輯時自動計算小計
+            function subtotal(){
+            const price = document.querySelector("#price");
+            const priceVal = price.value;
+            const qty = document.querySelector("#qty")
+            const qtyVal = qty.value;
+
+            const subtVal = priceVal * qtyVal;
+            const subt = document.querySelector("#subt");
+            subt.value = subtVal;
+            };
+
+        $(window).on("load", subtotal);
+        $(window).on("load", getName);
+
+        $("#price").on("change" , subtotal);
+        $("#qty").on("change", subtotal);
+
+
+        //編輯進貨名細的商品ID下方的input會跳出商品名稱
+        $("#CommodityId").on("change", getName);
+
+        function getName(){
+            var id = $("#CommodityId").val();
+            var Commodity = $("#Commodity");
+            console.log(Commodity);
+            $.ajax({
+                url: `@Url.Content("~/Controller23/GetCommudityName")`,
+                type:"post",
+                data: { "id": id },
+                dataType:"text"
+            }).done(function (data) {Commodity.val(data)});
+        };        
+
+      //修改後跳出確認框框 
+      $("#cfm").on("click", sure);
+           function  sure() {
+
+
+            var dfd = jQuery.Deferred();
+              Swal.fire({
+              //position: 'top-end',
+              icon: 'success',
+              title: '完成修改',
+              showConfirmButton: false}).then(function (result) {
+        if (result.value) {dfd.resolve();}
+        else{ dfd.reject();}
+    });
+            
+
+        }
+
+
+    </script>
+
+}

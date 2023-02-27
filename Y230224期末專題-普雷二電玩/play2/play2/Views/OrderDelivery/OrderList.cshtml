@@ -1,0 +1,362 @@
+﻿@model IEnumerable<play2.EFModels.View訂單完整資訊>
+
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Views/Shared/_LayoutBackEnd.cshtml";
+
+}
+
+@section Styles{
+    <style>
+        td {
+            margin: auto;
+            font-size: 18px;
+            text-align: center;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: center;
+            font-size: 26px;
+        }
+
+        table {
+            table-layout: fixed;
+        }
+
+        .t1 {
+            width: 5%;
+        }
+
+        .t2 {
+            width: 10%;
+        }
+
+        .t3 {
+            width: 10%;
+        }
+
+        .t4 {
+            width: 10%;
+        }
+
+        .t5 {
+            width: 10%;
+        }
+
+        .t6 {
+            width: 10%;
+        }
+
+        .t7 {
+            width: 15%;
+        }
+
+        .t8 {
+            width: 10%;
+        }
+
+        .t9 {
+            width: 10%;
+        }
+
+        .t10 {
+            width: 10%;
+        }
+    </style>
+}
+
+<section class="section">
+    <div>
+        <div class="col-lg-11">
+
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title" style="text-align:center;font-size:3em">訂單總覽</h1>
+               @*     <div>
+
+                        <input type="button" class=" btn btn-success m-3" value="接收訂單" />
+                    </div>*@
+
+                    <form name="userForm">
+
+
+                        <div class="row mb-3 ">
+                            <div class=" row w-50 ">
+                                <label class="col-sm-3 fs-4 col-form-label">快速查詢</label>
+                                <input type="text" id="txtSearch" name="keyword" placeholder="訂單編號/訂購人電話/收件人電話" class="form-control w-50" />
+                            </div>
+                            <div class="row w-50">
+                                <label class="col-sm-3 fs-4 col-form-label">訂單日期</label>
+                                <input id="searchByStrDate2" name="StrDate2" class="form-control w-25" type="date" />
+                                <label style="text-align:center" class="col-sm-1 fs-4 col-form-label">~</label>
+                                <input id="searchByEndDate2" name="EndDate2" class="form-control w-25" type="date" />
+                            </div>
+                        </div>
+
+
+
+                        <div class="row  ">
+                            <div class="row w-50">
+                                <label class="col-sm-3 fs-4 col-form-label">訂單狀態</label>
+                                <select id="searchByState" class="form-select w-50" name="orderStateId" aria-label="">
+                                    <option value="0">不指定</option>
+                                    <option value="1">訂單成立</option>
+                                    <option value="2">接收訂單</option>
+                                    <option value="3">待出貨</option>
+                                    <option value="4">配送中</option>
+                                    <option value="5">已送達</option>
+                                    <option value="6">取消</option>
+                                </select>
+                            </div>
+                            <div class="row w-50">
+                                <label class="col-sm-3 fs-4 col-form-label">配送日期</label>
+                                <input id="searchByStrDate" name="StrDate" class="form-control w-25" type="date" />
+                                <label style="text-align:center" class="col-sm-1 fs-4 col-form-label">~</label>
+                                <input id="searchByEndDate" name="EndDate" class="form-control w-25" type="date" />
+                            </div>
+                        </div>
+                        <hr />
+                    </form>
+
+
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="t1">
+                                    <input class="form-check-input" type="checkbox" id="checkall">
+                                </th>
+                                <th>
+                                    訂單編號
+                                </th>
+                                <th>
+                                    訂單狀態
+                                </th>
+                                <th>
+                                    訂單日期
+                                </th>
+                                <th>
+                                    配送日期
+                                </th>
+                                <th>
+                                    訂購人
+                                </th>
+                                <th>
+                                    訂購電話
+                                </th>
+
+                                <th>
+                                    送貨地址
+                                </th>
+                                @*             <th>
+                                訂單總額
+                                </th>*@
+
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <input class="form-check-input isCheck" id="isCheck" value="@item.DelOrderId" type="checkbox">
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DelOrderId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrderStateName)
+                                    </td>
+                                    <td>
+                                        @item.OrderDate.Value.ToString("yyyy-MM-dd")
+                                    </td>
+                                    <td>
+                                        @if (item.DeliveryDate != null)
+                                        {                                           
+                                        @item.DeliveryDate.Value.ToString("yyyy-MM-dd")
+                                        }
+
+                                    </td>
+                                    @if (item.MemberType == "Comp")
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CompanyName)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CompPhone)
+                                        </td>
+
+                                    }
+                                    else if (item.MemberType == "Regu")
+                                    {
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.MemberName)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReguPhone)
+                                        </td>
+
+                                    }
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Adderst)
+                                    </td>
+
+
+
+                                    @*    <td>
+                                @Html.DisplayFor(modelItem => item.OrderMoney)
+                                </td>*@
+                                    <td>
+                                        @Html.ActionLink("查看/編輯", "OrderDetail", "OrderDelivery", new { id = item.DelOrderId }, new { @class = "btn btn-primary" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script>
+        var _orders = [];
+        $(".isCheck").on('change', checkOrder)
+
+        $('#checkall').on('click', () => {
+            if ($('#checkall').prop("checked")) {
+
+                $(".isCheck").each(() => {
+                    $(".isCheck").prop("checked", true);
+                })
+                checkOrder();
+            }
+            else {
+
+                $(".isCheck").each(() => {
+                    $(".isCheck").prop("checked", false);
+                })
+                checkOrder();
+            }
+        })
+        function checkOrder() {
+            var array = [];
+            $("#isCheck:checked").each(function (index, element) {
+                array.push(this.value)
+            })
+            _orders = array;
+        }
+        const txtSearch = document.querySelector('#txtSearch');
+        const searchByState = document.querySelector('#searchByState');
+        const searchByStrDate = document.querySelector('#searchByStrDate');
+        const searchByEndDate = document.querySelector('#searchByEndDate');
+        const searchByStrDate2 = document.querySelector('#searchByStrDate2');
+        const searchByEndDate2 = document.querySelector('#searchByEndDate2');
+        const tbody = document.querySelector('tbody');
+
+
+
+        searchByState.addEventListener('change', find)
+        searchByStrDate.addEventListener('change', find)
+        searchByEndDate.addEventListener('change', find)
+        searchByStrDate2.addEventListener('change', find)
+        searchByEndDate2.addEventListener('change', find)
+        txtSearch.addEventListener('keyup', find)
+
+        async function find() {        
+            const formData = new FormData(document.userForm);
+
+            const response = await fetch(`@Url.Content("~/orderdelivery/OrderSearch")`, { method: "post", body: formData })
+            const datas = await response.json();
+            const item = datas.map(value => {
+                const { delOrderId, orderStateName, orderDate, deliveryDate, memberName, reguPhone, adderst, companyName, compPhone, memberType } = value;
+                var phone = "";
+                var name = "";
+                var orderdate="";
+                var deliverydate="";
+
+                if (orderDate!=null){
+                 orderdate =orderDate.substring(0,10);
+                }
+                if (deliveryDate != null) {
+                 deliverydate = deliveryDate.substring(0, 10);    
+                }
+                if (memberType == "Comp") {
+                    if (compPhone != null) {
+                        phone = compPhone;
+                    }
+                    if (companyName != null) {
+                        name = companyName;
+                    }
+                }
+                else if (memberType == "Regu") {
+
+                    if (reguPhone != null) {
+                        phone = reguPhone;
+                    }
+                    if (memberName != null) {
+                        name = memberName;
+                    }
+                }
+
+                return (`
+                                                  <tr>
+                                                          <td>
+                                                                  <input class="form-check-input isCheck" id="isCheck" value="delOrderId" type="checkbox">
+                                                          </td>
+                                                          <td>
+                                                                  ${delOrderId}
+                                                          </td>
+                                                          <td>
+                                                                  ${orderStateName}
+                                                          </td>
+                                                          <td>
+                                                                  ${orderdate}
+                                                          </td>
+                                                          <td>
+                                                                   ${deliverydate}
+                                                          </td>
+                                                          <td>
+                                                                    ${name}
+                                                          </td>
+                                                          <td>
+                                                                    ${phone}
+                                                          </td>
+                                                          <td>
+                                                                   ${adderst}
+                                                          </td>
+                                                          <td>
+                                                                <a href="Orderdetail/${delOrderId}" class="btn btn-primary">查看/編輯</a>
+                                                          </td>
+                                                  </tr>
+                                                  `)
+            })
+            tbody.innerHTML = item.join("");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+}
